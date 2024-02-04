@@ -71,6 +71,65 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2583F23C2B6F6B2400E68CAD /* Feature */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Feature;
+			sourceTree = "<group>";
+		};
+		2583F23D2B6F6B2B00E68CAD /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		2583F23E2B6F6B4400E68CAD /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				2583F2402B6F6B5C00E68CAD /* DataSource */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		2583F23F2B6F6B5700E68CAD /* Infra */ = {
+			isa = PBXGroup;
+			children = (
+				2583F2412B6F6B6200E68CAD /* LocalSource */,
+				2583F2422B6F6B6700E68CAD /* RemoteSource */,
+			);
+			path = Infra;
+			sourceTree = "<group>";
+		};
+		2583F2402B6F6B5C00E68CAD /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		2583F2412B6F6B6200E68CAD /* LocalSource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LocalSource;
+			sourceTree = "<group>";
+		};
+		2583F2422B6F6B6700E68CAD /* RemoteSource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RemoteSource;
+			sourceTree = "<group>";
+		};
+		2583F2432B6F6B9400E68CAD /* DomainModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DomainModel;
+			sourceTree = "<group>";
+		};
 		E4C6BE062B6F68ED003B56AD = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +153,11 @@
 		E4C6BE112B6F68EE003B56AD /* CHEPICS */ = {
 			isa = PBXGroup;
 			children = (
+				2583F2432B6F6B9400E68CAD /* DomainModel */,
+				2583F23F2B6F6B5700E68CAD /* Infra */,
+				2583F23C2B6F6B2400E68CAD /* Feature */,
+				2583F23E2B6F6B4400E68CAD /* Repository */,
+				2583F23D2B6F6B2B00E68CAD /* UseCase */,
 				E4C6BE122B6F68EE003B56AD /* CHEPICSApp.swift */,
 				E4C6BE142B6F68EE003B56AD /* ContentView.swift */,
 				E4C6BE162B6F68F2003B56AD /* Assets.xcassets */,
