@@ -7,7 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2566F5272B898C7D00CAD739 /* EnvironmentValues+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F5262B898C7D00CAD739 /* EnvironmentValues+Extension.swift */; };
+		2566F5292B898CE400CAD739 /* ViewModelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F5282B898CE400CAD739 /* ViewModelProvider.swift */; };
+		2566F52B2B898D6300CAD739 /* DIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F52A2B898D6300CAD739 /* DIFactory.swift */; };
+		2566F52D2B89943E00CAD739 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F52C2B89943E00CAD739 /* Color+Extension.swift */; };
+		2566F5312B89F54D00CAD739 /* EmailRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F5302B89F54D00CAD739 /* EmailRegistrationView.swift */; };
+		2566F5362B89F62A00CAD739 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F5352B89F62A00CAD739 /* LoadingView.swift */; };
+		2566F5382B89F75B00CAD739 /* EmailRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F5372B89F75B00CAD739 /* EmailRegistrationViewModel.swift */; };
+		2566F53B2B89FB4900CAD739 /* OneTimeCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F53A2B89FB4900CAD739 /* OneTimeCodeView.swift */; };
+		2566F53D2B8A148100CAD739 /* OneTimeCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F53C2B8A148100CAD739 /* OneTimeCodeViewModel.swift */; };
+		2566F53F2B8A152400CAD739 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F53E2B8A152400CAD739 /* Constants.swift */; };
+		2566F5412B8A16CE00CAD739 /* EmailRegistrationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F5402B8A16CE00CAD739 /* EmailRegistrationUseCase.swift */; };
+		2566F5432B8A176A00CAD739 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F5422B8A176A00CAD739 /* APIError.swift */; };
+		2566F5462B8AA63D00CAD739 /* UIViewControllerLifeCycleRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F5452B8AA63D00CAD739 /* UIViewControllerLifeCycleRepresentable.swift */; };
+		2566F5482B8AA66D00CAD739 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F5472B8AA66D00CAD739 /* View+Extension.swift */; };
+		2566F54A2B8AADF300CAD739 /* OneTimeCodeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F5492B8AADF300CAD739 /* OneTimeCodeUseCase.swift */; };
 		2583F2472B6F6CD400E68CAD /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2583F2462B6F6CD400E68CAD /* FeedView.swift */; };
+		259B51BD2B860A8B00978256 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51BC2B860A8B00978256 /* LoginView.swift */; };
+		259B51BF2B860B5300978256 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51BE2B860B5300978256 /* LoginViewModel.swift */; };
+		259B51C22B860CA000978256 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51C12B860CA000978256 /* RoundButton.swift */; };
 		E4C6BE132B6F68EE003B56AD /* CHEPICSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C6BE122B6F68EE003B56AD /* CHEPICSApp.swift */; };
 		E4C6BE152B6F68EE003B56AD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C6BE142B6F68EE003B56AD /* ContentView.swift */; };
 		E4C6BE172B6F68F2003B56AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4C6BE162B6F68F2003B56AD /* Assets.xcassets */; };
@@ -35,7 +53,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2566F5262B898C7D00CAD739 /* EnvironmentValues+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+Extension.swift"; sourceTree = "<group>"; };
+		2566F5282B898CE400CAD739 /* ViewModelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProvider.swift; sourceTree = "<group>"; };
+		2566F52A2B898D6300CAD739 /* DIFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIFactory.swift; sourceTree = "<group>"; };
+		2566F52C2B89943E00CAD739 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		2566F5302B89F54D00CAD739 /* EmailRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailRegistrationView.swift; sourceTree = "<group>"; };
+		2566F5352B89F62A00CAD739 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		2566F5372B89F75B00CAD739 /* EmailRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailRegistrationViewModel.swift; sourceTree = "<group>"; };
+		2566F53A2B89FB4900CAD739 /* OneTimeCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimeCodeView.swift; sourceTree = "<group>"; };
+		2566F53C2B8A148100CAD739 /* OneTimeCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimeCodeViewModel.swift; sourceTree = "<group>"; };
+		2566F53E2B8A152400CAD739 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		2566F5402B8A16CE00CAD739 /* EmailRegistrationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailRegistrationUseCase.swift; sourceTree = "<group>"; };
+		2566F5422B8A176A00CAD739 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		2566F5452B8AA63D00CAD739 /* UIViewControllerLifeCycleRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerLifeCycleRepresentable.swift; sourceTree = "<group>"; };
+		2566F5472B8AA66D00CAD739 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		2566F5492B8AADF300CAD739 /* OneTimeCodeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimeCodeUseCase.swift; sourceTree = "<group>"; };
 		2583F2462B6F6CD400E68CAD /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
+		259B51BC2B860A8B00978256 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		259B51BE2B860B5300978256 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		259B51C12B860CA000978256 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHEPICS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4C6BE122B6F68EE003B56AD /* CHEPICSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHEPICSApp.swift; sourceTree = "<group>"; };
 		E4C6BE142B6F68EE003B56AD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -73,10 +109,68 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2566F5252B898C5400CAD739 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				2566F5262B898C7D00CAD739 /* EnvironmentValues+Extension.swift */,
+				2566F52C2B89943E00CAD739 /* Color+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		2566F52E2B89976300CAD739 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				259B51BC2B860A8B00978256 /* LoginView.swift */,
+				259B51BE2B860B5300978256 /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		2566F52F2B89976D00CAD739 /* EmailRegistration */ = {
+			isa = PBXGroup;
+			children = (
+				2566F5302B89F54D00CAD739 /* EmailRegistrationView.swift */,
+				2566F5372B89F75B00CAD739 /* EmailRegistrationViewModel.swift */,
+			);
+			path = EmailRegistration;
+			sourceTree = "<group>";
+		};
+		2566F5322B89F5E900CAD739 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2566F5352B89F62A00CAD739 /* LoadingView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		2566F5392B89FB1800CAD739 /* OneTimeCode */ = {
+			isa = PBXGroup;
+			children = (
+				2566F53A2B89FB4900CAD739 /* OneTimeCodeView.swift */,
+				2566F53C2B8A148100CAD739 /* OneTimeCodeViewModel.swift */,
+			);
+			path = OneTimeCode;
+			sourceTree = "<group>";
+		};
+		2566F5442B8AA62100CAD739 /* UICommon */ = {
+			isa = PBXGroup;
+			children = (
+				2566F5452B8AA63D00CAD739 /* UIViewControllerLifeCycleRepresentable.swift */,
+				2566F5472B8AA66D00CAD739 /* View+Extension.swift */,
+			);
+			path = UICommon;
+			sourceTree = "<group>";
+		};
 		2583F23C2B6F6B2400E68CAD /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				2566F5322B89F5E900CAD739 /* Common */,
+				2566F5252B898C5400CAD739 /* Extension */,
+				259B51BA2B860A5B00978256 /* Authentication */,
 				2583F2442B6F6CBF00E68CAD /* Feed */,
+				2566F5282B898CE400CAD739 /* ViewModelProvider.swift */,
+				2566F53E2B8A152400CAD739 /* Constants.swift */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -84,6 +178,8 @@
 		2583F23D2B6F6B2B00E68CAD /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				2566F5402B8A16CE00CAD739 /* EmailRegistrationUseCase.swift */,
+				2566F5492B8AADF300CAD739 /* OneTimeCodeUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -129,6 +225,7 @@
 		2583F2432B6F6B9400E68CAD /* DomainModel */ = {
 			isa = PBXGroup;
 			children = (
+				2566F5422B8A176A00CAD739 /* APIError.swift */,
 			);
 			path = DomainModel;
 			sourceTree = "<group>";
@@ -139,6 +236,25 @@
 				2583F2462B6F6CD400E68CAD /* FeedView.swift */,
 			);
 			path = Feed;
+			sourceTree = "<group>";
+		};
+		259B51BA2B860A5B00978256 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				2566F5392B89FB1800CAD739 /* OneTimeCode */,
+				2566F52F2B89976D00CAD739 /* EmailRegistration */,
+				2566F52E2B89976300CAD739 /* Login */,
+				259B51C02B860C7000978256 /* ViewParts */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		259B51C02B860C7000978256 /* ViewParts */ = {
+			isa = PBXGroup;
+			children = (
+				259B51C12B860CA000978256 /* RoundButton.swift */,
+			);
+			path = ViewParts;
 			sourceTree = "<group>";
 		};
 		E4C6BE062B6F68ED003B56AD = {
@@ -164,6 +280,7 @@
 		E4C6BE112B6F68EE003B56AD /* CHEPICS */ = {
 			isa = PBXGroup;
 			children = (
+				2566F5442B8AA62100CAD739 /* UICommon */,
 				2583F2432B6F6B9400E68CAD /* DomainModel */,
 				2583F23F2B6F6B5700E68CAD /* Infra */,
 				2583F23C2B6F6B2400E68CAD /* Feature */,
@@ -173,6 +290,7 @@
 				E4C6BE142B6F68EE003B56AD /* ContentView.swift */,
 				E4C6BE162B6F68F2003B56AD /* Assets.xcassets */,
 				E4C6BE182B6F68F2003B56AD /* Preview Content */,
+				2566F52A2B898D6300CAD739 /* DIFactory.swift */,
 			);
 			path = CHEPICS;
 			sourceTree = "<group>";
@@ -332,9 +450,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2566F53D2B8A148100CAD739 /* OneTimeCodeViewModel.swift in Sources */,
+				2566F5312B89F54D00CAD739 /* EmailRegistrationView.swift in Sources */,
+				2566F5482B8AA66D00CAD739 /* View+Extension.swift in Sources */,
+				2566F5382B89F75B00CAD739 /* EmailRegistrationViewModel.swift in Sources */,
+				259B51C22B860CA000978256 /* RoundButton.swift in Sources */,
+				2566F52D2B89943E00CAD739 /* Color+Extension.swift in Sources */,
+				2566F5292B898CE400CAD739 /* ViewModelProvider.swift in Sources */,
+				2566F5412B8A16CE00CAD739 /* EmailRegistrationUseCase.swift in Sources */,
 				E4C6BE152B6F68EE003B56AD /* ContentView.swift in Sources */,
+				2566F53F2B8A152400CAD739 /* Constants.swift in Sources */,
+				2566F5362B89F62A00CAD739 /* LoadingView.swift in Sources */,
+				2566F54A2B8AADF300CAD739 /* OneTimeCodeUseCase.swift in Sources */,
+				2566F5272B898C7D00CAD739 /* EnvironmentValues+Extension.swift in Sources */,
 				2583F2472B6F6CD400E68CAD /* FeedView.swift in Sources */,
+				259B51BD2B860A8B00978256 /* LoginView.swift in Sources */,
+				259B51BF2B860B5300978256 /* LoginViewModel.swift in Sources */,
+				2566F53B2B89FB4900CAD739 /* OneTimeCodeView.swift in Sources */,
+				2566F5462B8AA63D00CAD739 /* UIViewControllerLifeCycleRepresentable.swift in Sources */,
+				2566F52B2B898D6300CAD739 /* DIFactory.swift in Sources */,
 				E4C6BE132B6F68EE003B56AD /* CHEPICSApp.swift in Sources */,
+				2566F5432B8A176A00CAD739 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,6 +634,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CHEPICS/Preview Content\"";
+				DEVELOPMENT_TEAM = 5H954Y6JS7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -511,7 +648,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chepics.CHEPICS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chepics.CHERRYPICKSET;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -527,6 +664,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CHEPICS/Preview Content\"";
+				DEVELOPMENT_TEAM = 5H954Y6JS7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -540,7 +678,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.chepics.CHEPICS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chepics.CHERRYPICKSET;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
