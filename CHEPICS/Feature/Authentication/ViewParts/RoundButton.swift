@@ -73,18 +73,10 @@ enum ButtonType {
     func textColor(isEnabled: Bool) -> Color {
         switch self {
         case .fill:
-            fillTextColor(isEnabled: isEnabled)
+                .white
         case .border:
             Color(.chepicsPrimary)
         }
-    }
-    
-    private func fillTextColor(isEnabled: Bool) -> Color {
-        if isEnabled {
-            return .white
-        }
-        
-        return .black
     }
     
     func backgroundColor(isEnabled: Bool) -> Color {
@@ -101,7 +93,7 @@ enum ButtonType {
             return Color(.chepicsPrimary)
         }
         
-        return .gray
+        return Color(.lightGray)
     }
     
     func borderColor(isEnabled: Bool) -> Color {
