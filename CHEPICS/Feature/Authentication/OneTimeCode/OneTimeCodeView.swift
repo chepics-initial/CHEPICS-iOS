@@ -9,25 +9,14 @@ import SwiftUI
 import Combine
 
 struct OneTimeCodeView<ViewModel: OneTimeCodeViewModel>: View {
+    @Environment(\.viewModelProvider) var viewModelProvider
     @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: ViewModel
     @FocusState private var isFocused: Bool
     
     var body: some View {
         VStack(spacing: 16) {
-            Text("認証コードを入力")
-                .font(.title3)
-                .fontWeight(.semibold)
-                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-            
-            Text("\(viewModel.email)に送信された\(Constants.oneTimeCodeCount)桁のコードを入力してください。")
-                .font(.footnote)
-                .multilineTextAlignment(.leading)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                .padding()
+            HeaderView(colorScheme: colorScheme, title: "認証コードを入力", description: "\(viewModel.email)に送信された\(Constants.oneTimeCodeCount)桁のコードを入力してください。")
             
             TextField("", text: $viewModel.code)
                 .keyboardType(.numberPad)
@@ -96,7 +85,7 @@ struct OneTimeCodeView<ViewModel: OneTimeCodeViewModel>: View {
 
         })
         .navigationDestination(isPresented: $viewModel.isPresented) {
-            EmptyView()
+            PasswordRegistrationView(viewModel: viewModelProvider!.passwordRegistrationViewModel())
         }
     }
 }

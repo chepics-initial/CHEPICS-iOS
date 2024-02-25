@@ -8,7 +8,6 @@
 import Foundation
 
 protocol EmailRegistrationUseCase {
-    // TODO: - レスポンスが確定したら修正
     func verifyEmail(email: String) async -> Result<Void, APIError>
 }
 
@@ -18,7 +17,6 @@ final class EmailRegistrationUseCaseImpl: EmailRegistrationUseCase {
     }
     
     func verifyEmail(email: String) async -> Result<Void, APIError> {
-        // TODO: - 具体的な処理を実装
         try! await Task.sleep(nanoseconds: 2_000_000_000)
         if email == "aaa" {
             return .failure(.error)

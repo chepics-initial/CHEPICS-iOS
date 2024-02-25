@@ -12,7 +12,7 @@ enum DIFactory {}
 extension DIFactory {
     // MARK: - ViewModel
     @MainActor static func loginViewModel() -> LoginViewModelImpl {
-        LoginViewModelImpl()
+        LoginViewModelImpl(loginUseCase: loginUseCase())
     }
     
     @MainActor static func emailRegstrationViewModel() -> EmailRegistrationViewModelImpl {
@@ -23,7 +23,15 @@ extension DIFactory {
         OneTimeCodeViewModelImpl(email: email, oneTimeCodeUseCase: oneTimeCodeUseCase())
     }
     
+    @MainActor static func passwordRegistrationViewModel() -> PasswordRegistrationViewModelImpl {
+        PasswordRegistrationViewModelImpl(passwordRegistrationUseCase: passwordRegistrationUseCase())
+    }
+    
     // MARK: - UseCase
+    static func loginUseCase() -> some LoginUseCase {
+        LoginUseCaseImpl()
+    }
+    
     static func emailRegistrationUseCase() -> some EmailRegistrationUseCase {
         EmailRegistrationUseCaseImpl()
     }
@@ -31,4 +39,11 @@ extension DIFactory {
     static func oneTimeCodeUseCase() -> some OneTimeCodeUseCase {
         OneTimeCodeUseCaseImpl()
     }
+    
+    static func passwordRegistrationUseCase() -> some PasswordRegistrationUseCase {
+        PasswordRegistrationUseCaseImpl(createUserRepository: sharedCreateUserRepository)
+    }
+    
+    // MARK: - Repository
+    static let sharedCreateUserRepository: some CreateUserRepository = CreateUserRepositoryImpl()
 }

@@ -68,6 +68,14 @@ struct LoginView<ViewModel: LoginViewModel>: View {
                 LoadingView()
             }
         }
+        .alert("ログインできませんでした", isPresented: $viewModel.showAlert) {
+            Button {
+                
+            } label: {
+                Text("OK")
+            }
+
+        }
     }
 }
 

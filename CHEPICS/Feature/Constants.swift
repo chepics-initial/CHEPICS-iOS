@@ -10,4 +10,5 @@ import Foundation
 
 enum Constants {
     static let oneTimeCodeCount = 4
+    static let passwordCount = 8
 }

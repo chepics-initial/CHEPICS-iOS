@@ -11,6 +11,7 @@ protocol ViewModelProvider {
     @MainActor func loginViewModel() -> LoginViewModelImpl
     @MainActor func emailRegistrationViewModel() -> EmailRegistrationViewModelImpl
     @MainActor func oneTimeCodeViewModel(email: String) -> OneTimeCodeViewModelImpl
+    @MainActor func passwordRegistrationViewModel() -> PasswordRegistrationViewModelImpl
 }
 
 final class ViewModelProviderImpl: ViewModelProvider {
@@ -24,5 +25,9 @@ final class ViewModelProviderImpl: ViewModelProvider {
     
     @MainActor func oneTimeCodeViewModel(email: String) -> OneTimeCodeViewModelImpl {
         DIFactory.oneTimeCodeViewModel(email: email)
+    }
+    
+    @MainActor func passwordRegistrationViewModel() -> PasswordRegistrationViewModelImpl {
+        DIFactory.passwordRegistrationViewModel()
     }
 }

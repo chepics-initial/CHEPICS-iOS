@@ -15,19 +15,8 @@ struct EmailRegistrationView<ViewModel: EmailRegistrationViewModel>: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("メールアドレス登録")
-                .font(.title3)
-                .fontWeight(.semibold)
-                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                .padding()
-            
-            Text("ログイン時に使用するメールアドレスを入力してください")
-                .font(.footnote)
-                .multilineTextAlignment(.leading)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                .padding()
-            
+            HeaderView(colorScheme: colorScheme, title: "メールアドレス登録", description: "ログイン時に使用するメールアドレスを入力してください")
+
             TextField("mail", text: $viewModel.email)
                 .focused($isFocused)
                 .keyboardType(.emailAddress)
@@ -60,7 +49,6 @@ struct EmailRegistrationView<ViewModel: EmailRegistrationViewModel>: View {
             } label: {
                 Text("OK")
             }
-
         }
     }
 }
