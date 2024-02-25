@@ -48,7 +48,7 @@ struct RoundButtonContentView: View {
     
     var body: some View {
         Text(text)
-            .font(.footnote)
+            .font(.headline)
             .fontWeight(.semibold)
             .foregroundStyle(type.textColor(isEnabled: isActive))
             .padding()

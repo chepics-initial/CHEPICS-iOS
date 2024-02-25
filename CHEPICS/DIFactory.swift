@@ -27,6 +27,10 @@ extension DIFactory {
         PasswordRegistrationViewModelImpl(passwordRegistrationUseCase: passwordRegistrationUseCase())
     }
     
+    @MainActor static func nameRegistrationViewModel() -> NameRegistrationViewModelImpl {
+        NameRegistrationViewModelImpl(nameRegistrationUseCase: nameRegistrationUseCase())
+    }
+    
     // MARK: - UseCase
     static func loginUseCase() -> some LoginUseCase {
         LoginUseCaseImpl()
@@ -42,6 +46,10 @@ extension DIFactory {
     
     static func passwordRegistrationUseCase() -> some PasswordRegistrationUseCase {
         PasswordRegistrationUseCaseImpl(createUserRepository: sharedCreateUserRepository)
+    }
+    
+    static func nameRegistrationUseCase() -> some NameRegistrationUseCase {
+        NameRegistrationUseCaseImpl()
     }
     
     // MARK: - Repository

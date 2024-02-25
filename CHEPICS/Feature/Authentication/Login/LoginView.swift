@@ -17,6 +17,7 @@ struct LoginView<ViewModel: LoginViewModel>: View {
             Spacer()
             
             TextField("mail", text: $viewModel.email)
+                .keyboardType(.emailAddress)
                 .padding()
                 .overlay {
                     Rectangle()

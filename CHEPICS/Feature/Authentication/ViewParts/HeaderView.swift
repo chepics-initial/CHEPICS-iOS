@@ -15,7 +15,7 @@ struct HeaderView: View {
     var body: some View {
         VStack(spacing: 16) {
             Text(title)
-                .font(.title3)
+                .font(.title2)
                 .fontWeight(.semibold)
                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                 .frame(maxWidth: .infinity, alignment: .leading)

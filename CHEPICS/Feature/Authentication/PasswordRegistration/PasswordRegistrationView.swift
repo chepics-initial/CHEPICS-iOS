@@ -51,7 +51,7 @@ struct PasswordRegistrationView<ViewModel: PasswordRegistrationViewModel>: View 
         }
         .ignoresSafeArea(.keyboard)
         .navigationDestination(isPresented: $viewModel.isPresented) {
-            EmptyView()
+            NameRegistrationView(viewModel: viewModelProvider!.nameRegistrationViewModel())
         }
     }
 }

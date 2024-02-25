@@ -32,6 +32,9 @@
 		69EC793B2B8AC0BF0096AA55 /* PasswordRegistrationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC793A2B8AC0BF0096AA55 /* PasswordRegistrationUseCase.swift */; };
 		69EC793F2B8AC78C0096AA55 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC793E2B8AC78C0096AA55 /* HeaderView.swift */; };
 		69EC79482B8ACFA20096AA55 /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC79472B8ACFA20096AA55 /* LoginUseCase.swift */; };
+		69EC794B2B8B61EA0096AA55 /* NameRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC794A2B8B61EA0096AA55 /* NameRegistrationView.swift */; };
+		69EC794D2B8B61F10096AA55 /* NameRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC794C2B8B61F10096AA55 /* NameRegistrationViewModel.swift */; };
+		69EC794F2B8B644F0096AA55 /* NameRegistrationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC794E2B8B644F0096AA55 /* NameRegistrationUseCase.swift */; };
 		E4C6BE132B6F68EE003B56AD /* CHEPICSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C6BE122B6F68EE003B56AD /* CHEPICSApp.swift */; };
 		E4C6BE152B6F68EE003B56AD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C6BE142B6F68EE003B56AD /* ContentView.swift */; };
 		E4C6BE172B6F68F2003B56AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4C6BE162B6F68F2003B56AD /* Assets.xcassets */; };
@@ -84,6 +87,9 @@
 		69EC793A2B8AC0BF0096AA55 /* PasswordRegistrationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRegistrationUseCase.swift; sourceTree = "<group>"; };
 		69EC793E2B8AC78C0096AA55 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		69EC79472B8ACFA20096AA55 /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
+		69EC794A2B8B61EA0096AA55 /* NameRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameRegistrationView.swift; sourceTree = "<group>"; };
+		69EC794C2B8B61F10096AA55 /* NameRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameRegistrationViewModel.swift; sourceTree = "<group>"; };
+		69EC794E2B8B644F0096AA55 /* NameRegistrationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameRegistrationUseCase.swift; sourceTree = "<group>"; };
 		E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHEPICS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4C6BE122B6F68EE003B56AD /* CHEPICSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHEPICSApp.swift; sourceTree = "<group>"; };
 		E4C6BE142B6F68EE003B56AD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -253,6 +259,7 @@
 		259B51BA2B860A5B00978256 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				69EC79492B8B61D80096AA55 /* NameRegistration */,
 				69EC79332B8ABE610096AA55 /* PasswordRegistration */,
 				2566F5392B89FB1800CAD739 /* OneTimeCode */,
 				2566F52F2B89976D00CAD739 /* EmailRegistration */,
@@ -278,6 +285,7 @@
 				2566F5492B8AADF300CAD739 /* OneTimeCodeUseCase.swift */,
 				69EC793A2B8AC0BF0096AA55 /* PasswordRegistrationUseCase.swift */,
 				69EC79472B8ACFA20096AA55 /* LoginUseCase.swift */,
+				69EC794E2B8B644F0096AA55 /* NameRegistrationUseCase.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -289,6 +297,15 @@
 				69EC79362B8ABEA90096AA55 /* PasswordRegistrationViewModel.swift */,
 			);
 			path = PasswordRegistration;
+			sourceTree = "<group>";
+		};
+		69EC79492B8B61D80096AA55 /* NameRegistration */ = {
+			isa = PBXGroup;
+			children = (
+				69EC794A2B8B61EA0096AA55 /* NameRegistrationView.swift */,
+				69EC794C2B8B61F10096AA55 /* NameRegistrationViewModel.swift */,
+			);
+			path = NameRegistration;
 			sourceTree = "<group>";
 		};
 		E4C6BE062B6F68ED003B56AD = {
@@ -484,6 +501,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69EC794B2B8B61EA0096AA55 /* NameRegistrationView.swift in Sources */,
 				2566F53D2B8A148100CAD739 /* OneTimeCodeViewModel.swift in Sources */,
 				2566F5312B89F54D00CAD739 /* EmailRegistrationView.swift in Sources */,
 				2566F5482B8AA66D00CAD739 /* View+Extension.swift in Sources */,
@@ -492,6 +510,7 @@
 				2566F52D2B89943E00CAD739 /* Color+Extension.swift in Sources */,
 				2566F5292B898CE400CAD739 /* ViewModelProvider.swift in Sources */,
 				2566F5412B8A16CE00CAD739 /* EmailRegistrationUseCase.swift in Sources */,
+				69EC794D2B8B61F10096AA55 /* NameRegistrationViewModel.swift in Sources */,
 				69EC79392B8AC07A0096AA55 /* CreateUserRepository.swift in Sources */,
 				E4C6BE152B6F68EE003B56AD /* ContentView.swift in Sources */,
 				2566F53F2B8A152400CAD739 /* Constants.swift in Sources */,
@@ -499,6 +518,7 @@
 				2566F54A2B8AADF300CAD739 /* OneTimeCodeUseCase.swift in Sources */,
 				2566F5272B898C7D00CAD739 /* EnvironmentValues+Extension.swift in Sources */,
 				2583F2472B6F6CD400E68CAD /* FeedView.swift in Sources */,
+				69EC794F2B8B644F0096AA55 /* NameRegistrationUseCase.swift in Sources */,
 				69EC793B2B8AC0BF0096AA55 /* PasswordRegistrationUseCase.swift in Sources */,
 				259B51BD2B860A8B00978256 /* LoginView.swift in Sources */,
 				259B51BF2B860B5300978256 /* LoginViewModel.swift in Sources */,
