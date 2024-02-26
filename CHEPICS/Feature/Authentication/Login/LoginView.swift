@@ -60,7 +60,7 @@ struct LoginView<ViewModel: LoginViewModel>: View {
             NavigationLink {
                 EmailRegistrationView(viewModel: viewModelProvider!.emailRegistrationViewModel())
             } label: {
-                RoundButtonContentView(text: "新規登録", isActive: true, type: .fill)
+                RoundButtonContentView(text: "新規登録", isActive: true, type: .border)
             }
         }
         .ignoresSafeArea(.keyboard)

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CompleteRegistrationView: View {
+    @Environment(\.viewModelProvider) var viewModelProvider
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -22,7 +23,7 @@ struct CompleteRegistrationView: View {
             Spacer()
             
             NavigationLink {
-                EmptyView()
+                IconRegistrationView(viewModel: viewModelProvider!.iconRegistrationViewModel())
             } label: {
                 RoundButtonContentView(text: "プロフィール画像を設定", isActive: true, type: .fill)
             }

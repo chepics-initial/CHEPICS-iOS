@@ -26,6 +26,8 @@
 		259B51BD2B860A8B00978256 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51BC2B860A8B00978256 /* LoginView.swift */; };
 		259B51BF2B860B5300978256 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51BE2B860B5300978256 /* LoginViewModel.swift */; };
 		259B51C22B860CA000978256 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51C12B860CA000978256 /* RoundButton.swift */; };
+		25C88DAE2B8C33C4002455A3 /* IconRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C88DAD2B8C33C4002455A3 /* IconRegistrationView.swift */; };
+		25C88DB02B8C33FD002455A3 /* IconRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C88DAF2B8C33FD002455A3 /* IconRegistrationViewModel.swift */; };
 		69EC79352B8ABE750096AA55 /* PasswordRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC79342B8ABE750096AA55 /* PasswordRegistrationView.swift */; };
 		69EC79372B8ABEA90096AA55 /* PasswordRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC79362B8ABEA90096AA55 /* PasswordRegistrationViewModel.swift */; };
 		69EC79392B8AC07A0096AA55 /* CreateUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC79382B8AC07A0096AA55 /* CreateUserRepository.swift */; };
@@ -82,6 +84,8 @@
 		259B51BC2B860A8B00978256 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		259B51BE2B860B5300978256 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		259B51C12B860CA000978256 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
+		25C88DAD2B8C33C4002455A3 /* IconRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconRegistrationView.swift; sourceTree = "<group>"; };
+		25C88DAF2B8C33FD002455A3 /* IconRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconRegistrationViewModel.swift; sourceTree = "<group>"; };
 		69EC79342B8ABE750096AA55 /* PasswordRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRegistrationView.swift; sourceTree = "<group>"; };
 		69EC79362B8ABEA90096AA55 /* PasswordRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRegistrationViewModel.swift; sourceTree = "<group>"; };
 		69EC79382B8AC07A0096AA55 /* CreateUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CreateUserRepository.swift; path = CHEPICS/Feature/Authentication/PasswordRegistration/CreateUserRepository.swift; sourceTree = SOURCE_ROOT; };
@@ -261,6 +265,7 @@
 		259B51BA2B860A5B00978256 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				25C88DAC2B8C33B4002455A3 /* IconRegistration */,
 				69EC79502B8B67A70096AA55 /* Completion */,
 				69EC79492B8B61D80096AA55 /* NameRegistration */,
 				69EC79332B8ABE610096AA55 /* PasswordRegistration */,
@@ -279,6 +284,15 @@
 				69EC793E2B8AC78C0096AA55 /* HeaderView.swift */,
 			);
 			path = ViewParts;
+			sourceTree = "<group>";
+		};
+		25C88DAC2B8C33B4002455A3 /* IconRegistration */ = {
+			isa = PBXGroup;
+			children = (
+				25C88DAD2B8C33C4002455A3 /* IconRegistrationView.swift */,
+				25C88DAF2B8C33FD002455A3 /* IconRegistrationViewModel.swift */,
+			);
+			path = IconRegistration;
 			sourceTree = "<group>";
 		};
 		69EC79322B8ABDE10096AA55 /* Authentication */ = {
@@ -532,6 +546,7 @@
 				2583F2472B6F6CD400E68CAD /* FeedView.swift in Sources */,
 				69EC794F2B8B644F0096AA55 /* NameRegistrationUseCase.swift in Sources */,
 				69EC793B2B8AC0BF0096AA55 /* PasswordRegistrationUseCase.swift in Sources */,
+				25C88DAE2B8C33C4002455A3 /* IconRegistrationView.swift in Sources */,
 				259B51BD2B860A8B00978256 /* LoginView.swift in Sources */,
 				259B51BF2B860B5300978256 /* LoginViewModel.swift in Sources */,
 				69EC79372B8ABEA90096AA55 /* PasswordRegistrationViewModel.swift in Sources */,
@@ -540,6 +555,7 @@
 				2566F5462B8AA63D00CAD739 /* UIViewControllerLifeCycleRepresentable.swift in Sources */,
 				2566F52B2B898D6300CAD739 /* DIFactory.swift in Sources */,
 				E4C6BE132B6F68EE003B56AD /* CHEPICSApp.swift in Sources */,
+				25C88DB02B8C33FD002455A3 /* IconRegistrationViewModel.swift in Sources */,
 				2566F5432B8A176A00CAD739 /* APIError.swift in Sources */,
 				69EC793F2B8AC78C0096AA55 /* HeaderView.swift in Sources */,
 				69EC79482B8ACFA20096AA55 /* LoginUseCase.swift in Sources */,
