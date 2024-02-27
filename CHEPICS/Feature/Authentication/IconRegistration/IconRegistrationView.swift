@@ -66,18 +66,12 @@ struct IconRegistrationView<ViewModel: IconRegistrationViewModel>: View {
             
             Spacer()
             
-            if viewModel.profileImage == nil {
-                PhotosPicker(selection: $viewModel.selectedItem, matching: .any(of: [.images, .not(.videos)])) {
-                    RoundButtonContentView(text: "画像を登録", isActive: true, type: .fill)
-                }
+            RoundButton(text: "画像を登録", isActive: viewModel.profileImage != nil, type: .fill) {
                 
-                RoundButton(text: "スキップ", isActive: true, type: .border) {
-                    
-                }
-            } else {
-                RoundButton(text: "画像を登録", isActive: true, type: .fill) {
-                    
-                }
+            }
+            
+            RoundButton(text: "スキップ", isActive: true, type: .border) {
+                
             }
         }
     }

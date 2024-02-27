@@ -36,7 +36,7 @@ struct OneTimeCodeView<ViewModel: OneTimeCodeViewModel>: View {
                             .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                             .frame(height: 40)
                         
-                        Color.black
+                        Color.getDefaultColor(for: colorScheme)
                             .frame(maxWidth: .infinity)
                             .frame(height: 4)
                     }

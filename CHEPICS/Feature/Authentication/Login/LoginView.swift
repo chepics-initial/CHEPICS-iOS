@@ -35,16 +35,16 @@ struct LoginView<ViewModel: LoginViewModel>: View {
                 }
                 .padding()
             
-            HStack {
-                Spacer()
-                
-                Button(action: {}, label: {
-                    Text("パスワードを忘れた方はこちら")
-                        .font(.caption2)
-                        .foregroundStyle(Color(.chepicsPrimary))
-                })
-            }
-            .padding()
+//            HStack {
+//                Spacer()
+//                
+//                Button(action: {}, label: {
+//                    Text("パスワードを忘れた方はこちら")
+//                        .font(.caption2)
+//                        .foregroundStyle(Color(.chepicsPrimary))
+//                })
+//            }
+//            .padding()
             
             Spacer()
             
