@@ -15,25 +15,12 @@ struct NameRegistrationView<ViewModel: NameRegistrationViewModel>: View {
         VStack(alignment: .leading, spacing: 16) {
             HeaderView(colorScheme: colorScheme, title: "基本設定", description: "ユーザー名と表示名は後から編集することができます。")
             
-            HStack {
-                Text("ユーザー名")
-                    .font(.headline)
-                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                
-                Text("必須")
-                    .font(.footnote)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.white)
-                    .padding(.vertical, 2)
-                    .padding(.horizontal, 4)
-                    .background {
-                        RoundedRectangle(cornerRadius: 4)
-                            .foregroundStyle(Color(.chepicsPrimary))
-                    }
-            }
-            .padding()
+            Text("ユーザー名")
+                .font(.headline)
+                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                .padding()
             
-            Text("半角英数字でユーザー名を設定してください。")
+            Text("半角英数字でユーザー名を設定してください。\nユーザー名は一意である必要があります。")
                 .font(.footnote)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
