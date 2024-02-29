@@ -24,7 +24,7 @@ import Foundation
     @Published var showAlert: Bool = false
     @Published var isPresented: Bool = false
     var isActive: Bool {
-        !username.isEmpty && !fullname.isEmpty
+        !username.isEmpty && !fullname.isEmpty && username.count <= Constants.nameCount && fullname.count <= Constants.nameCount
     }
     
     private let nameRegistrationUseCase: any NameRegistrationUseCase

@@ -12,7 +12,7 @@ struct NameRegistrationView<ViewModel: NameRegistrationViewModel>: View {
     @StateObject var viewModel: ViewModel
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 0) {
             HeaderView(colorScheme: colorScheme, title: "基本設定", description: "ユーザー名と表示名は後から編集することができます。")
             
             Text("ユーザー名")
@@ -20,21 +20,40 @@ struct NameRegistrationView<ViewModel: NameRegistrationViewModel>: View {
                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                 .padding()
             
-            Text("半角英数字でユーザー名を設定してください。\nユーザー名は一意である必要があります。")
+            Text("半角英数字でユーザー名を設定してください。")
+                .font(.footnote)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                .padding(.horizontal)
+            
+            Text("ユーザー名は一意である必要があります。")
                 .font(.footnote)
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                 .padding(.horizontal)
 
-            TextField("Username", text: $viewModel.username)
+            TextField("ユーザー名を入力", text: $viewModel.username)
                 .padding()
                 .overlay {
                     Rectangle()
                         .stroke(style: StrokeStyle())
                         .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                 }
-                .padding()
+                .padding(.horizontal)
+            
+            HStack(spacing: 0) {
+                Spacer()
+                
+                Text("\(viewModel.username.count)")
+                    .foregroundStyle(viewModel.username.count > Constants.nameCount ? .red : Color.getDefaultColor(for: colorScheme))
+                
+                Text("/30")
+                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+            }
+            .font(.caption2)
+            .padding(.horizontal)
             
             Text("表示名")
                 .font(.headline)
@@ -48,14 +67,26 @@ struct NameRegistrationView<ViewModel: NameRegistrationViewModel>: View {
                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                 .padding(.horizontal)
             
-            TextField("Name", text: $viewModel.fullname)
+            TextField("表示名を入力", text: $viewModel.fullname)
                 .padding()
                 .overlay {
                     Rectangle()
                         .stroke(style: StrokeStyle())
                         .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                 }
-                .padding()
+                .padding(.horizontal)
+            
+            HStack(spacing: 0) {
+                Spacer()
+                
+                Text("\(viewModel.fullname.count)")
+                    .foregroundStyle(viewModel.fullname.count > Constants.nameCount ? .red : Color.getDefaultColor(for: colorScheme))
+                
+                Text("/30")
+                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+            }
+            .font(.caption2)
+            .padding(.horizontal)
             
             Spacer()
             
@@ -63,6 +94,7 @@ struct NameRegistrationView<ViewModel: NameRegistrationViewModel>: View {
                 Task { await viewModel.onTapButton() }
             }
         }
+        .ignoresSafeArea(.keyboard)
         .overlay {
             if viewModel.isLoading {
                 LoadingView()

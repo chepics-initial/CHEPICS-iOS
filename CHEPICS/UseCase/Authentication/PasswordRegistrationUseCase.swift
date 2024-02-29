@@ -8,7 +8,7 @@
 import Foundation
 
 protocol PasswordRegistrationUseCase {
-    func registerPassword(password: String)
+    func registerPassword(password: String) async -> Result<Void, APIError>
 }
 
 final class PasswordRegistrationUseCaseImpl: PasswordRegistrationUseCase {
@@ -18,7 +18,12 @@ final class PasswordRegistrationUseCaseImpl: PasswordRegistrationUseCase {
         self.createUserRepository = createUserRepository
     }
     
-    func registerPassword(password: String) {
-        createUserRepository.registerPassword(password: password)
+    func registerPassword(password: String) async -> Result<Void, APIError> {
+        try! await Task.sleep(nanoseconds: 1_000_000_000)
+        if password == "00000000" {
+            return .failure(.error)
+        }
+        
+        return .success(())
     }
 }

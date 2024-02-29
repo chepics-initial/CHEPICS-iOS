@@ -16,7 +16,7 @@ struct PasswordRegistrationView<ViewModel: PasswordRegistrationViewModel>: View 
         VStack(alignment: .leading, spacing: 16) {
             HeaderView(colorScheme: colorScheme, title: "パスワード作成", description: "\(Constants.passwordCount)文字以上のパスワードを設定してください。")
             
-            SecureField("Password", text: $viewModel.password)
+            SecureField("8文字以上の半角英数字", text: $viewModel.password)
                 .keyboardType(.emailAddress)
                 .padding()
                 .overlay {
@@ -33,7 +33,7 @@ struct PasswordRegistrationView<ViewModel: PasswordRegistrationViewModel>: View 
                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                 .padding()
             
-            SecureField("Password", text: $viewModel.confirmPassword)
+            SecureField("8文字以上の半角英数字", text: $viewModel.confirmPassword)
                 .keyboardType(.emailAddress)
                 .padding()
                 .overlay {
@@ -46,10 +46,23 @@ struct PasswordRegistrationView<ViewModel: PasswordRegistrationViewModel>: View 
             Spacer()
             
             RoundButton(text: "次へ", isActive: viewModel.isActive, type: .fill) {
-                viewModel.onTapButton()
+                Task { await viewModel.onTapButton() }
             }
         }
+        .overlay {
+            if viewModel.isLoading {
+                LoadingView()
+            }
+        }
+        .alert("エラー", isPresented: $viewModel.showAlert, actions: {
+            Button {
+                
+            } label: {
+                Text("OK")
+            }
+        })
         .ignoresSafeArea(.keyboard)
+        .navigationBarBackButtonHidden()
         .navigationDestination(isPresented: $viewModel.isPresented) {
             NameRegistrationView(viewModel: viewModelProvider!.nameRegistrationViewModel())
         }

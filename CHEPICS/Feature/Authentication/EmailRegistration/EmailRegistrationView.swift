@@ -17,7 +17,7 @@ struct EmailRegistrationView<ViewModel: EmailRegistrationViewModel>: View {
         VStack(alignment: .leading, spacing: 16) {
             HeaderView(colorScheme: colorScheme, title: "メールアドレス登録", description: "ログイン時に使用するメールアドレスを入力してください")
 
-            TextField("mail", text: $viewModel.email)
+            TextField("メールアドレスを入力", text: $viewModel.email)
                 .focused($isFocused)
                 .keyboardType(.emailAddress)
                 .padding()

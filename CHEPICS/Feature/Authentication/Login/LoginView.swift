@@ -16,7 +16,7 @@ struct LoginView<ViewModel: LoginViewModel>: View {
         VStack {
             Spacer()
             
-            TextField("mail", text: $viewModel.email)
+            TextField("メールアドレスを入力", text: $viewModel.email)
                 .keyboardType(.emailAddress)
                 .padding()
                 .overlay {
@@ -26,7 +26,7 @@ struct LoginView<ViewModel: LoginViewModel>: View {
                 }
                 .padding()
             
-            SecureField("password", text: $viewModel.password)
+            SecureField("パスワードを入力", text: $viewModel.password)
                 .padding()
                 .overlay {
                     Rectangle()
