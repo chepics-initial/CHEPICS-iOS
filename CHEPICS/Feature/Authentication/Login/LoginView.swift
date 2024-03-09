@@ -11,9 +11,18 @@ struct LoginView<ViewModel: LoginViewModel>: View {
     @Environment(\.viewModelProvider) var viewModelProvider
     @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: ViewModel
+    // TODO: - 後で消す変数
+    @State private var showView = false
     
     var body: some View {
         VStack {
+            // TODO: - 後で消すボタン
+            Button(action: {
+                showView = true
+            }, label: {
+                Text("投稿画面")
+            })
+            
             Spacer()
             
             TextField("メールアドレスを入力", text: $viewModel.email)
@@ -75,8 +84,13 @@ struct LoginView<ViewModel: LoginViewModel>: View {
             } label: {
                 Text("OK")
             }
-
         }
+        // TODO: - 後で消すfullScreenCover
+        .fullScreenCover(isPresented: $showView, content: {
+            NavigationStack {
+                CreateTopicView(viewModel: viewModelProvider!.createTopicViewModel())
+            }
+        })
     }
 }
 

@@ -14,6 +14,7 @@ protocol ViewModelProvider {
     @MainActor func passwordRegistrationViewModel() -> PasswordRegistrationViewModelImpl
     @MainActor func nameRegistrationViewModel() -> NameRegistrationViewModelImpl
     @MainActor func iconRegistrationViewModel() -> IconRegistrationViewModelImpl
+    @MainActor func createTopicViewModel() -> CreateTopicViewModelImpl
 }
 
 final class ViewModelProviderImpl: ViewModelProvider {
@@ -39,5 +40,9 @@ final class ViewModelProviderImpl: ViewModelProvider {
     
     @MainActor func iconRegistrationViewModel() -> IconRegistrationViewModelImpl {
         DIFactory.iconRegistrationViewModel()
+    }
+    
+    @MainActor func createTopicViewModel() -> CreateTopicViewModelImpl {
+        DIFactory.createTopicViewModel()
     }
 }

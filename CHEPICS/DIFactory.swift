@@ -35,6 +35,10 @@ extension DIFactory {
         IconRegistrationViewModelImpl()
     }
     
+    @MainActor static func createTopicViewModel() -> CreateTopicViewModelImpl {
+        CreateTopicViewModelImpl()
+    }
+    
     // MARK: - UseCase
     static func loginUseCase() -> some LoginUseCase {
         LoginUseCaseImpl()

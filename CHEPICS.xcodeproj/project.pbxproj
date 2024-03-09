@@ -38,6 +38,10 @@
 		69EC794D2B8B61F10096AA55 /* NameRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC794C2B8B61F10096AA55 /* NameRegistrationViewModel.swift */; };
 		69EC794F2B8B644F0096AA55 /* NameRegistrationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC794E2B8B644F0096AA55 /* NameRegistrationUseCase.swift */; };
 		69EC79522B8B67B70096AA55 /* CompleteRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC79512B8B67B70096AA55 /* CompleteRegistrationView.swift */; };
+		69EC79552B9C60B50096AA55 /* CreateTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC79542B9C60B50096AA55 /* CreateTopicView.swift */; };
+		69EC79572B9C60C60096AA55 /* CreateTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC79562B9C60C60096AA55 /* CreateTopicViewModel.swift */; };
+		69EC795C2B9C63F30096AA55 /* CustomTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC795B2B9C63F30096AA55 /* CustomTextEditor.swift */; };
+		69EC795E2B9C6B3F0096AA55 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC795D2B9C6B3F0096AA55 /* UIApplication+Extension.swift */; };
 		E4C6BE132B6F68EE003B56AD /* CHEPICSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C6BE122B6F68EE003B56AD /* CHEPICSApp.swift */; };
 		E4C6BE152B6F68EE003B56AD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C6BE142B6F68EE003B56AD /* ContentView.swift */; };
 		E4C6BE172B6F68F2003B56AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4C6BE162B6F68F2003B56AD /* Assets.xcassets */; };
@@ -96,6 +100,10 @@
 		69EC794C2B8B61F10096AA55 /* NameRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameRegistrationViewModel.swift; sourceTree = "<group>"; };
 		69EC794E2B8B644F0096AA55 /* NameRegistrationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameRegistrationUseCase.swift; sourceTree = "<group>"; };
 		69EC79512B8B67B70096AA55 /* CompleteRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRegistrationView.swift; sourceTree = "<group>"; };
+		69EC79542B9C60B50096AA55 /* CreateTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTopicView.swift; sourceTree = "<group>"; };
+		69EC79562B9C60C60096AA55 /* CreateTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTopicViewModel.swift; sourceTree = "<group>"; };
+		69EC795B2B9C63F30096AA55 /* CustomTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextEditor.swift; sourceTree = "<group>"; };
+		69EC795D2B9C6B3F0096AA55 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHEPICS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4C6BE122B6F68EE003B56AD /* CHEPICSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHEPICSApp.swift; sourceTree = "<group>"; };
 		E4C6BE142B6F68EE003B56AD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -138,6 +146,7 @@
 			children = (
 				2566F5262B898C7D00CAD739 /* EnvironmentValues+Extension.swift */,
 				2566F52C2B89943E00CAD739 /* Color+Extension.swift */,
+				69EC795D2B9C6B3F0096AA55 /* UIApplication+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -160,12 +169,13 @@
 			path = EmailRegistration;
 			sourceTree = "<group>";
 		};
-		2566F5322B89F5E900CAD739 /* Common */ = {
+		2566F5322B89F5E900CAD739 /* CommonParts */ = {
 			isa = PBXGroup;
 			children = (
 				2566F5352B89F62A00CAD739 /* LoadingView.swift */,
+				69EC795B2B9C63F30096AA55 /* CustomTextEditor.swift */,
 			);
-			path = Common;
+			path = CommonParts;
 			sourceTree = "<group>";
 		};
 		2566F5392B89FB1800CAD739 /* OneTimeCode */ = {
@@ -189,7 +199,8 @@
 		2583F23C2B6F6B2400E68CAD /* Feature */ = {
 			isa = PBXGroup;
 			children = (
-				2566F5322B89F5E900CAD739 /* Common */,
+				69EC79532B9C609B0096AA55 /* CreateTopic */,
+				2566F5322B89F5E900CAD739 /* CommonParts */,
 				2566F5252B898C5400CAD739 /* Extension */,
 				259B51BA2B860A5B00978256 /* Authentication */,
 				2583F2442B6F6CBF00E68CAD /* Feed */,
@@ -331,6 +342,15 @@
 				69EC79512B8B67B70096AA55 /* CompleteRegistrationView.swift */,
 			);
 			path = Completion;
+			sourceTree = "<group>";
+		};
+		69EC79532B9C609B0096AA55 /* CreateTopic */ = {
+			isa = PBXGroup;
+			children = (
+				69EC79542B9C60B50096AA55 /* CreateTopicView.swift */,
+				69EC79562B9C60C60096AA55 /* CreateTopicViewModel.swift */,
+			);
+			path = CreateTopic;
 			sourceTree = "<group>";
 		};
 		E4C6BE062B6F68ED003B56AD = {
@@ -529,6 +549,7 @@
 				69EC79522B8B67B70096AA55 /* CompleteRegistrationView.swift in Sources */,
 				69EC794B2B8B61EA0096AA55 /* NameRegistrationView.swift in Sources */,
 				2566F53D2B8A148100CAD739 /* OneTimeCodeViewModel.swift in Sources */,
+				69EC795E2B9C6B3F0096AA55 /* UIApplication+Extension.swift in Sources */,
 				2566F5312B89F54D00CAD739 /* EmailRegistrationView.swift in Sources */,
 				2566F5482B8AA66D00CAD739 /* View+Extension.swift in Sources */,
 				2566F5382B89F75B00CAD739 /* EmailRegistrationViewModel.swift in Sources */,
@@ -538,6 +559,7 @@
 				2566F5412B8A16CE00CAD739 /* EmailRegistrationUseCase.swift in Sources */,
 				69EC794D2B8B61F10096AA55 /* NameRegistrationViewModel.swift in Sources */,
 				69EC79392B8AC07A0096AA55 /* CreateUserRepository.swift in Sources */,
+				69EC795C2B9C63F30096AA55 /* CustomTextEditor.swift in Sources */,
 				E4C6BE152B6F68EE003B56AD /* ContentView.swift in Sources */,
 				2566F53F2B8A152400CAD739 /* Constants.swift in Sources */,
 				2566F5362B89F62A00CAD739 /* LoadingView.swift in Sources */,
@@ -545,11 +567,13 @@
 				2566F5272B898C7D00CAD739 /* EnvironmentValues+Extension.swift in Sources */,
 				2583F2472B6F6CD400E68CAD /* FeedView.swift in Sources */,
 				69EC794F2B8B644F0096AA55 /* NameRegistrationUseCase.swift in Sources */,
+				69EC79572B9C60C60096AA55 /* CreateTopicViewModel.swift in Sources */,
 				69EC793B2B8AC0BF0096AA55 /* PasswordRegistrationUseCase.swift in Sources */,
 				25C88DAE2B8C33C4002455A3 /* IconRegistrationView.swift in Sources */,
 				259B51BD2B860A8B00978256 /* LoginView.swift in Sources */,
 				259B51BF2B860B5300978256 /* LoginViewModel.swift in Sources */,
 				69EC79372B8ABEA90096AA55 /* PasswordRegistrationViewModel.swift in Sources */,
+				69EC79552B9C60B50096AA55 /* CreateTopicView.swift in Sources */,
 				69EC79352B8ABE750096AA55 /* PasswordRegistrationView.swift in Sources */,
 				2566F53B2B89FB4900CAD739 /* OneTimeCodeView.swift in Sources */,
 				2566F5462B8AA63D00CAD739 /* UIViewControllerLifeCycleRepresentable.swift in Sources */,
