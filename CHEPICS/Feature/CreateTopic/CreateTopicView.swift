@@ -220,7 +220,7 @@ struct CreateTopicView<ViewModel: CreateTopicViewModel>: View {
                         }
                     }
                     
-                    if viewModel.selectedImages.count < 4 {
+                    if viewModel.selectedImages.count < Constants.topicImageCount {
                         PhotosPicker(
                             selection: $viewModel.selectedItems,
                             maxSelectionCount: 4,
