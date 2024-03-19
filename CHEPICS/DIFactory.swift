@@ -10,35 +10,6 @@ import SwiftUI
 enum DIFactory {}
 
 extension DIFactory {
-    // MARK: - ViewModel
-    @MainActor static func loginViewModel() -> LoginViewModelImpl {
-        LoginViewModelImpl(loginUseCase: loginUseCase())
-    }
-    
-    @MainActor static func emailRegstrationViewModel() -> EmailRegistrationViewModelImpl {
-        EmailRegistrationViewModelImpl(emailRegistrationUseCase: emailRegistrationUseCase())
-    }
-    
-    @MainActor static func oneTimeCodeViewModel(email: String) -> OneTimeCodeViewModelImpl {
-        OneTimeCodeViewModelImpl(email: email, oneTimeCodeUseCase: oneTimeCodeUseCase())
-    }
-    
-    @MainActor static func passwordRegistrationViewModel() -> PasswordRegistrationViewModelImpl {
-        PasswordRegistrationViewModelImpl(passwordRegistrationUseCase: passwordRegistrationUseCase())
-    }
-    
-    @MainActor static func nameRegistrationViewModel() -> NameRegistrationViewModelImpl {
-        NameRegistrationViewModelImpl(nameRegistrationUseCase: nameRegistrationUseCase())
-    }
-    
-    @MainActor static func iconRegistrationViewModel() -> IconRegistrationViewModelImpl {
-        IconRegistrationViewModelImpl()
-    }
-    
-    @MainActor static func createTopicViewModel() -> CreateTopicViewModelImpl {
-        CreateTopicViewModelImpl()
-    }
-    
     // MARK: - Controller
     static let sharedControllerHelper = ControllerHelper(requestHeaderController: sharedRequestHeaderController)
     

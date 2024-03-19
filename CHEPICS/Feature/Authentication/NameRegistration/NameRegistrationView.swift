@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct NameRegistrationView<ViewModel: NameRegistrationViewModel>: View {
+struct NameRegistrationView: View {
     @Environment(\.colorScheme) var colorScheme
-    @StateObject var viewModel: ViewModel
+    @StateObject var viewModel: NameRegistrationViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -118,5 +118,5 @@ struct NameRegistrationView<ViewModel: NameRegistrationViewModel>: View {
 }
 
 #Preview {
-    NameRegistrationView(viewModel: NameRegistrationViewModel_Previews())
+    NameRegistrationView(viewModel: NameRegistrationViewModel(nameRegistrationUseCase: NameRegistrationUseCase_Previews()))
 }

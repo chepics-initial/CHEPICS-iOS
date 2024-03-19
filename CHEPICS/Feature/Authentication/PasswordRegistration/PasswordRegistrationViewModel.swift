@@ -7,17 +7,7 @@
 
 import Foundation
 
-@MainActor protocol PasswordRegistrationViewModel: ObservableObject {
-    var password: String { get set }
-    var confirmPassword: String { get set }
-    var isActive: Bool { get }
-    var isPresented: Bool { get set }
-    var isLoading: Bool { get }
-    var showAlert: Bool { get set }
-    func onTapButton() async
-}
-
-@MainActor final class PasswordRegistrationViewModelImpl: PasswordRegistrationViewModel {
+@MainActor final class PasswordRegistrationViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
     @Published var isPresented: Bool = false
@@ -46,15 +36,8 @@ import Foundation
     }
 }
 
-final class PasswordRegistrationViewModel_Previews: PasswordRegistrationViewModel {
-    var isLoading: Bool = false
-    var showAlert: Bool = false    
-    var password: String = ""
-    var confirmPassword: String = ""
-    var isActive: Bool = true
-    var isPresented: Bool = false
-    
-    func onTapButton() {
-        
+final class PasswordRegistrationUseCase_Previews: PasswordRegistrationUseCase {
+    func registerPassword(password: String) async -> Result<Void, APIError> {
+        .success(())
     }
 }

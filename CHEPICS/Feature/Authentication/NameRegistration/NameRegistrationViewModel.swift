@@ -7,17 +7,7 @@
 
 import Foundation
 
-@MainActor protocol NameRegistrationViewModel: ObservableObject {
-    var isLoading: Bool { get }
-    var username: String { get set }
-    var fullname: String { get set }
-    var showAlert: Bool { get set }
-    var isActive: Bool { get }
-    var isPresented: Bool { get set }
-    func onTapButton() async
-}
-
-@MainActor final class NameRegistrationViewModelImpl: NameRegistrationViewModel {
+@MainActor final class NameRegistrationViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool = false
     @Published var username: String = ""
     @Published var fullname: String = ""
@@ -46,15 +36,8 @@ import Foundation
     }
 }
 
-final class NameRegistrationViewModel_Previews: NameRegistrationViewModel {
-    var isLoading: Bool = false
-    var username: String = ""
-    var fullname: String = ""
-    var showAlert: Bool = false
-    var isActive: Bool = true
-    var isPresented: Bool = false
-    
-    func onTapButton() async {
-        
+final class NameRegistrationUseCase_Previews: NameRegistrationUseCase {
+    func registerName(username: String, fullname: String) async -> Result<Void, APIError> {
+        .success(())
     }
 }

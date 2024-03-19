@@ -8,9 +8,9 @@
 import SwiftUI
 import PhotosUI
 
-struct IconRegistrationView<ViewModel: IconRegistrationViewModel>: View {
+struct IconRegistrationView: View {
     @Environment(\.colorScheme) var colorScheme
-    @StateObject var viewModel: ViewModel
+    @StateObject var viewModel: IconRegistrationViewModel
     
     var body: some View {
         VStack {
@@ -78,5 +78,5 @@ struct IconRegistrationView<ViewModel: IconRegistrationViewModel>: View {
 }
 
 #Preview {
-    IconRegistrationView(viewModel: IconRegistrationViewModel_Previews())
+    IconRegistrationView(viewModel: IconRegistrationViewModel())
 }

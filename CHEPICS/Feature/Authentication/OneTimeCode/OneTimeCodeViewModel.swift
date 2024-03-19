@@ -7,18 +7,7 @@
 
 import Foundation
 
-@MainActor protocol OneTimeCodeViewModel: ObservableObject {
-    var code: String { get set }
-    var email: String { get }
-    var isActive: Bool { get }
-    var isLoading: Bool { get }
-    var isPresented: Bool { get set }
-    var showFailureAlert: Bool { get set }
-    func getCodeIndex(index: Int) -> String
-    func onTapNextButton() async
-}
-
-@MainActor final class OneTimeCodeViewModelImpl: OneTimeCodeViewModel {    
+@MainActor final class OneTimeCodeViewModel: ObservableObject {
     @Published var code: String = ""
     @Published private(set) var email: String
     @Published private(set) var isLoading: Bool = false
@@ -58,18 +47,8 @@ import Foundation
     }
 }
 
-final class OneTimeCodeViewModel_Previews: OneTimeCodeViewModel {
-    var code: String = ""
-    var email: String = ""
-    var isActive: Bool = false
-    var isLoading: Bool = false
-    var isPresented: Bool = false
-    var showFailureAlert: Bool = false
-    
-    func getCodeIndex(index: Int) -> String {
-        ""
-    }
-    
-    func onTapNextButton() async {
+final class OneTimeCodeUseCase_Previews: OneTimeCodeUseCase {
+    func verifyCode(code: String) async -> Result<Void, APIError> {
+        .success(())
     }
 }

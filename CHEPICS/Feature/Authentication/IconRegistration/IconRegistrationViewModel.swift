@@ -9,12 +9,7 @@ import Foundation
 import PhotosUI
 import SwiftUI
 
-@MainActor protocol IconRegistrationViewModel: ObservableObject {
-    var selectedItem: PhotosPickerItem? { get set }
-    var profileImage: Image? { get }
-}
-
-@MainActor final class IconRegistrationViewModelImpl: IconRegistrationViewModel {
+@MainActor final class IconRegistrationViewModel: ObservableObject {
     @Published private(set) var profileImage: Image?
     var selectedItem: PhotosPickerItem? {
         didSet { Task { await loadImage() } }
@@ -29,9 +24,4 @@ import SwiftUI
         guard let uiImage = UIImage(data: data) else { return }
         profileImage = Image(uiImage: uiImage)
     }
-}
-
-final class IconRegistrationViewModel_Previews: IconRegistrationViewModel {
-    var selectedItem: PhotosPickerItem?
-    var profileImage: Image?
 }

@@ -7,16 +7,7 @@
 
 import Foundation
 
-@MainActor protocol EmailRegistrationViewModel: ObservableObject {
-    var isLoading: Bool { get }
-    var email: String { get set }
-    var isActive: Bool { get }
-    var isPresented: Bool { get set }
-    var showAlert: Bool { get set }
-    func onTapButton() async
-}
-
-@MainActor final class EmailRegistrationViewModelImpl: EmailRegistrationViewModel {
+@MainActor final class EmailRegistrationViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool = false
     @Published var email: String = ""
     @Published var isPresented: Bool = false
@@ -44,14 +35,8 @@ import Foundation
     }
 }
 
-final class EmailRegistrationViewModel_Previews: EmailRegistrationViewModel {
-    var isLoading: Bool = false
-    var email: String = ""
-    var isActive: Bool = true
-    var isPresented: Bool = false
-    var showAlert: Bool = false
-    func onTapButton() async {
-        
+final class EmailRegistrationUseCase_Previews: EmailRegistrationUseCase {
+    func verifyEmail(email: String) async -> Result<Void, APIError> {
+        .success(())
     }
-    
 }

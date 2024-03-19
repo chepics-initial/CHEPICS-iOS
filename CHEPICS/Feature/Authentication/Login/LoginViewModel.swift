@@ -7,16 +7,7 @@
 
 import Foundation
 
-@MainActor protocol LoginViewModel: ObservableObject {
-    var isLoading: Bool { get }
-    var email: String { get set }
-    var password: String { get set }
-    var loginButtonIsActive: Bool { get }
-    var showAlert: Bool { get set }
-    func onTapLoginButton() async
-}
-
-@MainActor final class LoginViewModelImpl: LoginViewModel {
+@MainActor final class LoginViewModel: ObservableObject {
     @Published private(set) var isLoading: Bool = false
     @Published var email: String = ""
     @Published var password: String = ""
@@ -44,16 +35,8 @@ import Foundation
     }
 }
 
-final class LoginViewModel_Previews: LoginViewModel {
-    var email: String = ""
-    var password: String = ""
-    var loginButtonIsActive: Bool = true
-    var isLoading: Bool = false
-    var showAlert: Bool = false
-    
-    init() {}
-    
-    func onTapLoginButton() async {
-        
+final class LoginUseCase_Previews: LoginUseCase {
+    func login(email: String, password: String) async -> Result<Void, APIError> {
+        .success(())
     }
 }

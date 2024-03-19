@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-struct EmailRegistrationView<ViewModel: EmailRegistrationViewModel>: View {
-    @Environment(\.viewModelProvider) var viewModelProvider
+struct EmailRegistrationView: View {
     @Environment(\.colorScheme) var colorScheme
-    @StateObject var viewModel: ViewModel
+    @StateObject var viewModel: EmailRegistrationViewModel
     @FocusState private var isFocused: Bool
     
     var body: some View {
@@ -41,7 +40,7 @@ struct EmailRegistrationView<ViewModel: EmailRegistrationViewModel>: View {
             }
         }
         .navigationDestination(isPresented: $viewModel.isPresented) {
-            OneTimeCodeView(viewModel: viewModelProvider!.oneTimeCodeViewModel(email: viewModel.email))
+            OneTimeCodeView(viewModel: OneTimeCodeViewModel(email: viewModel.email, oneTimeCodeUseCase: DIFactory.oneTimeCodeUseCase()))
         }
         .alert("エラー", isPresented: $viewModel.showAlert) {
             Button {
@@ -54,5 +53,5 @@ struct EmailRegistrationView<ViewModel: EmailRegistrationViewModel>: View {
 }
 
 #Preview {
-    EmailRegistrationView(viewModel: EmailRegistrationViewModel_Previews())
+    EmailRegistrationView(viewModel: EmailRegistrationViewModel(emailRegistrationUseCase: EmailRegistrationUseCase_Previews()))
 }

@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-struct PasswordRegistrationView<ViewModel: PasswordRegistrationViewModel>: View {
-    @Environment(\.viewModelProvider) var viewModelProvider
+struct PasswordRegistrationView: View {
     @Environment(\.colorScheme) var colorScheme
-    @StateObject var viewModel: ViewModel
+    @StateObject var viewModel: PasswordRegistrationViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -64,11 +63,11 @@ struct PasswordRegistrationView<ViewModel: PasswordRegistrationViewModel>: View 
         .ignoresSafeArea(.keyboard)
         .navigationBarBackButtonHidden()
         .navigationDestination(isPresented: $viewModel.isPresented) {
-            NameRegistrationView(viewModel: viewModelProvider!.nameRegistrationViewModel())
+            NameRegistrationView(viewModel: NameRegistrationViewModel(nameRegistrationUseCase: DIFactory.nameRegistrationUseCase()))
         }
     }
 }
 
 #Preview {
-    PasswordRegistrationView(viewModel: PasswordRegistrationViewModel_Previews())
+    PasswordRegistrationView(viewModel: PasswordRegistrationViewModel(passwordRegistrationUseCase: PasswordRegistrationUseCase_Previews()))
 }

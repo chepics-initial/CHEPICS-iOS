@@ -8,10 +8,9 @@
 import SwiftUI
 import Combine
 
-struct OneTimeCodeView<ViewModel: OneTimeCodeViewModel>: View {
-    @Environment(\.viewModelProvider) var viewModelProvider
+struct OneTimeCodeView: View {
     @Environment(\.colorScheme) var colorScheme
-    @StateObject var viewModel: ViewModel
+    @StateObject var viewModel: OneTimeCodeViewModel
     @FocusState private var isFocused: Bool
     
     var body: some View {
@@ -85,11 +84,11 @@ struct OneTimeCodeView<ViewModel: OneTimeCodeViewModel>: View {
 
         })
         .navigationDestination(isPresented: $viewModel.isPresented) {
-            PasswordRegistrationView(viewModel: viewModelProvider!.passwordRegistrationViewModel())
+            PasswordRegistrationView(viewModel: PasswordRegistrationViewModel(passwordRegistrationUseCase: DIFactory.passwordRegistrationUseCase()))
         }
     }
 }
 
 #Preview {
-    OneTimeCodeView(viewModel: OneTimeCodeViewModel_Previews())
+    OneTimeCodeView(viewModel: OneTimeCodeViewModel(email: "example.com", oneTimeCodeUseCase: OneTimeCodeUseCase_Previews()))
 }

@@ -8,11 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.viewModelProvider) var viewModelProvider
     
     var body: some View {
         NavigationStack {
-            LoginView(viewModel: viewModelProvider!.loginViewModel())
+            MainTabView()
         }
     }
 }

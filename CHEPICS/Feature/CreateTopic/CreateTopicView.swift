@@ -8,10 +8,10 @@
 import SwiftUI
 import PhotosUI
 
-struct CreateTopicView<ViewModel: CreateTopicViewModel>: View {
+struct CreateTopicView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
-    @StateObject var viewModel: ViewModel
+    @StateObject var viewModel: CreateTopicViewModel
     @FocusState private var isFocused: Bool
     
     var body: some View {
@@ -250,5 +250,5 @@ struct CreateTopicView<ViewModel: CreateTopicViewModel>: View {
 }
 
 #Preview {
-    CreateTopicView(viewModel: CreateTopicViewModel_Previews())
+    CreateTopicView(viewModel: CreateTopicViewModel())
 }
