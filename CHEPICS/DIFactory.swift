@@ -36,6 +36,10 @@ extension DIFactory {
         NameRegistrationUseCaseImpl()
     }
     
+    static func feedUseCase() -> some FeedUseCase {
+        FeedUseCaseImpl(topicRepository: sharedTopicRepository)
+    }
+    
     static let sharedRequestHeaderUseCase: some RequestHeaderUseCase =
         RequestHeaderUseCaseImpl(requestHeaderRepository: sharedRequestHeaderRepository, authRepository: sharedAuthRepository)
     
@@ -46,8 +50,12 @@ extension DIFactory {
     
     static let sharedAuthRepository: some AuthRepository = AuthRepositoryImpl(bffAuthTokenStoreDataSource: sharedBFFAuthTokenStoreDataSource)
     
+    static let sharedTopicRepository: some TopicRepository = TopicRepositoryImpl(topicDataSource: sharedTopicDataSource)
+    
     // MARK: - DataSource
     static let sharedRequestHeaderDataSource = RequestHeader.shared
     
     static let sharedBFFAuthTokenStoreDataSource: some BFFAuthTokenStoreDataSource = BFFAuthTokenStoreLocalSource.shared
+    
+    static let sharedTopicDataSource: some TopicDataSource = TopicRemoteSource.shared
 }

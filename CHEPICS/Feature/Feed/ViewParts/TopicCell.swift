@@ -6,46 +6,35 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct TopicCell: View {
     @Environment(\.colorScheme) var colorScheme
     let window = UIApplication.shared.connectedScenes.first as? UIWindowScene
+    let topic: Topic
     
     var body: some View {
         VStack {
             VStack {
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("参加中")
-                            .font(.caption)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.white)
-                            .padding(.vertical, 4)
-                            .padding(.horizontal)
-                            .background {
-                                Capsule(style: .circular)
-                                    .foregroundStyle(.blue)
-                            }
-                        
-                        Text("猫が可愛い")
+                        Text(topic.title)
                             .fontWeight(.semibold)
                             .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                        
-                        Text("https://nekoneko.com")
-                            .font(.caption)
-                            .tint(.blue)
                             .padding(.vertical, 8)
+                        
+                        if let link = topic.link {
+                            Text(.init("[\(link)](\(link))"))
+                                .font(.caption)
+                                .tint(.blue)
+                        }
                     }
                     
                     Spacer()
                 }
                 
-                if let screenSize = window?.screen.bounds {
-                    Image(.cat)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: screenSize.width - 32, height: (screenSize.width - 32) / 2)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                if let screenSize = window?.screen.bounds, let images = topic.images {
+                    imageView(size: screenSize, images: images.map({ $0.url }))
                 }
                 
                 HStack(spacing: 16) {
@@ -55,24 +44,32 @@ struct TopicCell: View {
                             .scaledToFit()
                             .frame(width: 24)
                         
-                        Text("10,000")
+                        Text(topic.votes.commaSeparateThreeDigits())
                             .font(.footnote)
                             .foregroundStyle(Color(.chepicsPrimary))
                     }
                     
-                    Image(.catIcon)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 24)
-                        .clipShape(Circle())
+                    if let userImageUrl = topic.user.profileImageUrl {
+                        KFImage(URL(string: userImageUrl))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 24)
+                            .clipShape(Circle())
+                    } else {
+                        Image(systemName: "person")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24)
+                            .clipShape(Circle())
+                    }
                     
-                    Text("太郎")
+                    Text(topic.user.fullname)
                         .font(.caption)
                         .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                     
                     Spacer()
                     
-                    Text("1時間前")
+                    Text(topic.registerTime.timestampString())
                         .font(.footnote)
                         .foregroundStyle(.gray)
                 }
@@ -82,8 +79,88 @@ struct TopicCell: View {
             Divider()
         }
     }
+    
+    @MainActor private func imageView(size: CGRect, images: [String]) -> some View {
+        VStack(spacing: 8) {
+            if images.count == 1 {
+                KFImage(URL(string: images[0]))
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: size.width - 32, height: (size.width - 40) / 2)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+            
+            if images.count == 2 {
+                HStack(spacing: 8) {
+                    KFImage(URL(string: images[0]))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: (size.width - 40) / 2, height: (size.width - 40) / 2)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                    
+                    KFImage(URL(string: images[1]))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: (size.width - 40) / 2, height: (size.width - 40) / 2)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+            }
+            
+            if images.count == 3 {
+                HStack(spacing: 8) {
+                    KFImage(URL(string: images[0]))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: (size.width - 40) / 2, height: (size.width - 40) / 2)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                    
+                    KFImage(URL(string: images[1]))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: (size.width - 40) / 2, height: (size.width - 40) / 2)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+                
+                KFImage(URL(string: images[2]))
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: size.width - 32, height: (size.width - 40) / 2)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+            
+            if images.count == 4 {
+                HStack(spacing: 8) {
+                    KFImage(URL(string: images[0]))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: (size.width - 40) / 2, height: (size.width - 40) / 2)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                    
+                    KFImage(URL(string: images[1]))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: (size.width - 40) / 2, height: (size.width - 40) / 2)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+                
+                HStack(spacing: 8) {
+                    KFImage(URL(string: images[2]))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: (size.width - 32) / 2, height: (size.width - 32) / 2)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                    
+                    KFImage(URL(string: images[3]))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: (size.width - 32) / 2, height: (size.width - 32) / 2)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+            }
+        }
+    }
 }
 
 #Preview {
-    TopicCell()
+    TopicCell(topic: mockTopic1)
 }

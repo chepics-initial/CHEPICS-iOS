@@ -11,16 +11,23 @@ struct MainTabView: View {
     @State private var activeTab: Tab = .feed
     @State private var feedStack: NavigationPath = .init()
     @State private var myPageStack: NavigationPath = .init()
+    @State private var showCreateTopicView = false
     
     var body: some View {
         TabView(selection: tabSelection) {
             NavigationStack(path: $feedStack) {
-                FeedView(viewModel: FeedViewModel())
+                FeedView(viewModel: FeedViewModel(feedUseCase: DIFactory.feedUseCase()))
             }
             .tag(Tab.feed)
             .tabItem {
                 Image(systemName: activeTab == .feed ? "house.fill" : "house")
             }
+            
+            Text("")
+                .tabItem {
+                    Image(systemName: "plus")
+                }
+                .tag(Tab.upload)
             
             NavigationStack(path: $myPageStack) {
                 Text("Other page")
@@ -30,6 +37,13 @@ struct MainTabView: View {
                 Image(systemName: activeTab == .myPage ? "person.fill" : "person")
             }
         }
+        .fullScreenCover(isPresented: $showCreateTopicView, onDismiss: {
+            tabSelection.wrappedValue = .feed
+        }, content: {
+            NavigationStack {
+                CreateTopicView(viewModel: CreateTopicViewModel())
+            }
+        })
         .tint(Color(.chepicsPrimary))
     }
     
@@ -45,10 +59,17 @@ struct MainTabView: View {
                     } else {
                         // TODO: - すでにrootの場合
                     }
+                case .upload:
+                    break
                 case .myPage:
                     myPageStack = .init()
                 }
             }
+            
+            if newValue == .upload {
+                showCreateTopicView = true
+            }
+            
             activeTab = newValue
         }
 
@@ -61,5 +82,6 @@ struct MainTabView: View {
 
 enum Tab {
     case feed
+    case upload
     case myPage
 }

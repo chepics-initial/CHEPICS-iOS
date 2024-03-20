@@ -10,38 +10,18 @@ import SwiftUI
 struct FeedView: View {
     @StateObject var viewModel: FeedViewModel
     @Environment(\.colorScheme) var colorScheme
-    @State private var showCreateTopicView = false
     
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
-            VStack {
-                headerTab
-                
-                Spacer()
-                
-                listView
-            }
+        VStack {
+            headerTab
+                        
+            listView
             
-            Button {
-                showCreateTopicView = true
-            } label: {
-                Image(systemName: "plus")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .foregroundStyle(.white)
-                    .padding()
-                    .background {
-                        Circle()
-                            .foregroundColor(.blue)
-                    }
-            }
-            .padding()
+            Spacer()
         }
-        .fullScreenCover(isPresented: $showCreateTopicView, content: {
-            NavigationStack {
-                CreateTopicView(viewModel: CreateTopicViewModel())
-            }
-        })
+        .onAppear {
+            Task { await viewModel.onAppear() }
+        }
     }
     
     private var headerTab: some View {
@@ -72,8 +52,10 @@ struct FeedView: View {
             LazyVStack {
                 switch viewModel.selectedTab {
                 case .topics:
-                    ForEach(0 ..< 20, id: \.self) { _ in
-                        TopicCell()
+                    if let topics = viewModel.topics {
+                        ForEach(topics) { topic in
+                            TopicCell(topic: topic)
+                        }
                     }
                 case .comments:
                     ForEach(0 ..< 20, id: \.self) { _ in
@@ -86,5 +68,5 @@ struct FeedView: View {
 }
 
 #Preview {
-    FeedView(viewModel: FeedViewModel())
+    FeedView(viewModel: FeedViewModel(feedUseCase: FeedUseCase_Previews()))
 }

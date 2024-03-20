@@ -40,6 +40,19 @@
 		259B51C22B860CA000978256 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51C12B860CA000978256 /* RoundButton.swift */; };
 		25C88DAE2B8C33C4002455A3 /* IconRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C88DAD2B8C33C4002455A3 /* IconRegistrationView.swift */; };
 		25C88DB02B8C33FD002455A3 /* IconRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C88DAF2B8C33FD002455A3 /* IconRegistrationViewModel.swift */; };
+		6916B3842BAAD5AB009A8670 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3832BAAD5AB009A8670 /* Items.swift */; };
+		6916B3862BAAD8A6009A8670 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3852BAAD8A6009A8670 /* Topic.swift */; };
+		6916B3882BAAD95C009A8670 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3872BAAD95C009A8670 /* User.swift */; };
+		6916B38C2BAADA96009A8670 /* TopicImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B38B2BAADA96009A8670 /* TopicImage.swift */; };
+		6916B38E2BAADBC4009A8670 /* PickSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B38D2BAADBC4009A8670 /* PickSet.swift */; };
+		6916B3912BAADD7D009A8670 /* mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3902BAADD7D009A8670 /* mocks.swift */; };
+		6916B3932BAAE30E009A8670 /* TopicDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3922BAAE30E009A8670 /* TopicDataSource.swift */; };
+		6916B3952BAAE364009A8670 /* TopicRemoteSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3942BAAE364009A8670 /* TopicRemoteSource.swift */; };
+		6916B3972BAAE3CA009A8670 /* TopicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3962BAAE3CA009A8670 /* TopicRepository.swift */; };
+		6916B39A2BAAE60B009A8670 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6916B3992BAAE60B009A8670 /* Kingfisher */; };
+		6916B39D2BAAED64009A8670 /* FeedUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B39C2BAAED64009A8670 /* FeedUseCase.swift */; };
+		6916B39F2BAAF4B3009A8670 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B39E2BAAF4B3009A8670 /* Int+Extension.swift */; };
+		6916B3A12BAAF6D3009A8670 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3A02BAAF6D3009A8670 /* Date+Extension.swift */; };
 		69EC79352B8ABE750096AA55 /* PasswordRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC79342B8ABE750096AA55 /* PasswordRegistrationView.swift */; };
 		69EC79372B8ABEA90096AA55 /* PasswordRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC79362B8ABEA90096AA55 /* PasswordRegistrationViewModel.swift */; };
 		69EC79392B8AC07A0096AA55 /* CreateUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC79382B8AC07A0096AA55 /* CreateUserRepository.swift */; };
@@ -114,6 +127,18 @@
 		259B51C12B860CA000978256 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		25C88DAD2B8C33C4002455A3 /* IconRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconRegistrationView.swift; sourceTree = "<group>"; };
 		25C88DAF2B8C33FD002455A3 /* IconRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconRegistrationViewModel.swift; sourceTree = "<group>"; };
+		6916B3832BAAD5AB009A8670 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
+		6916B3852BAAD8A6009A8670 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
+		6916B3872BAAD95C009A8670 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		6916B38B2BAADA96009A8670 /* TopicImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicImage.swift; sourceTree = "<group>"; };
+		6916B38D2BAADBC4009A8670 /* PickSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickSet.swift; sourceTree = "<group>"; };
+		6916B3902BAADD7D009A8670 /* mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mocks.swift; sourceTree = "<group>"; };
+		6916B3922BAAE30E009A8670 /* TopicDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDataSource.swift; sourceTree = "<group>"; };
+		6916B3942BAAE364009A8670 /* TopicRemoteSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicRemoteSource.swift; sourceTree = "<group>"; };
+		6916B3962BAAE3CA009A8670 /* TopicRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicRepository.swift; sourceTree = "<group>"; };
+		6916B39C2BAAED64009A8670 /* FeedUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUseCase.swift; sourceTree = "<group>"; };
+		6916B39E2BAAF4B3009A8670 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		6916B3A02BAAF6D3009A8670 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		69EC79342B8ABE750096AA55 /* PasswordRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRegistrationView.swift; sourceTree = "<group>"; };
 		69EC79362B8ABEA90096AA55 /* PasswordRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRegistrationViewModel.swift; sourceTree = "<group>"; };
 		69EC79382B8AC07A0096AA55 /* CreateUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CreateUserRepository.swift; path = CHEPICS/Feature/Authentication/PasswordRegistration/CreateUserRepository.swift; sourceTree = SOURCE_ROOT; };
@@ -145,6 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6916B39A2BAAE60B009A8670 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +221,8 @@
 			children = (
 				2566F52C2B89943E00CAD739 /* Color+Extension.swift */,
 				69EC795D2B9C6B3F0096AA55 /* UIApplication+Extension.swift */,
+				6916B39E2BAAF4B3009A8670 /* Int+Extension.swift */,
+				6916B3A02BAAF6D3009A8670 /* Date+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -262,6 +290,7 @@
 		2583F23D2B6F6B2B00E68CAD /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				6916B39B2BAAED5D009A8670 /* Feed */,
 				69EC79322B8ABDE10096AA55 /* Authentication */,
 			);
 			path = UseCase;
@@ -274,6 +303,7 @@
 				69EC79382B8AC07A0096AA55 /* CreateUserRepository.swift */,
 				252D71272BA839CD00485877 /* AuthRepository.swift */,
 				252D712F2BA83E4500485877 /* RequestHeaderRepository.swift */,
+				6916B3962BAAE3CA009A8670 /* TopicRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -292,6 +322,7 @@
 			children = (
 				252D71292BA83A4D00485877 /* BFFAuthTokenStoreDataSource.swift */,
 				252D71332BA83F5F00485877 /* RequestHeaderDataSource.swift */,
+				6916B3922BAAE30E009A8670 /* TopicDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -308,6 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				252D71352BA83F9300485877 /* RequestHeader.swift */,
+				6916B3942BAAE364009A8670 /* TopicRemoteSource.swift */,
 			);
 			path = RemoteSource;
 			sourceTree = "<group>";
@@ -317,6 +349,11 @@
 			children = (
 				2566F5422B8A176A00CAD739 /* APIError.swift */,
 				252D71312BA83ED200485877 /* HeaderKeys.swift */,
+				6916B3832BAAD5AB009A8670 /* Items.swift */,
+				6916B3852BAAD8A6009A8670 /* Topic.swift */,
+				6916B3872BAAD95C009A8670 /* User.swift */,
+				6916B38B2BAADA96009A8670 /* TopicImage.swift */,
+				6916B38D2BAADBC4009A8670 /* PickSet.swift */,
 			);
 			path = DomainModel;
 			sourceTree = "<group>";
@@ -362,6 +399,22 @@
 				25C88DAF2B8C33FD002455A3 /* IconRegistrationViewModel.swift */,
 			);
 			path = IconRegistration;
+			sourceTree = "<group>";
+		};
+		6916B38F2BAADD73009A8670 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				6916B3902BAADD7D009A8670 /* mocks.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		6916B39B2BAAED5D009A8670 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				6916B39C2BAAED64009A8670 /* FeedUseCase.swift */,
+			);
+			path = Feed;
 			sourceTree = "<group>";
 		};
 		69EC79322B8ABDE10096AA55 /* Authentication */ = {
@@ -435,6 +488,7 @@
 		E4C6BE112B6F68EE003B56AD /* CHEPICS */ = {
 			isa = PBXGroup;
 			children = (
+				6916B38F2BAADD73009A8670 /* Mock */,
 				2566F5442B8AA62100CAD739 /* UICommon */,
 				2583F2432B6F6B9400E68CAD /* DomainModel */,
 				2583F23F2B6F6B5700E68CAD /* Infra */,
@@ -492,6 +546,9 @@
 			dependencies = (
 			);
 			name = CHEPICS;
+			packageProductDependencies = (
+				6916B3992BAAE60B009A8670 /* Kingfisher */,
+			);
 			productName = CHEPICS;
 			productReference = E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */;
 			productType = "com.apple.product-type.application";
@@ -564,6 +621,9 @@
 				Base,
 			);
 			mainGroup = E4C6BE062B6F68ED003B56AD;
+			packageReferences = (
+				6916B3982BAAE60B009A8670 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = E4C6BE102B6F68EE003B56AD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -606,10 +666,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6916B3882BAAD95C009A8670 /* User.swift in Sources */,
 				69EC79522B8B67B70096AA55 /* CompleteRegistrationView.swift in Sources */,
 				69EC794B2B8B61EA0096AA55 /* NameRegistrationView.swift in Sources */,
 				252D71212BA7FFB100485877 /* AppDelegate.swift in Sources */,
 				2566F53D2B8A148100CAD739 /* OneTimeCodeViewModel.swift in Sources */,
+				6916B3972BAAE3CA009A8670 /* TopicRepository.swift in Sources */,
 				252D712C2BA83CC500485877 /* BFFAuthTokenStoreLocalSource.swift in Sources */,
 				69EC795E2B9C6B3F0096AA55 /* UIApplication+Extension.swift in Sources */,
 				2566F5312B89F54D00CAD739 /* EmailRegistrationView.swift in Sources */,
@@ -622,6 +684,7 @@
 				252D71302BA83E4500485877 /* RequestHeaderRepository.swift in Sources */,
 				2566F5412B8A16CE00CAD739 /* EmailRegistrationUseCase.swift in Sources */,
 				69EC794D2B8B61F10096AA55 /* NameRegistrationViewModel.swift in Sources */,
+				6916B3862BAAD8A6009A8670 /* Topic.swift in Sources */,
 				252D71362BA83F9300485877 /* RequestHeader.swift in Sources */,
 				69EC79392B8AC07A0096AA55 /* CreateUserRepository.swift in Sources */,
 				69EC795C2B9C63F30096AA55 /* CustomTextEditor.swift in Sources */,
@@ -630,12 +693,17 @@
 				2566F5362B89F62A00CAD739 /* LoadingView.swift in Sources */,
 				2566F54A2B8AADF300CAD739 /* OneTimeCodeUseCase.swift in Sources */,
 				252D71282BA839CD00485877 /* AuthRepository.swift in Sources */,
+				6916B3932BAAE30E009A8670 /* TopicDataSource.swift in Sources */,
 				2583F2472B6F6CD400E68CAD /* FeedView.swift in Sources */,
 				69EC794F2B8B644F0096AA55 /* NameRegistrationUseCase.swift in Sources */,
+				6916B3842BAAD5AB009A8670 /* Items.swift in Sources */,
+				6916B38E2BAADBC4009A8670 /* PickSet.swift in Sources */,
 				69EC79572B9C60C60096AA55 /* CreateTopicViewModel.swift in Sources */,
 				69EC793B2B8AC0BF0096AA55 /* PasswordRegistrationUseCase.swift in Sources */,
 				252D71242BA8380200485877 /* ControllerHelper.swift in Sources */,
+				6916B3952BAAE364009A8670 /* TopicRemoteSource.swift in Sources */,
 				25C88DAE2B8C33C4002455A3 /* IconRegistrationView.swift in Sources */,
+				6916B3A12BAAF6D3009A8670 /* Date+Extension.swift in Sources */,
 				259B51BD2B860A8B00978256 /* LoginView.swift in Sources */,
 				252D71392BA913C600485877 /* MainTabView.swift in Sources */,
 				259B51BF2B860B5300978256 /* LoginViewModel.swift in Sources */,
@@ -643,6 +711,9 @@
 				69EC79372B8ABEA90096AA55 /* PasswordRegistrationViewModel.swift in Sources */,
 				69EC79552B9C60B50096AA55 /* CreateTopicView.swift in Sources */,
 				252D712A2BA83A4D00485877 /* BFFAuthTokenStoreDataSource.swift in Sources */,
+				6916B38C2BAADA96009A8670 /* TopicImage.swift in Sources */,
+				6916B39F2BAAF4B3009A8670 /* Int+Extension.swift in Sources */,
+				6916B39D2BAAED64009A8670 /* FeedUseCase.swift in Sources */,
 				252D71262BA838E000485877 /* RequestHeaderController.swift in Sources */,
 				69EC79352B8ABE750096AA55 /* PasswordRegistrationView.swift in Sources */,
 				2566F53B2B89FB4900CAD739 /* OneTimeCodeView.swift in Sources */,
@@ -650,6 +721,7 @@
 				2566F5462B8AA63D00CAD739 /* UIViewControllerLifeCycleRepresentable.swift in Sources */,
 				2566F52B2B898D6300CAD739 /* DIFactory.swift in Sources */,
 				252D71322BA83ED200485877 /* HeaderKeys.swift in Sources */,
+				6916B3912BAADD7D009A8670 /* mocks.swift in Sources */,
 				E4C6BE132B6F68EE003B56AD /* CHEPICSApp.swift in Sources */,
 				25C88DB02B8C33FD002455A3 /* IconRegistrationViewModel.swift in Sources */,
 				2566F5432B8A176A00CAD739 /* APIError.swift in Sources */,
@@ -982,6 +1054,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6916B3982BAAE60B009A8670 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6916B3992BAAE60B009A8670 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6916B3982BAAE60B009A8670 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E4C6BE072B6F68ED003B56AD /* Project object */;
 }
