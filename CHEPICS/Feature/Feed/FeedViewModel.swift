@@ -8,8 +8,20 @@
 import Foundation
 
 @MainActor final class FeedViewModel: ObservableObject {
-    @Published private(set) var selectedTab: TabType = .topics
+    @Published private(set) var selectedTab: TabType = .topics {
+        didSet {
+            switch selectedTab {
+            case .topics:
+                if topicUIState != .success {
+                    Task { await fetchTopics() }
+                }
+            case .comments:
+                return 
+            }
+        }
+    }
     @Published var topics: [Topic]?
+    @Published private(set) var topicUIState: UIState = .loading
     
     private let feedUseCase: any FeedUseCase
     
@@ -21,12 +33,16 @@ import Foundation
         selectedTab = type
     }
     
-    func onAppear() async {
+    func fetchTopics() async {
+        if topicUIState != .success {
+            topicUIState = .loading
+        }
         switch await feedUseCase.fetchFavoriteTopics() {
         case .success(let topics):
             self.topics = topics
-        case .failure(let failure):
-            return
+            topicUIState = .success
+        case .failure:
+            topicUIState = .failure
         }
     }
 }

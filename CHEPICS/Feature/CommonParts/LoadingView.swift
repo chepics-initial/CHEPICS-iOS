@@ -8,10 +8,18 @@
 import SwiftUI
 
 struct LoadingView: View {
+    let showBackgroundColor: Bool
+    
+    init(showBackgroundColor: Bool = true) {
+        self.showBackgroundColor = showBackgroundColor
+    }
+    
     var body: some View {
         ZStack {
-            Color.gray.opacity(0.8)
-                .ignoresSafeArea()
+            if showBackgroundColor {
+                Color.gray.opacity(0.8)
+                    .ignoresSafeArea()
+            }
             
             ProgressView()
         }

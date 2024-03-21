@@ -16,12 +16,25 @@ struct FeedView: View {
         VStack {
             headerTab
                         
-            listView
-            
-            Spacer()
+            switch viewModel.topicUIState {
+            case .loading:
+                LoadingView(showBackgroundColor: false)
+                    .frame(maxHeight: .infinity)                
+            case .success:
+                listView
+                
+                Spacer()
+            case .failure:
+                Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+                    .padding(16)
+                
+                Spacer()
+            }
         }
         .onAppear {
-            Task { await viewModel.onAppear() }
+            Task { await viewModel.fetchTopics() }
         }
     }
     
@@ -72,6 +85,9 @@ struct FeedView: View {
                     }
                 }
             }
+        }
+        .refreshable {
+            Task { await viewModel.fetchTopics() }
         }
     }
 }
