@@ -22,7 +22,7 @@ struct ImageView: View {
                         .tag(image)
                 }
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         }
         .overlay {
             VStack {
