@@ -12,6 +12,7 @@ struct TopicCell: View {
     @Environment(\.colorScheme) var colorScheme
     let window = UIApplication.shared.connectedScenes.first as? UIWindowScene
     let topic: Topic
+    let onTapImage: (String) -> Void
     
     var body: some View {
         VStack {
@@ -33,8 +34,13 @@ struct TopicCell: View {
                     Spacer()
                 }
                 
-                if let screenSize = window?.screen.bounds, let images = topic.images {
-                    imageView(size: screenSize, images: images.map({ $0.url }))
+                if let images = topic.images {
+                    let columns = Array(repeating: GridItem(.flexible()), count: 2)
+                    LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
+                        ForEach(images.map({ $0.url }).indices, id: \.self) { index in
+                            GridImageView(images: images.map({ $0.url }), index: index, onTapImage: onTapImage)
+                        }
+                    }
                 }
                 
                 HStack(spacing: 16) {
@@ -79,88 +85,8 @@ struct TopicCell: View {
             Divider()
         }
     }
-    
-    @MainActor private func imageView(size: CGRect, images: [String]) -> some View {
-        VStack(spacing: 8) {
-            if images.count == 1 {
-                KFImage(URL(string: images[0]))
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: size.width - 32, height: (size.width - 40) / 2)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-            }
-            
-            if images.count == 2 {
-                HStack(spacing: 8) {
-                    KFImage(URL(string: images[0]))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: (size.width - 40) / 2, height: (size.width - 40) / 2)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                    
-                    KFImage(URL(string: images[1]))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: (size.width - 40) / 2, height: (size.width - 40) / 2)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                }
-            }
-            
-            if images.count == 3 {
-                HStack(spacing: 8) {
-                    KFImage(URL(string: images[0]))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: (size.width - 40) / 2, height: (size.width - 40) / 2)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                    
-                    KFImage(URL(string: images[1]))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: (size.width - 40) / 2, height: (size.width - 40) / 2)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                }
-                
-                KFImage(URL(string: images[2]))
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: size.width - 32, height: (size.width - 40) / 2)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-            }
-            
-            if images.count == 4 {
-                HStack(spacing: 8) {
-                    KFImage(URL(string: images[0]))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: (size.width - 40) / 2, height: (size.width - 40) / 2)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                    
-                    KFImage(URL(string: images[1]))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: (size.width - 40) / 2, height: (size.width - 40) / 2)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                }
-                
-                HStack(spacing: 8) {
-                    KFImage(URL(string: images[2]))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: (size.width - 32) / 2, height: (size.width - 32) / 2)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                    
-                    KFImage(URL(string: images[3]))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: (size.width - 32) / 2, height: (size.width - 32) / 2)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                }
-            }
-        }
-    }
 }
 
 #Preview {
-    TopicCell(topic: mockTopic1)
+    TopicCell(topic: mockTopic1, onTapImage: { _ in })
 }

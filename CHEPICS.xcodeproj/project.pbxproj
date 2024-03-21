@@ -21,6 +21,8 @@
 		252D71392BA913C600485877 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252D71382BA913C600485877 /* MainTabView.swift */; };
 		252D713D2BA918ED00485877 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252D713C2BA918ED00485877 /* TopicCell.swift */; };
 		252D713F2BA91BAA00485877 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252D713E2BA91BAA00485877 /* FeedViewModel.swift */; };
+		252D71532BABBA5A00485877 /* MainTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252D71522BABBA5A00485877 /* MainTabViewModel.swift */; };
+		252D71552BABEBF600485877 /* GridImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252D71542BABEBF600485877 /* GridImageView.swift */; };
 		2566F52B2B898D6300CAD739 /* DIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F52A2B898D6300CAD739 /* DIFactory.swift */; };
 		2566F52D2B89943E00CAD739 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F52C2B89943E00CAD739 /* Color+Extension.swift */; };
 		2566F5312B89F54D00CAD739 /* EmailRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F5302B89F54D00CAD739 /* EmailRegistrationView.swift */; };
@@ -40,6 +42,7 @@
 		259B51C22B860CA000978256 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51C12B860CA000978256 /* RoundButton.swift */; };
 		25C88DAE2B8C33C4002455A3 /* IconRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C88DAD2B8C33C4002455A3 /* IconRegistrationView.swift */; };
 		25C88DB02B8C33FD002455A3 /* IconRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C88DAF2B8C33FD002455A3 /* IconRegistrationViewModel.swift */; };
+		25F67D322BAC00F9007406FC /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F67D312BAC00F9007406FC /* ImageView.swift */; };
 		6916B3842BAAD5AB009A8670 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3832BAAD5AB009A8670 /* Items.swift */; };
 		6916B3862BAAD8A6009A8670 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3852BAAD8A6009A8670 /* Topic.swift */; };
 		6916B3882BAAD95C009A8670 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3872BAAD95C009A8670 /* User.swift */; };
@@ -108,6 +111,8 @@
 		252D71382BA913C600485877 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		252D713C2BA918ED00485877 /* TopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
 		252D713E2BA91BAA00485877 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
+		252D71522BABBA5A00485877 /* MainTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewModel.swift; sourceTree = "<group>"; };
+		252D71542BABEBF600485877 /* GridImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridImageView.swift; sourceTree = "<group>"; };
 		2566F52A2B898D6300CAD739 /* DIFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIFactory.swift; sourceTree = "<group>"; };
 		2566F52C2B89943E00CAD739 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		2566F5302B89F54D00CAD739 /* EmailRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailRegistrationView.swift; sourceTree = "<group>"; };
@@ -127,6 +132,7 @@
 		259B51C12B860CA000978256 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		25C88DAD2B8C33C4002455A3 /* IconRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconRegistrationView.swift; sourceTree = "<group>"; };
 		25C88DAF2B8C33FD002455A3 /* IconRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconRegistrationViewModel.swift; sourceTree = "<group>"; };
+		25F67D312BAC00F9007406FC /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		6916B3832BAAD5AB009A8670 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 		6916B3852BAAD8A6009A8670 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		6916B3872BAAD95C009A8670 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -204,6 +210,8 @@
 			isa = PBXGroup;
 			children = (
 				252D71382BA913C600485877 /* MainTabView.swift */,
+				252D71522BABBA5A00485877 /* MainTabViewModel.swift */,
+				25F67D312BAC00F9007406FC /* ImageView.swift */,
 			);
 			path = Tab;
 			sourceTree = "<group>";
@@ -250,6 +258,7 @@
 			children = (
 				2566F5352B89F62A00CAD739 /* LoadingView.swift */,
 				69EC795B2B9C63F30096AA55 /* CustomTextEditor.swift */,
+				252D71542BABEBF600485877 /* GridImageView.swift */,
 			);
 			path = CommonParts;
 			sourceTree = "<group>";
@@ -689,6 +698,7 @@
 				69EC79392B8AC07A0096AA55 /* CreateUserRepository.swift in Sources */,
 				69EC795C2B9C63F30096AA55 /* CustomTextEditor.swift in Sources */,
 				E4C6BE152B6F68EE003B56AD /* ContentView.swift in Sources */,
+				252D71532BABBA5A00485877 /* MainTabViewModel.swift in Sources */,
 				2566F53F2B8A152400CAD739 /* Constants.swift in Sources */,
 				2566F5362B89F62A00CAD739 /* LoadingView.swift in Sources */,
 				2566F54A2B8AADF300CAD739 /* OneTimeCodeUseCase.swift in Sources */,
@@ -705,6 +715,7 @@
 				25C88DAE2B8C33C4002455A3 /* IconRegistrationView.swift in Sources */,
 				6916B3A12BAAF6D3009A8670 /* Date+Extension.swift in Sources */,
 				259B51BD2B860A8B00978256 /* LoginView.swift in Sources */,
+				25F67D322BAC00F9007406FC /* ImageView.swift in Sources */,
 				252D71392BA913C600485877 /* MainTabView.swift in Sources */,
 				259B51BF2B860B5300978256 /* LoginViewModel.swift in Sources */,
 				252D713F2BA91BAA00485877 /* FeedViewModel.swift in Sources */,
@@ -717,6 +728,7 @@
 				252D71262BA838E000485877 /* RequestHeaderController.swift in Sources */,
 				69EC79352B8ABE750096AA55 /* PasswordRegistrationView.swift in Sources */,
 				2566F53B2B89FB4900CAD739 /* OneTimeCodeView.swift in Sources */,
+				252D71552BABEBF600485877 /* GridImageView.swift in Sources */,
 				252D712E2BA83DA900485877 /* RequestHeaderUseCase.swift in Sources */,
 				2566F5462B8AA63D00CAD739 /* UIViewControllerLifeCycleRepresentable.swift in Sources */,
 				2566F52B2B898D6300CAD739 /* DIFactory.swift in Sources */,

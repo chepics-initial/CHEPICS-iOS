@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @StateObject private var viewModel = MainTabViewModel()
     @State private var activeTab: Tab = .feed
     @State private var feedStack: NavigationPath = .init()
     @State private var myPageStack: NavigationPath = .init()
@@ -17,6 +18,7 @@ struct MainTabView: View {
         TabView(selection: tabSelection) {
             NavigationStack(path: $feedStack) {
                 FeedView(viewModel: FeedViewModel(feedUseCase: DIFactory.feedUseCase()))
+                    .environmentObject(viewModel)
             }
             .tag(Tab.feed)
             .tabItem {
@@ -35,6 +37,12 @@ struct MainTabView: View {
             .tag(Tab.myPage)
             .tabItem {
                 Image(systemName: activeTab == .myPage ? "person.fill" : "person")
+            }
+        }
+        .overlay {
+            if viewModel.showImageViewer {
+                ImageView()
+                    .environmentObject(viewModel)
             }
         }
         .fullScreenCover(isPresented: $showCreateTopicView, onDismiss: {

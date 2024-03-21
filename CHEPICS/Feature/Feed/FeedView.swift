@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FeedView: View {
+    @EnvironmentObject var mainTabViewModel: MainTabViewModel
     @StateObject var viewModel: FeedViewModel
     @Environment(\.colorScheme) var colorScheme
     
@@ -54,7 +55,15 @@ struct FeedView: View {
                 case .topics:
                     if let topics = viewModel.topics {
                         ForEach(topics) { topic in
-                            TopicCell(topic: topic)
+                            TopicCell(topic: topic) { image in
+                                if let images = topic.images {
+                                    mainTabViewModel.images = images.map({ $0.url })
+                                    mainTabViewModel.selectedImage = image
+                                    withAnimation {
+                                        mainTabViewModel.showImageViewer = true
+                                    }
+                                }
+                            }
                         }
                     }
                 case .comments:
