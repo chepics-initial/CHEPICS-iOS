@@ -50,3 +50,9 @@ final class FeedUseCase_Previews: FeedUseCase {
         .success([])
     }
 }
+
+enum UIState {
+    case loading
+    case success
+    case failure
+}
