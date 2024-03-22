@@ -22,7 +22,13 @@ struct FeedView: View {
                 LoadingView(showBackgroundColor: false)
                     .frame(maxHeight: .infinity)                
             case .success:
-                listView
+                // listの中、すなわちScrollViewの中でswitchを使うとタブ切り替えの際にクラッシュするためここで分岐
+                switch viewModel.selectedTab {
+                case .topics:
+                    topicListView
+                case .comments:
+                    Text("comments")
+                }
                 
                 Spacer()
             case .failure:
@@ -41,7 +47,7 @@ struct FeedView: View {
     
     private var headerTab: some View {
         HStack(spacing: 0) {
-            ForEach(TabType.allCases, id: \.self) { type in
+            ForEach(FeedTabType.allCases, id: \.self) { type in
                 Button {
                     viewModel.selectTab(type: type)
                 } label: {
@@ -62,30 +68,23 @@ struct FeedView: View {
         }
     }
     
-    private var listView: some View {
+    private var topicListView: some View {
         ScrollViewReader { reader in
             ScrollView {
                 LazyVStack {
                     EmptyView()
                         .id(topID)
-                    switch viewModel.selectedTab {
-                    case .topics:
-                        if let topics = viewModel.topics {
-                            ForEach(topics) { topic in
-                                TopicCell(topic: topic) { image in
-                                    if let images = topic.images {
-                                        mainTabViewModel.images = images.map({ $0.url })
-                                        mainTabViewModel.selectedImage = image
-                                        withAnimation {
-                                            mainTabViewModel.showImageViewer = true
-                                        }
+                    if let topics = viewModel.topics {
+                        ForEach(topics) { topic in
+                            TopicCell(topic: topic) { image in
+                                if let images = topic.images {
+                                    mainTabViewModel.images = images.map({ $0.url })
+                                    mainTabViewModel.selectedImage = image
+                                    withAnimation {
+                                        mainTabViewModel.showImageViewer = true
                                     }
                                 }
                             }
-                        }
-                    case .comments:
-                        ForEach(0 ..< 20, id: \.self) { _ in
-                            
                         }
                     }
                 }

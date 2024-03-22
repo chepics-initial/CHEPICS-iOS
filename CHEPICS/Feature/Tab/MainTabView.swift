@@ -32,7 +32,7 @@ struct MainTabView: View {
                 .tag(Tab.upload)
             
             NavigationStack(path: $myPageStack) {
-                Text("Other page")
+                ProfileView(viewModel: ProfileViewModel(profileUseCase: DIFactory.profileUseCase()))
             }
             .tag(Tab.myPage)
             .tabItem {

@@ -40,6 +40,10 @@ extension DIFactory {
         FeedUseCaseImpl(topicRepository: sharedTopicRepository)
     }
     
+    static func profileUseCase() -> some ProfileUseCase {
+        ProfileUseCaseImpl()
+    }
+    
     static let sharedRequestHeaderUseCase: some RequestHeaderUseCase =
         RequestHeaderUseCaseImpl(requestHeaderRepository: sharedRequestHeaderRepository, authRepository: sharedAuthRepository)
     

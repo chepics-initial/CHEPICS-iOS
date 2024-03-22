@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor final class FeedViewModel: ObservableObject {
-    @Published private(set) var selectedTab: TabType = .topics {
+    @Published private(set) var selectedTab: FeedTabType = .topics {
         didSet {
             switch selectedTab {
             case .topics:
@@ -29,7 +29,7 @@ import Foundation
         self.feedUseCase = feedUseCase
     }
     
-    func selectTab(type: TabType) {
+    func selectTab(type: FeedTabType) {
         selectedTab = type
     }
     
@@ -47,7 +47,7 @@ import Foundation
     }
 }
 
-enum TabType: CaseIterable {
+enum FeedTabType: CaseIterable {
     case topics
     case comments
     
