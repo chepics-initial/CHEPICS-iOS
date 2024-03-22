@@ -65,7 +65,7 @@ struct MainTabView: View {
                     if feedStack != .init() {
                         feedStack = .init()
                     } else {
-                        // TODO: - すでにrootの場合
+                        viewModel.isTappedInFeed = true
                     }
                 case .upload:
                     break

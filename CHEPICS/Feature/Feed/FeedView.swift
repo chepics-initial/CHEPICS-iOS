@@ -11,6 +11,7 @@ struct FeedView: View {
     @EnvironmentObject var mainTabViewModel: MainTabViewModel
     @StateObject var viewModel: FeedViewModel
     @Environment(\.colorScheme) var colorScheme
+    let topID = "topID"
     
     var body: some View {
         VStack {
@@ -62,32 +63,44 @@ struct FeedView: View {
     }
     
     private var listView: some View {
-        ScrollView {
-            LazyVStack {
-                switch viewModel.selectedTab {
-                case .topics:
-                    if let topics = viewModel.topics {
-                        ForEach(topics) { topic in
-                            TopicCell(topic: topic) { image in
-                                if let images = topic.images {
-                                    mainTabViewModel.images = images.map({ $0.url })
-                                    mainTabViewModel.selectedImage = image
-                                    withAnimation {
-                                        mainTabViewModel.showImageViewer = true
+        ScrollViewReader { reader in
+            ScrollView {
+                LazyVStack {
+                    EmptyView()
+                        .id(topID)
+                    switch viewModel.selectedTab {
+                    case .topics:
+                        if let topics = viewModel.topics {
+                            ForEach(topics) { topic in
+                                TopicCell(topic: topic) { image in
+                                    if let images = topic.images {
+                                        mainTabViewModel.images = images.map({ $0.url })
+                                        mainTabViewModel.selectedImage = image
+                                        withAnimation {
+                                            mainTabViewModel.showImageViewer = true
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                case .comments:
-                    ForEach(0 ..< 20, id: \.self) { _ in
-                        
+                    case .comments:
+                        ForEach(0 ..< 20, id: \.self) { _ in
+                            
+                        }
                     }
                 }
             }
-        }
-        .refreshable {
-            Task { await viewModel.fetchTopics() }
+            .onChange(of: mainTabViewModel.isTappedInFeed) { newValue in
+                if newValue {
+                    withAnimation {
+                        reader.scrollTo(topID)
+                        mainTabViewModel.isTappedInFeed = false
+                    }
+                }
+            }
+            .refreshable {
+                Task { await viewModel.fetchTopics() }
+            }
         }
     }
 }

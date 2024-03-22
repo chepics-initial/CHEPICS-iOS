@@ -11,4 +11,5 @@ final class MainTabViewModel: ObservableObject {
     @Published var images: [String] = []
     @Published var showImageViewer = false
     @Published var selectedImage = ""
+    @Published var isTappedInFeed = false
 }
