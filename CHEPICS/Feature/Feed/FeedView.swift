@@ -49,7 +49,20 @@ struct FeedView: View {
         HStack(spacing: 0) {
             ForEach(FeedTabType.allCases, id: \.self) { type in
                 Button {
-                    viewModel.selectTab(type: type)
+                    if viewModel.selectedTab == type {
+                        switch viewModel.selectedTab {
+                        case .topics:
+                            if viewModel.topicUIState != .success {
+                                Task { await viewModel.fetchTopics() }
+                            } else {
+                                mainTabViewModel.isTappedInFeed = true
+                            }
+                        case .comments:
+                            break
+                        }
+                    } else {
+                        viewModel.selectTab(type: type)
+                    }
                 } label: {
                     VStack {
                         Text(type.title)
