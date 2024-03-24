@@ -16,7 +16,7 @@ extension Date {
         formatter.calendar?.locale = Locale(identifier: "ja_JP")
         if let differenceString = formatter.string(from: self, to: Date()) {
             let difference = Calendar.current.dateComponents([.day], from: self, to: Date())
-            if let days = difference.day, days >= 8 {
+            if let days = difference.day, days >= 7 {
                 let dateFormatter = DateFormatter()
                 dateFormatter.locale = Locale(identifier: "ja_JP")
                 dateFormatter.dateStyle = .long
