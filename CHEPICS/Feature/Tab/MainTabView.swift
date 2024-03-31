@@ -10,6 +10,7 @@ import SwiftUI
 struct MainTabView: View {
     @StateObject private var viewModel = MainTabViewModel()
     @State private var activeTab: Tab = .feed
+    @State private var previousTab: Tab = .feed
     @State private var feedStack: NavigationPath = .init()
     @State private var myPageStack: NavigationPath = .init()
     @State private var showCreateTopicView = false
@@ -46,7 +47,7 @@ struct MainTabView: View {
             }
         }
         .fullScreenCover(isPresented: $showCreateTopicView, onDismiss: {
-            tabSelection.wrappedValue = .feed
+            tabSelection.wrappedValue = previousTab
         }, content: {
             NavigationStack {
                 CreateTopicView(viewModel: CreateTopicViewModel())
@@ -76,6 +77,7 @@ struct MainTabView: View {
             
             if newValue == .upload {
                 showCreateTopicView = true
+                previousTab = activeTab
             }
             
             activeTab = newValue
