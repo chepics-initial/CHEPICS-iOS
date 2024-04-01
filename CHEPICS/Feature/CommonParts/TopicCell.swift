@@ -35,12 +35,7 @@ struct TopicCell: View {
                 }
                 
                 if let images = topic.images {
-                    let columns = Array(repeating: GridItem(.flexible()), count: 2)
-                    LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
-                        ForEach(images.map({ $0.url }).indices, id: \.self) { index in
-                            GridImagesView(images: images.map({ $0.url }), index: index, onTapImage: onTapImage)
-                        }
-                    }
+                    GridImagesView(images: images.map({ $0.url }), onTapImage: onTapImage)
                 }
                 
                 HStack(spacing: 16) {
