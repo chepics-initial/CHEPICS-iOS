@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor final class FeedViewModel: ObservableObject {
-    @Published private(set) var selectedTab: FeedTabType = .topics {
+    @Published var selectedTab: FeedTabType = .topics {
         didSet {
             switch selectedTab {
             case .topics:

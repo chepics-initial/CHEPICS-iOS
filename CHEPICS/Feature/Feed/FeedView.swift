@@ -22,13 +22,14 @@ struct FeedView: View {
                 LoadingView(showBackgroundColor: false)
                     .frame(maxHeight: .infinity)                
             case .success:
-                // listの中、すなわちScrollViewの中でswitchを使うとタブ切り替えの際にクラッシュするためここで分岐
-                switch viewModel.selectedTab {
-                case .topics:
+                TabView(selection: $viewModel.selectedTab) {
                     topicListView
-                case .comments:
+                        .tag(FeedTabType.topics)
+                    
                     Text("comments")
+                        .tag(FeedTabType.comments)
                 }
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 
                 Spacer()
             case .failure:
