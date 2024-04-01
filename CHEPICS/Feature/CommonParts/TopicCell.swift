@@ -38,7 +38,7 @@ struct TopicCell: View {
                     let columns = Array(repeating: GridItem(.flexible()), count: 2)
                     LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
                         ForEach(images.map({ $0.url }).indices, id: \.self) { index in
-                            GridImageView(images: images.map({ $0.url }), index: index, onTapImage: onTapImage)
+                            GridImagesView(images: images.map({ $0.url }), index: index, onTapImage: onTapImage)
                         }
                     }
                 }
