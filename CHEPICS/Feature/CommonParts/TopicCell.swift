@@ -35,7 +35,7 @@ struct TopicCell: View {
                 }
                 
                 if let images = topic.images {
-                    GridImagesView(images: images.map({ $0.url }), onTapImage: onTapImage)
+                    GridImagesView(images: images.map({ $0.url }), onTapImage: onTapImage, type: .topic)
                 }
                 
                 HStack(spacing: 16) {

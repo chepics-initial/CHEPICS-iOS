@@ -11,6 +11,7 @@ import Kingfisher
 struct GridImagesView: View {
     let images: [String]
     let onTapImage: (String) -> Void
+    let type: ContentType
     
     var body: some View {
         let gridImages = images.count % 2 == 1 ? images.dropLast() : images
@@ -31,7 +32,7 @@ struct GridImagesView: View {
                         .resizable()
                         .scaledToFill()
                         .frame(maxWidth: .infinity)
-                        .frame(height: getHeight())
+                        .frame(height: getHeight(type))
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
             }
@@ -53,11 +54,16 @@ struct GridImagesView: View {
         }
     }
     
-    private func getHeight() -> CGFloat {
+    private func getHeight(_ type: ContentType) -> CGFloat {
         (getRect().width - 40) / 2
     }
 }
 
+enum ContentType {
+    case topic
+    case comment
+}
+
 #Preview {
-    GridImagesView(images: [mockTopicImage1].map({ $0.url }), onTapImage: { _ in })
+    GridImagesView(images: [mockTopicImage1].map({ $0.url }), onTapImage: { _ in }, type: .topic)
 }
