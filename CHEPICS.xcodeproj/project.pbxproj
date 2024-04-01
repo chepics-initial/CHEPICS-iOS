@@ -40,6 +40,7 @@
 		256C67172BAD6BB500260ADE /* ProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256C67162BAD6BB500260ADE /* ProfileUseCase.swift */; };
 		2583F2472B6F6CD400E68CAD /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2583F2462B6F6CD400E68CAD /* FeedView.swift */; };
 		25862EB92BBA2F2400FC4225 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25862EB82BBA2F2300FC4225 /* CommentCell.swift */; };
+		25862EBF2BBB7D9700FC4225 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 25862EBE2BBB7D9700FC4225 /* SwiftUIIntrospect */; };
 		259B51BD2B860A8B00978256 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51BC2B860A8B00978256 /* LoginView.swift */; };
 		259B51BF2B860B5300978256 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51BE2B860B5300978256 /* LoginViewModel.swift */; };
 		259B51C22B860CA000978256 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51C12B860CA000978256 /* RoundButton.swift */; };
@@ -185,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6916B39A2BAAE60B009A8670 /* Kingfisher in Frameworks */,
+				25862EBF2BBB7D9700FC4225 /* SwiftUIIntrospect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,6 +579,7 @@
 			name = CHEPICS;
 			packageProductDependencies = (
 				6916B3992BAAE60B009A8670 /* Kingfisher */,
+				25862EBE2BBB7D9700FC4225 /* SwiftUIIntrospect */,
 			);
 			productName = CHEPICS;
 			productReference = E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */;
@@ -652,6 +655,7 @@
 			mainGroup = E4C6BE062B6F68ED003B56AD;
 			packageReferences = (
 				6916B3982BAAE60B009A8670 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				25862EBD2BBB7D9700FC4225 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = E4C6BE102B6F68EE003B56AD /* Products */;
 			projectDirPath = "";
@@ -1098,6 +1102,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		25862EBD2BBB7D9700FC4225 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.3;
+			};
+		};
 		6916B3982BAAE60B009A8670 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
@@ -1109,6 +1121,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		25862EBE2BBB7D9700FC4225 /* SwiftUIIntrospect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 25862EBD2BBB7D9700FC4225 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = SwiftUIIntrospect;
+		};
 		6916B3992BAAE60B009A8670 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6916B3982BAAE60B009A8670 /* XCRemoteSwiftPackageReference "Kingfisher" */;
