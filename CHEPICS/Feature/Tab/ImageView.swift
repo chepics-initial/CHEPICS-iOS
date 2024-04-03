@@ -179,13 +179,13 @@ private struct ImageGestureModifier: ViewModifier {
                 
                 let (draggableRangeX, draggableRangeY) = calculateDraggableRange()
                 if draggingOverAxis == .horizontal {
-                    if currentOffset.width <= draggableRangeX.lowerBound || draggableRangeX.upperBound <= currentOffset.width {
+                    if (currentOffset.width <= draggableRangeX.lowerBound || draggableRangeX.upperBound <= currentOffset.width) && currentScale == 1.0 {
                         onDraggingOverEnded(CGSize(width: value.predictedEndTranslation.width, height: 0))
                     } else {
                         onDraggingOverCanceled()
                     }
                 } else if draggingOverAxis == .vertical {
-                    if currentOffset.height <= draggableRangeY.lowerBound || draggableRangeY.upperBound <= currentOffset.height {
+                    if (currentOffset.height <= draggableRangeY.lowerBound || draggableRangeY.upperBound <= currentOffset.height) && currentScale == 1.0 {
                         onDraggingOverEnded(CGSize(width: 0, height: value.predictedEndTranslation.height))
                     } else {
                         onDraggingOverCanceled()
