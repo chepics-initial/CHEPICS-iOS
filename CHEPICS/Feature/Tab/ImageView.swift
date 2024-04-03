@@ -14,23 +14,26 @@ struct ImageView: View {
     let onDismiss: () -> Void
     
     var body: some View {
-        GeometryReader { geometry in
-            let pageSize = geometry.size
-            HStack(spacing: 0) {
-                ForEach(viewModel.images, id: \.self) { imageUrl in
-                    ImagePagerPage(
-                        pagerState: $viewModel.pagerState,
-                        imageUrl: URL(string: imageUrl),
-                        pageSize: pageSize,
-                        onDismiss: onDismiss
-                    ).frame(width: pageSize.width, height: pageSize.height)
+        ZStack {
+            GeometryReader { geometry in
+                let pageSize = geometry.size
+                HStack(spacing: 0) {
+                    ForEach(viewModel.images, id: \.self) { imageUrl in
+                        ImagePagerPage(
+                            pagerState: $viewModel.pagerState,
+                            imageUrl: URL(string: imageUrl),
+                            pageSize: pageSize,
+                            onDismiss: onDismiss
+                        )
+                        .frame(width: pageSize.width, height: pageSize.height)
+                    }
                 }
+                .frame(width: pageSize.width * CGFloat(viewModel.pagerState.pageCount), height: pageSize.height)
+                // ✅ オフセットを変えることで擬似的に HorizontalPager の振る舞いを再現する
+                .offset(viewModel.pagerState.offset)
             }
-            .frame(width: pageSize.width * CGFloat(viewModel.pagerState.pageCount), height: pageSize.height)
-            // ✅ オフセットを変えることで擬似的に HorizontalPager の振る舞いを再現する
-            .offset(viewModel.pagerState.offset)
-            .background(Color.black)
         }
+        .background(Color.black)
     }
 }
 
