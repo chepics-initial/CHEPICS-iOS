@@ -12,6 +12,7 @@ struct FeedView: View {
     @EnvironmentObject var mainTabViewModel: MainTabViewModel
     @StateObject var viewModel: FeedViewModel
     @Environment(\.colorScheme) var colorScheme
+    @State private var showCreateTopicView = false
     let topID = "topID"
     
     var body: some View {
@@ -21,20 +22,39 @@ struct FeedView: View {
             switch viewModel.topicUIState {
             case .loading:
                 LoadingView(showBackgroundColor: false)
-                    .frame(maxHeight: .infinity)                
+                    .frame(maxHeight: .infinity)
             case .success:
-                TabView(selection: $viewModel.selectedTab) {
-                    topicListView
-                        .tag(FeedTabType.topics)
+                ZStack(alignment: .bottomTrailing) {
+                    VStack {
+                        TabView(selection: $viewModel.selectedTab) {
+                            topicListView
+                                .tag(FeedTabType.topics)
+                            
+                            Text("comments")
+                                .tag(FeedTabType.comments)
+                        }
+                        .introspect(.tabView, on: .iOS(.v16, .v17)) { tabView in
+                            tabView.tabBar.isHidden = true
+                        }
+                        
+                        Spacer()
+                    }
                     
-                    Text("comments")
-                        .tag(FeedTabType.comments)
+                    Button(action: {
+                        showCreateTopicView = true
+                    }, label: {
+                        Image(systemName: "plus")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24)
+                            .foregroundStyle(.white)
+                            .padding()
+                            .background(Color.blue)
+                            .clipShape(Circle())
+                    })
+                    .padding(.bottom, 16)
+                    .padding(.trailing, 16)
                 }
-                .introspect(.tabView, on: .iOS(.v16, .v17)) { tabView in
-                    tabView.tabBar.isHidden = true
-                }
-                
-                Spacer()
             case .failure:
                 Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
                     .multilineTextAlignment(.center)
@@ -47,6 +67,11 @@ struct FeedView: View {
         .onAppear {
             Task { await viewModel.fetchTopics() }
         }
+        .fullScreenCover(isPresented: $showCreateTopicView, content: {
+            NavigationStack {
+                CreateTopicView(viewModel: CreateTopicViewModel())
+            }
+        })
     }
     
     private var headerTab: some View {

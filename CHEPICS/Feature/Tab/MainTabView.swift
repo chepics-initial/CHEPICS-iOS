@@ -10,10 +10,8 @@ import SwiftUI
 struct MainTabView: View {
     @StateObject private var viewModel = MainTabViewModel()
     @State private var activeTab: Tab = .feed
-    @State private var previousTab: Tab = .feed
     @State private var feedStack: NavigationPath = .init()
     @State private var myPageStack: NavigationPath = .init()
-    @State private var showCreateTopicView = false
     
     var body: some View {
         TabView(selection: tabSelection) {
@@ -25,12 +23,6 @@ struct MainTabView: View {
             .tabItem {
                 Image(systemName: activeTab == .feed ? "house.fill" : "house")
             }
-            
-            Text("")
-                .tabItem {
-                    Image(systemName: "plus")
-                }
-                .tag(Tab.upload)
             
             NavigationStack(path: $myPageStack) {
                 ProfileView(viewModel: ProfileViewModel(profileUseCase: DIFactory.profileUseCase()))
@@ -46,13 +38,6 @@ struct MainTabView: View {
                     .environmentObject(viewModel)
             }
         }
-        .fullScreenCover(isPresented: $showCreateTopicView, onDismiss: {
-            tabSelection.wrappedValue = previousTab
-        }, content: {
-            NavigationStack {
-                CreateTopicView(viewModel: CreateTopicViewModel())
-            }
-        })
         .tint(Color(.chepicsPrimary))
     }
     
@@ -68,16 +53,9 @@ struct MainTabView: View {
                     } else {
                         viewModel.isTappedInFeed = true
                     }
-                case .upload:
-                    break
                 case .myPage:
                     myPageStack = .init()
                 }
-            }
-            
-            if newValue == .upload {
-                showCreateTopicView = true
-                previousTab = activeTab
             }
             
             activeTab = newValue
@@ -92,6 +70,5 @@ struct MainTabView: View {
 
 enum Tab {
     case feed
-    case upload
     case myPage
 }
