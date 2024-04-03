@@ -10,7 +10,7 @@ import Kingfisher
 
 struct GridImagesView: View {
     let images: [String]
-    let onTapImage: (String) -> Void
+    let onTapImage: (Int) -> Void
     let type: ContentType
     
     var body: some View {
@@ -26,7 +26,7 @@ struct GridImagesView: View {
             
             if images.count % 2 == 1 {
                 Button {
-                    onTapImage(images[images.count - 1])
+                    onTapImage(images.count - 1)
                 } label: {
                     KFImage(URL(string: images[images.count - 1]))
                         .resizable()
@@ -41,7 +41,7 @@ struct GridImagesView: View {
     
     private func imageView(index: Int) -> some View {
         Button {
-            onTapImage(images[index])
+            onTapImage(index)
         } label: {
             Color.clear
                 .aspectRatio(1, contentMode: .fit)

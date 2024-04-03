@@ -12,7 +12,7 @@ struct TopicCell: View {
     @Environment(\.colorScheme) var colorScheme
     let window = UIApplication.shared.connectedScenes.first as? UIWindowScene
     let topic: Topic
-    let onTapImage: (String) -> Void
+    let onTapImage: (Int) -> Void
     
     var body: some View {
         VStack {

@@ -118,10 +118,10 @@ struct FeedView: View {
                         .id(topID)
                     if let topics = viewModel.topics {
                         ForEach(topics) { topic in
-                            TopicCell(topic: topic) { image in
+                            TopicCell(topic: topic) { index in
                                 if let images = topic.images {
                                     mainTabViewModel.images = images.map({ $0.url })
-                                    mainTabViewModel.selectedImage = image
+                                    mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
                                     withAnimation {
                                         mainTabViewModel.showImageViewer = true
                                     }

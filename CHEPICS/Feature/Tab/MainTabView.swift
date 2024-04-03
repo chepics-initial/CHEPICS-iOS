@@ -34,7 +34,11 @@ struct MainTabView: View {
         }
         .overlay {
             if viewModel.showImageViewer {
-                ImageView()
+                ImageView(onDismiss: {
+                    withAnimation {
+                        viewModel.showImageViewer = false
+                    }
+                })
                     .environmentObject(viewModel)
             }
         }
