@@ -143,10 +143,13 @@ struct ImagePagerState {
     }
     
     mutating func moveToDesiredOffset(pageSize: CGSize, additionalOffset: CGSize = .zero) {
-        offset = CGSize(
-            width: -pageSize.width * CGFloat(currentIndex) + additionalOffset.width,
-            height: additionalOffset.height
-        )
+        let currentWidth = -pageSize.width * CGFloat(currentIndex) + additionalOffset.width
+        if currentWidth <= 0 && currentWidth >= -pageSize.width * CGFloat(pageCount - 1) {
+            offset = CGSize(
+                width: -pageSize.width * CGFloat(currentIndex) + additionalOffset.width,
+                height: additionalOffset.height
+            )
+        }
     }
 }
 
