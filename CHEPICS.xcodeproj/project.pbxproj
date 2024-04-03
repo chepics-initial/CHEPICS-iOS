@@ -75,6 +75,8 @@
 		69EC79572B9C60C60096AA55 /* CreateTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC79562B9C60C60096AA55 /* CreateTopicViewModel.swift */; };
 		69EC795C2B9C63F30096AA55 /* CustomTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC795B2B9C63F30096AA55 /* CustomTextEditor.swift */; };
 		69EC795E2B9C6B3F0096AA55 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC795D2B9C6B3F0096AA55 /* UIApplication+Extension.swift */; };
+		E49366232BBD05830093D286 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = E49366222BBD05830093D286 /* Nuke */; };
+		E49366252BBD05830093D286 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = E49366242BBD05830093D286 /* NukeUI */; };
 		E4C6BE132B6F68EE003B56AD /* CHEPICSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C6BE122B6F68EE003B56AD /* CHEPICSApp.swift */; };
 		E4C6BE152B6F68EE003B56AD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C6BE142B6F68EE003B56AD /* ContentView.swift */; };
 		E4C6BE172B6F68F2003B56AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4C6BE162B6F68F2003B56AD /* Assets.xcassets */; };
@@ -185,8 +187,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E49366232BBD05830093D286 /* Nuke in Frameworks */,
 				6916B39A2BAAE60B009A8670 /* Kingfisher in Frameworks */,
 				25862EBF2BBB7D9700FC4225 /* SwiftUIIntrospect in Frameworks */,
+				E49366252BBD05830093D286 /* NukeUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +584,8 @@
 			packageProductDependencies = (
 				6916B3992BAAE60B009A8670 /* Kingfisher */,
 				25862EBE2BBB7D9700FC4225 /* SwiftUIIntrospect */,
+				E49366222BBD05830093D286 /* Nuke */,
+				E49366242BBD05830093D286 /* NukeUI */,
 			);
 			productName = CHEPICS;
 			productReference = E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */;
@@ -656,6 +662,7 @@
 			packageReferences = (
 				6916B3982BAAE60B009A8670 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				25862EBD2BBB7D9700FC4225 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				E49366212BBD05830093D286 /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			productRefGroup = E4C6BE102B6F68EE003B56AD /* Products */;
 			projectDirPath = "";
@@ -1118,6 +1125,14 @@
 				minimumVersion = 7.11.0;
 			};
 		};
+		E49366212BBD05830093D286 /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1130,6 +1145,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6916B3982BAAE60B009A8670 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		E49366222BBD05830093D286 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E49366212BBD05830093D286 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		E49366242BBD05830093D286 /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E49366212BBD05830093D286 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
