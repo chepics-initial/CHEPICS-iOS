@@ -236,6 +236,14 @@ private struct ImageGestureModifier: ViewModifier {
             .clipShape(Rectangle())
             .gesture(dragGesture)
             .simultaneousGesture(pinchGesture)
+            .onTapGesture {
+                if currentScale != 1.0 {
+                    withAnimation {
+                        currentScale = 1.0
+                        currentOffset = .zero
+                    }
+                }
+            }
     }
     
     /// ドラッグ操作の移動量から画像の表示位置（オフセット）を確定させる
