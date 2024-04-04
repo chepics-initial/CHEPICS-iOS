@@ -247,6 +247,8 @@ private struct ImageGestureModifier: ViewModifier {
                     withAnimation {
                         currentScale = 1.0
                         currentOffset = .zero
+                        unclampedOffset = .zero
+                        draggingOverAxis = nil
                     }
                 }
             }
