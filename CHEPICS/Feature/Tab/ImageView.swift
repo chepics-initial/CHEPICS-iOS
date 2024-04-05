@@ -18,10 +18,10 @@ struct ImageView: View {
             GeometryReader { geometry in
                 let pageSize = geometry.size
                 HStack(spacing: 0) {
-                    ForEach(viewModel.images, id: \.self) { imageUrl in
+                    ForEach(viewModel.images.indices, id: \.self) { index in
                         ImagePagerPage(
                             pagerState: $viewModel.pagerState,
-                            imageUrl: URL(string: imageUrl),
+                            imageUrl: URL(string: viewModel.images[index]),
                             pageSize: pageSize,
                             onDismiss: onDismiss
                         )
