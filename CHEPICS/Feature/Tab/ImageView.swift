@@ -22,6 +22,7 @@ struct ImageView: View {
                         ImagePagerPage(
                             pagerState: $viewModel.pagerState,
                             imageUrl: URL(string: viewModel.images[index]),
+                            index: index,
                             pageSize: pageSize,
                             onDismiss: onDismiss
                         )
@@ -40,6 +41,7 @@ struct ImageView: View {
 private struct ImagePagerPage: View {
     @Binding var pagerState: ImagePagerState
     let imageUrl: URL?
+    let index: Int
     let pageSize: CGSize
     let onDismiss: () -> Void
     
@@ -66,6 +68,8 @@ private struct ImagePagerPage: View {
                         ImageGestureModifier(
                             pageSize: pageSize,
                             imageSize: fitImageSize,
+                            index: index,
+                            pagerState: pagerState,
                             onDraggingOver: {
                                 pagerState.moveToDesiredOffset(pageSize: pageSize, additionalOffset: $0)
                             },
@@ -156,6 +160,8 @@ struct ImagePagerState {
 private struct ImageGestureModifier: ViewModifier {
     let pageSize: CGSize
     let imageSize: CGSize
+    let index: Int
+    let pagerState: ImagePagerState
     
     // ✅ 画像端を超えてドラッグした際の移動量をコールバックで受け取れるようにしている
     let onDraggingOver: (CGSize) -> Void
@@ -170,11 +176,13 @@ private struct ImageGestureModifier: ViewModifier {
     @State private var previousTranslation = CGSize.zero
     
     @State private var draggingOverAxis: DraggingOverAxis?
+    @State private var isDragging = false
     
     // ドラッグ操作用の Gesture
     var dragGesture: some Gesture {
         DragGesture(coordinateSpace: .global)
             .onChanged { value in
+                isDragging = true
                 handleDragGestureValueChanged(value)
             }
             .onEnded { value in
@@ -199,6 +207,7 @@ private struct ImageGestureModifier: ViewModifier {
                 }
                 
                 draggingOverAxis = nil
+                isDragging = false
             }
     }
     // ピンチインでの拡大・縮小操作用の Gesture
@@ -206,16 +215,20 @@ private struct ImageGestureModifier: ViewModifier {
         if #available(iOS 17.0, *) {
             return MagnifyGesture()
                 .onChanged { value in
-                    let delta = value.magnification / previousScale
-                    previousScale = value.magnification
-                    currentScale = clamp(min: 0.8, val: currentScale * delta, max: 3.0)
+                    if pagerState.currentIndex == index && !isDragging {
+                        let delta = value.magnification / previousScale
+                        previousScale = value.magnification
+                        currentScale = clamp(min: 0.8, val: currentScale * delta, max: 3.0)
+                    }
                 }
                 .onEnded { value in
-                    let delta = value.magnification / previousScale
-                    previousScale = 1.0
-                    withAnimation {
-                        currentScale = clamp(min: 1.0, val: currentScale * delta, max: 2.5)
-                        currentOffset = clampInDraggableRange(offset: currentOffset)
+                    if pagerState.currentIndex == index && !isDragging {
+                        let delta = value.magnification / previousScale
+                        previousScale = 1.0
+                        withAnimation {
+                            currentScale = clamp(min: 1.0, val: currentScale * delta, max: 2.5)
+                            currentOffset = clampInDraggableRange(offset: currentOffset)
+                        }
                     }
                 }
         } else {
