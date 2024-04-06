@@ -26,8 +26,8 @@ import Foundation
     @Published private(set) var comments: [Comment]?
     @Published private(set) var topicUIState: UIState = .loading
     @Published private(set) var commentUIState: UIState = .loading
-    @Published private(set) var isTopicOnAppearFinished = false
-    @Published private(set) var isCommentOnAppearFinished = false
+    private var isTopicOnAppearFinished = false
+    private var isCommentOnAppearFinished = false
     
     private let feedUseCase: any FeedUseCase
     

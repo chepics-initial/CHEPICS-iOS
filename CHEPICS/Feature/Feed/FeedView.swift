@@ -13,8 +13,8 @@ struct FeedView: View {
     @StateObject var viewModel: FeedViewModel
     @Environment(\.colorScheme) var colorScheme
     @State private var showCreateTopicView = false
-    let topID = "topID"
-    let commentID = "commentID"
+    private let topicID = "topicID"
+    private let commentID = "commentID"
     
     var body: some View {
         VStack {
@@ -119,12 +119,14 @@ struct FeedView: View {
                 .padding(.bottom, 16)
                 .padding(.trailing, 16)
             case .failure:
-                Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity)
-                    .padding(16)
-                
-                Spacer()
+                VStack {
+                    Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
+                        .padding(16)
+                    
+                    Spacer()
+                }
             }
         }
     }
@@ -157,12 +159,14 @@ struct FeedView: View {
                 .padding(.bottom, 16)
                 .padding(.trailing, 16)
             case .failure:
-                Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity)
-                    .padding(16)
-                
-                Spacer()
+                VStack {
+                    Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
+                        .padding(16)
+                    
+                    Spacer()
+                }
             }
         }
     }
@@ -172,7 +176,7 @@ struct FeedView: View {
             ScrollView {
                 LazyVStack {
                     EmptyView()
-                        .id(topID)
+                        .id(topicID)
                     if let topics = viewModel.topics {
                         ForEach(topics) { topic in
                             TopicCell(topic: topic) { index in
@@ -191,7 +195,7 @@ struct FeedView: View {
             .onChange(of: mainTabViewModel.isTappedInFeed) { newValue in
                 if newValue && viewModel.selectedTab == .topics {
                     withAnimation {
-                        reader.scrollTo(topID)
+                        reader.scrollTo(topicID)
                         mainTabViewModel.isTappedInFeed = false
                     }
                 }
