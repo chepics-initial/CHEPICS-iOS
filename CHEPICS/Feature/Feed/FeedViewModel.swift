@@ -12,16 +12,22 @@ import Foundation
         didSet {
             switch selectedTab {
             case .topics:
-                if topicUIState != .success {
+                if topicUIState != .success || !isTopicOnAppearFinished {
                     Task { await fetchTopics() }
                 }
             case .comments:
-                return 
+                if commentUIState != .success || !isCommentOnAppearFinished {
+                    Task { await fetchComments() }
+                }
             }
         }
     }
-    @Published var topics: [Topic]?
+    @Published private(set) var topics: [Topic]?
+    @Published private(set) var comments: [Comment]?
     @Published private(set) var topicUIState: UIState = .loading
+    @Published private(set) var commentUIState: UIState = .loading
+    @Published private(set) var isTopicOnAppearFinished = false
+    @Published private(set) var isCommentOnAppearFinished = false
     
     private let feedUseCase: any FeedUseCase
     
@@ -37,6 +43,7 @@ import Foundation
         if topicUIState != .success {
             topicUIState = .loading
         }
+        isTopicOnAppearFinished = true
         switch await feedUseCase.fetchFavoriteTopics() {
         case .success(let topics):
             self.topics = topics
@@ -44,6 +51,21 @@ import Foundation
         case .failure:
             topicUIState = .failure
         }
+    }
+    
+    func fetchComments() async {
+        if commentUIState != .success {
+            commentUIState = .loading
+        }
+        isCommentOnAppearFinished = true
+        try! await Task.sleep(nanoseconds: 1_000_000_000)
+        comments = [mockComment1, mockComment2, mockComment3, mockComment4]
+        commentUIState = .success
+    }
+    
+    func onDisappear() {
+        isTopicOnAppearFinished = false
+        isCommentOnAppearFinished = false
     }
 }
 

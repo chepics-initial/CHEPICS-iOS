@@ -10,7 +10,6 @@ import Kingfisher
 
 struct TopicCell: View {
     @Environment(\.colorScheme) var colorScheme
-    let window = UIApplication.shared.connectedScenes.first as? UIWindowScene
     let topic: Topic
     let onTapImage: (Int) -> Void
     
@@ -77,7 +76,10 @@ struct TopicCell: View {
             }
             .padding(.horizontal, 16)
             
-            Divider()
+            Rectangle()
+                .frame(maxWidth: .infinity)
+                .frame(height: 1)
+                .foregroundStyle(.gray)
         }
     }
 }

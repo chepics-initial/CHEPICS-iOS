@@ -14,58 +14,35 @@ struct FeedView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var showCreateTopicView = false
     let topID = "topID"
+    let commentID = "commentID"
     
     var body: some View {
         VStack {
             headerTab
-                        
-            switch viewModel.topicUIState {
-            case .loading:
-                LoadingView(showBackgroundColor: false)
-                    .frame(maxHeight: .infinity)
-            case .success:
-                ZStack(alignment: .bottomTrailing) {
-                    VStack {
-                        TabView(selection: $viewModel.selectedTab) {
-                            topicListView
-                                .tag(FeedTabType.topics)
-                            
-                            Text("comments")
-                                .tag(FeedTabType.comments)
-                        }
-                        .introspect(.tabView, on: .iOS(.v16, .v17)) { tabView in
-                            tabView.tabBar.isHidden = true
-                        }
-                        
-                        Spacer()
-                    }
-                    
-                    Button(action: {
-                        showCreateTopicView = true
-                    }, label: {
-                        Image(systemName: "plus")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 24)
-                            .foregroundStyle(.white)
-                            .padding()
-                            .background(Color.blue)
-                            .clipShape(Circle())
-                    })
-                    .padding(.bottom, 16)
-                    .padding(.trailing, 16)
-                }
-            case .failure:
-                Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity)
-                    .padding(16)
+            
+            TabView(selection: $viewModel.selectedTab) {
+                topicContentView
+                    .tag(FeedTabType.topics)
                 
-                Spacer()
+                commentContentView
+                    .tag(FeedTabType.comments)
+            }
+            .introspect(.tabView, on: .iOS(.v16, .v17)) { tabView in
+                tabView.tabBar.isHidden = true
             }
         }
         .onAppear {
-            Task { await viewModel.fetchTopics() }
+            Task {
+                switch viewModel.selectedTab {
+                case .topics:
+                    await viewModel.fetchTopics()
+                case .comments:
+                    await viewModel.fetchComments()
+                }
+            }
+        }
+        .onDisappear {
+            viewModel.onDisappear()
         }
         .fullScreenCover(isPresented: $showCreateTopicView, content: {
             NavigationStack {
@@ -87,7 +64,11 @@ struct FeedView: View {
                                 mainTabViewModel.isTappedInFeed = true
                             }
                         case .comments:
-                            break
+                            if viewModel.commentUIState != .success {
+                                Task { await viewModel.fetchComments() }
+                            } else {
+                                mainTabViewModel.isTappedInFeed = true
+                            }
                         }
                     } else {
                         viewModel.selectTab(type: type)
@@ -105,7 +86,83 @@ struct FeedView: View {
                     .frame(maxWidth: .infinity)
                     .foregroundStyle(viewModel.selectedTab == type ? Color.getDefaultColor(for: colorScheme) : .gray)
                 }
-
+                
+            }
+        }
+    }
+    
+    private var topicContentView: some View {
+        ZStack(alignment: .bottomTrailing) {
+            switch viewModel.topicUIState {
+            case .loading:
+                LoadingView(showBackgroundColor: false)
+                    .frame(maxHeight: .infinity)
+            case .success:
+                VStack {
+                    topicListView
+                    
+                    Spacer()
+                }
+                
+                Button(action: {
+                    showCreateTopicView = true
+                }, label: {
+                    Image(systemName: "plus")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24)
+                        .foregroundStyle(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .clipShape(Circle())
+                })
+                .padding(.bottom, 16)
+                .padding(.trailing, 16)
+            case .failure:
+                Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+                    .padding(16)
+                
+                Spacer()
+            }
+        }
+    }
+    
+    private var commentContentView: some View {
+        ZStack(alignment: .bottomTrailing) {
+            switch viewModel.commentUIState {
+            case .loading:
+                LoadingView(showBackgroundColor: false)
+                    .frame(maxHeight: .infinity)
+            case .success:
+                VStack {
+                    commentListView
+                    
+                    Spacer()
+                }
+                
+                Button(action: {
+                    showCreateTopicView = true
+                }, label: {
+                    Image(systemName: "plus")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24)
+                        .foregroundStyle(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .clipShape(Circle())
+                })
+                .padding(.bottom, 16)
+                .padding(.trailing, 16)
+            case .failure:
+                Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+                    .padding(16)
+                
+                Spacer()
             }
         }
     }
@@ -132,7 +189,7 @@ struct FeedView: View {
                 }
             }
             .onChange(of: mainTabViewModel.isTappedInFeed) { newValue in
-                if newValue {
+                if newValue && viewModel.selectedTab == .topics {
                     withAnimation {
                         reader.scrollTo(topID)
                         mainTabViewModel.isTappedInFeed = false
@@ -141,6 +198,42 @@ struct FeedView: View {
             }
             .refreshable {
                 Task { await viewModel.fetchTopics() }
+            }
+        }
+    }
+    
+    private var commentListView: some View {
+        ScrollViewReader { reader in
+            ScrollView {
+                LazyVStack {
+                    EmptyView()
+                        .id(commentID)
+                    
+                    if let comments = viewModel.comments {
+                        ForEach(comments) { comment in
+                            CommentCell(comment: comment) { index in
+                                if let images = comment.images {
+                                    mainTabViewModel.images = images.map({ $0.url })
+                                    mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                                    withAnimation {
+                                        mainTabViewModel.showImageViewer = true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .onChange(of: mainTabViewModel.isTappedInFeed) { newValue in
+                if newValue && viewModel.selectedTab == .comments {
+                    withAnimation {
+                        reader.scrollTo(commentID)
+                        mainTabViewModel.isTappedInFeed = false
+                    }
+                }
+            }
+            .refreshable {
+                Task { await viewModel.fetchComments() }
             }
         }
     }

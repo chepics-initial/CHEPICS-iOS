@@ -19,8 +19,8 @@ struct TopicImage: Decodable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case id = "topicImageId"
+        case id = "topic_image_id"
         case topicId
-        case url = "imageUrl"
+        case url = "image_url"
     }
 }

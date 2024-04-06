@@ -77,6 +77,8 @@
 		69EC795E2B9C6B3F0096AA55 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69EC795D2B9C6B3F0096AA55 /* UIApplication+Extension.swift */; };
 		E49366232BBD05830093D286 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = E49366222BBD05830093D286 /* Nuke */; };
 		E49366252BBD05830093D286 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = E49366242BBD05830093D286 /* NukeUI */; };
+		E49366272BC0B6670093D286 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49366262BC0B6670093D286 /* Comment.swift */; };
+		E49366292BC0B7E50093D286 /* CommentImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49366282BC0B7E50093D286 /* CommentImage.swift */; };
 		E4C6BE132B6F68EE003B56AD /* CHEPICSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C6BE122B6F68EE003B56AD /* CHEPICSApp.swift */; };
 		E4C6BE152B6F68EE003B56AD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C6BE142B6F68EE003B56AD /* ContentView.swift */; };
 		E4C6BE172B6F68F2003B56AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4C6BE162B6F68F2003B56AD /* Assets.xcassets */; };
@@ -170,6 +172,8 @@
 		69EC79562B9C60C60096AA55 /* CreateTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTopicViewModel.swift; sourceTree = "<group>"; };
 		69EC795B2B9C63F30096AA55 /* CustomTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextEditor.swift; sourceTree = "<group>"; };
 		69EC795D2B9C6B3F0096AA55 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
+		E49366262BC0B6670093D286 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		E49366282BC0B7E50093D286 /* CommentImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentImage.swift; sourceTree = "<group>"; };
 		E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHEPICS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4C6BE122B6F68EE003B56AD /* CHEPICSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHEPICSApp.swift; sourceTree = "<group>"; };
 		E4C6BE142B6F68EE003B56AD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -262,11 +266,11 @@
 		2566F5322B89F5E900CAD739 /* CommonParts */ = {
 			isa = PBXGroup;
 			children = (
-				2566F5352B89F62A00CAD739 /* LoadingView.swift */,
+				25862EB82BBA2F2300FC4225 /* CommentCell.swift */,
 				69EC795B2B9C63F30096AA55 /* CustomTextEditor.swift */,
 				252D71542BABEBF600485877 /* GridImagesView.swift */,
+				2566F5352B89F62A00CAD739 /* LoadingView.swift */,
 				252D713C2BA918ED00485877 /* TopicCell.swift */,
-				25862EB82BBA2F2300FC4225 /* CommentCell.swift */,
 			);
 			path = CommonParts;
 			sourceTree = "<group>";
@@ -300,15 +304,15 @@
 		2583F23C2B6F6B2400E68CAD /* Feature */ = {
 			isa = PBXGroup;
 			children = (
-				25F67D732BAD0AD5007406FC /* Profile */,
-				252D71372BA913B400485877 /* Tab */,
+				2566F53E2B8A152400CAD739 /* Constants.swift */,
+				259B51BA2B860A5B00978256 /* Authentication */,
+				2566F5322B89F5E900CAD739 /* CommonParts */,
 				252D71222BA837E300485877 /* Controller */,
 				69EC79532B9C609B0096AA55 /* CreateTopic */,
-				2566F5322B89F5E900CAD739 /* CommonParts */,
 				2566F5252B898C5400CAD739 /* Extension */,
-				259B51BA2B860A5B00978256 /* Authentication */,
 				2583F2442B6F6CBF00E68CAD /* Feed */,
-				2566F53E2B8A152400CAD739 /* Constants.swift */,
+				25F67D732BAD0AD5007406FC /* Profile */,
+				252D71372BA913B400485877 /* Tab */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -316,9 +320,9 @@
 		2583F23D2B6F6B2B00E68CAD /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				256C67152BAD6BA600260ADE /* Profile */,
-				6916B39B2BAAED5D009A8670 /* Feed */,
 				69EC79322B8ABDE10096AA55 /* Authentication */,
+				6916B39B2BAAED5D009A8670 /* Feed */,
+				256C67152BAD6BA600260ADE /* Profile */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -326,11 +330,11 @@
 		2583F23E2B6F6B4400E68CAD /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				2583F2402B6F6B5C00E68CAD /* DataSource */,
-				69EC79382B8AC07A0096AA55 /* CreateUserRepository.swift */,
 				252D71272BA839CD00485877 /* AuthRepository.swift */,
+				69EC79382B8AC07A0096AA55 /* CreateUserRepository.swift */,
 				252D712F2BA83E4500485877 /* RequestHeaderRepository.swift */,
 				6916B3962BAAE3CA009A8670 /* TopicRepository.swift */,
+				2583F2402B6F6B5C00E68CAD /* DataSource */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -375,12 +379,14 @@
 			isa = PBXGroup;
 			children = (
 				2566F5422B8A176A00CAD739 /* APIError.swift */,
+				E49366262BC0B6670093D286 /* Comment.swift */,
+				E49366282BC0B7E50093D286 /* CommentImage.swift */,
 				252D71312BA83ED200485877 /* HeaderKeys.swift */,
 				6916B3832BAAD5AB009A8670 /* Items.swift */,
-				6916B3852BAAD8A6009A8670 /* Topic.swift */,
-				6916B3872BAAD95C009A8670 /* User.swift */,
-				6916B38B2BAADA96009A8670 /* TopicImage.swift */,
 				6916B38D2BAADBC4009A8670 /* PickSet.swift */,
+				6916B3852BAAD8A6009A8670 /* Topic.swift */,
+				6916B38B2BAADA96009A8670 /* TopicImage.swift */,
+				6916B3872BAAD95C009A8670 /* User.swift */,
 			);
 			path = DomainModel;
 			sourceTree = "<group>";
@@ -523,19 +529,19 @@
 		E4C6BE112B6F68EE003B56AD /* CHEPICS */ = {
 			isa = PBXGroup;
 			children = (
-				6916B38F2BAADD73009A8670 /* Mock */,
-				2566F5442B8AA62100CAD739 /* UICommon */,
-				2583F2432B6F6B9400E68CAD /* DomainModel */,
-				2583F23F2B6F6B5700E68CAD /* Infra */,
-				2583F23C2B6F6B2400E68CAD /* Feature */,
-				2583F23E2B6F6B4400E68CAD /* Repository */,
-				2583F23D2B6F6B2B00E68CAD /* UseCase */,
+				252D71202BA7FFB000485877 /* AppDelegate.swift */,
 				E4C6BE122B6F68EE003B56AD /* CHEPICSApp.swift */,
 				E4C6BE142B6F68EE003B56AD /* ContentView.swift */,
-				E4C6BE162B6F68F2003B56AD /* Assets.xcassets */,
-				E4C6BE182B6F68F2003B56AD /* Preview Content */,
 				2566F52A2B898D6300CAD739 /* DIFactory.swift */,
-				252D71202BA7FFB000485877 /* AppDelegate.swift */,
+				E4C6BE162B6F68F2003B56AD /* Assets.xcassets */,
+				2583F2432B6F6B9400E68CAD /* DomainModel */,
+				2583F23C2B6F6B2400E68CAD /* Feature */,
+				2583F23F2B6F6B5700E68CAD /* Infra */,
+				6916B38F2BAADD73009A8670 /* Mock */,
+				E4C6BE182B6F68F2003B56AD /* Preview Content */,
+				2583F23E2B6F6B4400E68CAD /* Repository */,
+				2566F5442B8AA62100CAD739 /* UICommon */,
+				2583F23D2B6F6B2B00E68CAD /* UseCase */,
 			);
 			path = CHEPICS;
 			sourceTree = "<group>";
@@ -707,9 +713,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6916B3882BAAD95C009A8670 /* User.swift in Sources */,
+				E49366272BC0B6670093D286 /* Comment.swift in Sources */,
 				69EC79522B8B67B70096AA55 /* CompleteRegistrationView.swift in Sources */,
 				69EC794B2B8B61EA0096AA55 /* NameRegistrationView.swift in Sources */,
 				252D71212BA7FFB100485877 /* AppDelegate.swift in Sources */,
+				E49366292BC0B7E50093D286 /* CommentImage.swift in Sources */,
 				2566F53D2B8A148100CAD739 /* OneTimeCodeViewModel.swift in Sources */,
 				6916B3972BAAE3CA009A8670 /* TopicRepository.swift in Sources */,
 				252D712C2BA83CC500485877 /* BFFAuthTokenStoreLocalSource.swift in Sources */,
@@ -935,7 +943,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.9;
+				CURRENT_PROJECT_VERSION = 0.0.10;
 				DEVELOPMENT_ASSET_PATHS = "\"CHEPICS/Preview Content\"";
 				DEVELOPMENT_TEAM = 5H954Y6JS7;
 				ENABLE_PREVIEWS = YES;
@@ -968,7 +976,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.9;
+				CURRENT_PROJECT_VERSION = 0.0.10;
 				DEVELOPMENT_ASSET_PATHS = "\"CHEPICS/Preview Content\"";
 				DEVELOPMENT_TEAM = 5H954Y6JS7;
 				ENABLE_PREVIEWS = YES;

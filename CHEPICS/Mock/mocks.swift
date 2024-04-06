@@ -28,6 +28,16 @@ let mockTopicImage2 = TopicImage(id: "2", topicId: "1", url: "https://realsound.
 let mockTopicImage3 = TopicImage(id: "3", topicId: "1", url: "https://eiga.k-img.com/images/anime/news/117485/photo/46fcf777bd7b0902/640.jpg?1669974887")
 let mockTopicImage4 = TopicImage(id: "4", topicId: "1", url: "https://netofuli.com/wp-content/uploads/2022/12/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2022-12-17-18.40.30.jpg")
 
+let mockComment1 = Comment(id: "1", parentId: "1", topicId: "1", setId: "1", comment: "夢見る星: 希望を導く星の輝き", link: "https://www.google.com/", images: [mockCommentImage1, mockCommentImage2, mockCommentImage3, mockCommentImage4], votes: 4353, user: mockUser15, registerTime: getPreviousDate(value: 1), updateTime: Date())
+let mockComment2 = Comment(id: "2", parentId: "1", topicId: "1", setId: "1", comment: "氷の領域: 凍てつく永遠の美しき氷の世界", link: "https://www.google.com/", images: [mockCommentImage1, mockCommentImage2, mockCommentImage4], votes: 9876, user: mockUser14, registerTime: getPreviousDate(value: 1), updateTime: Date())
+let mockComment3 = Comment(id: "3", parentId: "1", topicId: "1", setId: "1", comment: "幽玄の旅路: 時間と空間を超えた神秘の旅", link: "https://www.google.com/", images: [mockCommentImage3], votes: 1234, user: mockUser13, registerTime: getPreviousDate(value: 1), updateTime: Date())
+let mockComment4 = Comment(id: "4", parentId: "1", topicId: "1", setId: "1", comment: "魔法の森の物語: 妖精たちの守り人", link: "https://www.google.com/", images: [mockCommentImage3, mockCommentImage4, mockCommentImage2], votes: 4353, user: mockUser12, registerTime: getPreviousDate(value: 1), updateTime: Date())
+
+let mockCommentImage1 = CommentImage(id: "1", commentId: "1", url: "https://doremifahiroba.com/wp-content/uploads/2022/11/EP01_30-1024x576.jpg")
+let mockCommentImage2 = CommentImage(id: "2", commentId: "1", url: "https://realsound.jp/wp-content/uploads/2023/01/20230121-gudetama-07.jpg")
+let mockCommentImage3 = CommentImage(id: "3", commentId: "1", url: "https://eiga.k-img.com/images/anime/news/117485/photo/46fcf777bd7b0902/640.jpg?1669974887")
+let mockCommentImage4 = CommentImage(id: "4", commentId: "1", url: "https://netofuli.com/wp-content/uploads/2022/12/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2022-12-17-18.40.30.jpg")
+
 let mockUser1 = User(id: "1", username: "taro", fullname: "太郎", profileImageUrl: "https://animeanime.jp/imgs/ogp_f/303592.jpg")
 let mockUser2 = User(id: "2", username: "Sakura", fullname: "さくら", profileImageUrl: "https://d1uzk9o9cg136f.cloudfront.net/f/16783489/rc/2022/10/25/b86bd6fa3f0fc8c9cb3aaa5eb26bfd60066a598e.jpg")
 let mockUser3 = User(id: "3", username: "Yuta", fullname: "ゆうた", profileImageUrl: "https://static.gltjp.com/glt/prd/data/article/21000/20584/20240112_113107_c7298818_w1920.jpg")

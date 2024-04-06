@@ -55,7 +55,12 @@ struct GridImagesView: View {
     }
     
     private func getHeight(_ type: ContentType) -> CGFloat {
-        (getRect().width - 40) / 2
+        switch type {
+        case .topic:
+            return (getRect().width - 40) / 2
+        case .comment:
+            return (getRect().width - 80) / 2
+        }
     }
 }
 

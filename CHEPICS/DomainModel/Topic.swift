@@ -33,13 +33,13 @@ struct Topic: Decodable, Identifiable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case id = "topicId"
-        case title = "topicName"
-        case link = "topicLink"
-        case description = "topicDescription"
-        case images = "topicImage"
-        case user = "createUser"
-        case votes = "userPickCount"
+        case id = "topic_id"
+        case title = "topic_name"
+        case link = "topic_link"
+        case description = "topic_description"
+        case images = "topic_image"
+        case user = "create_user"
+        case votes = "user_pick_count"
         case set
         case registerTime
         case updateTime
