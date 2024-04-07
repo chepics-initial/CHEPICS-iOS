@@ -12,6 +12,8 @@ struct ProfileView: View {
     @EnvironmentObject var mainTabViewModel: MainTabViewModel
     @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: ProfileViewModel
+    @State private var isTopicTapped = false
+    @State private var isCommentTapped = false
     private let topicID = "topicID"
     private let commentID = "commentID"
     
@@ -119,7 +121,16 @@ struct ProfileView: View {
         HStack(spacing: 0) {
             ForEach(ProfileTabType.allCases, id: \.self) { type in
                 Button {
-                    viewModel.selectTab(type: type)
+                    if viewModel.selectedTab == type {
+                        switch type {
+                        case .topics:
+                            isTopicTapped = true
+                        case .comments:
+                            isCommentTapped = true
+                        }
+                    } else {
+                        viewModel.selectTab(type: type)
+                    }
                 } label: {
                     VStack {
                         Text(type.title)
@@ -184,7 +195,7 @@ struct ProfileView: View {
         ScrollViewReader { reader in
             ScrollView {
                 LazyVStack {
-                    EmptyView()
+                    Text("")
                         .id(topicID)
                     if let topics = viewModel.topics {
                         ForEach(topics) { topic in
@@ -201,6 +212,14 @@ struct ProfileView: View {
                     }
                 }
             }
+            .onChange(of: isTopicTapped) { newValue in
+                if newValue {
+                    withAnimation {
+                        reader.scrollTo(topicID)
+                        isTopicTapped = false
+                    }
+                }
+            }
         }
     }
     
@@ -208,9 +227,8 @@ struct ProfileView: View {
         ScrollViewReader { reader in
             ScrollView {
                 LazyVStack {
-                    EmptyView()
+                    Text("")
                         .id(commentID)
-                    
                     if let comments = viewModel.comments {
                         ForEach(comments) { comment in
                             CommentCell(comment: comment) { index in
@@ -223,6 +241,14 @@ struct ProfileView: View {
                                 }
                             }
                         }
+                    }
+                }
+            }
+            .onChange(of: isCommentTapped) { newValue in
+                if newValue {
+                    withAnimation {
+                        reader.scrollTo(commentID)
+                        isCommentTapped = false
                     }
                 }
             }
