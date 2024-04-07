@@ -201,14 +201,6 @@ struct ProfileView: View {
                     }
                 }
             }
-            .onChange(of: mainTabViewModel.isTappedInFeed) { newValue in
-                if newValue && viewModel.selectedTab == .topics {
-                    withAnimation {
-                        reader.scrollTo(topicID)
-                        mainTabViewModel.isTappedInFeed = false
-                    }
-                }
-            }
         }
     }
     
@@ -231,14 +223,6 @@ struct ProfileView: View {
                                 }
                             }
                         }
-                    }
-                }
-            }
-            .onChange(of: mainTabViewModel.isTappedInFeed) { newValue in
-                if newValue && viewModel.selectedTab == .comments {
-                    withAnimation {
-                        reader.scrollTo(commentID)
-                        mainTabViewModel.isTappedInFeed = false
                     }
                 }
             }
