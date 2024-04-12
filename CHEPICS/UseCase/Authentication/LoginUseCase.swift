@@ -17,7 +17,7 @@ final class LoginUseCaseImpl: LoginUseCase {
     func login(email: String, password: String) async -> Result<Void, APIError> {
         try! await Task.sleep(nanoseconds: 1_000_000_000)
         if email == "aaa" {
-            return .failure(.error)
+            return .failure(.otherError)
         }
         
         return .success(())

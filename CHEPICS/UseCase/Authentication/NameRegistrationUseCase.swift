@@ -17,7 +17,7 @@ final class NameRegistrationUseCaseImpl: NameRegistrationUseCase {
     func registerName(username: String, fullname: String) async -> Result<Void, APIError> {
         try! await Task.sleep(nanoseconds: 1_000_000_000)
         if username == "aaa" {
-            return .failure(.error)
+            return .failure(.otherError)
         }
         
         return .success(())

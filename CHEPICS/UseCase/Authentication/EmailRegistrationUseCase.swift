@@ -8,19 +8,17 @@
 import Foundation
 
 protocol EmailRegistrationUseCase {
-    func verifyEmail(email: String) async -> Result<Void, APIError>
+    func createConfirmCode(email: String) async -> Result<String, APIError>
 }
 
 final class EmailRegistrationUseCaseImpl: EmailRegistrationUseCase {
-    init() {
-        
+    private let authRepository: any AuthRepository
+    
+    init(authRepository: some AuthRepository) {
+        self.authRepository = authRepository
     }
     
-    func verifyEmail(email: String) async -> Result<Void, APIError> {
-        try! await Task.sleep(nanoseconds: 2_000_000_000)
-        if email == "aaa" {
-            return .failure(.error)
-        }
-        return .success(())
+    func createConfirmCode(email: String) async -> Result<String, APIError> {
+        await authRepository.createCode(email: email)
     }
 }

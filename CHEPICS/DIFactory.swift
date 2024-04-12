@@ -16,7 +16,7 @@ extension DIFactory {
     }
     
     static func emailRegistrationUseCase() -> some EmailRegistrationUseCase {
-        EmailRegistrationUseCaseImpl()
+        EmailRegistrationUseCaseImpl(authRepository: sharedAuthRepository)
     }
     
     static func oneTimeCodeUseCase() -> some OneTimeCodeUseCase {
@@ -44,6 +44,10 @@ extension DIFactory {
     
     static let sharedTopicRepository: some TopicRepository = TopicRepositoryImpl(topicDataSource: sharedTopicDataSource)
     
+    static let sharedAuthRepository: some AuthRepository = AuthRepositoryImpl(authDataSource: sharedAuthDataSource)
+    
     // MARK: - DataSource
     static let sharedTopicDataSource: some TopicDataSource = TopicRemoteSource.shared
+    
+    static let sharedAuthDataSource: some AuthDataSource = AuthRemoteSource.shared
 }

@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		251FE41F2BC76192008C3254 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251FE41E2BC76192008C3254 /* API.swift */; };
 		251FE4212BC764C6008C3254 /* UserDefaults+Infra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251FE4202BC764C6008C3254 /* UserDefaults+Infra.swift */; };
+		251FE4232BC79A10008C3254 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251FE4222BC79A10008C3254 /* AuthRepository.swift */; };
+		251FE4252BC79B79008C3254 /* AuthDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251FE4242BC79B79008C3254 /* AuthDataSource.swift */; };
+		251FE4272BC79BB8008C3254 /* AuthRemoteSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251FE4262BC79BB8008C3254 /* AuthRemoteSource.swift */; };
+		251FE42A2BC79C85008C3254 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 251FE4292BC79C85008C3254 /* Alamofire */; };
+		251FE4302BC7A164008C3254 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251FE42F2BC7A164008C3254 /* ErrorResponse.swift */; };
+		251FE4332BC7A365008C3254 /* APIError+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251FE4322BC7A365008C3254 /* APIError+Extension.swift */; };
+		251FE4352BC7A525008C3254 /* URLDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251FE4342BC7A525008C3254 /* URLDefinitions.swift */; };
 		252D71212BA7FFB100485877 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252D71202BA7FFB000485877 /* AppDelegate.swift */; };
 		252D71322BA83ED200485877 /* HeaderKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252D71312BA83ED200485877 /* HeaderKeys.swift */; };
 		252D71392BA913C600485877 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252D71382BA913C600485877 /* MainTabView.swift */; };
@@ -98,9 +105,28 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		251FE42E2BC79DCC008C3254 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		251FE41E2BC76192008C3254 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		251FE4202BC764C6008C3254 /* UserDefaults+Infra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Infra.swift"; sourceTree = "<group>"; };
+		251FE4222BC79A10008C3254 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		251FE4242BC79B79008C3254 /* AuthDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataSource.swift; sourceTree = "<group>"; };
+		251FE4262BC79BB8008C3254 /* AuthRemoteSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRemoteSource.swift; sourceTree = "<group>"; };
+		251FE42F2BC7A164008C3254 /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
+		251FE4322BC7A365008C3254 /* APIError+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIError+Extension.swift"; sourceTree = "<group>"; };
+		251FE4342BC7A525008C3254 /* URLDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDefinitions.swift; sourceTree = "<group>"; };
 		252D71202BA7FFB000485877 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		252D71312BA83ED200485877 /* HeaderKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderKeys.swift; sourceTree = "<group>"; };
 		252D71382BA913C600485877 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -177,6 +203,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				251FE42A2BC79C85008C3254 /* Alamofire in Frameworks */,
 				E49366232BBD05830093D286 /* Nuke in Frameworks */,
 				6916B39A2BAAE60B009A8670 /* Kingfisher in Frameworks */,
 				25862EBF2BBB7D9700FC4225 /* SwiftUIIntrospect in Frameworks */,
@@ -201,6 +228,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		251FE4312BC7A357008C3254 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				251FE4322BC7A365008C3254 /* APIError+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		252D71372BA913B400485877 /* Tab */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,6 +344,7 @@
 				69EC79382B8AC07A0096AA55 /* CreateUserRepository.swift */,
 				6916B3962BAAE3CA009A8670 /* TopicRepository.swift */,
 				2583F2402B6F6B5C00E68CAD /* DataSource */,
+				251FE4222BC79A10008C3254 /* AuthRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -316,6 +352,7 @@
 		2583F23F2B6F6B5700E68CAD /* Infra */ = {
 			isa = PBXGroup;
 			children = (
+				251FE4312BC7A357008C3254 /* Extension */,
 				2583F2412B6F6B6200E68CAD /* LocalSource */,
 				2583F2422B6F6B6700E68CAD /* RemoteSource */,
 			);
@@ -326,6 +363,7 @@
 			isa = PBXGroup;
 			children = (
 				6916B3922BAAE30E009A8670 /* TopicDataSource.swift */,
+				251FE4242BC79B79008C3254 /* AuthDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -343,6 +381,7 @@
 			children = (
 				6916B3942BAAE364009A8670 /* TopicRemoteSource.swift */,
 				251FE41E2BC76192008C3254 /* API.swift */,
+				251FE4262BC79BB8008C3254 /* AuthRemoteSource.swift */,
 			);
 			path = RemoteSource;
 			sourceTree = "<group>";
@@ -359,6 +398,8 @@
 				6916B3852BAAD8A6009A8670 /* Topic.swift */,
 				6916B38B2BAADA96009A8670 /* TopicImage.swift */,
 				6916B3872BAAD95C009A8670 /* User.swift */,
+				251FE42F2BC7A164008C3254 /* ErrorResponse.swift */,
+				251FE4342BC7A525008C3254 /* URLDefinitions.swift */,
 			);
 			path = DomainModel;
 			sourceTree = "<group>";
@@ -552,6 +593,7 @@
 				E4C6BE0B2B6F68EE003B56AD /* Sources */,
 				E4C6BE0C2B6F68EE003B56AD /* Frameworks */,
 				E4C6BE0D2B6F68EE003B56AD /* Resources */,
+				251FE42E2BC79DCC008C3254 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -563,6 +605,7 @@
 				25862EBE2BBB7D9700FC4225 /* SwiftUIIntrospect */,
 				E49366222BBD05830093D286 /* Nuke */,
 				E49366242BBD05830093D286 /* NukeUI */,
+				251FE4292BC79C85008C3254 /* Alamofire */,
 			);
 			productName = CHEPICS;
 			productReference = E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */;
@@ -640,6 +683,7 @@
 				6916B3982BAAE60B009A8670 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				25862EBD2BBB7D9700FC4225 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				E49366212BBD05830093D286 /* XCRemoteSwiftPackageReference "Nuke" */,
+				251FE4282BC79C85008C3254 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = E4C6BE102B6F68EE003B56AD /* Products */;
 			projectDirPath = "";
@@ -684,6 +728,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6916B3882BAAD95C009A8670 /* User.swift in Sources */,
+				251FE4232BC79A10008C3254 /* AuthRepository.swift in Sources */,
 				E49366272BC0B6670093D286 /* Comment.swift in Sources */,
 				69EC79522B8B67B70096AA55 /* CompleteRegistrationView.swift in Sources */,
 				69EC794B2B8B61EA0096AA55 /* NameRegistrationView.swift in Sources */,
@@ -698,12 +743,14 @@
 				2566F5382B89F75B00CAD739 /* EmailRegistrationViewModel.swift in Sources */,
 				259B51C22B860CA000978256 /* RoundButton.swift in Sources */,
 				2566F52D2B89943E00CAD739 /* Color+Extension.swift in Sources */,
+				251FE4272BC79BB8008C3254 /* AuthRemoteSource.swift in Sources */,
 				252D713D2BA918ED00485877 /* TopicCell.swift in Sources */,
 				2566F5412B8A16CE00CAD739 /* EmailRegistrationUseCase.swift in Sources */,
 				69EC794D2B8B61F10096AA55 /* NameRegistrationViewModel.swift in Sources */,
 				256C67142BAD483F00260ADE /* ProfileViewModel.swift in Sources */,
 				6916B3862BAAD8A6009A8670 /* Topic.swift in Sources */,
 				69EC79392B8AC07A0096AA55 /* CreateUserRepository.swift in Sources */,
+				251FE4332BC7A365008C3254 /* APIError+Extension.swift in Sources */,
 				69EC795C2B9C63F30096AA55 /* CustomTextEditor.swift in Sources */,
 				E4C6BE152B6F68EE003B56AD /* ContentView.swift in Sources */,
 				252D71532BABBA5A00485877 /* MainTabViewModel.swift in Sources */,
@@ -714,6 +761,7 @@
 				6916B3932BAAE30E009A8670 /* TopicDataSource.swift in Sources */,
 				2583F2472B6F6CD400E68CAD /* FeedView.swift in Sources */,
 				69EC794F2B8B644F0096AA55 /* NameRegistrationUseCase.swift in Sources */,
+				251FE4302BC7A164008C3254 /* ErrorResponse.swift in Sources */,
 				6916B3842BAAD5AB009A8670 /* Items.swift in Sources */,
 				6916B38E2BAADBC4009A8670 /* PickSet.swift in Sources */,
 				69EC79572B9C60C60096AA55 /* CreateTopicViewModel.swift in Sources */,
@@ -730,6 +778,7 @@
 				69EC79372B8ABEA90096AA55 /* PasswordRegistrationViewModel.swift in Sources */,
 				69EC79552B9C60B50096AA55 /* CreateTopicView.swift in Sources */,
 				6916B38C2BAADA96009A8670 /* TopicImage.swift in Sources */,
+				251FE4252BC79B79008C3254 /* AuthDataSource.swift in Sources */,
 				6916B39F2BAAF4B3009A8670 /* Int+Extension.swift in Sources */,
 				6916B39D2BAAED64009A8670 /* FeedUseCase.swift in Sources */,
 				69EC79352B8ABE750096AA55 /* PasswordRegistrationView.swift in Sources */,
@@ -740,6 +789,7 @@
 				2566F5462B8AA63D00CAD739 /* UIViewControllerLifeCycleRepresentable.swift in Sources */,
 				2566F52B2B898D6300CAD739 /* DIFactory.swift in Sources */,
 				252D71322BA83ED200485877 /* HeaderKeys.swift in Sources */,
+				251FE4352BC7A525008C3254 /* URLDefinitions.swift in Sources */,
 				6916B3912BAADD7D009A8670 /* mocks.swift in Sources */,
 				E4C6BE132B6F68EE003B56AD /* CHEPICSApp.swift in Sources */,
 				25C88DB02B8C33FD002455A3 /* IconRegistrationViewModel.swift in Sources */,
@@ -1081,6 +1131,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		251FE4282BC79C85008C3254 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
 		25862EBD2BBB7D9700FC4225 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
@@ -1108,6 +1166,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		251FE4292BC79C85008C3254 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 251FE4282BC79C85008C3254 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		25862EBE2BBB7D9700FC4225 /* SwiftUIIntrospect */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 25862EBD2BBB7D9700FC4225 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;

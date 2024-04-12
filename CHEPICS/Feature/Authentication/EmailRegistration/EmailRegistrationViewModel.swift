@@ -24,19 +24,21 @@ import Foundation
     
     func onTapButton() async {
         isLoading = true
-        let result = await emailRegistrationUseCase.verifyEmail(email: email)
+        let result = await emailRegistrationUseCase.createConfirmCode(email: email)
         isLoading = false
         switch result {
-        case .success:
+        case .success(let email):
+            self.email = email
             isPresented = true
-        case .failure:
+        case .failure(let error):
+            // TODO: - Errorによる表示の出しわけ
             showAlert = true
         }
     }
 }
 
 final class EmailRegistrationUseCase_Previews: EmailRegistrationUseCase {
-    func verifyEmail(email: String) async -> Result<Void, APIError> {
-        .success(())
+    func createConfirmCode(email: String) async -> Result<String, APIError> {
+        .success((""))
     }
 }

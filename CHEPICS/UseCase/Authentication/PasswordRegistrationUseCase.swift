@@ -21,7 +21,7 @@ final class PasswordRegistrationUseCaseImpl: PasswordRegistrationUseCase {
     func registerPassword(password: String) async -> Result<Void, APIError> {
         try! await Task.sleep(nanoseconds: 1_000_000_000)
         if password == "00000000" {
-            return .failure(.error)
+            return .failure(.otherError)
         }
         
         return .success(())
