@@ -36,19 +36,20 @@ import Foundation
     
     func onTapNextButton() async {
         isLoading = true
-        let result = await oneTimeCodeUseCase.verifyCode(code: code)
+        let result = await oneTimeCodeUseCase.verifyCode(email: email, code: code)
         isLoading = false
         switch result {
         case .success:
             isPresented = true
-        case .failure:
+        case .failure(let error):
+            // TODO: - Errorによる表示の出しわけ
             showFailureAlert = true
         }
     }
 }
 
 final class OneTimeCodeUseCase_Previews: OneTimeCodeUseCase {
-    func verifyCode(code: String) async -> Result<Void, APIError> {
-        .success(())
+    func verifyCode(email: String, code: String) async -> Result<String, APIError> {
+        .success("")
     }
 }

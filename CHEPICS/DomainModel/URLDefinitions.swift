@@ -21,4 +21,5 @@ enum ServerDirection: String {
 
 enum ServerAPI: String {
     case createCode = "/v1/chepics/auth/email-confirm-code"
+    case checkCode = "/v1/chepics/auth/email-confirm-code/check"
 }

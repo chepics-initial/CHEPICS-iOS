@@ -20,7 +20,7 @@ extension DIFactory {
     }
     
     static func oneTimeCodeUseCase() -> some OneTimeCodeUseCase {
-        OneTimeCodeUseCaseImpl()
+        OneTimeCodeUseCaseImpl(authRepository: sharedAuthRepository)
     }
     
     static func passwordRegistrationUseCase() -> some PasswordRegistrationUseCase {

@@ -15,4 +15,8 @@ final class AuthRemoteSource: AuthDataSource {
     func createCode(email: String) async -> Result<String, APIError> {
         await API.postRequest(ServerDirection.production.urlString(for: .createCode), responseType: String.self, httpBody: email)
     }
+    
+    func checkCode(_ body: CheckCodeBody) async -> Result<String, APIError> {
+        await API.postRequest(ServerDirection.production.urlString(for: .checkCode), responseType: String.self, httpBody: body)
+    }
 }

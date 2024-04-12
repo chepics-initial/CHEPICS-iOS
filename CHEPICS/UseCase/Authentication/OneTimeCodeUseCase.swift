@@ -8,17 +8,17 @@
 import Foundation
 
 protocol OneTimeCodeUseCase {
-    func verifyCode(code: String) async -> Result<Void, APIError>
+    func verifyCode(email: String, code: String) async -> Result<String, APIError>
 }
 
 final class OneTimeCodeUseCaseImpl: OneTimeCodeUseCase {
-    init() {}
+    private let authRepository: any AuthRepository
     
-    func verifyCode(code: String) async -> Result<Void, APIError> {
-        try! await Task.sleep(nanoseconds: 2_000_000_000)
-        if code == "9999" {
-            return .failure(.otherError)
-        }
-        return .success(())
+    init(authRepository: some AuthRepository) {
+        self.authRepository = authRepository
+    }
+    
+    func verifyCode(email: String, code: String) async -> Result<String, APIError> {
+        await authRepository.checkCode(CheckCodeBody(email: email, code: code))
     }
 }
