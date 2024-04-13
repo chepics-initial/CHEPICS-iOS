@@ -28,11 +28,11 @@ enum API {
     // TODO: - 確認事項が決まり次第修正必須
     private static func makeValidation() -> DataRequest.Validation {
         { _, response, data in
+            debugPrint(response)
             guard let data,
                   let errorResponse = try? decoder.decode(ErrorResponse.self, from: data) else {
                 return .success(())
             }
-//            handleCommonErrorResponse(code: errorResponse.code)
             return .failure(APIError.errorResponse(errorResponse, response.statusCode))
         }
     }

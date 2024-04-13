@@ -75,13 +75,23 @@ struct OneTimeCodeView: View {
                 LoadingView()
             }
         }
-        .alert("エラー", isPresented: $viewModel.showFailureAlert, actions: {
+        .alert("通信エラー", isPresented: $viewModel.showFailureAlert, actions: {
             Button {
                 isFocused = true
             } label: {
                 Text("OK")
             }
-
+        }, message: {
+            Text("インターネット環境を確認して、もう一度お試しください。")
+        })
+        .alert("認証に失敗しました", isPresented: $viewModel.showInvalidAlert, actions: {
+            Button {
+                isFocused = true
+            } label: {
+                Text("OK")
+            }
+        }, message: {
+            Text("不適切なコードです")
         })
         .navigationDestination(isPresented: $viewModel.isPresented) {
             PasswordRegistrationView(viewModel: PasswordRegistrationViewModel(passwordRegistrationUseCase: DIFactory.passwordRegistrationUseCase()))

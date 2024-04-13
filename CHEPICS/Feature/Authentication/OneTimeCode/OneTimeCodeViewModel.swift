@@ -13,6 +13,7 @@ import Foundation
     @Published private(set) var isLoading: Bool = false
     @Published var isPresented: Bool = false
     @Published var showFailureAlert: Bool = false
+    @Published var showInvalidAlert: Bool = false
     var isActive: Bool {
         code.count >= Constants.oneTimeCodeCount
     }
@@ -42,8 +43,17 @@ import Foundation
         case .success:
             isPresented = true
         case .failure(let error):
-            // TODO: - Errorによる表示の出しわけ
-            showFailureAlert = true
+            switch error {
+            case .errorResponse(let errorResponse, _):
+                switch errorResponse.errorCode {
+                case .CODE_INCORRECT_OR_EXPIRED:
+                    showInvalidAlert = true
+                default:
+                    showFailureAlert = true
+                }
+            default:
+                showFailureAlert = true
+            }
         }
     }
 }

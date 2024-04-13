@@ -12,6 +12,7 @@ import Foundation
     @Published var email: String = ""
     @Published var isPresented: Bool = false
     @Published var showAlert: Bool = false
+    @Published var showAlreadyAlert: Bool = false
     var isActive: Bool {
         !email.isEmpty
     }
@@ -31,8 +32,17 @@ import Foundation
             self.email = email
             isPresented = true
         case .failure(let error):
-            // TODO: - Errorによる表示の出しわけ
-            showAlert = true
+            switch error {
+            case .errorResponse(let errorResponse, _):
+                switch errorResponse.errorCode {
+                case .USED_EMAIL:
+                    showAlreadyAlert = true
+                default:
+                    showAlert = true
+                }
+            default:
+                showAlert = true
+            }
         }
     }
 }

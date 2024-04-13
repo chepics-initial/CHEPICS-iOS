@@ -42,9 +42,18 @@ struct EmailRegistrationView: View {
         .navigationDestination(isPresented: $viewModel.isPresented) {
             OneTimeCodeView(viewModel: OneTimeCodeViewModel(email: viewModel.email, oneTimeCodeUseCase: DIFactory.oneTimeCodeUseCase()))
         }
-        .alert("エラー", isPresented: $viewModel.showAlert) {
+        .alert("通信エラー", isPresented: $viewModel.showAlert, actions: {
             Button {
-                
+                isFocused = true
+            } label: {
+                Text("OK")
+            }
+        }, message: {
+            Text("インターネット環境を確認して、もう一度お試しください。")
+        })
+        .alert("すでに使用されているメールアドレスです", isPresented: $viewModel.showAlreadyAlert) {
+            Button {
+                isFocused = true
             } label: {
                 Text("OK")
             }
