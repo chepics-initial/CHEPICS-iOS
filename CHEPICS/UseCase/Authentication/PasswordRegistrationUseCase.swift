@@ -12,18 +12,13 @@ protocol PasswordRegistrationUseCase {
 }
 
 final class PasswordRegistrationUseCaseImpl: PasswordRegistrationUseCase {
-    private let createUserRepository: any CreateUserRepository
+    private let authRepository: any AuthRepository
     
-    init(createUserRepository: some CreateUserRepository) {
-        self.createUserRepository = createUserRepository
+    init(authRepository: some AuthRepository) {
+        self.authRepository = authRepository
     }
     
     func registerPassword(password: String) async -> Result<Void, APIError> {
-        try! await Task.sleep(nanoseconds: 1_000_000_000)
-        if password == "00000000" {
-            return .failure(.otherError)
-        }
-        
-        return .success(())
+        await authRepository.createUser(password: password)
     }
 }

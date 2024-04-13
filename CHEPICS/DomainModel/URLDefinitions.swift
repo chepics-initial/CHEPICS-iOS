@@ -8,7 +8,7 @@
 import Foundation
 
 enum ServerDirection: String {
-    case production = "https://chepics.com"
+    case production = "https://chepics.com/v1/chepics"
     
     var domain: String {
         rawValue
@@ -20,6 +20,7 @@ enum ServerDirection: String {
 }
 
 enum ServerAPI: String {
-    case createCode = "/v1/chepics/auth/email-confirm-code"
-    case checkCode = "/v1/chepics/auth/email-confirm-code/check"
+    case createCode = "/auth/email-confirm-code"
+    case checkCode = "/auth/email-confirm-code/check"
+    case createUser = "/auth/user"
 }

@@ -59,7 +59,7 @@ import Foundation
 }
 
 final class OneTimeCodeUseCase_Previews: OneTimeCodeUseCase {
-    func verifyCode(email: String, code: String) async -> Result<String, APIError> {
-        .success("")
+    func verifyCode(email: String, code: String) async -> Result<Void, APIError> {
+        .success(())
     }
 }

@@ -24,7 +24,7 @@ extension DIFactory {
     }
     
     static func passwordRegistrationUseCase() -> some PasswordRegistrationUseCase {
-        PasswordRegistrationUseCaseImpl(createUserRepository: sharedCreateUserRepository)
+        PasswordRegistrationUseCaseImpl(authRepository: sharedAuthRepository)
     }
     
     static func nameRegistrationUseCase() -> some NameRegistrationUseCase {
@@ -40,14 +40,14 @@ extension DIFactory {
     }
     
     // MARK: - Repository
-    static let sharedCreateUserRepository: some CreateUserRepository = CreateUserRepositoryImpl()
-    
     static let sharedTopicRepository: some TopicRepository = TopicRepositoryImpl(topicDataSource: sharedTopicDataSource)
     
-    static let sharedAuthRepository: some AuthRepository = AuthRepositoryImpl(authDataSource: sharedAuthDataSource)
+    static let sharedAuthRepository: some AuthRepository = AuthRepositoryImpl(authDataSource: sharedAuthDataSource, tokenDataSource: sharedTokenDataSource)
     
     // MARK: - DataSource
     static let sharedTopicDataSource: some TopicDataSource = TopicRemoteSource.shared
     
     static let sharedAuthDataSource: some AuthDataSource = AuthRemoteSource.shared
+    
+    static let sharedTokenDataSource: some TokenDataSource = TokenStoreLocalSource.shared
 }
