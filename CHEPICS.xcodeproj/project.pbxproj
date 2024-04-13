@@ -79,6 +79,8 @@
 		E457A0482BCA6131003DFB9F /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457A0472BCA6131003DFB9F /* AuthResponse.swift */; };
 		E457A04A2BCA61C4003DFB9F /* TokenDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457A0492BCA61C4003DFB9F /* TokenDataSource.swift */; };
 		E457A04C2BCA6233003DFB9F /* TokenStoreLocalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457A04B2BCA6233003DFB9F /* TokenStoreLocalSource.swift */; };
+		E457A04F2BCA6A7B003DFB9F /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = E457A04E2BCA6A7B003DFB9F /* KeychainAccess */; };
+		E457A0512BCA6BAF003DFB9F /* KeychainAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457A0502BCA6BAF003DFB9F /* KeychainAccess.swift */; };
 		E49366232BBD05830093D286 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = E49366222BBD05830093D286 /* Nuke */; };
 		E49366252BBD05830093D286 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = E49366242BBD05830093D286 /* NukeUI */; };
 		E49366272BC0B6670093D286 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49366262BC0B6670093D286 /* Comment.swift */; };
@@ -192,6 +194,7 @@
 		E457A0472BCA6131003DFB9F /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 		E457A0492BCA61C4003DFB9F /* TokenDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDataSource.swift; sourceTree = "<group>"; };
 		E457A04B2BCA6233003DFB9F /* TokenStoreLocalSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStoreLocalSource.swift; sourceTree = "<group>"; };
+		E457A0502BCA6BAF003DFB9F /* KeychainAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAccess.swift; sourceTree = "<group>"; };
 		E49366262BC0B6670093D286 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E49366282BC0B7E50093D286 /* CommentImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentImage.swift; sourceTree = "<group>"; };
 		E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHEPICS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -213,6 +216,7 @@
 			files = (
 				251FE42A2BC79C85008C3254 /* Alamofire in Frameworks */,
 				E49366232BBD05830093D286 /* Nuke in Frameworks */,
+				E457A04F2BCA6A7B003DFB9F /* KeychainAccess in Frameworks */,
 				6916B39A2BAAE60B009A8670 /* Kingfisher in Frameworks */,
 				25862EBF2BBB7D9700FC4225 /* SwiftUIIntrospect in Frameworks */,
 				E49366252BBD05830093D286 /* NukeUI in Frameworks */,
@@ -381,6 +385,7 @@
 			children = (
 				E457A04B2BCA6233003DFB9F /* TokenStoreLocalSource.swift */,
 				251FE4202BC764C6008C3254 /* UserDefaults+Infra.swift */,
+				E457A0502BCA6BAF003DFB9F /* KeychainAccess.swift */,
 			);
 			path = LocalSource;
 			sourceTree = "<group>";
@@ -618,6 +623,7 @@
 				E49366222BBD05830093D286 /* Nuke */,
 				E49366242BBD05830093D286 /* NukeUI */,
 				251FE4292BC79C85008C3254 /* Alamofire */,
+				E457A04E2BCA6A7B003DFB9F /* KeychainAccess */,
 			);
 			productName = CHEPICS;
 			productReference = E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */;
@@ -696,6 +702,7 @@
 				25862EBD2BBB7D9700FC4225 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				E49366212BBD05830093D286 /* XCRemoteSwiftPackageReference "Nuke" */,
 				251FE4282BC79C85008C3254 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				E457A04D2BCA6A7B003DFB9F /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = E4C6BE102B6F68EE003B56AD /* Products */;
 			projectDirPath = "";
@@ -810,6 +817,7 @@
 				25C88DB02B8C33FD002455A3 /* IconRegistrationViewModel.swift in Sources */,
 				E457A04A2BCA61C4003DFB9F /* TokenDataSource.swift in Sources */,
 				2566F5432B8A176A00CAD739 /* APIError.swift in Sources */,
+				E457A0512BCA6BAF003DFB9F /* KeychainAccess.swift in Sources */,
 				69EC793F2B8AC78C0096AA55 /* HeaderView.swift in Sources */,
 				69EC79482B8ACFA20096AA55 /* LoginUseCase.swift in Sources */,
 			);
@@ -1171,6 +1179,14 @@
 				minimumVersion = 7.11.0;
 			};
 		};
+		E457A04D2BCA6A7B003DFB9F /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.2;
+			};
+		};
 		E49366212BBD05830093D286 /* XCRemoteSwiftPackageReference "Nuke" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/Nuke";
@@ -1196,6 +1212,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6916B3982BAAE60B009A8670 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		E457A04E2BCA6A7B003DFB9F /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E457A04D2BCA6A7B003DFB9F /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
 		};
 		E49366222BBD05830093D286 /* Nuke */ = {
 			isa = XCSwiftPackageProductDependency;
