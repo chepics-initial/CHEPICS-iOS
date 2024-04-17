@@ -12,14 +12,13 @@ protocol LoginUseCase {
 }
 
 final class LoginUseCaseImpl: LoginUseCase {
-    init() {}
+    private let authRepository: any AuthRepository
+    
+    init(authRepository: some AuthRepository) {
+        self.authRepository = authRepository
+    }
     
     func login(email: String, password: String) async -> Result<Void, APIError> {
-        try! await Task.sleep(nanoseconds: 1_000_000_000)
-        if email == "aaa" {
-            return .failure(.otherError)
-        }
-        
-        return .success(())
+        await authRepository.login(LoginBody(email: email, password: password))
     }
 }

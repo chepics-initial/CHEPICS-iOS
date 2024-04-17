@@ -12,7 +12,7 @@ enum DIFactory {}
 extension DIFactory {
     // MARK: - UseCase
     static func loginUseCase() -> some LoginUseCase {
-        LoginUseCaseImpl()
+        LoginUseCaseImpl(authRepository: sharedAuthRepository)
     }
     
     static func emailRegistrationUseCase() -> some EmailRegistrationUseCase {

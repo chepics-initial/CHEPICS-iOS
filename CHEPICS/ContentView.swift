@@ -9,17 +9,17 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        MainTabView()
+//        MainTabView()
 
-//        if UserDefaults.standard.accessToken != nil {
-//            MainTabView()
-//        }
-//        
-//        if UserDefaults.standard.accessToken == nil {
-//            NavigationStack {
-//                LoginView(viewModel: LoginViewModel(loginUseCase: DIFactory.loginUseCase()))
-//            }
-//        }
+        if UserDefaults.standard.accessToken != nil {
+            MainTabView()
+        }
+        
+        if UserDefaults.standard.accessToken == nil {
+            NavigationStack {
+                LoginView(viewModel: LoginViewModel(loginUseCase: DIFactory.loginUseCase()))
+            }
+        }
     }
 }
 
