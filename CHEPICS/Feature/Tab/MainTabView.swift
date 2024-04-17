@@ -21,7 +21,7 @@ struct MainTabView: View {
             }
             .tag(Tab.feed)
             .tabItem {
-                Image(systemName: activeTab == .feed ? "house.fill" : "house")
+                Image(systemName: "house")
             }
             
             NavigationStack(path: $myPageStack) {
@@ -30,7 +30,7 @@ struct MainTabView: View {
             }
             .tag(Tab.myPage)
             .tabItem {
-                Image(systemName: activeTab == .myPage ? "person.fill" : "person")
+                Image(systemName: "person")
             }
         }
         .overlay {

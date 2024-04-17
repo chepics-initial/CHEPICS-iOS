@@ -98,11 +98,7 @@ struct FeedView: View {
                 LoadingView(showBackgroundColor: false)
                     .frame(maxHeight: .infinity)
             case .success:
-                VStack {
-                    topicListView
-                    
-                    Spacer()
-                }
+                topicListView
                 
                 Button(action: {
                     showCreateTopicView = true
@@ -138,11 +134,7 @@ struct FeedView: View {
                 LoadingView(showBackgroundColor: false)
                     .frame(maxHeight: .infinity)
             case .success:
-                VStack {
-                    commentListView
-                    
-                    Spacer()
-                }
+                commentListView
                 
                 Button(action: {
                     showCreateTopicView = true

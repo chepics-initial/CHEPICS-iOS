@@ -14,5 +14,10 @@ final class TokenStoreLocalSource: TokenDataSource {
     
     func storeToken(accessToken: String, refreshToken: String) {
         UserDefaults.standard.accessToken = accessToken
+        do {
+            try keychain.set(refreshToken, key: "refreshToken")
+        } catch {
+            fatalError()
+        }
     }
 }

@@ -101,8 +101,6 @@ struct ProfileView: View {
                     tabView.tabBar.isHidden = true
                 }
             }
-            
-            Spacer()
         }
         .onAppear {
             // TODO: - 何を呼び出すかは通信が確定次第変更
@@ -157,8 +155,6 @@ struct ProfileView: View {
                     .frame(maxHeight: .infinity)
             case .success:
                 topicListView
-                
-                Spacer()
             case .failure:
                 Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
                     .multilineTextAlignment(.center)
@@ -178,8 +174,6 @@ struct ProfileView: View {
                     .frame(maxHeight: .infinity)
             case .success:
                 commentListView
-                
-                Spacer()
             case .failure:
                 Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
                     .multilineTextAlignment(.center)
