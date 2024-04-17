@@ -13,7 +13,7 @@ enum API {
         let decoder = JSONDecoder()
         return decoder
     }()
-
+    
     private static let encoder = {
         let encoder = JSONEncoder()
         return encoder
@@ -43,7 +43,7 @@ enum API {
         queryParameters: [String: Any]?
     ) async -> Result<T, APIError> {
         let headers = getHeaders()
-        return await AF.request(
+        switch await AF.request(
             baseURLString,
             method: .get,
             parameters: queryParameters,
@@ -54,16 +54,55 @@ enum API {
             responseType: responseType,
             decoder: decoder,
             validation: makeValidation()
-        )
+        ) {
+        case .success(let response):
+            return .success(response)
+        case .failure(let firstError):
+            switch firstError {
+            case .decodingError, .networkError, .invalidStatus, .otherError:
+                return .failure(firstError)
+            case .errorResponse(let errorResponse, _):
+                switch errorResponse.errorCode {
+                case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
+                    return .failure(firstError)
+                case .INVALID_ACCESS_TOKEN:
+                    guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),
+                          let refreshToken = TokenStore.getRefreshToken() else { return .failure(firstError) }
+                    switch await API.postRequest(
+                        ServerDirection.production.urlString(for: .createRefreshToken),
+                        responseType: AuthResponse.self,
+                        httpBody: refreshToken
+                    ) {
+                    case .success(let response):
+                        TokenStore.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
+                        
+                        return await request(baseURLString, responseType: responseType, queryParameters: queryParameters)
+                    case .failure(let secondError):
+                        switch secondError {
+                        case .decodingError, .networkError, .invalidStatus, .otherError:
+                            return .failure(secondError)
+                        case .errorResponse(let errorResponse, _):
+                            switch errorResponse.errorCode {
+                            case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
+                                return .failure(secondError)
+                            case .INVALID_ACCESS_TOKEN:
+                                // TODO: - refreshTokenが切れていた時の対処
+                                fatalError()
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-
+    
     static func postRequest<T: Decodable>(
         _ baseURLString: String,
         responseType: T.Type,
         httpBody: some Encodable
     ) async -> Result<T, APIError> {
         let headers = getHeaders()
-        return await AF.request(
+        switch await AF.request(
             baseURLString,
             method: .post,
             parameters: httpBody,
@@ -74,7 +113,46 @@ enum API {
             responseType: responseType,
             decoder: decoder,
             validation: makeValidation()
-        )
+        ) {
+        case .success(let response):
+            return .success(response)
+        case .failure(let firstError):
+            switch firstError {
+            case .decodingError, .networkError, .invalidStatus, .otherError:
+                return .failure(firstError)
+            case .errorResponse(let errorResponse, _):
+                switch errorResponse.errorCode {
+                case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
+                    return .failure(firstError)
+                case .INVALID_ACCESS_TOKEN:
+                    guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),
+                          let refreshToken = TokenStore.getRefreshToken() else { return .failure(firstError) }
+                    switch await API.postRequest(
+                        ServerDirection.production.urlString(for: .createRefreshToken),
+                        responseType: AuthResponse.self,
+                        httpBody: refreshToken
+                    ) {
+                    case .success(let response):
+                        TokenStore.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
+                        
+                        return await postRequest(baseURLString, responseType: responseType, httpBody: httpBody)
+                    case .failure(let secondError):
+                        switch secondError {
+                        case .decodingError, .networkError, .invalidStatus, .otherError:
+                            return .failure(secondError)
+                        case .errorResponse(let errorResponse, _):
+                            switch errorResponse.errorCode {
+                            case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
+                                return .failure(secondError)
+                            case .INVALID_ACCESS_TOKEN:
+                                // TODO: - refreshTokenが切れていた時の対処
+                                fatalError()
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     static func getHeaders() -> [String: String] {

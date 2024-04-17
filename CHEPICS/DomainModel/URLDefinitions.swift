@@ -23,4 +23,5 @@ enum ServerAPI: String {
     case createCode = "/auth/email-confirm-code"
     case checkCode = "/auth/email-confirm-code/check"
     case createUser = "/auth/user"
+    case createRefreshToken = "/auth/token/refresh"
 }

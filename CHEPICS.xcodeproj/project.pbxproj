@@ -81,6 +81,7 @@
 		E457A04C2BCA6233003DFB9F /* TokenStoreLocalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457A04B2BCA6233003DFB9F /* TokenStoreLocalSource.swift */; };
 		E457A04F2BCA6A7B003DFB9F /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = E457A04E2BCA6A7B003DFB9F /* KeychainAccess */; };
 		E457A0512BCA6BAF003DFB9F /* KeychainAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457A0502BCA6BAF003DFB9F /* KeychainAccess.swift */; };
+		E457A0D82BCF9130003DFB9F /* TokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457A0D72BCF9130003DFB9F /* TokenStore.swift */; };
 		E49366232BBD05830093D286 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = E49366222BBD05830093D286 /* Nuke */; };
 		E49366252BBD05830093D286 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = E49366242BBD05830093D286 /* NukeUI */; };
 		E49366272BC0B6670093D286 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49366262BC0B6670093D286 /* Comment.swift */; };
@@ -195,6 +196,7 @@
 		E457A0492BCA61C4003DFB9F /* TokenDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDataSource.swift; sourceTree = "<group>"; };
 		E457A04B2BCA6233003DFB9F /* TokenStoreLocalSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStoreLocalSource.swift; sourceTree = "<group>"; };
 		E457A0502BCA6BAF003DFB9F /* KeychainAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAccess.swift; sourceTree = "<group>"; };
+		E457A0D72BCF9130003DFB9F /* TokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
 		E49366262BC0B6670093D286 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E49366282BC0B7E50093D286 /* CommentImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentImage.swift; sourceTree = "<group>"; };
 		E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHEPICS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -363,6 +365,7 @@
 		2583F23F2B6F6B5700E68CAD /* Infra */ = {
 			isa = PBXGroup;
 			children = (
+				E457A0D62BCF90FC003DFB9F /* Common */,
 				251FE4312BC7A357008C3254 /* Extension */,
 				2583F2412B6F6B6200E68CAD /* LocalSource */,
 				2583F2422B6F6B6700E68CAD /* RemoteSource */,
@@ -533,6 +536,14 @@
 				69EC79562B9C60C60096AA55 /* CreateTopicViewModel.swift */,
 			);
 			path = CreateTopic;
+			sourceTree = "<group>";
+		};
+		E457A0D62BCF90FC003DFB9F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E457A0D72BCF9130003DFB9F /* TokenStore.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		E4C6BE062B6F68ED003B56AD = {
@@ -796,6 +807,7 @@
 				252D71392BA913C600485877 /* MainTabView.swift in Sources */,
 				259B51BF2B860B5300978256 /* LoginViewModel.swift in Sources */,
 				252D713F2BA91BAA00485877 /* FeedViewModel.swift in Sources */,
+				E457A0D82BCF9130003DFB9F /* TokenStore.swift in Sources */,
 				E457A0462BCA60CC003DFB9F /* CreateUserBody.swift in Sources */,
 				69EC79372B8ABEA90096AA55 /* PasswordRegistrationViewModel.swift in Sources */,
 				69EC79552B9C60B50096AA55 /* CreateTopicView.swift in Sources */,
