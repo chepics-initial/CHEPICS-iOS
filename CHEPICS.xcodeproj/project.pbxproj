@@ -87,6 +87,7 @@
 		E457A0512BCA6BAF003DFB9F /* KeychainAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457A0502BCA6BAF003DFB9F /* KeychainAccess.swift */; };
 		E457A0D82BCF9130003DFB9F /* TokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457A0D72BCF9130003DFB9F /* TokenStore.swift */; };
 		E457A0DA2BCF9B62003DFB9F /* LoginBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457A0D92BCF9B62003DFB9F /* LoginBody.swift */; };
+		E457A0DF2BD7143F003DFB9F /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E457A0DE2BD7143F003DFB9F /* SearchTextField.swift */; };
 		E49366232BBD05830093D286 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = E49366222BBD05830093D286 /* Nuke */; };
 		E49366252BBD05830093D286 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = E49366242BBD05830093D286 /* NukeUI */; };
 		E49366272BC0B6670093D286 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49366262BC0B6670093D286 /* Comment.swift */; };
@@ -207,6 +208,7 @@
 		E457A0502BCA6BAF003DFB9F /* KeychainAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAccess.swift; sourceTree = "<group>"; };
 		E457A0D72BCF9130003DFB9F /* TokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
 		E457A0D92BCF9B62003DFB9F /* LoginBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginBody.swift; sourceTree = "<group>"; };
+		E457A0DE2BD7143F003DFB9F /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		E49366262BC0B6670093D286 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E49366282BC0B7E50093D286 /* CommentImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentImage.swift; sourceTree = "<group>"; };
 		E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHEPICS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -263,6 +265,7 @@
 		251FE43A2BCE38CF008C3254 /* Explore */ = {
 			isa = PBXGroup;
 			children = (
+				E457A0DB2BD71401003DFB9F /* ViewParts */,
 				25893F782BD0DF9F001174D5 /* Result */,
 				25893F772BD0DF99001174D5 /* Search */,
 			);
@@ -585,6 +588,14 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		E457A0DB2BD71401003DFB9F /* ViewParts */ = {
+			isa = PBXGroup;
+			children = (
+				E457A0DE2BD7143F003DFB9F /* SearchTextField.swift */,
+			);
+			path = ViewParts;
+			sourceTree = "<group>";
+		};
 		E4C6BE062B6F68ED003B56AD = {
 			isa = PBXGroup;
 			children = (
@@ -813,6 +824,7 @@
 				259B51C22B860CA000978256 /* RoundButton.swift in Sources */,
 				E457A04C2BCA6233003DFB9F /* TokenStoreLocalSource.swift in Sources */,
 				2566F52D2B89943E00CAD739 /* Color+Extension.swift in Sources */,
+				E457A0DF2BD7143F003DFB9F /* SearchTextField.swift in Sources */,
 				251FE4272BC79BB8008C3254 /* AuthRemoteSource.swift in Sources */,
 				252D713D2BA918ED00485877 /* TopicCell.swift in Sources */,
 				2566F5412B8A16CE00CAD739 /* EmailRegistrationUseCase.swift in Sources */,

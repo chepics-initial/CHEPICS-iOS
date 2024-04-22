@@ -17,55 +17,23 @@ struct ExploreTopView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Button(action: {
-                    dismiss()
-                }, label: {
-                    Image(systemName: "chevron.backward")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 20, height: 20)
-                        .foregroundStyle(.gray)
-                })
-                
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 16, height: 16)
-                        .foregroundStyle(.gray)
-                    
-                    TextField("検索", text: $viewModel.searchText)
-                        .focused($isFocused)
-                        .submitLabel(.search)
-                        .onSubmit {
-                            isPresented = true
-                        }
-                        .frame(maxWidth: .infinity)
-                        .introspect(.textField, on: .iOS(.v16, .v17
-                                                        )) { textField in
-                            textField.enablesReturnKeyAutomatically = true
-                        }
-                    
-                    if !viewModel.searchText.isEmpty {
-                        Button(action: {
-                            viewModel.onTapDeleteButton()
-                        }, label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 16, height: 16)
-                                .foregroundStyle(.gray)
-                        })
+            SearchTextField(searchText: $viewModel.searchText, textField: {
+                TextField("検索", text: $viewModel.searchText)
+                    .focused($isFocused)
+                    .submitLabel(.search)
+                    .onSubmit {
+                        isPresented = true
                     }
-                }
-                .padding(8)
-                .background {
-                    Capsule(style: .circular)
-                        .foregroundStyle(.gray.opacity(0.2))
-                }
-            }
-            .padding(.horizontal, 16)
+                    .frame(maxWidth: .infinity)
+                    .introspect(.textField, on: .iOS(.v16, .v17
+                                                    )) { textField in
+                        textField.enablesReturnKeyAutomatically = true
+                    }
+            }, onTapBackButton: {
+                dismiss()
+            }, onTapDeleteButton: {
+                viewModel.onTapDeleteButton()
+            })
             
             if !viewModel.searchText.isEmpty {
                 VStack {
