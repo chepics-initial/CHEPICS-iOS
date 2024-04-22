@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftUIIntrospect
 
 struct ExploreTopView: View {
     @Environment(\.dismiss) var dismiss
@@ -36,6 +37,10 @@ struct ExploreTopView: View {
                         .focused($isFocused)
                         .submitLabel(.search)
                         .frame(maxWidth: .infinity)
+                        .introspect(.textField, on: .iOS(.v16, .v17
+                                                        )) { textField in
+                            textField.enablesReturnKeyAutomatically = true
+                        }
                     
                     if !viewModel.searchText.isEmpty {
                         Button(action: {
