@@ -127,7 +127,9 @@ struct ProfileView: View {
                             isCommentTapped = true
                         }
                     } else {
-                        viewModel.selectTab(type: type)
+                        withAnimation {
+                            viewModel.selectTab(type: type)
+                        }
                     }
                 } label: {
                     VStack {

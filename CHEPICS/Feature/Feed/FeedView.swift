@@ -17,19 +17,36 @@ struct FeedView: View {
     private let commentID = "commentID"
     
     var body: some View {
-        VStack {
-            headerTab
-            
-            TabView(selection: $viewModel.selectedTab) {
-                topicContentView
-                    .tag(FeedTabType.topics)
+        ZStack(alignment: .bottomTrailing) {
+            VStack {
+                headerTab
                 
-                commentContentView
-                    .tag(FeedTabType.comments)
+                TabView(selection: $viewModel.selectedTab) {
+                    topicContentView
+                        .tag(FeedTabType.topics)
+                    
+                    commentContentView
+                        .tag(FeedTabType.comments)
+                }
+                .introspect(.tabView, on: .iOS(.v16, .v17)) { tabView in
+                    tabView.tabBar.isHidden = true
+                }
             }
-            .introspect(.tabView, on: .iOS(.v16, .v17)) { tabView in
-                tabView.tabBar.isHidden = true
-            }
+            
+            Button(action: {
+                showCreateTopicView = true
+            }, label: {
+                Image(systemName: "plus")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 24)
+                    .foregroundStyle(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .clipShape(Circle())
+            })
+            .padding(.bottom, 16)
+            .padding(.trailing, 16)
         }
         .onAppear {
             Task {
@@ -49,6 +66,25 @@ struct FeedView: View {
                 CreateTopicView(viewModel: CreateTopicViewModel())
             }
         })
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink {
+                    ExploreTopView(viewModel: ExploreTopViewModel())
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 16, height: 16)
+                        .foregroundStyle(.gray)
+                        .padding(8)
+                        .background {
+                            Circle()
+                                .foregroundStyle(Color(uiColor: .lightGray).opacity(0.5))
+                        }
+                }
+
+            }
+        }
     }
     
     private var headerTab: some View {
@@ -71,7 +107,9 @@ struct FeedView: View {
                             }
                         }
                     } else {
-                        viewModel.selectTab(type: type)
+                        withAnimation {
+                            viewModel.selectTab(type: type)
+                        }
                     }
                 } label: {
                     VStack {
@@ -92,73 +130,39 @@ struct FeedView: View {
     }
     
     private var topicContentView: some View {
-        ZStack(alignment: .bottomTrailing) {
+        VStack {
             switch viewModel.topicUIState {
             case .loading:
                 LoadingView(showBackgroundColor: false)
                     .frame(maxHeight: .infinity)
             case .success:
                 topicListView
-                
-                Button(action: {
-                    showCreateTopicView = true
-                }, label: {
-                    Image(systemName: "plus")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 24)
-                        .foregroundStyle(.white)
-                        .padding()
-                        .background(Color.blue)
-                        .clipShape(Circle())
-                })
-                .padding(.bottom, 16)
-                .padding(.trailing, 16)
             case .failure:
-                VStack {
-                    Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity)
-                        .padding(16)
-                    
-                    Spacer()
-                }
+                Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+                    .padding(16)
+                
+                Spacer()
             }
         }
     }
     
     private var commentContentView: some View {
-        ZStack(alignment: .bottomTrailing) {
+        VStack {
             switch viewModel.commentUIState {
             case .loading:
                 LoadingView(showBackgroundColor: false)
                     .frame(maxHeight: .infinity)
             case .success:
                 commentListView
-                
-                Button(action: {
-                    showCreateTopicView = true
-                }, label: {
-                    Image(systemName: "plus")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 24)
-                        .foregroundStyle(.white)
-                        .padding()
-                        .background(Color.blue)
-                        .clipShape(Circle())
-                })
-                .padding(.bottom, 16)
-                .padding(.trailing, 16)
             case .failure:
-                VStack {
-                    Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity)
-                        .padding(16)
-                    
-                    Spacer()
-                }
+                Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+                    .padding(16)
+                
+                Spacer()
             }
         }
     }

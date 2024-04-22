@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftUIIntrospect
 
 struct MainTabView: View {
     @StateObject private var viewModel = MainTabViewModel()
@@ -15,31 +14,24 @@ struct MainTabView: View {
     @State private var myPageStack: NavigationPath = .init()
     
     var body: some View {
-        VStack(spacing: 0) {
-            TabView(selection: tabSelection) {
-                NavigationStack(path: $feedStack) {
-                    FeedView(viewModel: FeedViewModel(feedUseCase: DIFactory.feedUseCase()))
-                        .environmentObject(viewModel)
-                }
-                .tag(Tab.feed)
-                .tabItem {
-                    Image(systemName: "house")
-                }
-                
-                NavigationStack(path: $myPageStack) {
-                    ProfileView(viewModel: ProfileViewModel(profileUseCase: DIFactory.profileUseCase()))
-                        .environmentObject(viewModel)
-                }
-                .tag(Tab.myPage)
-                .tabItem {
-                    Image(systemName: "person")
-                }
+        TabView(selection: tabSelection) {
+            NavigationStack(path: $feedStack) {
+                FeedView(viewModel: FeedViewModel(feedUseCase: DIFactory.feedUseCase()))
+                    .environmentObject(viewModel)
             }
-            .introspect(.tabView, on: .iOS(.v16, .v17)) { tabView in
-                tabView.tabBar.isHidden = true
+            .tag(Tab.feed)
+            .tabItem {
+                Image(activeTab == .feed ? .selectHome : .unselectHome)
             }
             
-            CustomTabBar()
+            NavigationStack(path: $myPageStack) {
+                ProfileView(viewModel: ProfileViewModel(profileUseCase: DIFactory.profileUseCase()))
+                    .environmentObject(viewModel)
+            }
+            .tag(Tab.myPage)
+            .tabItem {
+                Image(activeTab == .myPage ? .selectPerson : .unselectPerson)
+            }
         }
         .overlay {
             if viewModel.showImageViewer {
@@ -74,44 +66,13 @@ struct MainTabView: View {
             activeTab = newValue
         }
     }
-    
-    @ViewBuilder
-    private func CustomTabBar() -> some View {
-        HStack(spacing: 0) {
-            ForEach(Tab.allCases, id: \.self) {
-                TabItem(
-                    tab: $0,
-                    activeTab: tabSelection)
-            }
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
-    }
-}
-
-struct TabItem: View {
-    var tab: Tab
-    @Binding var activeTab: Tab
-    
-    var body: some View {
-        VStack(spacing: 0) {
-            Image(systemName: activeTab == tab ? tab.selectedImage : tab.unselectedImage)
-                .font(.title2)
-                .foregroundStyle(activeTab == tab ? .chepicsPrimary : .gray.opacity(0.4))
-                .frame(width: 40, height: 40)
-        }
-        .frame(maxWidth: .infinity)
-        .onTapGesture {
-            activeTab = tab
-        }
-    }
 }
 
 #Preview {
     MainTabView()
 }
 
-enum Tab: CaseIterable {
+enum Tab {
     case feed
     case myPage
     
