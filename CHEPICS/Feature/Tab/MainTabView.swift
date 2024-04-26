@@ -53,13 +53,11 @@ struct MainTabView: View {
             if newValue == activeTab {
                 switch newValue {
                 case .feed:
-                    feedStack = .init()
-                    // TODO: - 対応必要
-//                    if feedStack != .init() {
-//                        feedStack = .init()
-//                    } else {
-//                        viewModel.isTappedInFeed = true
-//                    }
+                    if feedStack.isEmpty {
+                        viewModel.isTappedInFeed = true
+                    } else {
+                        feedStack = .init()
+                    }
                 case .myPage:
                     myPageStack = .init()
                 }
