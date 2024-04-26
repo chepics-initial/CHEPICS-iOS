@@ -14,14 +14,23 @@ final class ExploreResultViewModel: ObservableObject {
         didSet {
             switch selectedTab {
             case .topics:
-                <#code#>
+                if topicUIState != .success {
+                    Task { await fetchTopics() }
+                }
             case .comments:
-                <#code#>
+                if commentUIState != .success {
+                    Task { await fetchComments() }
+                }
             case .users:
-                <#code#>
+                if userUIState != .success {
+                    Task { await fetchUsers() }
+                }
             }
         }
     }
+    @Published private(set) var topics: [Topic]?
+    @Published private(set) var comments: [Comment]?
+    @Published private(set) var users: [User]?
     @Published private(set) var topicUIState: UIState = .loading
     @Published private(set) var commentUIState: UIState = .loading
     @Published private(set) var userUIState: UIState = .loading
@@ -32,30 +41,56 @@ final class ExploreResultViewModel: ObservableObject {
         self.searchText = searchText
     }
     
+    func selectTab(type: SearchTabType) {
+        selectedTab = type
+    }
+    
     func onAppear() async {
         if isFirstAppear {
             isFirstAppear = false
             switch selectedTab {
             case .topics:
-                <#code#>
+                await fetchTopics()
             case .comments:
-                <#code#>
+                await fetchComments()
             case .users:
-                <#code#>
+                await fetchUsers()
             }
         }
     }
     
     func fetchTopics() async {
+        if topicUIState != .success {
+            topicUIState = .loading
+        }
         
+        try! await Task.sleep(nanoseconds: 1_000_000_000)
+        topics = [mockTopic1, mockTopic2, mockTopic3, mockTopic4]
+        topicUIState = .success
     }
     
     func fetchComments() async {
+        if commentUIState != .success {
+            commentUIState = .loading
+        }
         
+        try! await Task.sleep(nanoseconds: 1_000_000_000)
+        comments = [mockComment1, mockComment2, mockComment3, mockComment4]
+        commentUIState = .success
     }
     
     func fetchUsers() async {
+        if userUIState != .success {
+            userUIState = .loading
+        }
         
+        try! await Task.sleep(nanoseconds: 1_000_000_000)
+        users = [mockUser1, mockUser2, mockUser3, mockUser4]
+        userUIState = .success
+    }
+    
+    func onTapDeleteButton() {
+        searchText = ""
     }
 }
 

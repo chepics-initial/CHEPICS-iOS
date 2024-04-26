@@ -9,8 +9,18 @@ import Foundation
 import SwiftUI
 
 extension View {
+    func viewWillAppear(perform action: @escaping () -> Void) -> some View {
+        background(UIViewControllerLifeCycleRepresentable(viewWillAppearHandler: action, viewDidAppearHandler: {}, viewWillDisappearHandler: {}))
+            .frame(width: 0, height: 0)
+    }
+    
     func didAppear(perform action: @escaping () -> Void) -> some View {
-        background(UIViewControllerLifeCycleRepresentable(viewDidAppearHandler: action, viewWillDisappearHandler: {})
+        background(UIViewControllerLifeCycleRepresentable(viewWillAppearHandler: {}, viewDidAppearHandler: action, viewWillDisappearHandler: {})
+            .frame(width: 0, height: 0))
+    }
+    
+    func viewWillDisappear(perform action: @escaping () -> Void) -> some View {
+        background(UIViewControllerLifeCycleRepresentable(viewWillAppearHandler: {}, viewDidAppearHandler: {}, viewWillDisappearHandler: action)
             .frame(width: 0, height: 0))
     }
     

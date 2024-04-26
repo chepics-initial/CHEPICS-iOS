@@ -49,19 +49,7 @@ struct TopicCell: View {
                             .foregroundStyle(Color(.chepicsPrimary))
                     }
                     
-                    if let userImageUrl = topic.user.profileImageUrl {
-                        KFImage(URL(string: userImageUrl))
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 24)
-                            .clipShape(Circle())
-                    } else {
-                        Image(systemName: "person")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 24)
-                            .clipShape(Circle())
-                    }
+                    UserIconView(url: topic.user.profileImageUrl, scale: .topic)
                     
                     Text(topic.user.fullname)
                         .font(.caption)

@@ -38,21 +38,156 @@ let mockCommentImage2 = CommentImage(id: "2", commentId: "1", url: "https://real
 let mockCommentImage3 = CommentImage(id: "3", commentId: "1", url: "https://eiga.k-img.com/images/anime/news/117485/photo/46fcf777bd7b0902/640.jpg?1669974887")
 let mockCommentImage4 = CommentImage(id: "4", commentId: "1", url: "https://netofuli.com/wp-content/uploads/2022/12/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2022-12-17-18.40.30.jpg")
 
-let mockUser1 = User(id: "1", username: "taro", fullname: "太郎", profileImageUrl: "https://animeanime.jp/imgs/ogp_f/303592.jpg")
-let mockUser2 = User(id: "2", username: "Sakura", fullname: "さくら", profileImageUrl: "https://d1uzk9o9cg136f.cloudfront.net/f/16783489/rc/2022/10/25/b86bd6fa3f0fc8c9cb3aaa5eb26bfd60066a598e.jpg")
-let mockUser3 = User(id: "3", username: "Yuta", fullname: "ゆうた", profileImageUrl: "https://static.gltjp.com/glt/prd/data/article/21000/20584/20240112_113107_c7298818_w1920.jpg")
-let mockUser4 = User(id: "4", username: "Akari", fullname: "あかり", profileImageUrl: "https://img.freepik.com/free-photo/fuji-mountain-and-kawaguchiko-lake-in-morning-autumn-seasons-fuji-mountain-at-yamanachi-in-japan_335224-102.jpg?size=626&ext=jpg&ga=GA1.1.967060102.1710806400&semt=ais")
-let mockUser5 = User(id: "5", username: "Haruto", fullname: "はると", profileImageUrl: "https://fujifilmsquare.jp/assets/img/column/column_39_01.jpg")
-let mockUser6 = User(id: "6", username: "Mizuki", fullname: "みずき", profileImageUrl: "https://tabiiro.jp/auto_sysnc/images/article/2738/share_images1671604951.jpg")
-let mockUser7 = User(id: "7", username: "Rio", fullname: "りお", profileImageUrl: "https://img01.jalannews.jp/img/2023/06/202307_kanto_1_114-670x443.jpg")
-let mockUser8 = User(id: "8", username: "Riku", fullname: "りく", profileImageUrl: "https://discoverjapan-web.com/wp-content/uploads/2020/06/4ffe6b26cd5640fa352a979cc7a96dd7.jpg")
-let mockUser9 = User(id: "9", username: "Airi", fullname: "あいり", profileImageUrl: "https://prtimes.jp/i/7916/471/resize/d7916-471-835089-22.jpg")
-let mockUser10 = User(id: "10", username: "Shunsuke", fullname: "しゅんすけ", profileImageUrl: "https://travel.rakuten.co.jp/mytrip/sites/mytrip/files/styles/main_image/public/migration_article_images/amazing/amazingviews-kanto-key.jpg?itok=F7xs4yDv")
-let mockUser11 = User(id: "11", username: "Rena", fullname: "れな", profileImageUrl: "https://fs.tour.ne.jp/index.php/file_manage/view/?contents_code=curation&file_name=814/27186/98ca4c60e2fcc431d31fdc8fd05c7bc3.jpg&w=1200")
-let mockUser12 = User(id: "12", username: "Kaito", fullname: "かいと", profileImageUrl: "https://media.vogue.co.jp/photos/64df24ddd343815066c32ece/master/w_1600%2Cc_limit/VJ-travel-world-bridge-06.jpeg")
-let mockUser13 = User(id: "13", username: "Mana", fullname: "まな", profileImageUrl: "https://cdn.fujiyama-navi.jp/entries/images/000/004/668/original/6688648b-443d-4f6b-a39f-be2240ea06e3.jpg?1516586033")
-let mockUser14 = User(id: "14", username: "Taichi", fullname: "たいち", profileImageUrl: "https://animeanime.jp/imgs/ogp_f/303592.jpg")
-let mockUser15 = User(id: "15", username: "Rin", fullname: "りん", profileImageUrl: "https://www.nta.co.jp/media/tripa/static_contents/nta-tripa/item_images/images/000/066/242/medium/8c11da1d-97de-4c99-96dd-78089cc52f72.jpg?1550676731")
+let mockUser1 = User(
+    id: "1",
+    email: "chepics.com",
+    username: "taro",
+    fullname: "太郎",
+    bio: "技術の世界では、エンジニアや開発者は常に新しいアルゴリズムやプログラミング言語を探求し、さまざまな課題に対処するための革新的なソリューションを提供しようと努力しています。例えば、人工知能や機械学習の分野では、データの解析や予測モデルの構築に関する研究が進んでおり、これによってビジネスや科学の分野で革新的な進展が可能になっています。",
+    profileImageUrl: "https://animeanime.jp/imgs/ogp_f/303592.jpg",
+    registerTime: Date(),
+    updateTime: Date()
+)
+let mockUser2 = User(
+    id: "2",
+    email: "chepics.com",
+    username: "Sakura",
+    fullname: "さくら",
+    bio: nil,
+    profileImageUrl: "https://d1uzk9o9cg136f.cloudfront.net/f/16783489/rc/2022/10/25/b86bd6fa3f0fc8c9cb3aaa5eb26bfd60066a598e.jpg",
+    registerTime: Date(),
+    updateTime: Date()
+)
+let mockUser3 = User(
+    id: "3",
+    email: "chepics.com",
+    username: "Yuta",
+    fullname: "ゆうた",
+    bio: nil,
+    profileImageUrl: "https://static.gltjp.com/glt/prd/data/article/21000/20584/20240112_113107_c7298818_w1920.jpg",
+    registerTime: Date(),
+    updateTime: Date()
+)
+let mockUser4 = User(
+    id: "4",
+    email: "chepics.com",
+    username: "Akari",
+    fullname: "あかり",
+    bio: nil,
+    profileImageUrl: "https://img.freepik.com/free-photo/fuji-mountain-and-kawaguchiko-lake-in-morning-autumn-seasons-fuji-mountain-at-yamanachi-in-japan_335224-102.jpg?size=626&ext=jpg&ga=GA1.1.967060102.1710806400&semt=ais",
+    registerTime: Date(),
+    updateTime: Date()
+)
+let mockUser5 = User(
+    id: "5",
+    email: "chepics.com",
+    username: "Haruto",
+    fullname: "はると",
+    bio: nil,
+    profileImageUrl: "https://fujifilmsquare.jp/assets/img/column/column_39_01.jpg",
+    registerTime: Date(),
+    updateTime: Date()
+)
+let mockUser6 = User(
+    id: "6",
+    email: "chepics.com",
+    username: "Mizuki",
+    fullname: "みずき",
+    bio: nil,
+    profileImageUrl: "https://tabiiro.jp/auto_sysnc/images/article/2738/share_images1671604951.jpg",
+    registerTime: Date(),
+    updateTime: Date()
+)
+let mockUser7 = User(
+    id: "7",
+    email: "chepics.com",
+    username: "Rio",
+    fullname: "りお",
+    bio: nil,
+    profileImageUrl: "https://img01.jalannews.jp/img/2023/06/202307_kanto_1_114-670x443.jpg",
+    registerTime: Date(),
+    updateTime: Date()
+)
+let mockUser8 = User(
+    id: "8",
+    email: "chepics.com",
+    username: "Riku",
+    fullname: "りく",
+    bio: nil,
+    profileImageUrl: "https://discoverjapan-web.com/wp-content/uploads/2020/06/4ffe6b26cd5640fa352a979cc7a96dd7.jpg",
+    registerTime: Date(),
+    updateTime: Date()
+)
+let mockUser9 = User(
+    id: "9",
+    email: "chepics.com",
+    username: "Airi",
+    fullname: "あいり",
+    bio: nil,
+    profileImageUrl: "https://prtimes.jp/i/7916/471/resize/d7916-471-835089-22.jpg",
+    registerTime: Date(),
+    updateTime: Date()
+)
+let mockUser10 = User(
+    id: "10",
+    email: "chepics.com",
+    username: "Shunsuke",
+    fullname: "しゅんすけ",
+    bio: nil,
+    profileImageUrl: "https://travel.rakuten.co.jp/mytrip/sites/mytrip/files/styles/main_image/public/migration_article_images/amazing/amazingviews-kanto-key.jpg?itok=F7xs4yDv",
+    registerTime: Date(),
+    updateTime: Date()
+)
+let mockUser11 = User(
+    id: "11",
+    email: "chepics.com",
+    username: "Rena",
+    fullname: "れな",
+    bio: nil,
+    profileImageUrl: "https://fs.tour.ne.jp/index.php/file_manage/view/?contents_code=curation&file_name=814/27186/98ca4c60e2fcc431d31fdc8fd05c7bc3.jpg&w=1200",
+    registerTime: Date(),
+    updateTime: Date()
+)
+let mockUser12 = User(
+    id: "12",
+    email: "chepics.com",
+    username: "Kaito",
+    fullname: "かいと",
+    bio: nil,
+    profileImageUrl: "https://media.vogue.co.jp/photos/64df24ddd343815066c32ece/master/w_1600%2Cc_limit/VJ-travel-world-bridge-06.jpeg",
+    registerTime: Date(),
+    updateTime: Date()
+)
+let mockUser13 = User(
+    id: "13",
+    email: "chepics.com",
+    username: "Mana",
+    fullname: "まな",
+    bio: nil,
+    profileImageUrl: "https://cdn.fujiyama-navi.jp/entries/images/000/004/668/original/6688648b-443d-4f6b-a39f-be2240ea06e3.jpg?1516586033",
+    registerTime: Date(),
+    updateTime: Date()
+)
+let mockUser14 = User(
+    id: "14",
+    email: "chepics.com",
+    username: "Taichi",
+    fullname: "たいち",
+    bio: nil,
+    profileImageUrl: "https://animeanime.jp/imgs/ogp_f/303592.jpg",
+    registerTime: Date(),
+    updateTime: Date()
+)
+let mockUser15 = User(
+    id: "15",
+    email: "chepics.com",
+    username: "Rin",
+    fullname: "りん",
+    bio: nil,
+    profileImageUrl: "https://www.nta.co.jp/media/tripa/static_contents/nta-tripa/item_images/images/000/066/242/medium/8c11da1d-97de-4c99-96dd-78089cc52f72.jpg?1550676731",
+    registerTime: Date(),
+    updateTime: Date()
+)
 
 func getPreviousDate(value: Int) -> Date {
     let currentDate = Date()

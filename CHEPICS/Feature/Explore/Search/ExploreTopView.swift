@@ -72,9 +72,9 @@ struct ExploreTopView: View {
         .onAppear {
             isFocused = true
         }
-        .navigationDestination(isPresented: $isPresented) {
-            ExploreResultView()
-        }
+        .navigationDestination(isPresented: $isPresented, destination: {
+            ExploreResultView(viewModel: ExploreResultViewModel(searchText: viewModel.searchText))
+        })
     }
 }
 

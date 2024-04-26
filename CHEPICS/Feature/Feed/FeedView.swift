@@ -15,6 +15,7 @@ struct FeedView: View {
     @State private var showCreateTopicView = false
     private let topicID = "topicID"
     private let commentID = "commentID"
+    private let exploreNavigationTag = "ExploreTop"
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -68,9 +69,7 @@ struct FeedView: View {
         })
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink {
-                    ExploreTopView(viewModel: ExploreTopViewModel())
-                } label: {
+                NavigationLink(value: exploreNavigationTag) {
                     Image(systemName: "magnifyingglass")
                         .resizable()
                         .scaledToFit()
@@ -82,7 +81,11 @@ struct FeedView: View {
                                 .foregroundStyle(Color(uiColor: .lightGray).opacity(0.5))
                         }
                 }
-
+            }
+        }
+        .navigationDestination(for: String.self) { value in
+            if value == exploreNavigationTag {
+                ExploreTopView(viewModel: ExploreTopViewModel())
             }
         }
     }

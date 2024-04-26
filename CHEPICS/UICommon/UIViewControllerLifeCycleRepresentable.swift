@@ -11,9 +11,10 @@ import SwiftUI
 
 struct UIViewControllerLifeCycleRepresentable: UIViewControllerRepresentable {
     func makeCoordinator() -> Coordinator {
-        Coordinator(viewDidAppearHandler: viewDidAppearHandler, viewWillDisappearHandler: viewWillDisappearHandler)
+        Coordinator(viewWillAppearHandler: viewWillAppearHandler, viewDidAppearHandler: viewDidAppearHandler, viewWillDisappearHandler: viewWillDisappearHandler)
     }
 
+    let viewWillAppearHandler: () -> Void
     let viewDidAppearHandler: () -> Void
     let viewWillDisappearHandler: () -> Void
 
@@ -26,10 +27,12 @@ struct UIViewControllerLifeCycleRepresentable: UIViewControllerRepresentable {
                                 context: UIViewControllerRepresentableContext<UIViewControllerLifeCycleRepresentable>) {}
 
     class Coordinator: UIViewController {
+        let viewWillAppearHandler: () -> Void
         let viewDidAppearHandler: () -> Void
         let viewWillDisappearHandler: () -> Void
 
-        init(viewDidAppearHandler: @escaping () -> Void, viewWillDisappearHandler: @escaping () -> Void) {
+        init(viewWillAppearHandler: @escaping () -> Void, viewDidAppearHandler: @escaping () -> Void, viewWillDisappearHandler: @escaping () -> Void) {
+            self.viewWillAppearHandler = viewWillAppearHandler
             self.viewDidAppearHandler = viewDidAppearHandler
             self.viewWillDisappearHandler = viewWillDisappearHandler
             super.init(nibName: nil, bundle: nil)
@@ -37,6 +40,12 @@ struct UIViewControllerLifeCycleRepresentable: UIViewControllerRepresentable {
 
         @available(*, unavailable) required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            viewWillAppearHandler()
+            
         }
 
         override func viewDidAppear(_ animated: Bool) {

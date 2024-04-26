@@ -16,18 +16,7 @@ struct CommentCell: View {
     var body: some View {
         VStack {
             HStack(alignment: .top, spacing: 8) {
-                if let userImageUrl = comment.user.profileImageUrl {
-                    KFImage(URL(string: userImageUrl))
-                        .resizable()
-                        .frame(width: 32, height: 32)
-                        .clipShape(Circle())
-                } else {
-                    Image(systemName: "person")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 32)
-                        .clipShape(Circle())
-                }
+                UserIconView(url: comment.user.profileImageUrl, scale: .comment)
                 
                 VStack(alignment: .leading, spacing: 16) {
                     HStack {
