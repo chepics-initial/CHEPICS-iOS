@@ -9,6 +9,7 @@ import SwiftUI
 import SwiftUIIntrospect
 
 struct ExploreTopView: View {
+    @EnvironmentObject var mainTabViewModel: MainTabViewModel
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
     @FocusState private var isFocused: Bool
@@ -74,6 +75,7 @@ struct ExploreTopView: View {
         }
         .navigationDestination(isPresented: $isPresented, destination: {
             ExploreResultView(viewModel: ExploreResultViewModel(searchText: viewModel.searchText, exploreResultUseCase: DIFactory.exploreResultUseCase()))
+                .environmentObject(mainTabViewModel)
         })
     }
 }

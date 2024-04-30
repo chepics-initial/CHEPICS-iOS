@@ -14,6 +14,7 @@ struct ExploreResultView: View {
     @Environment(\.dismiss) var dismiss
     @FocusState private var isFocused: Bool
     @StateObject var viewModel: ExploreResultViewModel
+    @State private var isPresented = false
     private let topicID = "topicID"
     private let commentID = "commentID"
     private let userID = "userID"
@@ -25,6 +26,7 @@ struct ExploreResultView: View {
                     .focused($isFocused)
                     .submitLabel(.search)
                     .onSubmit {
+                        isPresented = true
                     }
                     .frame(maxWidth: .infinity)
                     .introspect(.textField, on: .iOS(.v16, .v17
@@ -32,31 +34,78 @@ struct ExploreResultView: View {
                         textField.enablesReturnKeyAutomatically = true
                     }
             }, onTapBackButton: {
-                dismiss()
+                if isFocused {
+                    isFocused = false
+                } else {
+                    dismiss()
+                }
             }, onTapDeleteButton: {
                 viewModel.onTapDeleteButton()
             })
             
-            headerTab
-            
-            TabView(selection: $viewModel.selectedTab) {
-                topicContentView
-                    .tag(SearchTabType.topics)
+            if isFocused {
+                if !viewModel.searchText.isEmpty {
+                    searchView
+                }
                 
-                commentContentView
-                    .tag(SearchTabType.comments)
+                Spacer()
+            } else {
+                headerTab
                 
-                userContentView
-                    .tag(SearchTabType.users)
-            }
-            .introspect(.tabView, on: .iOS(.v16, .v17)) { tabView in
-                tabView.tabBar.isHidden = true
+                TabView(selection: $viewModel.selectedTab) {
+                    topicContentView
+                        .tag(SearchTabType.topics)
+                    
+                    commentContentView
+                        .tag(SearchTabType.comments)
+                    
+                    userContentView
+                        .tag(SearchTabType.users)
+                }
+                .introspect(.tabView, on: .iOS(.v16, .v17)) { tabView in
+                    tabView.tabBar.isHidden = true
+                }
             }
         }
         .onAppear {
             Task { await viewModel.onAppear() }
         }
         .navigationBarBackButtonHidden()
+        .navigationDestination(isPresented: $isPresented, destination: {
+            ExploreResultView(viewModel: ExploreResultViewModel(searchText: viewModel.searchText, exploreResultUseCase: DIFactory.exploreResultUseCase()))
+                .environmentObject(mainTabViewModel)
+        })
+    }
+    
+    private var searchView: some View {
+        VStack {
+            Button {
+                isPresented = true
+            } label: {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 16, height: 16)
+                        .foregroundStyle(.chepicsPrimary)
+                    
+                    Text(viewModel.searchText)
+                        .fontWeight(.semibold)
+                        .lineLimit(1)
+                        .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                    
+                    Text("を検索")
+                        .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                    
+                    Spacer()
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 16)
+            }
+
+            
+            Divider()
+        }
     }
     
     private var headerTab: some View {

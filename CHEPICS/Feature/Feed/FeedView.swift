@@ -86,6 +86,7 @@ struct FeedView: View {
         .navigationDestination(for: String.self) { value in
             if value == exploreNavigationTag {
                 ExploreTopView(viewModel: ExploreTopViewModel())
+                    .environmentObject(mainTabViewModel)
             }
         }
     }
