@@ -219,5 +219,5 @@ struct ExploreResultView: View {
 }
 
 #Preview {
-    ExploreResultView(viewModel: ExploreResultViewModel(searchText: ""))
+    ExploreResultView(viewModel: ExploreResultViewModel(searchText: "", exploreResultUseCase: ExploreResultUseCase_Previews()))
 }

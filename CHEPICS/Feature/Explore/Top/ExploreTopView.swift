@@ -73,7 +73,7 @@ struct ExploreTopView: View {
             isFocused = true
         }
         .navigationDestination(isPresented: $isPresented, destination: {
-            ExploreResultView(viewModel: ExploreResultViewModel(searchText: viewModel.searchText))
+            ExploreResultView(viewModel: ExploreResultViewModel(searchText: viewModel.searchText, exploreResultUseCase: DIFactory.exploreResultUseCase()))
         })
     }
 }

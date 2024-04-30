@@ -39,10 +39,16 @@ extension DIFactory {
         ProfileUseCaseImpl()
     }
     
+    static func exploreResultUseCase() -> some ExploreResultUseCase {
+        ExploreResultUseCaseImpl(searchRepository: sharedSearchRepository)
+    }
+    
     // MARK: - Repository
     static let sharedTopicRepository: some TopicRepository = TopicRepositoryImpl(topicDataSource: sharedTopicDataSource)
     
     static let sharedAuthRepository: some AuthRepository = AuthRepositoryImpl(authDataSource: sharedAuthDataSource, tokenDataSource: sharedTokenDataSource)
+    
+    static let sharedSearchRepository: some SearchRepository = SearchRepositoryImpl(searchDataSource: sharedSearchDataSource)
     
     // MARK: - DataSource
     static let sharedTopicDataSource: some TopicDataSource = TopicRemoteSource.shared
@@ -50,4 +56,6 @@ extension DIFactory {
     static let sharedAuthDataSource: some AuthDataSource = AuthRemoteSource.shared
     
     static let sharedTokenDataSource: some TokenDataSource = TokenStoreLocalSource.shared
+    
+    static let sharedSearchDataSource: some SearchDataSource = SearchRemoteSource.shared
 }

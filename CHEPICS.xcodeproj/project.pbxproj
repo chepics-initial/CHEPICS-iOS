@@ -42,6 +42,10 @@
 		2566F54A2B8AADF300CAD739 /* OneTimeCodeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F5492B8AADF300CAD739 /* OneTimeCodeUseCase.swift */; };
 		256C67142BAD483F00260ADE /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256C67132BAD483F00260ADE /* ProfileViewModel.swift */; };
 		256C67172BAD6BB500260ADE /* ProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256C67162BAD6BB500260ADE /* ProfileUseCase.swift */; };
+		256CFEEB2BDBAD7F0000709E /* SearchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256CFEEA2BDBAD7F0000709E /* SearchDataSource.swift */; };
+		256CFEED2BDBADD70000709E /* SearchRemoteSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256CFEEC2BDBADD70000709E /* SearchRemoteSource.swift */; };
+		256CFEEF2BDBAE900000709E /* SearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256CFEEE2BDBAE900000709E /* SearchRepository.swift */; };
+		256CFEF22BDBAF2F0000709E /* ExploreResultUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256CFEF12BDBAF2F0000709E /* ExploreResultUseCase.swift */; };
 		2583F2472B6F6CD400E68CAD /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2583F2462B6F6CD400E68CAD /* FeedView.swift */; };
 		25862EB92BBA2F2400FC4225 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25862EB82BBA2F2300FC4225 /* CommentCell.swift */; };
 		25862EBF2BBB7D9700FC4225 /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = 25862EBE2BBB7D9700FC4225 /* SwiftUIIntrospect */; };
@@ -168,6 +172,10 @@
 		2566F5492B8AADF300CAD739 /* OneTimeCodeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTimeCodeUseCase.swift; sourceTree = "<group>"; };
 		256C67132BAD483F00260ADE /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		256C67162BAD6BB500260ADE /* ProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUseCase.swift; sourceTree = "<group>"; };
+		256CFEEA2BDBAD7F0000709E /* SearchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDataSource.swift; sourceTree = "<group>"; };
+		256CFEEC2BDBADD70000709E /* SearchRemoteSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRemoteSource.swift; sourceTree = "<group>"; };
+		256CFEEE2BDBAE900000709E /* SearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepository.swift; sourceTree = "<group>"; };
+		256CFEF12BDBAF2F0000709E /* ExploreResultUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreResultUseCase.swift; sourceTree = "<group>"; };
 		2583F2462B6F6CD400E68CAD /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		25862EB82BBA2F2300FC4225 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		25893F792BD0DFCA001174D5 /* ExploreResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreResultView.swift; sourceTree = "<group>"; };
@@ -271,7 +279,7 @@
 			children = (
 				E457A0DB2BD71401003DFB9F /* ViewParts */,
 				25893F782BD0DF9F001174D5 /* Result */,
-				25893F772BD0DF99001174D5 /* Search */,
+				25893F772BD0DF99001174D5 /* Top */,
 			);
 			path = Explore;
 			sourceTree = "<group>";
@@ -355,6 +363,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		256CFEF02BDBAF1D0000709E /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				256CFEF12BDBAF2F0000709E /* ExploreResultUseCase.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		2583F23C2B6F6B2400E68CAD /* Feature */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,6 +393,7 @@
 				69EC79322B8ABDE10096AA55 /* Authentication */,
 				6916B39B2BAAED5D009A8670 /* Feed */,
 				256C67152BAD6BA600260ADE /* Profile */,
+				256CFEF02BDBAF1D0000709E /* Search */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -385,6 +402,7 @@
 			isa = PBXGroup;
 			children = (
 				251FE4222BC79A10008C3254 /* AuthRepository.swift */,
+				256CFEEE2BDBAE900000709E /* SearchRepository.swift */,
 				6916B3962BAAE3CA009A8670 /* TopicRepository.swift */,
 				2583F2402B6F6B5C00E68CAD /* DataSource */,
 			);
@@ -408,6 +426,7 @@
 				251FE4242BC79B79008C3254 /* AuthDataSource.swift */,
 				E457A0492BCA61C4003DFB9F /* TokenDataSource.swift */,
 				6916B3922BAAE30E009A8670 /* TopicDataSource.swift */,
+				256CFEEA2BDBAD7F0000709E /* SearchDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -428,6 +447,7 @@
 				251FE41E2BC76192008C3254 /* API.swift */,
 				251FE4262BC79BB8008C3254 /* AuthRemoteSource.swift */,
 				6916B3942BAAE364009A8670 /* TopicRemoteSource.swift */,
+				256CFEEC2BDBADD70000709E /* SearchRemoteSource.swift */,
 			);
 			path = RemoteSource;
 			sourceTree = "<group>";
@@ -463,13 +483,13 @@
 			path = Feed;
 			sourceTree = "<group>";
 		};
-		25893F772BD0DF99001174D5 /* Search */ = {
+		25893F772BD0DF99001174D5 /* Top */ = {
 			isa = PBXGroup;
 			children = (
 				25893F7D2BD0E042001174D5 /* ExploreTopView.swift */,
 				251FE43D2BCE3938008C3254 /* ExploreTopViewModel.swift */,
 			);
-			path = Search;
+			path = Top;
 			sourceTree = "<group>";
 		};
 		25893F782BD0DF9F001174D5 /* Result */ = {
@@ -819,6 +839,7 @@
 				69EC79522B8B67B70096AA55 /* CompleteRegistrationView.swift in Sources */,
 				69EC794B2B8B61EA0096AA55 /* NameRegistrationView.swift in Sources */,
 				252D71212BA7FFB100485877 /* AppDelegate.swift in Sources */,
+				256CFEEB2BDBAD7F0000709E /* SearchDataSource.swift in Sources */,
 				251FE4212BC764C6008C3254 /* UserDefaults+Infra.swift in Sources */,
 				E49366292BC0B7E50093D286 /* CommentImage.swift in Sources */,
 				2566F53D2B8A148100CAD739 /* OneTimeCodeViewModel.swift in Sources */,
@@ -835,6 +856,7 @@
 				252D713D2BA918ED00485877 /* TopicCell.swift in Sources */,
 				2566F5412B8A16CE00CAD739 /* EmailRegistrationUseCase.swift in Sources */,
 				69EC794D2B8B61F10096AA55 /* NameRegistrationViewModel.swift in Sources */,
+				256CFEF22BDBAF2F0000709E /* ExploreResultUseCase.swift in Sources */,
 				256C67142BAD483F00260ADE /* ProfileViewModel.swift in Sources */,
 				6916B3862BAAD8A6009A8670 /* Topic.swift in Sources */,
 				251FE4332BC7A365008C3254 /* APIError+Extension.swift in Sources */,
@@ -851,6 +873,7 @@
 				251FE4372BC8EFA3008C3254 /* CheckCodeBody.swift in Sources */,
 				6916B3932BAAE30E009A8670 /* TopicDataSource.swift in Sources */,
 				2583F2472B6F6CD400E68CAD /* FeedView.swift in Sources */,
+				256CFEEF2BDBAE900000709E /* SearchRepository.swift in Sources */,
 				69EC794F2B8B644F0096AA55 /* NameRegistrationUseCase.swift in Sources */,
 				251FE4302BC7A164008C3254 /* ErrorResponse.swift in Sources */,
 				6916B3842BAAD5AB009A8670 /* Items.swift in Sources */,
@@ -869,6 +892,7 @@
 				251FE43E2BCE3938008C3254 /* ExploreTopViewModel.swift in Sources */,
 				252D713F2BA91BAA00485877 /* FeedViewModel.swift in Sources */,
 				E457A0D82BCF9130003DFB9F /* TokenStore.swift in Sources */,
+				256CFEED2BDBADD70000709E /* SearchRemoteSource.swift in Sources */,
 				E457A0462BCA60CC003DFB9F /* CreateUserBody.swift in Sources */,
 				69EC79372B8ABEA90096AA55 /* PasswordRegistrationViewModel.swift in Sources */,
 				E457A0DA2BCF9B62003DFB9F /* LoginBody.swift in Sources */,

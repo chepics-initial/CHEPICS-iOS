@@ -36,9 +36,12 @@ final class ExploreResultViewModel: ObservableObject {
     @Published private(set) var userUIState: UIState = .loading
     
     private var isFirstAppear = true
+    
+    private let exploreResultUseCase: any ExploreResultUseCase
         
-    init(searchText: String) {
+    init(searchText: String, exploreResultUseCase: some ExploreResultUseCase) {
         self.searchText = searchText
+        self.exploreResultUseCase = exploreResultUseCase
     }
     
     func selectTab(type: SearchTabType) {
@@ -64,9 +67,13 @@ final class ExploreResultViewModel: ObservableObject {
             topicUIState = .loading
         }
         
-        try! await Task.sleep(nanoseconds: 1_000_000_000)
-        topics = [mockTopic1, mockTopic2, mockTopic3, mockTopic4]
-        topicUIState = .success
+        switch await exploreResultUseCase.fetchSearchedTopics(word: searchText) {
+        case .success(let topics):
+            self.topics = topics
+            topicUIState = .success
+        case .failure:
+            topicUIState = .failure
+        }
     }
     
     func fetchComments() async {
@@ -74,9 +81,13 @@ final class ExploreResultViewModel: ObservableObject {
             commentUIState = .loading
         }
         
-        try! await Task.sleep(nanoseconds: 1_000_000_000)
-        comments = [mockComment1, mockComment2, mockComment3, mockComment4]
-        commentUIState = .success
+        switch await exploreResultUseCase.fetchSearchedComments(word: searchText) {
+        case .success(let comments):
+            self.comments = comments
+            commentUIState = .success
+        case .failure:
+            commentUIState = .failure
+        }
     }
     
     func fetchUsers() async {
@@ -84,9 +95,13 @@ final class ExploreResultViewModel: ObservableObject {
             userUIState = .loading
         }
         
-        try! await Task.sleep(nanoseconds: 1_000_000_000)
-        users = [mockUser1, mockUser2, mockUser3, mockUser4]
-        userUIState = .success
+        switch await exploreResultUseCase.fetchSearchedUsers(word: searchText) {
+        case .success(let users):
+            self.users = users
+            userUIState = .success
+        case .failure:
+            userUIState = .failure
+        }
     }
     
     func onTapDeleteButton() {
@@ -108,5 +123,19 @@ enum SearchTabType: CaseIterable {
         case .users:
             "ユーザー"
         }
+    }
+}
+
+final class ExploreResultUseCase_Previews: ExploreResultUseCase {
+    func fetchSearchedTopics(word: String) async -> Result<[Topic], APIError> {
+        .success([])
+    }
+    
+    func fetchSearchedComments(word: String) async -> Result<[Comment], APIError> {
+        .success([])
+    }
+    
+    func fetchSearchedUsers(word: String) async -> Result<[User], APIError> {
+        .success([])
     }
 }
