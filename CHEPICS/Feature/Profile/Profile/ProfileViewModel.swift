@@ -33,11 +33,9 @@ import Foundation
     private let userId: String
     private var isInitialAppear: Bool = true
     private let profileUseCase: any ProfileUseCase
-    private let tokenUseCase: any TokenUseCase
     
-    init(userId: String, profileUseCase: some ProfileUseCase, tokenUseCase: some TokenUseCase) {
+    init(userId: String, profileUseCase: some ProfileUseCase) {
         self.profileUseCase = profileUseCase
-        self.tokenUseCase = tokenUseCase
         self.userId = userId
     }
     
@@ -66,7 +64,7 @@ import Foundation
                     case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
                         showError = true
                     case .INVALID_ACCESS_TOKEN:
-                        tokenUseCase.removeToken()
+                        return
                     }
                 }
             }
@@ -91,7 +89,7 @@ import Foundation
                 case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
                     topicUIState = .failure
                 case .INVALID_ACCESS_TOKEN:
-                    tokenUseCase.removeToken()
+                    return
                 }
             }
         }
@@ -115,7 +113,7 @@ import Foundation
                 case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
                     commentUIState = .failure
                 case .INVALID_ACCESS_TOKEN:
-                    tokenUseCase.removeToken()
+                    return
                 }
             }
         }

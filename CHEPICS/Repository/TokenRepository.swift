@@ -9,7 +9,6 @@ import Foundation
 import Combine
 
 protocol TokenRepository {
-    func removeToken()
     func observeTokenStatus() -> AnyPublisher<String?, Never>
 }
 
@@ -19,11 +18,7 @@ final class TokenRepositoryImpl: TokenRepository {
     init(tokenDataSource: some TokenDataSource) {
         self.tokenDataSource = tokenDataSource
     }
-    
-    func removeToken() {
-        tokenDataSource.removeToken()
-    }
-    
+
     func observeTokenStatus() -> AnyPublisher<String?, Never> {
         tokenDataSource.observeTokenStatus()
     }

@@ -44,12 +44,22 @@ import Foundation
             topicUIState = .loading
         }
         isTopicOnAppearFinished = true
-        switch await feedUseCase.fetchFavoriteTopics() {
+        switch await feedUseCase.fetchFavoriteTopics(offset: nil) {
         case .success(let topics):
             self.topics = topics
             topicUIState = .success
-        case .failure:
-            topicUIState = .failure
+        case .failure(let error):
+            switch error {
+            case .decodingError, .networkError, .invalidStatus, .otherError:
+                topicUIState = .failure
+            case .errorResponse(let errorResponse, _):
+                switch errorResponse.errorCode {
+                case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
+                    topicUIState = .failure
+                case .INVALID_ACCESS_TOKEN:
+                    return
+                }
+            }
         }
     }
     
@@ -58,9 +68,22 @@ import Foundation
             commentUIState = .loading
         }
         isCommentOnAppearFinished = true
-        try! await Task.sleep(nanoseconds: 1_000_000_000)
-        comments = [mockComment1, mockComment2, mockComment3, mockComment4]
-        commentUIState = .success
+        switch await feedUseCase.fetchComments(offset: nil) {
+        case .success(let comments):
+            self.comments = comments
+        case .failure(let error):
+            switch error {
+            case .decodingError, .networkError, .invalidStatus, .otherError:
+                commentUIState = .failure
+            case .errorResponse(let errorResponse, _):
+                switch errorResponse.errorCode {
+                case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
+                    commentUIState = .failure
+                case .INVALID_ACCESS_TOKEN:
+                    return
+                }
+            }
+        }
     }
     
     func onDisappear() {
@@ -84,7 +107,11 @@ enum FeedTabType: CaseIterable {
 }
 
 final class FeedUseCase_Previews: FeedUseCase {
-    func fetchFavoriteTopics() async -> Result<[Topic], APIError> {
+    func fetchFavoriteTopics(offset: Int?) async -> Result<[Topic], APIError> {
+        .success([])
+    }
+    
+    func fetchComments(offset: Int?) async -> Result<[Comment], APIError> {
         .success([])
     }
 }

@@ -25,7 +25,7 @@ struct MainTabView: View {
             }
             
             NavigationStack(path: $myPageStack) {
-                ProfileView(viewModel: ProfileViewModel(userId: viewModel.userId, profileUseCase: DIFactory.profileUseCase(), tokenUseCase: DIFactory.tokenUseCase()))
+                ProfileView(viewModel: ProfileViewModel(userId: viewModel.userId, profileUseCase: DIFactory.profileUseCase()))
                     .environmentObject(viewModel)
             }
             .tag(Tab.myPage)

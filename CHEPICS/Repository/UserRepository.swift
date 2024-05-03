@@ -16,14 +16,28 @@ protocol UserRepository {
 final class UserRepositoryImpl: UserRepository {
     private let userDataSource: any UserDataSource
     private let userStoreDataSource: any UserStoreDataSource
+    private let tokenDataSource: any TokenDataSource
     
-    init(userDataSource: some UserDataSource, userStoreDataSource: some UserStoreDataSource) {
+    init(
+        userDataSource: some UserDataSource,
+        userStoreDataSource: some UserStoreDataSource,
+        tokenDataSource: some TokenDataSource
+    ) {
         self.userDataSource = userDataSource
         self.userStoreDataSource = userStoreDataSource
+        self.tokenDataSource = tokenDataSource
     }
     
     func fetchUser(userId: String) async -> Result<User, APIError> {
-        await userDataSource.fetchUser(userId: userId)
+        switch await userDataSource.fetchUser(userId: userId) {
+        case .success(let response):
+            return .success(response)
+        case .failure(let error):
+            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_ACCESS_TOKEN {
+                tokenDataSource.removeToken()
+            }
+            return .failure(error)
+        }
     }
     
     func storeUserId(userId: String) {

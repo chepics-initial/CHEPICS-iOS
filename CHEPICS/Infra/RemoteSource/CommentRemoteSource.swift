@@ -12,6 +12,14 @@ final class CommentRemoteSource: CommentDataSource {
     
     private init() {}
     
+    func fetchFollowingComments(offset: Int?) async -> Result<[Comment], APIError> {
+        var query: [String: Any] = [:]
+        if let offset {
+            query["offset"] = offset
+        }
+        return await API.request(ServerDirection.production.urlString(for: .followingUsersComments), responseType: [Comment].self, queryParameters: query)
+    }
+    
     func fetchUserComments(userId: String, offset: Int?) async -> Result<[Comment], APIError> {
         var query: [String: Any] = ["user_id": userId]
         if let offset {

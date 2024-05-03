@@ -32,7 +32,7 @@ extension DIFactory {
     }
     
     static func feedUseCase() -> some FeedUseCase {
-        FeedUseCaseImpl(topicRepository: sharedTopicRepository)
+        FeedUseCaseImpl(topicRepository: sharedTopicRepository, commentRepository: sharedCommentRepository)
     }
     
     static func profileUseCase() -> some ProfileUseCase {
@@ -52,15 +52,15 @@ extension DIFactory {
     }
     
     // MARK: - Repository
-    static let sharedTopicRepository: some TopicRepository = TopicRepositoryImpl(topicDataSource: sharedTopicDataSource)
+    static let sharedTopicRepository: some TopicRepository = TopicRepositoryImpl(topicDataSource: sharedTopicDataSource, tokenDataSource: sharedTokenDataSource)
     
     static let sharedAuthRepository: some AuthRepository = AuthRepositoryImpl(authDataSource: sharedAuthDataSource, tokenDataSource: sharedTokenDataSource)
     
-    static let sharedSearchRepository: some SearchRepository = SearchRepositoryImpl(searchDataSource: sharedSearchDataSource)
+    static let sharedSearchRepository: some SearchRepository = SearchRepositoryImpl(searchDataSource: sharedSearchDataSource, tokenDataSource: sharedTokenDataSource)
     
-    static let sharedCommentRepository: some CommentRepository = CommentRepositoryImpl(commentDataSource: sharedCommentDataSource)
+    static let sharedCommentRepository: some CommentRepository = CommentRepositoryImpl(commentDataSource: sharedCommentDataSource, tokenDataSource: sharedTokenDataSource)
     
-    static let sharedUserRepository: some UserRepository = UserRepositoryImpl(userDataSource: sharedUserDataSource, userStoreDataSource: sharedUserStoreDataSource)
+    static let sharedUserRepository: some UserRepository = UserRepositoryImpl(userDataSource: sharedUserDataSource, userStoreDataSource: sharedUserStoreDataSource, tokenDataSource: sharedTokenDataSource)
     
     static let sharedTokenRepository: some TokenRepository = TokenRepositoryImpl(tokenDataSource: sharedTokenDataSource)
     

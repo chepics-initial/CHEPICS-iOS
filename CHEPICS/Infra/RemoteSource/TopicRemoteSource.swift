@@ -12,9 +12,12 @@ final class TopicRemoteSource: TopicDataSource {
     
     private init() {}
     
-    func fetchFavoriteTopics() async -> Result<[Topic], APIError> {
-        try! await Task.sleep(nanoseconds: 1_000_000_000)
-        return .success([mockTopic1, mockTopic2, mockTopic3, mockTopic4, mockTopic5, mockTopic6, mockTopic7, mockTopic8, mockTopic9, mockTopic10, mockTopic11, mockTopic12, mockTopic13, mockTopic14, mockTopic15])
+    func fetchFavoriteTopics(offset: Int?) async -> Result<[Topic], APIError> {
+        var query: [String: Any] = [:]
+        if let offset {
+            query["offset"] = offset
+        }
+        return await API.request(ServerDirection.production.urlString(for: .topics), responseType: [Topic].self, queryParameters: query)
     }
     
     func fetchUserTopics(userId: String, offset: Int?) async -> Result<[Topic], APIError> {

@@ -27,11 +27,12 @@ final class TokenStore {
         }
     }
     
-    static func removeRefreshToken() {
+    static func removeToken() {
+        UserDefaults.standard.accessToken = nil
         do {
             try keychain.remove(refreshTokenKey)
         } catch let error {
-            fatalError()
+            fatalError(error.localizedDescription)
         }
     }
 }

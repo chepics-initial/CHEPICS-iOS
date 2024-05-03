@@ -20,8 +20,7 @@ final class TokenStoreLocalSource: TokenDataSource {
     }
     
     func removeToken() {
-        UserDefaults.standard.accessToken = nil
-        TokenStore.removeRefreshToken()
+        TokenStore.removeToken()
         tokenStatusSubject.send(nil)
     }
     

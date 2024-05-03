@@ -2,15 +2,14 @@
 //  TokenUseCase.swift
 //  CHEPICS
 //
-//  Created by tatsuyoshi-kawajiri on 2024/05/02.
+//  Created by 川尻辰義 on 2024/05/03.
 //
 
 import Foundation
 import Combine
 
 protocol TokenUseCase {
-    func removeToken()
-    func observeTokenStatus() -> AnyPublisher<String?, Never>
+    func observeToken() -> AnyPublisher<String?, Never>
 }
 
 final class TokenUseCaseImpl: TokenUseCase {
@@ -20,21 +19,13 @@ final class TokenUseCaseImpl: TokenUseCase {
         self.tokenRepository = tokenRepository
     }
     
-    func removeToken() {
-        tokenRepository.removeToken()
-    }
-    
-    func observeTokenStatus() -> AnyPublisher<String?, Never> {
+    func observeToken() -> AnyPublisher<String?, Never> {
         tokenRepository.observeTokenStatus()
     }
 }
 
 final class TokenUseCase_Previews: TokenUseCase {
-    func removeToken() {
-        
-    }
-    
-    func observeTokenStatus() -> AnyPublisher<String?, Never> {
+    func observeToken() -> AnyPublisher<String?, Never> {
         PassthroughSubject<String?, Never>().eraseToAnyPublisher()
     }
 }

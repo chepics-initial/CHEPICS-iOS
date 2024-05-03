@@ -20,7 +20,7 @@ import Combine
     }
     
     private func observeAccessToken() {
-        tokenUseCase.observeTokenStatus()
+        tokenUseCase.observeToken()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] token in
                 self?.isLoggedIn = token != nil

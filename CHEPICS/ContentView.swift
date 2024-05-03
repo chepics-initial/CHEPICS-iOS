@@ -11,14 +11,14 @@ struct ContentView: View {
     @StateObject var viewModel: ContentViewModel
     
     var body: some View {
-//        MainTabView(viewModel: MainTabViewModel(mainTabUseCase: DIFactory.mainTabUseCase()))
-        if viewModel.isLoggedIn {
-            MainTabView(viewModel: MainTabViewModel(mainTabUseCase: DIFactory.mainTabUseCase()))
-        } else {
-            NavigationStack {
-                LoginView(viewModel: LoginViewModel(loginUseCase: DIFactory.loginUseCase()))
-            }
-        }
+        MainTabView(viewModel: MainTabViewModel(mainTabUseCase: DIFactory.mainTabUseCase()))
+//        if viewModel.isLoggedIn {
+//            MainTabView(viewModel: MainTabViewModel(mainTabUseCase: DIFactory.mainTabUseCase()))
+//        } else {
+//            NavigationStack {
+//                LoginView(viewModel: LoginViewModel(loginUseCase: DIFactory.loginUseCase()))
+//            }
+//        }
     }
 }
 

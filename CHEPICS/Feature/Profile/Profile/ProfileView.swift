@@ -250,5 +250,5 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView(viewModel: ProfileViewModel(userId: "", profileUseCase: ProfileUseCase_Previews(), tokenUseCase: TokenUseCase_Previews()))
+    ProfileView(viewModel: ProfileViewModel(userId: "", profileUseCase: ProfileUseCase_Previews()))
 }
