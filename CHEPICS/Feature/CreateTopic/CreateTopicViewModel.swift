@@ -32,7 +32,10 @@ import SwiftUI
         return isValidInput(title) && title.count <= Constants.topicTitleCount && description.count <= Constants.topicDescriptionCount && (link.isEmpty || isValidUrl(link))
     }
     
-    init() {
+    private let createTopicUseCase: any CreateTopicUseCase
+    
+    init(createTopicUseCase: some CreateTopicUseCase) {
+        self.createTopicUseCase = createTopicUseCase
     }
     
     func onTapSubmitButton() async {
@@ -40,4 +43,7 @@ import SwiftUI
         try! await Task.sleep(nanoseconds: 1_000_000_000)
         isLoading = false
     }
+}
+
+final class CreateTopicUseCase_Previews: CreateTopicUseCase {
 }

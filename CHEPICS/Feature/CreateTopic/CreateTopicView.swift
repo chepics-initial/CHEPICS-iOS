@@ -244,5 +244,5 @@ struct CreateTopicView: View {
 }
 
 #Preview {
-    CreateTopicView(viewModel: CreateTopicViewModel())
+    CreateTopicView(viewModel: CreateTopicViewModel(createTopicUseCase: CreateTopicUseCase_Previews()))
 }

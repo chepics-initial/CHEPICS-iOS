@@ -64,7 +64,7 @@ struct FeedView: View {
         }
         .fullScreenCover(isPresented: $showCreateTopicView, content: {
             NavigationStack {
-                CreateTopicView(viewModel: CreateTopicViewModel())
+                CreateTopicView(viewModel: CreateTopicViewModel(createTopicUseCase: DIFactory.createTopicUseCase()))
             }
         })
         .toolbar {

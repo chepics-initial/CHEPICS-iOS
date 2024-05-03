@@ -111,6 +111,7 @@
 		E460BEBE2BE4CD6B006E4812 /* MyPageTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E460BEBD2BE4CD6B006E4812 /* MyPageTopView.swift */; };
 		E460BEC02BE4CD98006E4812 /* MyPageTopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E460BEBF2BE4CD98006E4812 /* MyPageTopViewModel.swift */; };
 		E460BEC22BE4CE6B006E4812 /* MyPageTopUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E460BEC12BE4CE6B006E4812 /* MyPageTopUseCase.swift */; };
+		E460BEC42BE59661006E4812 /* CreateTopicUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E460BEC32BE59661006E4812 /* CreateTopicUseCase.swift */; };
 		E49366232BBD05830093D286 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = E49366222BBD05830093D286 /* Nuke */; };
 		E49366252BBD05830093D286 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = E49366242BBD05830093D286 /* NukeUI */; };
 		E49366272BC0B6670093D286 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49366262BC0B6670093D286 /* Comment.swift */; };
@@ -255,6 +256,7 @@
 		E460BEBD2BE4CD6B006E4812 /* MyPageTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTopView.swift; sourceTree = "<group>"; };
 		E460BEBF2BE4CD98006E4812 /* MyPageTopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTopViewModel.swift; sourceTree = "<group>"; };
 		E460BEC12BE4CE6B006E4812 /* MyPageTopUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTopUseCase.swift; sourceTree = "<group>"; };
+		E460BEC32BE59661006E4812 /* CreateTopicUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTopicUseCase.swift; sourceTree = "<group>"; };
 		E49366262BC0B6670093D286 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E49366282BC0B7E50093D286 /* CommentImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentImage.swift; sourceTree = "<group>"; };
 		E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHEPICS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -432,6 +434,7 @@
 				2599A4912BE4B29300AFC8E0 /* MainTabUseCase.swift */,
 				E460BEBA2BE4C82B006E4812 /* TokenUseCase.swift */,
 				E460BEC12BE4CE6B006E4812 /* MyPageTopUseCase.swift */,
+				E460BEC32BE59661006E4812 /* CreateTopicUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -910,6 +913,7 @@
 			files = (
 				6916B3882BAAD95C009A8670 /* User.swift in Sources */,
 				251FE4232BC79A10008C3254 /* AuthRepository.swift in Sources */,
+				E460BEC42BE59661006E4812 /* CreateTopicUseCase.swift in Sources */,
 				E49366272BC0B6670093D286 /* Comment.swift in Sources */,
 				69EC79522B8B67B70096AA55 /* CompleteRegistrationView.swift in Sources */,
 				69EC794B2B8B61EA0096AA55 /* NameRegistrationView.swift in Sources */,

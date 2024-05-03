@@ -55,6 +55,10 @@ extension DIFactory {
         MyPageTopUseCaseImpl(userRepository: sharedUserRepository)
     }
     
+    static func createTopicUseCase() -> some CreateTopicUseCase {
+        CreateTopicUseCaseImpl(topicRepository: sharedTopicRepository)
+    }
+    
     // MARK: - Repository
     static let sharedTopicRepository: some TopicRepository = TopicRepositoryImpl(topicDataSource: sharedTopicDataSource, tokenDataSource: sharedTokenDataSource)
     
