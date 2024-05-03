@@ -6,7 +6,10 @@
 //
 
 import Foundation
+import Combine
 
 protocol TokenDataSource {
     func storeToken(accessToken: String, refreshToken: String)
+    func removeToken()
+    func observeTokenStatus() -> AnyPublisher<String?, Never>
 }

@@ -26,4 +26,12 @@ final class TokenStore {
             return nil
         }
     }
+    
+    static func removeRefreshToken() {
+        do {
+            try keychain.remove(refreshTokenKey)
+        } catch let error {
+            fatalError()
+        }
+    }
 }

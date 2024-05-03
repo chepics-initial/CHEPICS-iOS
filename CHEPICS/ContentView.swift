@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var viewModel: ContentViewModel
+    
     var body: some View {
-        MainTabView()
-//        if UserDefaults.standard.accessToken != nil {
-//            MainTabView()
-//        }
-//        
-//        if UserDefaults.standard.accessToken == nil {
-//            NavigationStack {
-//                LoginView(viewModel: LoginViewModel(loginUseCase: DIFactory.loginUseCase()))
-//            }
-//        }
+//        MainTabView(viewModel: MainTabViewModel(mainTabUseCase: DIFactory.mainTabUseCase()))
+        if viewModel.isLoggedIn {
+            MainTabView(viewModel: MainTabViewModel(mainTabUseCase: DIFactory.mainTabUseCase()))
+        } else {
+            NavigationStack {
+                LoginView(viewModel: LoginViewModel(loginUseCase: DIFactory.loginUseCase()))
+            }
+        }
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(viewModel: ContentViewModel(tokenUseCase: TokenUseCase_Previews()))
 }

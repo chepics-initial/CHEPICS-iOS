@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @StateObject private var viewModel = MainTabViewModel()
+    @StateObject var viewModel: MainTabViewModel
     @State private var activeTab: Tab = .feed
     @State private var feedStack: NavigationPath = .init()
     @State private var myPageStack: NavigationPath = .init()
@@ -25,7 +25,7 @@ struct MainTabView: View {
             }
             
             NavigationStack(path: $myPageStack) {
-                ProfileView(viewModel: ProfileViewModel(profileUseCase: DIFactory.profileUseCase()))
+                ProfileView(viewModel: ProfileViewModel(userId: viewModel.userId, profileUseCase: DIFactory.profileUseCase(), tokenUseCase: DIFactory.tokenUseCase()))
                     .environmentObject(viewModel)
             }
             .tag(Tab.myPage)
@@ -69,7 +69,7 @@ struct MainTabView: View {
 }
 
 #Preview {
-    MainTabView()
+    MainTabView(viewModel: MainTabViewModel(mainTabUseCase: MainTabUseCase_Previews()))
 }
 
 enum Tab {

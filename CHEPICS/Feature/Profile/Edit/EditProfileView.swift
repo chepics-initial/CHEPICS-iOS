@@ -10,6 +10,7 @@ import Kingfisher
 
 struct EditProfileView: View {
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: EditProfileViewModel
     
     var body: some View {
@@ -17,17 +18,31 @@ struct EditProfileView: View {
             VStack {
                 ScrollView {
                     ZStack(alignment: .bottomTrailing) {
-                        Image(systemName: "person.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 96, height: 96)
-                            .foregroundStyle(.gray)
-                            .padding(24)
-                            .background {
-                                Circle()
-                                    .foregroundStyle(Color(.lightGray))
-                            }
-                            .padding(.horizontal)
+                        if let profileImage = viewModel.profileImage {
+                            profileImage
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 96, height: 96)
+                                .clipShape(Circle())
+                        } else if let profileImageUrl = viewModel.profileImageUrl {
+                            KFImage(URL(string: profileImageUrl))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 96, height: 96)
+                                .clipShape(Circle())
+                        } else {
+                            Image(systemName: "person.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 96, height: 96)
+                                .foregroundStyle(.gray)
+                                .padding(24)
+                                .background {
+                                    Circle()
+                                        .foregroundStyle(Color(.lightGray))
+                                }
+                            
+                        }
                         
                         Image(systemName: "photo.badge.plus")
                             .resizable()
@@ -40,37 +55,39 @@ struct EditProfileView: View {
                                     .foregroundStyle(Color(.chepicsPrimary))
                             }
                     }
+                    
+                    usernameView
+                    
+                    fullnameView
+                    
+                    bioView
                 }
                 Divider()
                 
-                RoundButton(text: "投稿", isActive: viewModel.isActive, type: .fill) {
+                RoundButton(text: "保存", isActive: viewModel.isActive, type: .fill) {
                     Task { await viewModel.onTapSaveButton() }
                 }
             }
         }
         .navigationTitle("プロフィール編集")
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .foregroundStyle(.gray)
+                }
+
+            }
+        }
     }
     
-    private var userView: some View {
+    private var usernameView: some View {
         VStack {
-            HStack {
-                Text("ユーザー名")
-                    .font(.headline)
-                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                
-                Text("必須")
-                    .font(.caption2)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.white)
-                    .padding(.vertical, 4)
-                    .padding(.horizontal, 8)
-                    .background {
-                        RoundedRectangle(cornerRadius: 4)
-                            .foregroundStyle(Color(.chepicsPrimary))
-                    }
-                
-                Spacer()
-            }
+            Text("ユーザー名")
+                .font(.headline)
+                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
             
             CustomTextEditor(text: $viewModel.username, placeHolder: "ユーザー名を入力")
                 .frame(maxWidth: .infinity)
@@ -87,6 +104,60 @@ struct EditProfileView: View {
                     .foregroundStyle(Color(.chepicsPrimary))
                 
                 Text("/ \(Constants.nameCount)")
+                    .font(.caption)
+                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+            }
+        }
+    }
+    
+    private var fullnameView: some View {
+        VStack {
+            Text("表示名")
+                .font(.headline)
+                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+            
+            CustomTextEditor(text: $viewModel.fullname, placeHolder: "表示名を入力")
+                .frame(maxWidth: .infinity)
+            
+            Color.gray
+                .frame(height: 1)
+            
+            HStack(alignment: .bottom) {
+                Spacer()
+                
+                Text("\(viewModel.fullname.count)")
+                    .font(.body)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(Color(.chepicsPrimary))
+                
+                Text("/ \(Constants.nameCount)")
+                    .font(.caption)
+                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+            }
+        }
+    }
+    
+    private var bioView: some View {
+        VStack {
+            Text("自己紹介")
+                .font(.headline)
+                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+            
+            CustomTextEditor(text: $viewModel.bio, placeHolder: "自己紹介を入力")
+                .frame(maxWidth: .infinity)
+            
+            Color.gray
+                .frame(height: 1)
+            
+            HStack(alignment: .bottom) {
+                Spacer()
+                
+                Text("\(viewModel.bio.count)")
+                    .font(.body)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(Color(.chepicsPrimary))
+                
+                Text("/ \(Constants.bioCount)")
                     .font(.caption)
                     .foregroundStyle(Color.getDefaultColor(for: colorScheme))
             }

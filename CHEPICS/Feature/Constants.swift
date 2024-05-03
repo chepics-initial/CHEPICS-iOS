@@ -12,6 +12,7 @@ enum Constants {
     static let oneTimeCodeCount = 4
     static let passwordCount = 8
     static let nameCount = 30
+    static let bioCount = 100
     static let topicTitleCount = 100
     static let topicDescriptionCount = 300
     static let topicImageCount = 4

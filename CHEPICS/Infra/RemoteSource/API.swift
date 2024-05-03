@@ -78,18 +78,7 @@ enum API {
                         
                         return await request(baseURLString, responseType: responseType, queryParameters: queryParameters)
                     case .failure(let secondError):
-                        switch secondError {
-                        case .decodingError, .networkError, .invalidStatus, .otherError:
-                            return .failure(secondError)
-                        case .errorResponse(let errorResponse, _):
-                            switch errorResponse.errorCode {
-                            case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
-                                return .failure(secondError)
-                            case .INVALID_ACCESS_TOKEN:
-                                // TODO: - refreshTokenが切れていた時の対処
-                                fatalError()
-                            }
-                        }
+                        return .failure(secondError)
                     }
                 }
             }

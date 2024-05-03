@@ -12,6 +12,7 @@ struct ProfileView: View {
     @EnvironmentObject var mainTabViewModel: MainTabViewModel
     @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: ProfileViewModel
+    @State private var showEditView = false
     @State private var isTopicTapped = false
     @State private var isCommentTapped = false
     private let topicID = "topicID"
@@ -19,98 +20,94 @@ struct ProfileView: View {
     
     var body: some View {
         VStack {
-            VStack(spacing: 16) {
-                VStack(alignment: .leading, spacing: 16) {
-                    HStack {
-                        KFImage(URL(string: mockTopicImage1.url))
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 64, height: 64)
-                            .clipShape(Circle())
-                        
-                        Spacer()
-                        
-                        Button {
+            if let user = viewModel.user {
+                VStack(spacing: 16) {
+                    VStack(alignment: .leading, spacing: 16) {
+                        HStack {
+                            UserIconView(url: user.profileImageUrl, scale: .profile)
                             
-                        } label: {
-                            Text("フォローする")
-                                .font(.footnote)
-                                .fontWeight(.semibold)
-                                .foregroundStyle(.white)
-                                .padding(8)
-                                .background {
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .foregroundStyle(Color(.chepicsPrimary))
-                                }
+                            Spacer()
+                            
+                            Button {
+                                
+                            } label: {
+                                Text("フォローする")
+                                    .font(.footnote)
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(.white)
+                                    .padding(8)
+                                    .background {
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .foregroundStyle(Color(.chepicsPrimary))
+                                    }
+                            }
                         }
-                    }
-                    
-                    VStack(alignment: .leading) {
-                        Text("太郎")
-                            .font(.subheadline)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.leading)
-                            .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                         
-                        Text("@aabbcc")
-                            .font(.caption)
-                            .foregroundStyle(.gray)
-                    }
-                    
-                    Text("動物に関するトピックを投稿しています\nよろしく")
-                        .font(.caption)
-                        .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                        .multilineTextAlignment(.leading)
-                    
-                    HStack {
-                        HStack(spacing: 4) {
-                            Text("20")
-                                .font(.caption)
-                                .fontWeight(.semibold)
+                        VStack(alignment: .leading) {
+                            Text(user.fullname)
+                                .font(.subheadline)
+                                .fontWeight(.bold)
+                                .multilineTextAlignment(.leading)
                                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                            Text("フォロー")
+                            
+                            Text("@\(user.username)")
                                 .font(.caption)
                                 .foregroundStyle(.gray)
                         }
                         
-                        HStack(spacing: 4) {
-                            Text("20")
+                        if let bio = user.bio {
+                            Text(bio)
                                 .font(.caption)
-                                .fontWeight(.semibold)
                                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                            Text("フォロワー")
-                                .font(.caption)
-                                .foregroundStyle(.gray)
+                                .multilineTextAlignment(.leading)
                         }
                         
-                        Spacer()
+                        HStack {
+                            HStack(spacing: 4) {
+                                Text("20")
+                                    .font(.caption)
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                                Text("フォロー")
+                                    .font(.caption)
+                                    .foregroundStyle(.gray)
+                            }
+                            
+                            HStack(spacing: 4) {
+                                Text("20")
+                                    .font(.caption)
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                                Text("フォロワー")
+                                    .font(.caption)
+                                    .foregroundStyle(.gray)
+                            }
+                            
+                            Spacer()
+                        }
                     }
-                }
-                .padding(.horizontal)
-                
-                headerTab
-                
-                TabView(selection: $viewModel.selectedTab) {
-                    topicContentView
-                        .tag(ProfileTabType.topics)
+                    .padding(.horizontal)
                     
-                    commentContentView
-                        .tag(ProfileTabType.comments)
-                }
-                .introspect(.tabView, on: .iOS(.v16, .v17)) { tabView in
-                    tabView.tabBar.isHidden = true
+                    headerTab
+                    
+                    TabView(selection: $viewModel.selectedTab) {
+                        topicContentView
+                            .tag(ProfileTabType.topics)
+                        
+                        commentContentView
+                            .tag(ProfileTabType.comments)
+                    }
+                    .introspect(.tabView, on: .iOS(.v16, .v17)) { tabView in
+                        tabView.tabBar.isHidden = true
+                    }
                 }
             }
         }
-        .onAppear {
-            // TODO: - 何を呼び出すかは通信が確定次第変更
-            Task {
-                switch viewModel.selectedTab {
-                case .topics:
-                    await viewModel.fetchTopics()
-                case .comments:
-                    await viewModel.fetchComments()
-                }
+        .onAppear {            
+        }
+        .fullScreenCover(isPresented: $showEditView) {
+            if let user = viewModel.user {
+                EditProfileView(viewModel: EditProfileViewModel(user: user))
             }
         }
     }
@@ -253,5 +250,5 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView(viewModel: ProfileViewModel(profileUseCase: ProfileUseCase_Previews()))
+    ProfileView(viewModel: ProfileViewModel(userId: "", profileUseCase: ProfileUseCase_Previews(), tokenUseCase: TokenUseCase_Previews()))
 }

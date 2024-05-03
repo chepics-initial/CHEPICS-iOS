@@ -17,4 +17,14 @@ extension UserDefaults {
             UserDefaults.standard.setValue(newValue, forKey: #function)
         }
     }
+    
+    var userId: String? {
+        get {
+            UserDefaults.standard.string(forKey: #function)
+        }
+        
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: #function)
+        }
+    }
 }

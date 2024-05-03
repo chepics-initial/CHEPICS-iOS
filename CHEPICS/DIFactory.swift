@@ -36,11 +36,19 @@ extension DIFactory {
     }
     
     static func profileUseCase() -> some ProfileUseCase {
-        ProfileUseCaseImpl()
+        ProfileUseCaseImpl(userRepository: sharedUserRepository, topicRepository: sharedTopicRepository, commentRepository: sharedCommentRepository)
     }
     
     static func exploreResultUseCase() -> some ExploreResultUseCase {
         ExploreResultUseCaseImpl(searchRepository: sharedSearchRepository)
+    }
+    
+    static func tokenUseCase() -> some TokenUseCase {
+        TokenUseCaseImpl(tokenRepository: sharedTokenRepository)
+    }
+    
+    static func mainTabUseCase() -> some MainTabUseCase {
+        MainTabUseCaseImpl(userRepository: sharedUserRepository)
     }
     
     // MARK: - Repository
@@ -50,6 +58,12 @@ extension DIFactory {
     
     static let sharedSearchRepository: some SearchRepository = SearchRepositoryImpl(searchDataSource: sharedSearchDataSource)
     
+    static let sharedCommentRepository: some CommentRepository = CommentRepositoryImpl(commentDataSource: sharedCommentDataSource)
+    
+    static let sharedUserRepository: some UserRepository = UserRepositoryImpl(userDataSource: sharedUserDataSource, userStoreDataSource: sharedUserStoreDataSource)
+    
+    static let sharedTokenRepository: some TokenRepository = TokenRepositoryImpl(tokenDataSource: sharedTokenDataSource)
+    
     // MARK: - DataSource
     static let sharedTopicDataSource: some TopicDataSource = TopicRemoteSource.shared
     
@@ -58,4 +72,10 @@ extension DIFactory {
     static let sharedTokenDataSource: some TokenDataSource = TokenStoreLocalSource.shared
     
     static let sharedSearchDataSource: some SearchDataSource = SearchRemoteSource.shared
+    
+    static let sharedCommentDataSource: some CommentDataSource = CommentRemoteSource.shared
+    
+    static let sharedUserDataSource: some UserDataSource = UserRemoteSource.shared
+    
+    static let sharedUserStoreDataSource: some UserStoreDataSource = UserStoreLocalSource.shared
 }
