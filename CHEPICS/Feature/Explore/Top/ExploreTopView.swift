@@ -10,11 +10,11 @@ import SwiftUIIntrospect
 
 struct ExploreTopView: View {
     @EnvironmentObject var mainTabViewModel: MainTabViewModel
+    @EnvironmentObject var router: NavigationRouter
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
     @FocusState private var isFocused: Bool
     @StateObject var viewModel: ExploreTopViewModel
-    @State private var isPresented = false
     
     var body: some View {
         VStack {
@@ -23,7 +23,7 @@ struct ExploreTopView: View {
                     .focused($isFocused)
                     .submitLabel(.search)
                     .onSubmit {
-                        isPresented = true
+                        router.items.append(.exploreResult(searchText: viewModel.searchText))
                     }
                     .frame(maxWidth: .infinity)
                     .introspect(.textField, on: .iOS(.v16, .v17
@@ -39,7 +39,7 @@ struct ExploreTopView: View {
             if !viewModel.searchText.isEmpty {
                 VStack {
                     Button {
-                        isPresented = true
+                        router.items.append(.exploreResult(searchText: viewModel.searchText))
                     } label: {
                         HStack {
                             Image(systemName: "magnifyingglass")
@@ -73,10 +73,6 @@ struct ExploreTopView: View {
         .onAppear {
             isFocused = true
         }
-        .navigationDestination(isPresented: $isPresented, destination: {
-            ExploreResultView(viewModel: ExploreResultViewModel(searchText: viewModel.searchText, exploreResultUseCase: DIFactory.exploreResultUseCase()))
-                .environmentObject(mainTabViewModel)
-        })
     }
 }
 

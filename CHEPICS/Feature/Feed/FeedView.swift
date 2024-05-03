@@ -10,12 +10,12 @@ import SwiftUIIntrospect
 
 struct FeedView: View {
     @EnvironmentObject var mainTabViewModel: MainTabViewModel
+    @EnvironmentObject var feedRouter: NavigationRouter
     @StateObject var viewModel: FeedViewModel
     @Environment(\.colorScheme) var colorScheme
     @State private var showCreateTopicView = false
     private let topicID = "topicID"
     private let commentID = "commentID"
-    private let exploreNavigationTag = "ExploreTop"
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -69,7 +69,9 @@ struct FeedView: View {
         })
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink(value: exploreNavigationTag) {
+                Button(action: {
+                    feedRouter.items.append(.exploreTop)
+                }, label: {
                     Image(systemName: "magnifyingglass")
                         .resizable()
                         .scaledToFit()
@@ -80,13 +82,18 @@ struct FeedView: View {
                             Circle()
                                 .foregroundStyle(Color(uiColor: .lightGray).opacity(0.5))
                         }
-                }
+                })
             }
         }
-        .navigationDestination(for: String.self) { value in
-            if value == exploreNavigationTag {
+        .navigationDestination(for: NavigationRouter.Item.self) { value in
+            switch value {
+            case .exploreTop:
                 ExploreTopView(viewModel: ExploreTopViewModel())
+            case .exploreResult(searchText: let searchText):
+                ExploreResultView(viewModel: ExploreResultViewModel(searchText: searchText, exploreResultUseCase: DIFactory.exploreResultUseCase()))
                     .environmentObject(mainTabViewModel)
+            case .profile(userId: let userId):
+                ProfileView(viewModel: ProfileViewModel(userId: userId, profileUseCase: DIFactory.profileUseCase()))
             }
         }
     }
@@ -179,7 +186,7 @@ struct FeedView: View {
                         .id(topicID)
                     if let topics = viewModel.topics {
                         ForEach(topics) { topic in
-                            TopicCell(topic: topic) { index in
+                            TopicCell(topic: topic, onTapImage: { index in
                                 if let images = topic.images {
                                     mainTabViewModel.images = images.map({ $0.url })
                                     mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
@@ -187,7 +194,9 @@ struct FeedView: View {
                                         mainTabViewModel.showImageViewer = true
                                     }
                                 }
-                            }
+                            }, onTapUserInfo: { id in
+                                feedRouter.items.append(.profile(userId: id))
+                            })
                         }
                     }
                 }

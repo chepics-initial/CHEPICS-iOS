@@ -71,6 +71,7 @@ import Foundation
         switch await feedUseCase.fetchComments(offset: nil) {
         case .success(let comments):
             self.comments = comments
+            commentUIState = .success
         case .failure(let error):
             switch error {
             case .decodingError, .networkError, .invalidStatus, .otherError:

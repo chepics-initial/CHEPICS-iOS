@@ -12,6 +12,7 @@ struct TopicCell: View {
     @Environment(\.colorScheme) var colorScheme
     let topic: Topic
     let onTapImage: (Int) -> Void
+    let onTapUserInfo: (String) -> Void
     
     var body: some View {
         VStack {
@@ -49,11 +50,16 @@ struct TopicCell: View {
                             .foregroundStyle(Color(.chepicsPrimary))
                     }
                     
-                    UserIconView(url: topic.user.profileImageUrl, scale: .topic)
-                    
-                    Text(topic.user.fullname)
-                        .font(.caption)
-                        .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                    Button {
+                        onTapUserInfo(topic.user.id)
+                    } label: {
+                        UserIconView(url: topic.user.profileImageUrl, scale: .topic)
+                        
+                        Text(topic.user.fullname)
+                            .font(.caption)
+                            .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                    }
+
                     
                     Spacer()
                     
@@ -73,5 +79,5 @@ struct TopicCell: View {
 }
 
 #Preview {
-    TopicCell(topic: mockTopic1, onTapImage: { _ in })
+    TopicCell(topic: mockTopic1, onTapImage: { _ in }, onTapUserInfo: { _ in })
 }

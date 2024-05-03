@@ -10,12 +10,12 @@ import SwiftUI
 struct MainTabView: View {
     @StateObject var viewModel: MainTabViewModel
     @State private var activeTab: Tab = .feed
-    @State private var feedStack: NavigationPath = .init()
+    @StateObject private var feedRouter = NavigationRouter()
     @State private var myPageStack: NavigationPath = .init()
     
     var body: some View {
         TabView(selection: tabSelection) {
-            NavigationStack(path: $feedStack) {
+            NavigationStack(path: $feedRouter.items) {
                 FeedView(viewModel: FeedViewModel(feedUseCase: DIFactory.feedUseCase()))
                     .environmentObject(viewModel)
             }
@@ -23,6 +23,7 @@ struct MainTabView: View {
             .tabItem {
                 Image(activeTab == .feed ? .selectHome : .unselectHome)
             }
+            .environmentObject(feedRouter)
             
             NavigationStack(path: $myPageStack) {
                 MyPageTopView(viewModel: MyPageTopViewModel(myPageTopUseCase: DIFactory.myPageTopUseCase()))
@@ -53,10 +54,10 @@ struct MainTabView: View {
             if newValue == activeTab {
                 switch newValue {
                 case .feed:
-                    if feedStack.isEmpty {
+                    if feedRouter.items.isEmpty {
                         viewModel.isTappedInFeed = true
                     } else {
-                        feedStack = .init()
+                        feedRouter.items.removeAll()
                     }
                 case .myPage:
                     myPageStack = .init()
@@ -93,4 +94,14 @@ enum Tab {
             "person"
         }
     }
+}
+
+@MainActor final class NavigationRouter: ObservableObject {
+  @Published var items: [Item] = []
+  
+  enum Item: Hashable {
+    case exploreTop
+    case exploreResult(searchText: String)
+    case profile(userId: String)
+  }
 }

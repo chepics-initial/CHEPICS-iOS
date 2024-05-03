@@ -10,6 +10,7 @@ import Kingfisher
 
 struct ProfileView: View {
     @EnvironmentObject var mainTabViewModel: MainTabViewModel
+    @EnvironmentObject var router: NavigationRouter
     @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: ProfileViewModel
     @State private var showEditView = false
@@ -107,7 +108,9 @@ struct ProfileView: View {
         }
         .fullScreenCover(isPresented: $showEditView) {
             if let user = viewModel.user {
-                EditProfileView(viewModel: EditProfileViewModel(user: user))
+                NavigationStack {
+                    EditProfileView(viewModel: EditProfileViewModel(user: user))
+                }
             }
         }
     }
@@ -192,7 +195,7 @@ struct ProfileView: View {
                         .id(topicID)
                     if let topics = viewModel.topics {
                         ForEach(topics) { topic in
-                            TopicCell(topic: topic) { index in
+                            TopicCell(topic: topic, onTapImage: { index in
                                 if let images = topic.images {
                                     mainTabViewModel.images = images.map({ $0.url })
                                     mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
@@ -200,7 +203,9 @@ struct ProfileView: View {
                                         mainTabViewModel.showImageViewer = true
                                     }
                                 }
-                            }
+                            }, onTapUserInfo: { id in
+                                router.items.append(.profile(userId: id))
+                            })
                         }
                     }
                 }

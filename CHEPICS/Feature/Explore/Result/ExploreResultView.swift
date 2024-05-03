@@ -10,11 +10,11 @@ import SwiftUIIntrospect
 
 struct ExploreResultView: View {
     @EnvironmentObject var mainTabViewModel: MainTabViewModel
+    @EnvironmentObject var router: NavigationRouter
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
     @FocusState private var isFocused: Bool
     @StateObject var viewModel: ExploreResultViewModel
-    @State private var isPresented = false
     private let topicID = "topicID"
     private let commentID = "commentID"
     private let userID = "userID"
@@ -26,7 +26,7 @@ struct ExploreResultView: View {
                     .focused($isFocused)
                     .submitLabel(.search)
                     .onSubmit {
-                        isPresented = true
+                        router.items.append(.exploreResult(searchText: viewModel.searchText))
                     }
                     .frame(maxWidth: .infinity)
                     .introspect(.textField, on: .iOS(.v16, .v17
@@ -71,16 +71,12 @@ struct ExploreResultView: View {
             Task { await viewModel.onAppear() }
         }
         .navigationBarBackButtonHidden()
-        .navigationDestination(isPresented: $isPresented, destination: {
-            ExploreResultView(viewModel: ExploreResultViewModel(searchText: viewModel.searchText, exploreResultUseCase: DIFactory.exploreResultUseCase()))
-                .environmentObject(mainTabViewModel)
-        })
     }
     
     private var searchView: some View {
         VStack {
             Button {
-                isPresented = true
+                router.items.append(.exploreResult(searchText: viewModel.searchText))
             } label: {
                 HStack {
                     Image(systemName: "magnifyingglass")
@@ -216,7 +212,7 @@ struct ExploreResultView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(topics) { topic in
-                        TopicCell(topic: topic) { index in
+                        TopicCell(topic: topic, onTapImage: { index in
                             if let images = topic.images {
                                 mainTabViewModel.images = images.map({ $0.url })
                                 mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
@@ -224,7 +220,9 @@ struct ExploreResultView: View {
                                     mainTabViewModel.showImageViewer = true
                                 }
                             }
-                        }
+                        }, onTapUserInfo: { id in
+                            router.items.append(.profile(userId: id))
+                        })
                     }
                 }
             }
