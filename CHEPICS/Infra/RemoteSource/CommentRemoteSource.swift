@@ -22,10 +22,11 @@ final class CommentRemoteSource: CommentDataSource {
     }
     
     func fetchUserComments(userId: String, offset: Int?) async -> Result<[Comment], APIError> {
-        var query: [String: Any] = ["user_id": userId]
-        if let offset {
-            query["offset"] = offset
-        }
-        return await API.request(ServerDirection.production.urlString(for: .userComments), responseType: [Comment].self, queryParameters: query)
+        .success([mockComment1, mockComment2, mockComment3, mockComment4])
+//        var query: [String: Any] = ["user_id": userId]
+//        if let offset {
+//            query["offset"] = offset
+//        }
+//        return await API.request(ServerDirection.production.urlString(for: .userComments), responseType: [Comment].self, queryParameters: query)
     }
 }
