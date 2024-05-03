@@ -21,6 +21,10 @@ struct CustomTextEditor: View {
                     .padding(.horizontal, 4)
             }
             
+            Text(text)
+                .font(.body)
+                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+            
             TextEditor(text: $text)
                 .font(.body)
                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))

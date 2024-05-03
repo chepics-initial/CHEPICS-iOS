@@ -8,6 +8,7 @@
 import Foundation
 
 protocol ProfileUseCase {
+    func getCurrentUserId() -> String
     func fetchUserInformation(userId: String) async -> Result<User, APIError>
     func fetchUserTopics(userId: String, offset: Int?) async -> Result<[Topic], APIError>
     func fetchUserComments(userId: String, offset: Int?) async -> Result<[Comment], APIError>
@@ -26,6 +27,10 @@ final class ProfileUseCaseImpl: ProfileUseCase {
         self.userRepository = userRepository
         self.topicRepository = topicRepository
         self.commentRepository = commentRepository
+    }
+    
+    func getCurrentUserId() -> String {
+        userRepository.getUserId()
     }
     
     func fetchUserInformation(userId: String) async -> Result<User, APIError> {

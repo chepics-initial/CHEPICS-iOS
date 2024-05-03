@@ -29,18 +29,34 @@ struct ProfileView: View {
                             
                             Spacer()
                             
+//                            if viewModel.isCurrentUser {
+//                                Button {
+//                                    showEditView = true
+//                                } label: {
+//                                    Image(systemName: "pencil")
+//                                        .foregroundStyle(.chepicsPrimary)
+//                                }
+//
+//                            } else {
+//                                Button {
+//                                    
+//                                } label: {
+//                                    Text("フォローする")
+//                                        .font(.footnote)
+//                                        .fontWeight(.semibold)
+//                                        .foregroundStyle(.white)
+//                                        .padding(8)
+//                                        .background {
+//                                            RoundedRectangle(cornerRadius: 8)
+//                                                .foregroundStyle(Color(.chepicsPrimary))
+//                                        }
+//                                }
+//                            }
                             Button {
-                                
+                                showEditView = true
                             } label: {
-                                Text("フォローする")
-                                    .font(.footnote)
-                                    .fontWeight(.semibold)
-                                    .foregroundStyle(.white)
-                                    .padding(8)
-                                    .background {
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .foregroundStyle(Color(.chepicsPrimary))
-                                    }
+                                Image(systemName: "pencil")
+                                    .foregroundStyle(.chepicsPrimary)
                             }
                         }
                         
@@ -105,6 +121,9 @@ struct ProfileView: View {
             } else {
                LoadingView(showBackgroundColor: false)
             }
+        }
+        .onAppear {
+            Task { await viewModel.onAppear() }
         }
         .fullScreenCover(isPresented: $showEditView) {
             if let user = viewModel.user {

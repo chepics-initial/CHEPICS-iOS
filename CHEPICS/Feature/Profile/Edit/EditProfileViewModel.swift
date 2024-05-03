@@ -10,18 +10,26 @@ import SwiftUI
 import PhotosUI
 
 @MainActor final class EditProfileViewModel: ObservableObject {
-    @Published private(set) var isActive: Bool = true
-    @Published var username: String
-    @Published var fullname: String
+    @Published var username: String = ""
+    @Published var fullname: String = ""
     @Published var bio: String = ""
+    @Published private(set) var isCompleted = false
     @Published private(set) var profileImage: Image?
+    @Published private(set) var profileImageUrl: String?
     var selectedItem: PhotosPickerItem? {
         didSet { Task { await loadImage() } }
     }
-    let profileImageUrl: String?
+    var isActive: Bool {
+        !username.isEmpty && !fullname.isEmpty && username.count <= Constants.nameCount && fullname.count <= Constants.nameCount
+    }
+    private let user: User
 
     
     init(user: User) {
+        self.user = user
+    }
+    
+    func onAppear() {
         profileImageUrl = user.profileImageUrl
         username = user.username
         fullname = user.fullname
@@ -31,7 +39,7 @@ import PhotosUI
     }
     
     func onTapSaveButton() async {
-        
+        isCompleted = true
     }
     
     private func loadImage() async {

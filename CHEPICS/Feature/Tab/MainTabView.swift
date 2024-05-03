@@ -11,7 +11,7 @@ struct MainTabView: View {
     @StateObject var viewModel: MainTabViewModel
     @State private var activeTab: Tab = .feed
     @StateObject private var feedRouter = NavigationRouter()
-    @State private var myPageStack: NavigationPath = .init()
+    @StateObject private var myPageRouter = NavigationRouter()
     
     var body: some View {
         TabView(selection: tabSelection) {
@@ -25,7 +25,7 @@ struct MainTabView: View {
             }
             .environmentObject(feedRouter)
             
-            NavigationStack(path: $myPageStack) {
+            NavigationStack(path: $myPageRouter.items) {
                 MyPageTopView(viewModel: MyPageTopViewModel(myPageTopUseCase: DIFactory.myPageTopUseCase()))
                     .environmentObject(viewModel)
             }
@@ -33,6 +33,7 @@ struct MainTabView: View {
             .tabItem {
                 Image(activeTab == .myPage ? .selectPerson : .unselectPerson)
             }
+            .environmentObject(myPageRouter)
         }
         .overlay {
             if viewModel.showImageViewer {
@@ -60,7 +61,7 @@ struct MainTabView: View {
                         feedRouter.items.removeAll()
                     }
                 case .myPage:
-                    myPageStack = .init()
+                    myPageRouter.items.removeAll()
                 }
             }
             

@@ -8,34 +8,42 @@
 import SwiftUI
 
 struct MyPageTopView: View {
+    @EnvironmentObject var myPageRouter: NavigationRouter
     @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: MyPageTopViewModel
     @State private var showAlert = false
     
     var body: some View {
         VStack(spacing: 32) {
-            HStack {
-                UserIconView(url: viewModel.user?.profileImageUrl, scale: .profile)
-                
-                if let user = viewModel.user {
-                    VStack(alignment: .leading) {
-                        Text(user.fullname)
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                        
-                        Text("@\(user.username)")
-                            .font(.footnote)
-                            .foregroundStyle(.gray)
-                    }
-                    .padding()
+            Button {
+                if let userId = viewModel.user?.id {
+                    myPageRouter.items.append(.profile(userId: userId))
                 }
-                
-                Spacer()
-                
-                Image(systemName: "chevron.forward")
-                    .foregroundStyle(.gray)
+            } label: {
+                HStack {
+                    UserIconView(url: viewModel.user?.profileImageUrl, scale: .profile)
+                    
+                    if let user = viewModel.user {
+                        VStack(alignment: .leading) {
+                            Text(user.fullname)
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                            
+                            Text("@\(user.username)")
+                                .font(.footnote)
+                                .foregroundStyle(.gray)
+                        }
+                        .padding()
+                    }
+                    
+                    Spacer()
+                    
+                    Image(systemName: "chevron.forward")
+                        .foregroundStyle(.gray)
+                }
             }
+
             
             HStack {
                 Text("参加中のセット一覧")
@@ -74,6 +82,16 @@ struct MyPageTopView: View {
             }, label: {
                 Text("ログアウト")
             })
+        }
+        .navigationDestination(for: NavigationRouter.Item.self) { value in
+            switch value {
+            case .exploreTop:
+                ExploreTopView(viewModel: ExploreTopViewModel())
+            case .exploreResult(searchText: _):
+                EmptyView()
+            case .profile(userId: let userId):
+                ProfileView(viewModel: ProfileViewModel(userId: userId, profileUseCase: DIFactory.profileUseCase()))
+            }
         }
     }
 }

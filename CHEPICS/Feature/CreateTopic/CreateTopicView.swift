@@ -12,7 +12,6 @@ struct CreateTopicView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: CreateTopicViewModel
-    @FocusState private var isFocused: Bool
     
     var body: some View {
         VStack {
@@ -37,14 +36,12 @@ struct CreateTopicView: View {
         }
         .onTapGesture {
             UIApplication.shared.endEditing()
-            print("DEBUG: hello")
         }
         .overlay {
             if viewModel.isLoading {
                 LoadingView()
             }
         }
-        .ignoresSafeArea(.keyboard)
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
@@ -94,7 +91,6 @@ struct CreateTopicView: View {
             }
             
             CustomTextEditor(text: $viewModel.title, placeHolder: "トピックを入力")
-                .focused($isFocused)
                 .frame(maxWidth: .infinity)
             
             Color.gray
@@ -144,7 +140,6 @@ struct CreateTopicView: View {
                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
             
             CustomTextEditor(text: $viewModel.description, placeHolder: "説明を入力")
-                .focused($isFocused)
                 .frame(maxWidth: .infinity)
             
             Color.gray
@@ -181,7 +176,6 @@ struct CreateTopicView: View {
                 
                 TextField("", text: $viewModel.link)
                     .font(.body)
-                    .focused($isFocused)
                     .foregroundStyle(.blue)
                     .opacity(viewModel.link.isEmpty ? 0.5 : 1)
                     .padding(.horizontal, 4)

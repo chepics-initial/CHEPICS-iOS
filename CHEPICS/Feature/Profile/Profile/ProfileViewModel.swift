@@ -22,6 +22,7 @@ import Foundation
             }
         }
     }
+    @Published private(set) var isCurrentUser: Bool = false
     @Published private(set) var user: User?
     @Published private(set) var topics: [Topic]?
     @Published private(set) var comments: [Comment]?
@@ -46,6 +47,7 @@ import Foundation
     func onAppear() async {
         if isInitialAppear {
             isInitialAppear = false
+            isCurrentUser = userId == profileUseCase.getCurrentUserId()
             switch await profileUseCase.fetchUserInformation(userId: userId) {
             case .success(let user):
                 self.user = user
@@ -140,6 +142,10 @@ enum ProfileTabType: CaseIterable {
 }
 
 final class ProfileUseCase_Previews: ProfileUseCase {
+    func getCurrentUserId() -> String {
+        ""
+    }
+    
     func fetchUserInformation(userId: String) async -> Result<User, APIError> {
         .success(mockUser1)
     }

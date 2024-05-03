@@ -491,10 +491,10 @@
 			children = (
 				251FE41E2BC76192008C3254 /* API.swift */,
 				251FE4262BC79BB8008C3254 /* AuthRemoteSource.swift */,
-				6916B3942BAAE364009A8670 /* TopicRemoteSource.swift */,
-				256CFEEC2BDBADD70000709E /* SearchRemoteSource.swift */,
-				256CFEF72BE203070000709E /* UserRemoteSource.swift */,
 				2599A48B2BE4791C00AFC8E0 /* CommentRemoteSource.swift */,
+				256CFEEC2BDBADD70000709E /* SearchRemoteSource.swift */,
+				6916B3942BAAE364009A8670 /* TopicRemoteSource.swift */,
+				256CFEF72BE203070000709E /* UserRemoteSource.swift */,
 			);
 			path = RemoteSource;
 			sourceTree = "<group>";
