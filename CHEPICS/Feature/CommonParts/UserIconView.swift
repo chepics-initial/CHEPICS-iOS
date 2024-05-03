@@ -40,15 +40,18 @@ struct UserIconView: View {
                 .frame(width: scale.scaleValue, height: scale.scaleValue)
                 .clipShape(Circle())
         } else {
-            Image(systemName: "person")
+            Image(systemName: "person.fill")
                 .resizable()
-                .scaledToFit()
-                .frame(width: scale.scaleValue)
+                .scaledToFill()
+                .foregroundStyle(.chepicsPrimary)
+                .padding(12)
+                .frame(width: scale.scaleValue, height: scale.scaleValue)
+                .background(.chepicsPrimary.opacity(0.4))
                 .clipShape(Circle())
         }
     }
 }
 
 #Preview {
-    UserIconView(url: "", scale: .topic)
+    UserIconView(url: nil, scale: .profile)
 }
