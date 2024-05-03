@@ -101,9 +101,9 @@ struct ProfileView: View {
                         tabView.tabBar.isHidden = true
                     }
                 }
+            } else {
+               LoadingView(showBackgroundColor: false)
             }
-        }
-        .onAppear {            
         }
         .fullScreenCover(isPresented: $showEditView) {
             if let user = viewModel.user {
