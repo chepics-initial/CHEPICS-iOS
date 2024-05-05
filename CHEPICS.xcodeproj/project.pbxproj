@@ -112,6 +112,7 @@
 		E460BEC02BE4CD98006E4812 /* MyPageTopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E460BEBF2BE4CD98006E4812 /* MyPageTopViewModel.swift */; };
 		E460BEC22BE4CE6B006E4812 /* MyPageTopUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E460BEC12BE4CE6B006E4812 /* MyPageTopUseCase.swift */; };
 		E460BEC42BE59661006E4812 /* CreateTopicUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E460BEC32BE59661006E4812 /* CreateTopicUseCase.swift */; };
+		E460BEC82BE731AF006E4812 /* MyPageTopicListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E460BEC72BE731AF006E4812 /* MyPageTopicListView.swift */; };
 		E49366232BBD05830093D286 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = E49366222BBD05830093D286 /* Nuke */; };
 		E49366252BBD05830093D286 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = E49366242BBD05830093D286 /* NukeUI */; };
 		E49366272BC0B6670093D286 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49366262BC0B6670093D286 /* Comment.swift */; };
@@ -257,6 +258,7 @@
 		E460BEBF2BE4CD98006E4812 /* MyPageTopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTopViewModel.swift; sourceTree = "<group>"; };
 		E460BEC12BE4CE6B006E4812 /* MyPageTopUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTopUseCase.swift; sourceTree = "<group>"; };
 		E460BEC32BE59661006E4812 /* CreateTopicUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTopicUseCase.swift; sourceTree = "<group>"; };
+		E460BEC72BE731AF006E4812 /* MyPageTopicListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageTopicListView.swift; sourceTree = "<group>"; };
 		E49366262BC0B6670093D286 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E49366282BC0B7E50093D286 /* CommentImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentImage.swift; sourceTree = "<group>"; };
 		E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHEPICS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -693,10 +695,27 @@
 		E460BEBC2BE4CD57006E4812 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				E460BEC62BE731A0006E4812 /* TopicList */,
+				E460BEC52BE73193006E4812 /* Top */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		E460BEC52BE73193006E4812 /* Top */ = {
+			isa = PBXGroup;
+			children = (
 				E460BEBD2BE4CD6B006E4812 /* MyPageTopView.swift */,
 				E460BEBF2BE4CD98006E4812 /* MyPageTopViewModel.swift */,
 			);
-			path = MyPage;
+			path = Top;
+			sourceTree = "<group>";
+		};
+		E460BEC62BE731A0006E4812 /* TopicList */ = {
+			isa = PBXGroup;
+			children = (
+				E460BEC72BE731AF006E4812 /* MyPageTopicListView.swift */,
+			);
+			path = TopicList;
 			sourceTree = "<group>";
 		};
 		E4C6BE062B6F68ED003B56AD = {
@@ -934,6 +953,7 @@
 				E457A04C2BCA6233003DFB9F /* TokenStoreLocalSource.swift in Sources */,
 				2566F52D2B89943E00CAD739 /* Color+Extension.swift in Sources */,
 				E457A0DF2BD7143F003DFB9F /* SearchTextField.swift in Sources */,
+				E460BEC82BE731AF006E4812 /* MyPageTopicListView.swift in Sources */,
 				251FE4272BC79BB8008C3254 /* AuthRemoteSource.swift in Sources */,
 				252D713D2BA918ED00485877 /* TopicCell.swift in Sources */,
 				2566F5412B8A16CE00CAD739 /* EmailRegistrationUseCase.swift in Sources */,

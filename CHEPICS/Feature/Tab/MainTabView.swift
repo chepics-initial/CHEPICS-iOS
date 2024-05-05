@@ -104,5 +104,6 @@ enum Tab {
     case exploreTop
     case exploreResult(searchText: String)
     case profile(userId: String)
+    case myPageTopicList
   }
 }

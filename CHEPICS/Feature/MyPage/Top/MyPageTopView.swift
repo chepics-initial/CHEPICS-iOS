@@ -45,16 +45,20 @@ struct MyPageTopView: View {
             }
 
             
-            HStack {
-                Text("参加中のセット一覧")
-                    .fontWeight(.semibold)
-                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                
-                Spacer()
-                
-                Image(systemName: "chevron.forward")
-                    .foregroundStyle(.gray)
-            }
+            Button(action: {
+                myPageRouter.items.append(.myPageTopicList)
+            }, label: {
+                HStack {
+                    Text("参加中のセット一覧")
+                        .fontWeight(.semibold)
+                        .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                    
+                    Spacer()
+                    
+                    Image(systemName: "chevron.forward")
+                        .foregroundStyle(.gray)
+                }
+            })
             
             Button(action: {
                 showAlert = true
@@ -91,6 +95,8 @@ struct MyPageTopView: View {
                 EmptyView()
             case .profile(userId: let userId):
                 ProfileView(viewModel: ProfileViewModel(userId: userId, profileUseCase: DIFactory.profileUseCase()))
+            case .myPageTopicList:
+                MyPageTopicListView()
             }
         }
     }

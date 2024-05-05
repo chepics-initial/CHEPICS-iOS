@@ -94,6 +94,8 @@ struct FeedView: View {
                     .environmentObject(mainTabViewModel)
             case .profile(userId: let userId):
                 ProfileView(viewModel: ProfileViewModel(userId: userId, profileUseCase: DIFactory.profileUseCase()))
+            case .myPageTopicList:
+                EmptyView()
             }
         }
     }
