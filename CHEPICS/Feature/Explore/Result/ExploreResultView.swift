@@ -35,6 +35,7 @@ struct ExploreResultView: View {
                     }
             }, onTapBackButton: {
                 if isFocused {
+                    viewModel.searchText = viewModel.initialSearchText
                     isFocused = false
                 } else {
                     dismiss()
@@ -257,7 +258,11 @@ struct ExploreResultView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(users) { user in
-                        UserCell(user: user)
+                        Button {
+                            router.items.append(.profile(userId: user.id))
+                        } label: {
+                            UserCell(user: user)
+                        }
                     }
                 }
             }

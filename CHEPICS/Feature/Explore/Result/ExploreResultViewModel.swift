@@ -34,6 +34,7 @@ final class ExploreResultViewModel: ObservableObject {
     @Published private(set) var topicUIState: UIState = .loading
     @Published private(set) var commentUIState: UIState = .loading
     @Published private(set) var userUIState: UIState = .loading
+    let initialSearchText: String
     
     private var isFirstAppear = true
     
@@ -41,6 +42,7 @@ final class ExploreResultViewModel: ObservableObject {
         
     init(searchText: String, exploreResultUseCase: some ExploreResultUseCase) {
         self.searchText = searchText
+        self.initialSearchText = searchText
         self.exploreResultUseCase = exploreResultUseCase
     }
     
