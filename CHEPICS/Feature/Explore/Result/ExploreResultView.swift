@@ -27,6 +27,7 @@ struct ExploreResultView: View {
                     .submitLabel(.search)
                     .onSubmit {
                         router.items.append(.exploreResult(searchText: viewModel.searchText))
+                        viewModel.searchText = viewModel.initialSearchText
                     }
                     .frame(maxWidth: .infinity)
                     .introspect(.textField, on: .iOS(.v16, .v17
@@ -78,6 +79,7 @@ struct ExploreResultView: View {
         VStack {
             Button {
                 router.items.append(.exploreResult(searchText: viewModel.searchText))
+                viewModel.searchText = viewModel.initialSearchText
             } label: {
                 HStack {
                     Image(systemName: "magnifyingglass")
