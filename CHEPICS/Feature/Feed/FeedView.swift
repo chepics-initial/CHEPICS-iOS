@@ -29,6 +29,7 @@ struct FeedView: View {
                     commentContentView
                         .tag(FeedTabType.comments)
                 }
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 .introspect(.tabView, on: .iOS(.v16, .v17)) { tabView in
                     tabView.tabBar.isHidden = true
                 }

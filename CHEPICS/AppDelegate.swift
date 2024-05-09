@@ -23,6 +23,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
         appearance.configureWithDefaultBackground()
         UITabBar.appearance().scrollEdgeAppearance = appearance
         UITabBar.appearance().standardAppearance = appearance
+        
+        let navAppearance = UINavigationBarAppearance()
+        navAppearance.configureWithTransparentBackground()
+        UINavigationBar.appearance().scrollEdgeAppearance = navAppearance
+        UINavigationBar.appearance().standardAppearance = navAppearance
 
         return true
     }
