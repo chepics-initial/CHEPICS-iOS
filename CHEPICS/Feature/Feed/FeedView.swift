@@ -108,15 +108,11 @@ struct FeedView: View {
                     if viewModel.selectedTab == type {
                         switch viewModel.selectedTab {
                         case .topics:
-                            if viewModel.topicUIState != .success {
-                                Task { await viewModel.fetchTopics() }
-                            } else {
+                            if viewModel.topicUIState == .success {
                                 mainTabViewModel.isTappedInFeed = true
                             }
                         case .comments:
-                            if viewModel.commentUIState != .success {
-                                Task { await viewModel.fetchComments() }
-                            } else {
+                            if viewModel.commentUIState == .success {
                                 mainTabViewModel.isTappedInFeed = true
                             }
                         }
