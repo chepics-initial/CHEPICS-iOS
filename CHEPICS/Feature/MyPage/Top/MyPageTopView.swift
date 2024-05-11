@@ -97,6 +97,8 @@ struct MyPageTopView: View {
                 ProfileView(viewModel: ProfileViewModel(userId: userId, profileUseCase: DIFactory.profileUseCase()))
             case .myPageTopicList:
                 MyPageTopicListView()
+            case .comment(comment: let comment):
+                CommentDetailView(viewModel: CommentDetailViewModel(comment: comment))
             }
         }
     }

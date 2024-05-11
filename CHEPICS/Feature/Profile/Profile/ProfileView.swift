@@ -248,17 +248,22 @@ struct ProfileView: View {
                         .id(commentID)
                     if let comments = viewModel.comments {
                         ForEach(comments) { comment in
-                            CommentCell(comment: comment, type: .comment, onTapImage: { index in
-                                if let images = comment.images {
-                                    mainTabViewModel.images = images.map({ $0.url })
-                                    mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
-                                    withAnimation {
-                                        mainTabViewModel.showImageViewer = true
+                            Button {
+                                router.items.append(.comment(comment: comment))
+                            } label: {
+                                CommentCell(comment: comment, type: .comment, onTapImage: { index in
+                                    if let images = comment.images {
+                                        mainTabViewModel.images = images.map({ $0.url })
+                                        mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                                        withAnimation {
+                                            mainTabViewModel.showImageViewer = true
+                                        }
                                     }
-                                }
-                            }, onTapUserInfo: { userId in
-                                router.items.append(.profile(userId: userId))
-                            })
+                                }, onTapUserInfo: { userId in
+                                    router.items.append(.profile(userId: userId))
+                                })
+                            }
+
                         }
                     }
                 }

@@ -98,12 +98,25 @@ enum Tab {
 }
 
 @MainActor final class NavigationRouter: ObservableObject {
-  @Published var items: [Item] = []
-  
-  enum Item: Hashable {
-    case exploreTop
-    case exploreResult(searchText: String)
-    case profile(userId: String)
-    case myPageTopicList
-  }
+    @Published var items: [Item] = []
+    
+    enum Item: Hashable {
+        var identifier: UUID {
+            return UUID()
+        }
+        
+        public func hash(into hasher: inout Hasher) {
+            return hasher.combine(identifier)
+        }
+        
+        public static func == (lhs: Item, rhs: Item) -> Bool {
+            return lhs.identifier == rhs.identifier
+        }
+        
+        case exploreTop
+        case exploreResult(searchText: String)
+        case profile(userId: String)
+        case myPageTopicList
+        case comment(comment: Comment)
+    }
 }
