@@ -8,25 +8,44 @@
 import SwiftUI
 import Kingfisher
 
+enum CommentType {
+    case comment
+    case detail
+    case reply
+}
+
 struct CommentCell: View {
     @Environment(\.colorScheme) var colorScheme
     let comment: Comment
+    let type: CommentType
     let onTapImage: (Int) -> Void
+    let onTapUserInfo: (String) -> Void
     
     var body: some View {
         VStack {
             HStack(alignment: .top, spacing: 8) {
-                UserIconView(url: comment.user.profileImageUrl, scale: .comment)
+                Button(action: {
+                    onTapUserInfo(comment.user.id)
+                }, label: {
+                    UserIconView(url: comment.user.profileImageUrl, scale: .comment)
+                })
                 
                 VStack(alignment: .leading, spacing: 16) {
                     HStack {
-                        Text(comment.user.fullname)
-                            .font(.headline)
-                            .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                        
-                        Text("@\(comment.user.username)")
-                            .font(.footnote)
-                            .foregroundStyle(.gray)
+                        Button {
+                            onTapUserInfo(comment.user.id)
+                        } label: {
+                            HStack {
+                                Text(comment.user.fullname)
+                                    .font(.headline)
+                                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                                
+                                Text("@\(comment.user.username)")
+                                    .font(.footnote)
+                                    .foregroundStyle(.gray)
+                            }
+                        }
+
                         
                         Spacer()
                         
@@ -35,14 +54,19 @@ struct CommentCell: View {
                             .foregroundStyle(.gray)
                     }
                     
-                    HStack {
-                        RoundedRectangle(cornerRadius: 2)
-                            .frame(width: 4, height: 24)
-                            .foregroundStyle(.chepicsPrimary)
-                        
-                        Text("猫が可愛い")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundStyle(.chepicsPrimary)
+                    switch type {
+                    case .comment:
+                        HStack {
+                            RoundedRectangle(cornerRadius: 2)
+                                .frame(width: 4, height: 24)
+                                .foregroundStyle(.chepicsPrimary)
+                            
+                            Text("猫が可愛い")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundStyle(.chepicsPrimary)
+                        }
+                    case .detail, .reply:
+                        EmptyView()
                     }
                     
                     Text(comment.comment)
@@ -85,5 +109,5 @@ struct CommentCell: View {
 }
 
 #Preview {
-    CommentCell(comment: mockComment2, onTapImage: { _ in })
+    CommentCell(comment: mockComment2, type: .comment, onTapImage: { _ in }, onTapUserInfo: { _ in })
 }

@@ -124,6 +124,8 @@
 		E4C6BE242B6F68F3003B56AD /* CHEPICSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C6BE232B6F68F3003B56AD /* CHEPICSTests.swift */; };
 		E4C6BE2E2B6F68F3003B56AD /* CHEPICSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C6BE2D2B6F68F3003B56AD /* CHEPICSUITests.swift */; };
 		E4C6BE302B6F68F3003B56AD /* CHEPICSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C6BE2F2B6F68F3003B56AD /* CHEPICSUITestsLaunchTests.swift */; };
+		E4CEEF492BEF448F00BB3B3B /* CommentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF482BEF448F00BB3B3B /* CommentDetailView.swift */; };
+		E4CEEF4B2BEF4A0A00BB3B3B /* CommentDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF4A2BEF4A0A00BB3B3B /* CommentDetailViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -271,6 +273,8 @@
 		E4C6BE292B6F68F3003B56AD /* CHEPICSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CHEPICSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4C6BE2D2B6F68F3003B56AD /* CHEPICSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHEPICSUITests.swift; sourceTree = "<group>"; };
 		E4C6BE2F2B6F68F3003B56AD /* CHEPICSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHEPICSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E4CEEF482BEF448F00BB3B3B /* CommentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDetailView.swift; sourceTree = "<group>"; };
+		E4CEEF4A2BEF4A0A00BB3B3B /* CommentDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -414,6 +418,7 @@
 			children = (
 				2566F53E2B8A152400CAD739 /* Constants.swift */,
 				259B51BA2B860A5B00978256 /* Authentication */,
+				E4CEEF472BEF447B00BB3B3B /* Comment */,
 				2566F5322B89F5E900CAD739 /* CommonParts */,
 				69EC79532B9C609B0096AA55 /* CreateTopic */,
 				251FE43A2BCE38CF008C3254 /* Explore */,
@@ -784,6 +789,15 @@
 			path = CHEPICSUITests;
 			sourceTree = "<group>";
 		};
+		E4CEEF472BEF447B00BB3B3B /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				E4CEEF482BEF448F00BB3B3B /* CommentDetailView.swift */,
+				E4CEEF4A2BEF4A0A00BB3B3B /* CommentDetailViewModel.swift */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -942,6 +956,7 @@
 				E49366292BC0B7E50093D286 /* CommentImage.swift in Sources */,
 				2566F53D2B8A148100CAD739 /* OneTimeCodeViewModel.swift in Sources */,
 				6916B3972BAAE3CA009A8670 /* TopicRepository.swift in Sources */,
+				E4CEEF492BEF448F00BB3B3B /* CommentDetailView.swift in Sources */,
 				69EC795E2B9C6B3F0096AA55 /* UIApplication+Extension.swift in Sources */,
 				E460BEC02BE4CD98006E4812 /* MyPageTopViewModel.swift in Sources */,
 				2566F5312B89F54D00CAD739 /* EmailRegistrationView.swift in Sources */,
@@ -966,6 +981,7 @@
 				69EC795C2B9C63F30096AA55 /* CustomTextEditor.swift in Sources */,
 				E4C6BE152B6F68EE003B56AD /* ContentView.swift in Sources */,
 				E460BEB92BE1AC03006E4812 /* EditProfileViewModel.swift in Sources */,
+				E4CEEF4B2BEF4A0A00BB3B3B /* CommentDetailViewModel.swift in Sources */,
 				252D71532BABBA5A00485877 /* MainTabViewModel.swift in Sources */,
 				2566F53F2B8A152400CAD739 /* Constants.swift in Sources */,
 				2566F5362B89F62A00CAD739 /* LoadingView.swift in Sources */,

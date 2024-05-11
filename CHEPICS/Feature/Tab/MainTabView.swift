@@ -17,22 +17,22 @@ struct MainTabView: View {
         TabView(selection: tabSelection) {
             NavigationStack(path: $feedRouter.items) {
                 FeedView(viewModel: FeedViewModel(feedUseCase: DIFactory.feedUseCase()))
-                    .environmentObject(viewModel)
             }
             .tag(Tab.feed)
             .tabItem {
                 Image(activeTab == .feed ? .selectHome : .unselectHome)
             }
+            .environmentObject(viewModel)
             .environmentObject(feedRouter)
             
             NavigationStack(path: $myPageRouter.items) {
                 MyPageTopView(viewModel: MyPageTopViewModel(myPageTopUseCase: DIFactory.myPageTopUseCase()))
-                    .environmentObject(viewModel)
             }
             .tag(Tab.myPage)
             .tabItem {
                 Image(activeTab == .myPage ? .selectPerson : .unselectPerson)
             }
+            .environmentObject(viewModel)
             .environmentObject(myPageRouter)
         }
         .overlay {

@@ -92,7 +92,6 @@ struct FeedView: View {
                 ExploreTopView(viewModel: ExploreTopViewModel())
             case .exploreResult(searchText: let searchText):
                 ExploreResultView(viewModel: ExploreResultViewModel(searchText: searchText, exploreResultUseCase: DIFactory.exploreResultUseCase()))
-                    .environmentObject(mainTabViewModel)
             case .profile(userId: let userId):
                 ProfileView(viewModel: ProfileViewModel(userId: userId, profileUseCase: DIFactory.profileUseCase()))
             case .myPageTopicList:
@@ -223,7 +222,7 @@ struct FeedView: View {
                     
                     if let comments = viewModel.comments {
                         ForEach(comments) { comment in
-                            CommentCell(comment: comment) { index in
+                            CommentCell(comment: comment, type: .comment, onTapImage: { index in
                                 if let images = comment.images {
                                     mainTabViewModel.images = images.map({ $0.url })
                                     mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
@@ -231,7 +230,9 @@ struct FeedView: View {
                                         mainTabViewModel.showImageViewer = true
                                     }
                                 }
-                            }
+                            }, onTapUserInfo: { userId in
+                                feedRouter.items.append(.profile(userId: userId))
+                            })
                         }
                     }
                 }

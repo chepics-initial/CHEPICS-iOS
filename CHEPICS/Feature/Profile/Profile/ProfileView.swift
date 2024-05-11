@@ -29,29 +29,29 @@ struct ProfileView: View {
                             
                             Spacer()
                             
-//                            if viewModel.isCurrentUser {
-//                                Button {
-//                                    showEditView = true
-//                                } label: {
-//                                    Image(systemName: "pencil")
-//                                        .foregroundStyle(.chepicsPrimary)
-//                                }
-//
-//                            } else {
-//                                Button {
-//                                    
-//                                } label: {
-//                                    Text("フォローする")
-//                                        .font(.footnote)
-//                                        .fontWeight(.semibold)
-//                                        .foregroundStyle(.white)
-//                                        .padding(8)
-//                                        .background {
-//                                            RoundedRectangle(cornerRadius: 8)
-//                                                .foregroundStyle(Color(.chepicsPrimary))
-//                                        }
-//                                }
-//                            }
+                            //                            if viewModel.isCurrentUser {
+                            //                                Button {
+                            //                                    showEditView = true
+                            //                                } label: {
+                            //                                    Image(systemName: "pencil")
+                            //                                        .foregroundStyle(.chepicsPrimary)
+                            //                                }
+                            //
+                            //                            } else {
+                            //                                Button {
+                            //                                    
+                            //                                } label: {
+                            //                                    Text("フォローする")
+                            //                                        .font(.footnote)
+                            //                                        .fontWeight(.semibold)
+                            //                                        .foregroundStyle(.white)
+                            //                                        .padding(8)
+                            //                                        .background {
+                            //                                            RoundedRectangle(cornerRadius: 8)
+                            //                                                .foregroundStyle(Color(.chepicsPrimary))
+                            //                                        }
+                            //                                }
+                            //                            }
                             Button {
                                 showEditView = true
                             } label: {
@@ -120,7 +120,7 @@ struct ProfileView: View {
                     }
                 }
             } else {
-               LoadingView(showBackgroundColor: false)
+                LoadingView(showBackgroundColor: false)
             }
         }
         .onAppear {
@@ -164,7 +164,6 @@ struct ProfileView: View {
                     .frame(maxWidth: .infinity)
                     .foregroundStyle(viewModel.selectedTab == type ? Color.getDefaultColor(for: colorScheme) : .gray)
                 }
-
             }
         }
     }
@@ -249,7 +248,7 @@ struct ProfileView: View {
                         .id(commentID)
                     if let comments = viewModel.comments {
                         ForEach(comments) { comment in
-                            CommentCell(comment: comment) { index in
+                            CommentCell(comment: comment, type: .comment, onTapImage: { index in
                                 if let images = comment.images {
                                     mainTabViewModel.images = images.map({ $0.url })
                                     mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
@@ -257,7 +256,9 @@ struct ProfileView: View {
                                         mainTabViewModel.showImageViewer = true
                                     }
                                 }
-                            }
+                            }, onTapUserInfo: { userId in
+                                router.items.append(.profile(userId: userId))
+                            })
                         }
                     }
                 }

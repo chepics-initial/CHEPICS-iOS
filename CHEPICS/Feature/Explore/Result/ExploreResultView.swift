@@ -102,7 +102,6 @@ struct ExploreResultView: View {
                 .padding(.horizontal, 16)
                 .padding(.top, 16)
             }
-
             
             Divider()
         }
@@ -241,7 +240,7 @@ struct ExploreResultView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(comments) { comment in
-                        CommentCell(comment: comment) { index in
+                        CommentCell(comment: comment, type: .comment, onTapImage: { index in
                             if let images = comment.images {
                                 mainTabViewModel.images = images.map({ $0.url })
                                 mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
@@ -249,7 +248,9 @@ struct ExploreResultView: View {
                                     mainTabViewModel.showImageViewer = true
                                 }
                             }
-                        }
+                        }, onTapUserInfo: { userId in
+                            router.items.append(.profile(userId: userId))
+                        })
                     }
                 }
             }
