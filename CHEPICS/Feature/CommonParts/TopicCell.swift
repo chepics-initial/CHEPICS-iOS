@@ -39,11 +39,11 @@ struct TopicCell: View {
                 }
                 
                 HStack(spacing: 16) {
-                    HStack(spacing: 0) {
-                        Image(.chart)
+                    HStack(spacing: 8) {
+                        Image(.orangePeople)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 24)
+                            .frame(width: 20)
                         
                         Text(topic.votes.commaSeparateThreeDigits())
                             .font(.footnote)
