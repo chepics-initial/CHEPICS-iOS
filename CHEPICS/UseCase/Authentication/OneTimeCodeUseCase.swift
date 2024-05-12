@@ -9,6 +9,7 @@ import Foundation
 
 protocol OneTimeCodeUseCase {
     func verifyCode(email: String, code: String) async -> Result<Void, APIError>
+    func createCode(email: String) async -> Result<Void, APIError>
 }
 
 final class OneTimeCodeUseCaseImpl: OneTimeCodeUseCase {
@@ -20,5 +21,9 @@ final class OneTimeCodeUseCaseImpl: OneTimeCodeUseCase {
     
     func verifyCode(email: String, code: String) async -> Result<Void, APIError> {
         await authRepository.checkCode(CheckCodeBody(email: email, code: code))
+    }
+    
+    func createCode(email: String) async -> Result<Void, APIError> {
+        await authRepository.createCode(email: email).map { _ in }
     }
 }

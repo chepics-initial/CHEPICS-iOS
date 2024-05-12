@@ -14,6 +14,8 @@ import Foundation
     @Published var isPresented: Bool = false
     @Published var showFailureAlert: Bool = false
     @Published var showInvalidAlert: Bool = false
+    @Published var showResendToast = false
+    @Published var showResendFailureToast = false
     var isActive: Bool {
         code.count >= Constants.oneTimeCodeCount
     }
@@ -56,10 +58,23 @@ import Foundation
             }
         }
     }
+    
+    func onTapResendButton() async {
+        switch await oneTimeCodeUseCase.createCode(email: email) {
+        case .success:
+            showResendToast = true
+        case .failure:
+            showResendFailureToast = true
+        }
+    }
 }
 
 final class OneTimeCodeUseCase_Previews: OneTimeCodeUseCase {
     func verifyCode(email: String, code: String) async -> Result<Void, APIError> {
+        .success(())
+    }
+    
+    func createCode(email: String) async -> Result<Void, APIError> {
         .success(())
     }
 }

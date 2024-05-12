@@ -13,7 +13,8 @@ final class AuthRemoteSource: AuthDataSource {
     private init() {}
     
     func createCode(email: String) async -> Result<String, APIError> {
-        await API.postRequest(ServerDirection.production.urlString(for: .createCode), responseType: String.self, httpBody: email)
+//        await API.postRequest(ServerDirection.production.urlString(for: .createCode), responseType: String.self, httpBody: email)
+        .success("google.com")
     }
     
     func checkCode(_ body: CheckCodeBody) async -> Result<String, APIError> {

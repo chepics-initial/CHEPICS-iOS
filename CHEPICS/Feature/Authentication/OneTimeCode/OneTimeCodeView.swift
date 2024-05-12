@@ -46,7 +46,7 @@ struct OneTimeCodeView: View {
             .padding()
             
             Button {
-                
+                Task { await viewModel.onTapResendButton() }
             } label: {
                 Text("コードを再送信")
                     .font(.subheadline)
@@ -75,6 +75,8 @@ struct OneTimeCodeView: View {
                 LoadingView()
             }
         }
+        .modifier(ToastModifier(showToast: $viewModel.showResendToast, text: "認証コードを再送信しました"))
+        .modifier(ToastModifier(showToast: $viewModel.showResendFailureToast, text: "認証コードの再送信に失敗しました"))
         .alert("通信エラー", isPresented: $viewModel.showFailureAlert, actions: {
             Button {
                 isFocused = true

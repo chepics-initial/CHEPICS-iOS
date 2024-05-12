@@ -126,6 +126,7 @@
 		E4C6BE302B6F68F3003B56AD /* CHEPICSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C6BE2F2B6F68F3003B56AD /* CHEPICSUITestsLaunchTests.swift */; };
 		E4CEEF492BEF448F00BB3B3B /* CommentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF482BEF448F00BB3B3B /* CommentDetailView.swift */; };
 		E4CEEF4B2BEF4A0A00BB3B3B /* CommentDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF4A2BEF4A0A00BB3B3B /* CommentDetailViewModel.swift */; };
+		E4CEEF4E2BF0B3D800BB3B3B /* ToastModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF4D2BF0B3D800BB3B3B /* ToastModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -275,6 +276,7 @@
 		E4C6BE2F2B6F68F3003B56AD /* CHEPICSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CHEPICSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E4CEEF482BEF448F00BB3B3B /* CommentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDetailView.swift; sourceTree = "<group>"; };
 		E4CEEF4A2BEF4A0A00BB3B3B /* CommentDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDetailViewModel.swift; sourceTree = "<group>"; };
+		E4CEEF4D2BF0B3D800BB3B3B /* ToastModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -424,6 +426,7 @@
 				251FE43A2BCE38CF008C3254 /* Explore */,
 				2566F5252B898C5400CAD739 /* Extension */,
 				2583F2442B6F6CBF00E68CAD /* Feed */,
+				E4CEEF4C2BF0B3BE00BB3B3B /* Modifier */,
 				E460BEBC2BE4CD57006E4812 /* MyPage */,
 				25F67D732BAD0AD5007406FC /* Profile */,
 				252D71372BA913B400485877 /* Tab */,
@@ -798,6 +801,14 @@
 			path = Comment;
 			sourceTree = "<group>";
 		};
+		E4CEEF4C2BF0B3BE00BB3B3B /* Modifier */ = {
+			isa = PBXGroup;
+			children = (
+				E4CEEF4D2BF0B3D800BB3B3B /* ToastModifier.swift */,
+			);
+			path = Modifier;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1013,6 +1024,7 @@
 				25893F7C2BD0DFD5001174D5 /* ExploreResultViewModel.swift in Sources */,
 				252D71392BA913C600485877 /* MainTabView.swift in Sources */,
 				259B51BF2B860B5300978256 /* LoginViewModel.swift in Sources */,
+				E4CEEF4E2BF0B3D800BB3B3B /* ToastModifier.swift in Sources */,
 				251FE43E2BCE3938008C3254 /* ExploreTopViewModel.swift in Sources */,
 				252D713F2BA91BAA00485877 /* FeedViewModel.swift in Sources */,
 				E460BEB72BE1AB77006E4812 /* EditProfileView.swift in Sources */,
