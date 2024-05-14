@@ -215,17 +215,22 @@ struct ExploreResultView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(topics) { topic in
-                        TopicCell(topic: topic, onTapImage: { index in
-                            if let images = topic.images {
-                                mainTabViewModel.images = images.map({ $0.url })
-                                mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
-                                withAnimation {
-                                    mainTabViewModel.showImageViewer = true
+                        Button {
+                            router.items.append(.topicTop(topic: topic))
+                        } label: {
+                            TopicCell(topic: topic, onTapImage: { index in
+                                if let images = topic.images {
+                                    mainTabViewModel.images = images.map({ $0.url })
+                                    mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                                    withAnimation {
+                                        mainTabViewModel.showImageViewer = true
+                                    }
                                 }
-                            }
-                        }, onTapUserInfo: { id in
-                            router.items.append(.profile(userId: id))
-                        })
+                            }, onTapUserInfo: { id in
+                                router.items.append(.profile(userId: id))
+                            })
+                        }
+
                     }
                 }
             }

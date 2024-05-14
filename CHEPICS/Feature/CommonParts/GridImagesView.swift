@@ -57,8 +57,10 @@ struct GridImagesView: View {
     private func getHeight(_ type: ContentType) -> CGFloat {
         switch type {
         case .topic:
+            // トピックは横のpaddingが16＆画像の間隔が8という仮定のもとでこの16+8+16=40というマイナスをしている
             return (getRect().width - 40) / 2
         case .comment:
+            // コメントは横のpaddingが16＆アイコン画像の横幅が32＆HStackのspacingが8＆画像の間隔が8という仮定のもとでこの16+32+8+8+16=80というマイナスをしている
             return (getRect().width - 80) / 2
         }
     }

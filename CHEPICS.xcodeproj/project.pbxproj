@@ -63,6 +63,8 @@
 		2599A4902BE4B17100AFC8E0 /* UserStoreLocalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2599A48F2BE4B17100AFC8E0 /* UserStoreLocalSource.swift */; };
 		2599A4922BE4B29300AFC8E0 /* MainTabUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2599A4912BE4B29300AFC8E0 /* MainTabUseCase.swift */; };
 		2599A4942BE4B6D700AFC8E0 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2599A4932BE4B6D700AFC8E0 /* ContentViewModel.swift */; };
+		2599A4D92BF2E4C800AFC8E0 /* TopicTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2599A4D82BF2E4C800AFC8E0 /* TopicTopView.swift */; };
+		2599A4DB2BF2E57900AFC8E0 /* TopicTopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2599A4DA2BF2E57900AFC8E0 /* TopicTopViewModel.swift */; };
 		259B51BD2B860A8B00978256 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51BC2B860A8B00978256 /* LoginView.swift */; };
 		259B51BF2B860B5300978256 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51BE2B860B5300978256 /* LoginViewModel.swift */; };
 		259B51C22B860CA000978256 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51C12B860CA000978256 /* RoundButton.swift */; };
@@ -214,6 +216,8 @@
 		2599A48F2BE4B17100AFC8E0 /* UserStoreLocalSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStoreLocalSource.swift; sourceTree = "<group>"; };
 		2599A4912BE4B29300AFC8E0 /* MainTabUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabUseCase.swift; sourceTree = "<group>"; };
 		2599A4932BE4B6D700AFC8E0 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		2599A4D82BF2E4C800AFC8E0 /* TopicTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicTopView.swift; sourceTree = "<group>"; };
+		2599A4DA2BF2E57900AFC8E0 /* TopicTopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicTopViewModel.swift; sourceTree = "<group>"; };
 		259B51BC2B860A8B00978256 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		259B51BE2B860B5300978256 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		259B51C12B860CA000978256 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
@@ -418,6 +422,7 @@
 		2583F23C2B6F6B2400E68CAD /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				2599A4D62BF2E4AD00AFC8E0 /* Topic */,
 				2566F53E2B8A152400CAD739 /* Constants.swift */,
 				259B51BA2B860A5B00978256 /* Authentication */,
 				E4CEEF472BEF447B00BB3B3B /* Comment */,
@@ -559,6 +564,23 @@
 				25893F7B2BD0DFD5001174D5 /* ExploreResultViewModel.swift */,
 			);
 			path = Result;
+			sourceTree = "<group>";
+		};
+		2599A4D62BF2E4AD00AFC8E0 /* Topic */ = {
+			isa = PBXGroup;
+			children = (
+				2599A4D72BF2E4BC00AFC8E0 /* Top */,
+			);
+			path = Topic;
+			sourceTree = "<group>";
+		};
+		2599A4D72BF2E4BC00AFC8E0 /* Top */ = {
+			isa = PBXGroup;
+			children = (
+				2599A4D82BF2E4C800AFC8E0 /* TopicTopView.swift */,
+				2599A4DA2BF2E57900AFC8E0 /* TopicTopViewModel.swift */,
+			);
+			path = Top;
 			sourceTree = "<group>";
 		};
 		259B51BA2B860A5B00978256 /* Authentication */ = {
@@ -1018,6 +1040,7 @@
 				6916B3952BAAE364009A8670 /* TopicRemoteSource.swift in Sources */,
 				25C88DAE2B8C33C4002455A3 /* IconRegistrationView.swift in Sources */,
 				6916B3A12BAAF6D3009A8670 /* Date+Extension.swift in Sources */,
+				2599A4DB2BF2E57900AFC8E0 /* TopicTopViewModel.swift in Sources */,
 				259B51BD2B860A8B00978256 /* LoginView.swift in Sources */,
 				25F67D322BAC00F9007406FC /* ImageView.swift in Sources */,
 				25862EB92BBA2F2400FC4225 /* CommentCell.swift in Sources */,
@@ -1033,6 +1056,7 @@
 				E457A0462BCA60CC003DFB9F /* CreateUserBody.swift in Sources */,
 				2599A4942BE4B6D700AFC8E0 /* ContentViewModel.swift in Sources */,
 				2599A48C2BE4791C00AFC8E0 /* CommentRemoteSource.swift in Sources */,
+				2599A4D92BF2E4C800AFC8E0 /* TopicTopView.swift in Sources */,
 				69EC79372B8ABEA90096AA55 /* PasswordRegistrationViewModel.swift in Sources */,
 				E457A0DA2BCF9B62003DFB9F /* LoginBody.swift in Sources */,
 				69EC79552B9C60B50096AA55 /* CreateTopicView.swift in Sources */,

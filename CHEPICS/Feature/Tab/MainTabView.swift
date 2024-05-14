@@ -118,5 +118,6 @@ enum Tab {
         case profile(userId: String)
         case myPageTopicList
         case comment(comment: Comment)
+        case topicTop(topic: Topic)
     }
 }

@@ -98,6 +98,8 @@ struct FeedView: View {
                 EmptyView()
             case .comment(comment: let comment):
                 CommentDetailView(viewModel: CommentDetailViewModel(comment: comment))
+            case .topicTop(topic: let topic):
+                TopicTopView(viewModel: TopicTopViewModel(topic: topic))
             }
         }
     }
@@ -186,17 +188,22 @@ struct FeedView: View {
                         .id(topicID)
                     if let topics = viewModel.topics {
                         ForEach(topics) { topic in
-                            TopicCell(topic: topic, onTapImage: { index in
-                                if let images = topic.images {
-                                    mainTabViewModel.images = images.map({ $0.url })
-                                    mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
-                                    withAnimation {
-                                        mainTabViewModel.showImageViewer = true
+                            Button {
+                                feedRouter.items.append(.topicTop(topic: topic))
+                            } label: {
+                                TopicCell(topic: topic, onTapImage: { index in
+                                    if let images = topic.images {
+                                        mainTabViewModel.images = images.map({ $0.url })
+                                        mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                                        withAnimation {
+                                            mainTabViewModel.showImageViewer = true
+                                        }
                                     }
-                                }
-                            }, onTapUserInfo: { id in
-                                feedRouter.items.append(.profile(userId: id))
-                            })
+                                }, onTapUserInfo: { id in
+                                    feedRouter.items.append(.profile(userId: id))
+                                })
+                            }
+
                         }
                     }
                 }
