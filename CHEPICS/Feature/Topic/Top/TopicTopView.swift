@@ -41,7 +41,13 @@ struct TopicTopView: View {
                     
                     if let images = viewModel.topic.images {
                         GridImagesView(images: images.map({ $0.url }), onTapImage: { index in
-                            
+                            if let images = viewModel.topic.images {
+                                mainTabViewModel.images = images.map({ $0.url })
+                                mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                                withAnimation {
+                                    mainTabViewModel.showImageViewer = true
+                                }
+                            }
                         }, type: .topic)
                     }
                     
@@ -108,14 +114,17 @@ struct TopicTopView: View {
                 .padding(.vertical)
             }
         }
+        .onAppear {
+            Task { await viewModel.onAppear() }
+        }
         .sheet(isPresented: $showSetList, content: {
             NavigationStack {
-                EmptyView()
+                TopicSetListView(viewModel: TopicSetListViewModel())
             }
         })
     }
 }
 
 #Preview {
-    TopicTopView(viewModel: TopicTopViewModel(topic: mockTopic1))
+    TopicTopView(viewModel: TopicTopViewModel(topic: mockTopic1, topicTopUseCase: TopicTopUseCase_Previews()))
 }

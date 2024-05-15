@@ -29,4 +29,9 @@ final class TopicRemoteSource: TopicDataSource {
 //        }
 //        return await API.request(ServerDirection.production.urlString(for: .userTopics), responseType: [Topic].self, queryParameters: query)
     }
+    
+    func fetchTopic(topicId: String) async -> Result<Topic, APIError> {
+        .success(mockTopic1)
+//        await API.request(ServerDirection.production.urlString(for: .topic), responseType: Topic.self, queryParameters: ["topicId": topicId])
+    }
 }

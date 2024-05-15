@@ -10,4 +10,5 @@ import Foundation
 protocol TopicDataSource {
     func fetchFavoriteTopics(offset: Int?) async -> Result<[Topic], APIError>
     func fetchUserTopics(userId: String, offset: Int?) async -> Result<[Topic], APIError>
+    func fetchTopic(topicId: String) async -> Result<Topic, APIError>
 }

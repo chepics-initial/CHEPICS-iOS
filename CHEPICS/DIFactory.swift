@@ -59,6 +59,10 @@ extension DIFactory {
         CreateTopicUseCaseImpl(topicRepository: sharedTopicRepository)
     }
     
+    static func topicTopUseCase() -> some TopicTopUseCase {
+         TopicTopUseCaseImpl(topicRepository: sharedTopicRepository)
+    }
+    
     // MARK: - Repository
     static let sharedTopicRepository: some TopicRepository = TopicRepositoryImpl(topicDataSource: sharedTopicDataSource, tokenDataSource: sharedTokenDataSource)
     

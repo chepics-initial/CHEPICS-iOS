@@ -10,6 +10,7 @@ import Foundation
 protocol TopicRepository {
     func fetchFavoriteTopics(offset: Int?) async -> Result<[Topic], APIError>
     func fetchUserTopics(userId: String, offset: Int?) async -> Result<[Topic], APIError>
+    func fetchTopic(topicId: String) async -> Result<Topic, APIError>
 }
 
 final class TopicRepositoryImpl: TopicRepository {
@@ -43,5 +44,9 @@ final class TopicRepositoryImpl: TopicRepository {
             }
             return .failure(error)
         }
+    }
+    
+    func fetchTopic(topicId: String) async -> Result<Topic, APIError> {
+        await topicDataSource.fetchTopic(topicId: topicId)
     }
 }
