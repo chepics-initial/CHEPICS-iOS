@@ -16,24 +16,28 @@ struct CreateSetView: View {
         VStack {
             Text("セットは短く簡潔に設定するのがおすすめです")
             
-            CustomTextEditor(text: $viewModel.setText, placeHolder: "追加するセットを入力")
-                .frame(maxWidth: .infinity)
-            
-            Color.gray
-                .frame(height: 1)
-            
-            HStack(alignment: .bottom) {
-                Spacer()
+            VStack {
+                CustomTextEditor(text: $viewModel.setText, placeHolder: "追加するセットを入力")
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, minHeight: 48)
                 
-                Text("\(viewModel.setText.count)")
-                    .font(.body)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(Color(.chepicsPrimary))
+                Color.gray
+                    .frame(height: 1)
                 
-                Text("/ \(Constants.setCount)")
-                    .font(.caption)
-                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                HStack(alignment: .bottom) {
+                    Spacer()
+                    
+                    Text("\(viewModel.setText.count)")
+                        .font(.body)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(Color(.chepicsPrimary))
+                    
+                    Text("/ \(Constants.setCount)")
+                        .font(.caption)
+                        .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                }
             }
+            .padding()
             
             Spacer()
             
