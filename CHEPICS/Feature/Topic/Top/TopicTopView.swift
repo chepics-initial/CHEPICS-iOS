@@ -62,12 +62,10 @@ struct TopicTopView: View {
                     
                     if let images = viewModel.topic.images {
                         GridImagesView(images: images.map({ $0.url }), onTapImage: { index in
-                            if let images = viewModel.topic.images {
-                                mainTabViewModel.images = images.map({ $0.url })
-                                mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
-                                withAnimation {
-                                    mainTabViewModel.showImageViewer = true
-                                }
+                            mainTabViewModel.images = images.map({ $0.url })
+                            mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                            withAnimation {
+                                mainTabViewModel.showImageViewer = true
                             }
                         }, type: .topic)
                     }
@@ -93,7 +91,6 @@ struct TopicTopView: View {
                                 .font(.caption)
                                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                         }
-
                         
                         Spacer()
                         
@@ -140,34 +137,99 @@ struct TopicTopView: View {
     var detailContentView: some View {
         VStack(alignment: .leading) {
             ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    Text("topic")
-                        .font(.title2)
-                        .fontWeight(.semibold)
+                detailHeaderView
+            }
+            
+            Divider()            
+        }
+    }
+    
+    var detailHeaderView: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("topic")
+                .font(.title2)
+                .fontWeight(.semibold)
+                .foregroundStyle(.chepicsPrimary)
+                .padding(.horizontal, 16)
+            
+            VStack {
+                HStack {
+                    Image(.orangePeople)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24)
+                    
+                    Text("\(viewModel.topic.votes)人が参加中")
+                        .font(.footnote)
                         .foregroundStyle(.chepicsPrimary)
                     
-                    VStack {
-                        HStack {
-                            Image(.orangePeople)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 24)
-                            
-                            Text("300人が参加中")
-                                .font(.footnote)
-                                .foregroundStyle(.chepicsPrimary)
-                            
-                            Spacer()
+                    Spacer()
+                }
+                
+                Text(viewModel.topic.title)
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .multilineTextAlignment(.leading)
+                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                if let link = viewModel.topic.link {
+                    Text(.init("[\(link)](\(link))"))
+                        .font(.caption)
+                        .multilineTextAlignment(.leading)
+                        .tint(.blue)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                if let images = viewModel.topic.images {
+                    GridImagesView(images: images.map({ $0.url }), onTapImage: { index in
+                        mainTabViewModel.images = images.map({ $0.url })
+                        mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                        withAnimation {
+                            mainTabViewModel.showImageViewer = true
                         }
+                    }, type: .comment)
+                }
+                
+                HStack(spacing: 16) {
+                    Button {
+                        router.items.append(.profile(userId: viewModel.topic.user.id))
+                    } label: {
+                        UserIconView(url: viewModel.topic.user.profileImageUrl, scale: .topic)
                         
-                        Text(viewModel.topic.title)
-                            .font(.title2)
-                            .fontWeight(.semibold)
-                            .multilineTextAlignment(.leading)
+                        Text(viewModel.topic.user.fullname)
+                            .font(.caption)
                             .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                     }
+                    
+                    
+                    Spacer()
+                    
+                    Text(viewModel.topic.registerTime.timestampString())
+                        .font(.footnote)
+                        .foregroundStyle(.gray)
                 }
+                
+                HStack(spacing: 4) {
+                    Spacer()
+                    
+                    Text("トピックの詳細を見る")
+                        .font(.footnote)
+                    
+                    Image(systemName: "chevron.forward")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 8, height: 8)
+                }
+                .foregroundStyle(.gray)
             }
+            .padding(16)
+            .overlay {
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(style: StrokeStyle())
+                    .foregroundStyle(.chepicsPrimary)
+            }
+            .padding(16)
         }
     }
 }

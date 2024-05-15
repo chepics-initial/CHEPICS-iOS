@@ -10,7 +10,7 @@ import Foundation
 @MainActor final class TopicSetListViewModel: ObservableObject {
     @Published private(set) var set: PickSet?
     var isActive: Bool {
-        if let set {
+        if set != nil {
             return true
         }
         return false
