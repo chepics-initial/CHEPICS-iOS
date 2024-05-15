@@ -12,6 +12,7 @@ enum CommentType {
     case comment
     case detail
     case reply
+    case set
 }
 
 struct CommentCell: View {
@@ -24,11 +25,10 @@ struct CommentCell: View {
     var body: some View {
         VStack {
             HStack(alignment: .top, spacing: 8) {
-                Button(action: {
-                    onTapUserInfo(comment.user.id)
-                }, label: {
-                    UserIconView(url: comment.user.profileImageUrl, scale: .comment)
-                })
+                UserIconView(url: comment.user.profileImageUrl, scale: .comment)
+                    .onTapGesture {
+                        onTapUserInfo(comment.user.id)
+                    }
                 
                 VStack(alignment: .leading, spacing: 16) {
                     HStack {
@@ -65,7 +65,7 @@ struct CommentCell: View {
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundStyle(.chepicsPrimary)
                         }
-                    case .detail, .reply:
+                    case .detail, .reply, .set:
                         EmptyView()
                     }
                     

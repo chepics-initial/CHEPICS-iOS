@@ -134,6 +134,8 @@
 		E4CEEF552BF4422400BB3B3B /* TopicTopUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF542BF4422400BB3B3B /* TopicTopUseCase.swift */; };
 		E4CEEF582BF44A9800BB3B3B /* CreateSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF572BF44A9800BB3B3B /* CreateSetView.swift */; };
 		E4CEEF5A2BF44B1700BB3B3B /* CreateSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF592BF44B1700BB3B3B /* CreateSetViewModel.swift */; };
+		E4CEEF5D2BF4667A00BB3B3B /* SetCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF5C2BF4667A00BB3B3B /* SetCommentView.swift */; };
+		E4CEEF602BF4818200BB3B3B /* SetCommentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF5F2BF4818200BB3B3B /* SetCommentDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -291,6 +293,8 @@
 		E4CEEF542BF4422400BB3B3B /* TopicTopUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicTopUseCase.swift; sourceTree = "<group>"; };
 		E4CEEF572BF44A9800BB3B3B /* CreateSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSetView.swift; sourceTree = "<group>"; };
 		E4CEEF592BF44B1700BB3B3B /* CreateSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSetViewModel.swift; sourceTree = "<group>"; };
+		E4CEEF5C2BF4667A00BB3B3B /* SetCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCommentView.swift; sourceTree = "<group>"; };
+		E4CEEF5F2BF4818200BB3B3B /* SetCommentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCommentDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -580,6 +584,8 @@
 		2599A4D62BF2E4AD00AFC8E0 /* Topic */ = {
 			isa = PBXGroup;
 			children = (
+				E4CEEF5E2BF4815100BB3B3B /* CommentDetail */,
+				E4CEEF5B2BF4632200BB3B3B /* Comment */,
 				E4CEEF562BF44A8F00BB3B3B /* CreateSet */,
 				E4CEEF4F2BF42E3A00BB3B3B /* SetList */,
 				2599A4D72BF2E4BC00AFC8E0 /* Top */,
@@ -862,6 +868,22 @@
 			path = CreateSet;
 			sourceTree = "<group>";
 		};
+		E4CEEF5B2BF4632200BB3B3B /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				E4CEEF5C2BF4667A00BB3B3B /* SetCommentView.swift */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		E4CEEF5E2BF4815100BB3B3B /* CommentDetail */ = {
+			isa = PBXGroup;
+			children = (
+				E4CEEF5F2BF4818200BB3B3B /* SetCommentDetailView.swift */,
+			);
+			path = CommentDetail;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1054,6 +1076,7 @@
 				2566F54A2B8AADF300CAD739 /* OneTimeCodeUseCase.swift in Sources */,
 				2599A4922BE4B29300AFC8E0 /* MainTabUseCase.swift in Sources */,
 				251A71AA2BDA113F002322DD /* UserCell.swift in Sources */,
+				E4CEEF602BF4818200BB3B3B /* SetCommentDetailView.swift in Sources */,
 				25893F7A2BD0DFCA001174D5 /* ExploreResultView.swift in Sources */,
 				25F67D752BAD0C61007406FC /* ProfileView.swift in Sources */,
 				256CFEF42BE202820000709E /* UserRepository.swift in Sources */,
@@ -1117,6 +1140,7 @@
 				E4C6BE132B6F68EE003B56AD /* CHEPICSApp.swift in Sources */,
 				E4CEEF5A2BF44B1700BB3B3B /* CreateSetViewModel.swift in Sources */,
 				25C88DB02B8C33FD002455A3 /* IconRegistrationViewModel.swift in Sources */,
+				E4CEEF5D2BF4667A00BB3B3B /* SetCommentView.swift in Sources */,
 				E457A04A2BCA61C4003DFB9F /* TokenDataSource.swift in Sources */,
 				2566F5432B8A176A00CAD739 /* APIError.swift in Sources */,
 				E457A0512BCA6BAF003DFB9F /* KeychainAccess.swift in Sources */,

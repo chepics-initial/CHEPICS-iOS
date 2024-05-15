@@ -12,6 +12,8 @@ struct TopicSetListView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: TopicSetListViewModel
     @State private var showCreateSetView = false
+    @State private var showCommentView = false
+    @State private var dismissView = false
     
     var body: some View {
         VStack {
@@ -26,7 +28,9 @@ struct TopicSetListView: View {
                     Text("あなたの意見をセットしてください")
                     
                     ForEach(0..<4, id: \.self) { _ in
-                        setCell()
+                        setCell {
+                            showCommentView = true
+                        }
                     }
                     
                     Button(action: {
@@ -46,15 +50,23 @@ struct TopicSetListView: View {
                 
             }
         }
+        .navigationDestination(isPresented: $showCommentView, destination: {
+            SetCommentView(dismissView: $dismissView)
+        })
         .fullScreenCover(isPresented: $showCreateSetView, content: {
             NavigationStack {
                 CreateSetView(viewModel: CreateSetViewModel(topicId: viewModel.topicId))
             }
         })
+        .onChange(of: dismissView, perform: { newValue in
+            if newValue {
+                dismiss()
+            }
+        })
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(action: {
-                    dismiss()
+                    dismissView = true
                 }, label: {
                     Image(systemName: "xmark")
                         .foregroundStyle(.gray)
@@ -63,7 +75,7 @@ struct TopicSetListView: View {
         }
     }
     
-    private func setCell() -> some View {
+    private func setCell(onTapCommentButton: @escaping() -> Void) -> some View {
         VStack {
             HStack {
                 Text("猫は可愛い")
@@ -73,16 +85,21 @@ struct TopicSetListView: View {
                 
                 Spacer()
                 
-                VStack {
-                    Image(systemName: "text.bubble.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 16, height: 16)
-                    
-                    Text("500件")
-                        .font(.caption2)
+                Button {
+                    onTapCommentButton()
+                } label: {
+                    VStack {
+                        Image(systemName: "text.bubble.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 16, height: 16)
+                        
+                        Text("500件")
+                            .font(.caption2)
+                    }
+                    .foregroundStyle(.blue)
                 }
-                .foregroundStyle(.blue)
+
             }
             
             ZStack(alignment: .leading) {
