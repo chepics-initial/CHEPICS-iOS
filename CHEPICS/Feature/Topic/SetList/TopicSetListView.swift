@@ -47,7 +47,9 @@ struct TopicSetListView: View {
             }
         }
         .fullScreenCover(isPresented: $showCreateSetView, content: {
-            EmptyView()
+            NavigationStack {
+                CreateSetView(viewModel: CreateSetViewModel(topicId: viewModel.topicId))
+            }
         })
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -123,5 +125,5 @@ struct TopicSetListView: View {
 }
 
 #Preview {
-    TopicSetListView(viewModel: TopicSetListViewModel())
+    TopicSetListView(viewModel: TopicSetListViewModel(topicId: ""))
 }

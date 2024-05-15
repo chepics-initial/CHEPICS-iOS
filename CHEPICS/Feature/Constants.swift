@@ -16,6 +16,7 @@ enum Constants {
     static let topicTitleCount = 100
     static let topicDescriptionCount = 300
     static let topicImageCount = 4
+    static let setCount = 50
 }
 
 func isValidUrl(_ urlString: String) -> Bool {

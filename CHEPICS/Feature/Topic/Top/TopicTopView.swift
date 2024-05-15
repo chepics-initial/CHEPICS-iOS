@@ -119,7 +119,7 @@ struct TopicTopView: View {
         }
         .sheet(isPresented: $showSetList, content: {
             NavigationStack {
-                TopicSetListView(viewModel: TopicSetListViewModel())
+                TopicSetListView(viewModel: TopicSetListViewModel(topicId: viewModel.topic.id))
             }
         })
     }
