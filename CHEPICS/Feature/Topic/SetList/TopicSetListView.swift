@@ -14,6 +14,7 @@ struct TopicSetListView: View {
     @State private var showCreateSetView = false
     @State private var showCommentView = false
     @State private var dismissView = false
+    let onTapSelectButton: (PickSet) -> Void
     
     var body: some View {
         VStack {
@@ -47,7 +48,9 @@ struct TopicSetListView: View {
             Divider()
             
             RoundButton(text: "選択する", isActive: viewModel.isActive, type: .fill) {
-                
+                if let set = viewModel.set {
+                    onTapSelectButton(set)
+                }
             }
         }
         .navigationDestination(isPresented: $showCommentView, destination: {
@@ -142,5 +145,5 @@ struct TopicSetListView: View {
 }
 
 #Preview {
-    TopicSetListView(viewModel: TopicSetListViewModel(topicId: ""))
+    TopicSetListView(viewModel: TopicSetListViewModel(topicId: ""), onTapSelectButton: {_ in})
 }

@@ -15,6 +15,27 @@ struct TopicTopView: View {
     @State private var showSetList = false
     
     var body: some View {
+        VStack {
+            switch viewModel.viewStatus {
+            case .top:
+                topContentView
+            case .detail:
+                detailContentView
+            }
+        }
+        .onAppear {
+            Task { await viewModel.onAppear() }
+        }
+        .sheet(isPresented: $showSetList, content: {
+            NavigationStack {
+                TopicSetListView(viewModel: TopicSetListViewModel(topicId: viewModel.topic.id)) { set in
+                    Task { await viewModel.selectSet(set: set) }
+                }
+            }
+        })
+    }
+    
+    var topContentView: some View {
         VStack(alignment: .leading) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
@@ -114,14 +135,40 @@ struct TopicTopView: View {
                 .padding(.vertical)
             }
         }
-        .onAppear {
-            Task { await viewModel.onAppear() }
-        }
-        .sheet(isPresented: $showSetList, content: {
-            NavigationStack {
-                TopicSetListView(viewModel: TopicSetListViewModel(topicId: viewModel.topic.id))
+    }
+    
+    var detailContentView: some View {
+        VStack(alignment: .leading) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("topic")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.chepicsPrimary)
+                    
+                    VStack {
+                        HStack {
+                            Image(.orangePeople)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24)
+                            
+                            Text("300人が参加中")
+                                .font(.footnote)
+                                .foregroundStyle(.chepicsPrimary)
+                            
+                            Spacer()
+                        }
+                        
+                        Text(viewModel.topic.title)
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .multilineTextAlignment(.leading)
+                            .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                    }
+                }
             }
-        })
+        }
     }
 }
 

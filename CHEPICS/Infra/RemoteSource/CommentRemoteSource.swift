@@ -29,4 +29,9 @@ final class CommentRemoteSource: CommentDataSource {
 //        }
 //        return await API.request(ServerDirection.production.urlString(for: .userComments), responseType: [Comment].self, queryParameters: query)
     }
+    
+    func fetchSetComments(setId: String) async -> Result<[Comment], APIError> {
+        .success([mockComment1, mockComment2, mockComment3, mockComment4])
+//        await API.request(ServerDirection.production.urlString(for: .setComments), responseType: Items<Comment>.self, queryParameters: ["set_id": setId]).map(\.items)
+    }
 }
