@@ -65,6 +65,7 @@
 		2599A4942BE4B6D700AFC8E0 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2599A4932BE4B6D700AFC8E0 /* ContentViewModel.swift */; };
 		2599A4D92BF2E4C800AFC8E0 /* TopicTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2599A4D82BF2E4C800AFC8E0 /* TopicTopView.swift */; };
 		2599A4DB2BF2E57900AFC8E0 /* TopicTopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2599A4DA2BF2E57900AFC8E0 /* TopicTopViewModel.swift */; };
+		2599A5182BF5BE4600AFC8E0 /* Navigation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2599A5172BF5BE4600AFC8E0 /* Navigation+Extension.swift */; };
 		259B51BD2B860A8B00978256 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51BC2B860A8B00978256 /* LoginView.swift */; };
 		259B51BF2B860B5300978256 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51BE2B860B5300978256 /* LoginViewModel.swift */; };
 		259B51C22B860CA000978256 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51C12B860CA000978256 /* RoundButton.swift */; };
@@ -225,6 +226,7 @@
 		2599A4932BE4B6D700AFC8E0 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		2599A4D82BF2E4C800AFC8E0 /* TopicTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicTopView.swift; sourceTree = "<group>"; };
 		2599A4DA2BF2E57900AFC8E0 /* TopicTopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicTopViewModel.swift; sourceTree = "<group>"; };
+		2599A5172BF5BE4600AFC8E0 /* Navigation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Navigation+Extension.swift"; sourceTree = "<group>"; };
 		259B51BC2B860A8B00978256 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		259B51BE2B860B5300978256 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		259B51C12B860CA000978256 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				69EC795D2B9C6B3F0096AA55 /* UIApplication+Extension.swift */,
 				6916B39E2BAAF4B3009A8670 /* Int+Extension.swift */,
 				6916B3A02BAAF6D3009A8670 /* Date+Extension.swift */,
+				2599A5172BF5BE4600AFC8E0 /* Navigation+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1144,6 +1147,7 @@
 				E457A04A2BCA61C4003DFB9F /* TokenDataSource.swift in Sources */,
 				2566F5432B8A176A00CAD739 /* APIError.swift in Sources */,
 				E457A0512BCA6BAF003DFB9F /* KeychainAccess.swift in Sources */,
+				2599A5182BF5BE4600AFC8E0 /* Navigation+Extension.swift in Sources */,
 				251A71AC2BDA13FF002322DD /* UserIconView.swift in Sources */,
 				256CFEF62BE202BF0000709E /* UserDataSource.swift in Sources */,
 				69EC793F2B8AC78C0096AA55 /* HeaderView.swift in Sources */,
