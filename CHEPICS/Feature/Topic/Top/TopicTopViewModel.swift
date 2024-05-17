@@ -10,9 +10,12 @@ import Foundation
 @MainActor final class TopicTopViewModel: ObservableObject {
     @Published private(set) var topic: Topic
     @Published private(set) var viewStatus: TopicViewStatus = .top
-    @Published private(set) var selectedSet: PickSet?
+    // TODO: - モックの削除
+    @Published private(set) var selectedSet: PickSet? = PickSet(id: "", name: "うちの猫だけが世界一可愛い", votes: 140, commentCount: "")
     @Published private(set) var uiState: UIState = .loading
-    @Published private(set) var comments: [Comment]?
+    // TODO: - モックの削除
+    @Published private(set) var comments: [Comment]? = [mockComment1, mockComment2, mockComment3, mockComment4]
+    @Published var commentText: String = ""
     
     private let topicTopUseCase: any TopicTopUseCase
     

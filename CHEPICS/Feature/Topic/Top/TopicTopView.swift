@@ -138,9 +138,13 @@ struct TopicTopView: View {
         VStack(alignment: .leading) {
             ScrollView {
                 detailHeaderView
+                
+                detailSetView
+                
+                setCommentView
             }
             
-            Divider()            
+            Divider()
         }
     }
     
@@ -230,6 +234,88 @@ struct TopicTopView: View {
                     .foregroundStyle(.chepicsPrimary)
             }
             .padding(16)
+        }
+    }
+    
+    var detailSetView: some View {
+        VStack(alignment: .leading) {
+            Text("set")
+                .font(.title2)
+                .fontWeight(.semibold)
+                .foregroundStyle(.blue)
+            
+            if let set = viewModel.selectedSet {
+                VStack {
+                    HStack {
+                        Image(systemName: "checkmark.circle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 16, height: 16)
+                            .foregroundStyle(.white)
+                        
+                        Text("参加中")
+                            .font(.footnote)
+                            .foregroundStyle(.white)
+                        
+                        Image(.blackPeople)
+                            .foregroundStyle(.white)
+                        
+                        Text("\(set.votes)")
+                            .font(.footnote)
+                            .foregroundStyle(.white)
+                        
+                        Spacer()
+                    }
+                    
+                    Text(set.name)
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .multilineTextAlignment(.leading)
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .padding()
+                .background {
+                    RoundedRectangle(cornerRadius: 16)
+                        .foregroundStyle(.blue)
+                }
+            }
+        }
+        .padding(.horizontal, 16)
+    }
+    
+    var setCommentView: some View {
+        VStack {
+            HStack {
+                Image(systemName: "text.bubble.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 16, height: 16)
+                
+                Text("コメント100件")
+                    .fontWeight(.semibold)
+                
+                Spacer()
+            }
+            .padding(16)
+            
+            if let comments = viewModel.comments {
+                LazyVStack {
+                    ForEach(comments) { comment in
+                        CommentCell(comment: comment, type: .set, onTapImage: { index in
+                            if let images = comment.images {
+                                mainTabViewModel.images = images.map({ $0.url })
+                                mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                                withAnimation {
+                                    mainTabViewModel.showImageViewer = true
+                                }
+                            }
+                        }, onTapUserInfo: { userId in
+                            router.items.append(.profile(userId: userId))
+                        })
+                    }
+                }
+            }
         }
     }
 }
