@@ -138,6 +138,7 @@
 		E4CEEF5A2BF44B1700BB3B3B /* CreateSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF592BF44B1700BB3B3B /* CreateSetViewModel.swift */; };
 		E4CEEF5D2BF4667A00BB3B3B /* SetCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF5C2BF4667A00BB3B3B /* SetCommentView.swift */; };
 		E4CEEF602BF4818200BB3B3B /* SetCommentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF5F2BF4818200BB3B3B /* SetCommentDetailView.swift */; };
+		E4CEEF622BF85DF500BB3B3B /* CreateCommentBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF612BF85DF500BB3B3B /* CreateCommentBody.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -299,6 +300,7 @@
 		E4CEEF592BF44B1700BB3B3B /* CreateSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSetViewModel.swift; sourceTree = "<group>"; };
 		E4CEEF5C2BF4667A00BB3B3B /* SetCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCommentView.swift; sourceTree = "<group>"; };
 		E4CEEF5F2BF4818200BB3B3B /* SetCommentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCommentDetailView.swift; sourceTree = "<group>"; };
+		E4CEEF612BF85DF500BB3B3B /* CreateCommentBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommentBody.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -556,6 +558,7 @@
 				251FE4342BC7A525008C3254 /* URLDefinitions.swift */,
 				6916B3872BAAD95C009A8670 /* User.swift */,
 				E457A0D92BCF9B62003DFB9F /* LoginBody.swift */,
+				E4CEEF612BF85DF500BB3B3B /* CreateCommentBody.swift */,
 			);
 			path = DomainModel;
 			sourceTree = "<group>";
@@ -1071,6 +1074,7 @@
 				256CFEF22BDBAF2F0000709E /* ExploreResultUseCase.swift in Sources */,
 				256C67142BAD483F00260ADE /* ProfileViewModel.swift in Sources */,
 				6916B3862BAAD8A6009A8670 /* Topic.swift in Sources */,
+				E4CEEF622BF85DF500BB3B3B /* CreateCommentBody.swift in Sources */,
 				251FE4332BC7A365008C3254 /* APIError+Extension.swift in Sources */,
 				E457A0482BCA6131003DFB9F /* AuthResponse.swift in Sources */,
 				69EC795C2B9C63F30096AA55 /* CustomTextEditor.swift in Sources */,

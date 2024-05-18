@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import PhotosUI
+import SwiftUI
 
 @MainActor final class TopicTopViewModel: ObservableObject {
     @Published private(set) var topic: Topic
@@ -16,6 +18,21 @@ import Foundation
     // TODO: - モックの削除
     @Published private(set) var comments: [Comment]? = [mockComment1, mockComment2, mockComment3, mockComment4]
     @Published var commentText: String = ""
+    @Published private(set) var selectedImages: [UIImage] = []
+    @Published var selectedItems: [PhotosPickerItem] = [] {
+        didSet {
+            Task {
+                selectedImages = []
+                
+                for item in selectedItems {
+                    guard let data = try? await item.loadTransferable(type: Data.self) else { return }
+                    guard let image = UIImage(data: data) else { return }
+                    selectedImages.append(image)
+                }
+            }
+        }
+    }
+    @Published private(set) var isLoading = false
     
     private let topicTopUseCase: any TopicTopUseCase
     
@@ -43,6 +60,11 @@ import Foundation
         case .failure:
             uiState = .failure
         }
+    }
+    
+    func onTapSubmitButton() async {
+        isLoading = true
+        
     }
 }
 

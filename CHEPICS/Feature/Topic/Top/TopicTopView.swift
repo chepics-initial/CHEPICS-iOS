@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct TopicTopView: View {
     @EnvironmentObject var router: NavigationRouter
@@ -15,12 +16,19 @@ struct TopicTopView: View {
     @State private var showSetList = false
     
     var body: some View {
-        VStack {
-            switch viewModel.viewStatus {
-            case .top:
-                topContentView
-            case .detail:
-                detailContentView
+        ZStack {
+            VStack {
+                switch viewModel.viewStatus {
+                case .top:
+                    detailContentView
+                    topContentView
+                case .detail:
+                    detailContentView
+                }
+            }
+            
+            if viewModel.isLoading {
+                LoadingView()
             }
         }
         .onAppear {
@@ -151,6 +159,90 @@ struct TopicTopView: View {
             Divider()
             
             CustomHeightTextEditor(text: $viewModel.commentText, placeholder: "コメントを入力", minHeight: 44, maxHeight: getRect().height * 0.2)
+            
+            HStack {
+                if viewModel.selectedImages.isEmpty {
+                    PhotosPicker(
+                        selection: $viewModel.selectedItems,
+                        maxSelectionCount: 4,
+                        selectionBehavior: .ordered,
+                        matching: .images
+                    ) {
+                        Image(systemName: "photo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24)
+                            .foregroundStyle(.chepicsPrimary)
+                    }
+                } else {
+                    ScrollView(.horizontal) {
+                        HStack {
+                            ForEach(viewModel.selectedImages, id: \.self) { image in
+                                PhotosPicker(
+                                    selection: $viewModel.selectedItems,
+                                    maxSelectionCount: 4,
+                                    selectionBehavior: .ordered,
+                                    matching: .images
+                                ) {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 80, height: 80)
+                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                        .overlay {
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .stroke(style: StrokeStyle())
+                                                .foregroundStyle(.gray)
+                                        }
+                                }
+                            }
+                            
+                            if viewModel.selectedImages.count < Constants.topicImageCount {
+                                PhotosPicker(
+                                    selection: $viewModel.selectedItems,
+                                    maxSelectionCount: 4,
+                                    selectionBehavior: .ordered,
+                                    matching: .images
+                                ) {
+                                    Image(systemName: "plus")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 24)
+                                        .foregroundStyle(.gray)
+                                        .padding()
+                                        .frame(width: 80, height: 80)
+                                        .overlay {
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .stroke(style: StrokeStyle())
+                                                .foregroundStyle(.gray)
+                                        }
+                                }
+                            }
+                        }
+                        .padding(1)
+                    }
+                    .scrollIndicators(.hidden)
+                }
+                
+                Spacer()
+                
+                Button {
+                    Task { await viewModel.onTapSubmitButton() }
+                } label: {
+                    Image(.paperplane)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 16)
+                        .padding()
+                        .background {
+                            Circle()
+                                .foregroundStyle(.chepicsPrimary)
+                        }
+                }
+
+            }
+            .padding(.vertical, 4)
+            .padding(.horizontal)
         }
     }
     
@@ -212,7 +304,6 @@ struct TopicTopView: View {
                             .font(.caption)
                             .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                     }
-                    
                     
                     Spacer()
                     
@@ -376,6 +467,6 @@ private struct CustomHeightTextEditor: View {
         }
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .frame(height: textEditorHeight) //← ここで高さを反映
-        .padding(16)
+        .padding(.horizontal)
     }
 }
