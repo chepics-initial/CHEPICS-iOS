@@ -26,6 +26,9 @@ struct TopicTopView: View {
         .onAppear {
             Task { await viewModel.onAppear() }
         }
+        .onTapGesture {
+            UIApplication.shared.endEditing()
+        }
         .sheet(isPresented: $showSetList, content: {
             NavigationStack {
                 TopicSetListView(viewModel: TopicSetListViewModel(topicId: viewModel.topic.id)) { set in
@@ -62,6 +65,7 @@ struct TopicTopView: View {
                     
                     if let images = viewModel.topic.images {
                         GridImagesView(images: images.map({ $0.url }), onTapImage: { index in
+                            UIApplication.shared.endEditing()
                             mainTabViewModel.images = images.map({ $0.url })
                             mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
                             withAnimation {
@@ -145,6 +149,8 @@ struct TopicTopView: View {
             }
             
             Divider()
+            
+            CustomHeightTextEditor(text: $viewModel.commentText, placeholder: "コメントを入力", minHeight: 44, maxHeight: getRect().height * 0.2)
         }
     }
     
@@ -187,6 +193,7 @@ struct TopicTopView: View {
                 
                 if let images = viewModel.topic.images {
                     GridImagesView(images: images.map({ $0.url }), onTapImage: { index in
+                        UIApplication.shared.endEditing()
                         mainTabViewModel.images = images.map({ $0.url })
                         mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
                         withAnimation {
@@ -304,6 +311,7 @@ struct TopicTopView: View {
                     ForEach(comments) { comment in
                         CommentCell(comment: comment, type: .set, onTapImage: { index in
                             if let images = comment.images {
+                                UIApplication.shared.endEditing()
                                 mainTabViewModel.images = images.map({ $0.url })
                                 mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
                                 withAnimation {
@@ -322,4 +330,52 @@ struct TopicTopView: View {
 
 #Preview {
     TopicTopView(viewModel: TopicTopViewModel(topic: mockTopic1, topicTopUseCase: TopicTopUseCase_Previews()))
+}
+
+private struct CustomHeightTextEditor: View {
+
+    @Binding var text: String
+    @State var textHeight: CGFloat = 0
+
+    var placeholder: String
+    var minHeight: CGFloat
+    var maxHeight: CGFloat
+
+    //TextEditorの高さを保持するプロパティ
+    var textEditorHeight: CGFloat {
+        if textHeight < minHeight {
+            return minHeight
+        }
+
+        if textHeight > maxHeight {
+            return maxHeight
+        }
+
+        return textHeight
+    }
+
+    var body: some View {
+        ZStack {
+            Color.gray.opacity(0.4)
+
+            ZStack {
+                //Placeholder
+                if text.isEmpty {
+                    HStack {
+                        Text(placeholder)
+                            .font(.system(size: 16))
+                            .foregroundStyle(.gray)
+                            .padding(.leading, 4)
+                        Spacer()
+                    }
+                }
+
+                CustomTextView(text: $text, height: $textHeight)
+            }
+            .padding(4)
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .frame(height: textEditorHeight) //← ここで高さを反映
+        .padding(16)
+    }
 }

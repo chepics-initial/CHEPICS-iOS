@@ -27,6 +27,7 @@
 		252D713F2BA91BAA00485877 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252D713E2BA91BAA00485877 /* FeedViewModel.swift */; };
 		252D71532BABBA5A00485877 /* MainTabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252D71522BABBA5A00485877 /* MainTabViewModel.swift */; };
 		252D71552BABEBF600485877 /* GridImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252D71542BABEBF600485877 /* GridImagesView.swift */; };
+		253E57F12BF70EC00059C68E /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253E57F02BF70EC00059C68E /* CustomTextView.swift */; };
 		2566F52B2B898D6300CAD739 /* DIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F52A2B898D6300CAD739 /* DIFactory.swift */; };
 		2566F52D2B89943E00CAD739 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F52C2B89943E00CAD739 /* Color+Extension.swift */; };
 		2566F5312B89F54D00CAD739 /* EmailRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2566F5302B89F54D00CAD739 /* EmailRegistrationView.swift */; };
@@ -189,6 +190,7 @@
 		252D713E2BA91BAA00485877 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		252D71522BABBA5A00485877 /* MainTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewModel.swift; sourceTree = "<group>"; };
 		252D71542BABEBF600485877 /* GridImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridImagesView.swift; sourceTree = "<group>"; };
+		253E57F02BF70EC00059C68E /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		2566F52A2B898D6300CAD739 /* DIFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIFactory.swift; sourceTree = "<group>"; };
 		2566F52C2B89943E00CAD739 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		2566F5302B89F54D00CAD739 /* EmailRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailRegistrationView.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 				252D713C2BA918ED00485877 /* TopicCell.swift */,
 				251A71A92BDA113F002322DD /* UserCell.swift */,
 				251A71AB2BDA13FF002322DD /* UserIconView.swift */,
+				253E57F02BF70EC00059C68E /* CustomTextView.swift */,
 			);
 			path = CommonParts;
 			sourceTree = "<group>";
@@ -1059,6 +1062,7 @@
 				E457A04C2BCA6233003DFB9F /* TokenStoreLocalSource.swift in Sources */,
 				2566F52D2B89943E00CAD739 /* Color+Extension.swift in Sources */,
 				E457A0DF2BD7143F003DFB9F /* SearchTextField.swift in Sources */,
+				253E57F12BF70EC00059C68E /* CustomTextView.swift in Sources */,
 				E460BEC82BE731AF006E4812 /* MyPageTopicListView.swift in Sources */,
 				251FE4272BC79BB8008C3254 /* AuthRemoteSource.swift in Sources */,
 				252D713D2BA918ED00485877 /* TopicCell.swift in Sources */,
