@@ -8,17 +8,32 @@
 import SwiftUI
 import PhotosUI
 
+enum CreateCommentType {
+    case comment
+    case reply
+    
+    var placeholder: String {
+        switch self {
+        case .comment:
+            "コメントを入力"
+        case .reply:
+            "リプライを入力"
+        }
+    }
+}
+
 struct CreateCommentView: View {
     @Binding var text: String
     @Binding var selectedImages: [UIImage]
     @Binding var selectedItems: [PhotosPickerItem]
+    let type: CreateCommentType
     let onTapSubmitButton: () -> Void
     
     var body: some View {
         VStack {
             Divider()
             
-            CustomHeightTextEditor(text: $text, placeholder: "コメントを入力", minHeight: 44, maxHeight: getRect().height * 0.2)
+            CustomHeightTextEditor(text: $text, placeholder: type.placeholder, minHeight: 44, maxHeight: getRect().height * 0.2)
             
             HStack {
                 if selectedImages.isEmpty {
@@ -156,5 +171,5 @@ struct CustomHeightTextEditor: View {
 }
 
 #Preview {
-    CreateCommentView(text: .constant(""), selectedImages: .constant([]), selectedItems: .constant([]), onTapSubmitButton: {})
+    CreateCommentView(text: .constant(""), selectedImages: .constant([]), selectedItems: .constant([]), type: .comment, onTapSubmitButton: {})
 }

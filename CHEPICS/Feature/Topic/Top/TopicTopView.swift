@@ -155,7 +155,13 @@ struct TopicTopView: View {
                 setCommentView
             }
             
-            CreateCommentView(text: $viewModel.commentText, selectedImages: $viewModel.selectedImages, selectedItems: $viewModel.selectedItems) {
+            CreateCommentView(
+                text: $viewModel.commentText,
+                selectedImages: $viewModel.selectedImages,
+                selectedItems: $viewModel.selectedItems,
+                type: .comment
+            ) {
+                UIApplication.shared.endEditing()
                 Task { await viewModel.onTapSubmitButton() }
             }
         }
