@@ -231,22 +231,22 @@ struct FeedView: View {
                     
                     if let comments = viewModel.comments {
                         ForEach(comments) { comment in
-                            Button {
-                                feedRouter.items.append(.comment(comment: comment))
-                            } label: {
-                                CommentCell(comment: comment, type: .comment, onTapImage: { index in
-                                    if let images = comment.images {
-                                        mainTabViewModel.images = images.map({ $0.url })
-                                        mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
-                                        withAnimation {
-                                            mainTabViewModel.showImageViewer = true
-                                        }
+                            CommentCell(comment: comment, type: .comment, onTapImage: { index in
+                                if let images = comment.images {
+                                    mainTabViewModel.images = images.map({ $0.url })
+                                    mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                                    withAnimation {
+                                        mainTabViewModel.showImageViewer = true
                                     }
-                                }, onTapUserInfo: { userId in
-                                    feedRouter.items.append(.profile(userId: userId))
-                                })
+                                }
+                            }, onTapUserInfo: { userId in
+                                feedRouter.items.append(.profile(userId: userId))
+                            }, onTapLikeButton: {
+                                
+                            })
+                            .onTapGesture {
+                                feedRouter.items.append(.comment(comment: comment))
                             }
-
                         }
                     }
                 }

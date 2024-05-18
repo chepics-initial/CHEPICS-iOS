@@ -21,6 +21,7 @@ struct CommentCell: View {
     let type: CommentType
     let onTapImage: (Int) -> Void
     let onTapUserInfo: (String) -> Void
+    let onTapLikeButton: () -> Void
     
     var body: some View {
         VStack {
@@ -87,10 +88,16 @@ struct CommentCell: View {
                     HStack {
                         Spacer()
                         
-                        Image(systemName: "heart")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 16, height: 16)
+                        Button {
+                            onTapLikeButton()
+                        } label: {
+                            Image(systemName: comment.isLiked ? "heart.fill" : "heart")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 16, height: 16)
+                                .foregroundStyle(comment.isLiked ? .red : Color.getDefaultColor(for: colorScheme))
+                        }
+
                         
                         Text("\(comment.votes)")
                             .font(.footnote)
@@ -105,9 +112,10 @@ struct CommentCell: View {
                 .frame(height: 1)
                 .foregroundStyle(.gray)
         }
+        .contentShape(Rectangle())
     }
 }
 
 #Preview {
-    CommentCell(comment: mockComment2, type: .comment, onTapImage: { _ in }, onTapUserInfo: { _ in })
+    CommentCell(comment: mockComment2, type: .comment, onTapImage: { _ in }, onTapUserInfo: { _ in }, onTapLikeButton: {})
 }

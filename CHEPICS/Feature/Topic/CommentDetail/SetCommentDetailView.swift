@@ -43,6 +43,8 @@ struct SetCommentDetailView: View {
                         
                     }, onTapUserInfo: { _ in
                         
+                    }, onTapLikeButton: {
+                        
                     })
                     
                     HStack {
@@ -64,6 +66,8 @@ struct SetCommentDetailView: View {
                                 
                             }, onTapUserInfo: { _ in
 
+                            }, onTapLikeButton: {
+                                
                             })
                         }
                     }

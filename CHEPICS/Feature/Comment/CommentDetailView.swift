@@ -28,6 +28,8 @@ struct CommentDetailView: View {
                         }
                     }, onTapUserInfo: { userId in
                         router.items.append(.profile(userId: userId))
+                    }, onTapLikeButton: {
+                        
                     })
                     
                     HStack {
@@ -56,6 +58,8 @@ struct CommentDetailView: View {
                                 }
                             }, onTapUserInfo: { userId in
                                 router.items.append(.profile(userId: userId))
+                            }, onTapLikeButton: {
+                                
                             })
                         }
                     }

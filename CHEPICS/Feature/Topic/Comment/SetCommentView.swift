@@ -10,6 +10,7 @@ import SwiftUI
 struct SetCommentView: View {
     @Environment(\.colorScheme) var colorScheme
     @Binding var dismissView: Bool
+    @State private var isNavigationActive = false
     
     var body: some View {
         VStack {
@@ -53,13 +54,14 @@ struct SetCommentView: View {
             ScrollView {
                 LazyVStack {
                     ForEach(0..<5, id: \.self) { _ in
-                        NavigationLink {
-                            SetCommentDetailView(dismissView: $dismissView)
-                        } label: {
-                            CommentCell(comment: mockComment1, type: .set, onTapImage: { index in
-                            }, onTapUserInfo: { _ in
-                                
-                            })
+                        CommentCell(comment: mockComment1, type: .set, onTapImage: { index in
+                        }, onTapUserInfo: { _ in
+                            
+                        }, onTapLikeButton: {
+                            
+                        })
+                        .onTapGesture {
+                            isNavigationActive = true
                         }
                     }
                 }
@@ -74,6 +76,9 @@ struct SetCommentView: View {
                         .foregroundStyle(.gray)
                 }
             }
+        }
+        .navigationDestination(isPresented: $isNavigationActive) {
+            SetCommentDetailView(dismissView: $dismissView)
         }
     }
 }

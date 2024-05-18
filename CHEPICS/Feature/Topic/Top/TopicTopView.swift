@@ -332,6 +332,8 @@ struct TopicTopView: View {
                             }
                         }, onTapUserInfo: { userId in
                             router.items.append(.profile(userId: userId))
+                        }, onTapLikeButton: {
+                            
                         })
                     }
                 }

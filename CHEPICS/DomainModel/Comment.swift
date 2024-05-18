@@ -9,29 +9,44 @@ import Foundation
 
 struct Comment: Decodable, Identifiable {
     let id: String
-    let parentId: String
+    let parentId: String?
     let topicId: String
     let setId: String
+    let topic: String
     let comment: String
     let link: String?
     let images: [CommentImage]?
     let votes: Int
+    let isLiked: Bool
     let user: User
     let registerTime: Date
-    let updateTime: Date
     
-    init(id: String, parentId: String, topicId: String, setId: String, comment: String, link: String?, images: [CommentImage]?, votes: Int, user: User, registerTime: Date, updateTime: Date) {
+    init(
+        id: String,
+        parentId: String?,
+        topicId: String,
+        setId: String,
+        topic: String,
+        comment: String,
+        link: String?,
+        images: [CommentImage]?,
+        votes: Int,
+        isLiked: Bool,
+        user: User,
+        registerTime: Date
+    ) {
         self.id = id
         self.parentId = parentId
         self.topicId = topicId
         self.setId = setId
+        self.topic = topic
         self.comment = comment
         self.link = link
         self.images = images
         self.votes = votes
+        self.isLiked = isLiked
         self.user = user
         self.registerTime = registerTime
-        self.updateTime = updateTime
     }
     
     enum CodingKeys: String, CodingKey {
@@ -39,12 +54,13 @@ struct Comment: Decodable, Identifiable {
         case parentId
         case topicId
         case setId
+        case topic = "topic_name"
         case comment
         case link = "comment_link"
         case images = "comment_image"
         case votes = "comment_like_count"
+        case isLiked = "has_user_liked_comment"
         case user = "create_user"
         case registerTime
-        case updateTime
     }
 }
