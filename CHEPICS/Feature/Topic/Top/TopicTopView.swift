@@ -20,7 +20,6 @@ struct TopicTopView: View {
             VStack {
                 switch viewModel.viewStatus {
                 case .top:
-                    detailContentView
                     topContentView
                 case .detail:
                     detailContentView
@@ -156,93 +155,9 @@ struct TopicTopView: View {
                 setCommentView
             }
             
-            Divider()
-            
-            CustomHeightTextEditor(text: $viewModel.commentText, placeholder: "コメントを入力", minHeight: 44, maxHeight: getRect().height * 0.2)
-            
-            HStack {
-                if viewModel.selectedImages.isEmpty {
-                    PhotosPicker(
-                        selection: $viewModel.selectedItems,
-                        maxSelectionCount: 4,
-                        selectionBehavior: .ordered,
-                        matching: .images
-                    ) {
-                        Image(systemName: "photo")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 24)
-                            .foregroundStyle(.chepicsPrimary)
-                    }
-                } else {
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(viewModel.selectedImages, id: \.self) { image in
-                                PhotosPicker(
-                                    selection: $viewModel.selectedItems,
-                                    maxSelectionCount: 4,
-                                    selectionBehavior: .ordered,
-                                    matching: .images
-                                ) {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 80, height: 80)
-                                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                                        .overlay {
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .stroke(style: StrokeStyle())
-                                                .foregroundStyle(.gray)
-                                        }
-                                }
-                            }
-                            
-                            if viewModel.selectedImages.count < Constants.topicImageCount {
-                                PhotosPicker(
-                                    selection: $viewModel.selectedItems,
-                                    maxSelectionCount: 4,
-                                    selectionBehavior: .ordered,
-                                    matching: .images
-                                ) {
-                                    Image(systemName: "plus")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 24)
-                                        .foregroundStyle(.gray)
-                                        .padding()
-                                        .frame(width: 80, height: 80)
-                                        .overlay {
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .stroke(style: StrokeStyle())
-                                                .foregroundStyle(.gray)
-                                        }
-                                }
-                            }
-                        }
-                        .padding(1)
-                    }
-                    .scrollIndicators(.hidden)
-                }
-                
-                Spacer()
-                
-                Button {
-                    Task { await viewModel.onTapSubmitButton() }
-                } label: {
-                    Image(.paperplane)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 16)
-                        .padding()
-                        .background {
-                            Circle()
-                                .foregroundStyle(.chepicsPrimary)
-                        }
-                }
-
+            CreateCommentView(text: $viewModel.commentText, selectedImages: $viewModel.selectedImages, selectedItems: $viewModel.selectedItems) {
+                Task { await viewModel.onTapSubmitButton() }
             }
-            .padding(.vertical, 4)
-            .padding(.horizontal)
         }
     }
     
@@ -421,52 +336,4 @@ struct TopicTopView: View {
 
 #Preview {
     TopicTopView(viewModel: TopicTopViewModel(topic: mockTopic1, topicTopUseCase: TopicTopUseCase_Previews()))
-}
-
-private struct CustomHeightTextEditor: View {
-
-    @Binding var text: String
-    @State var textHeight: CGFloat = 0
-
-    var placeholder: String
-    var minHeight: CGFloat
-    var maxHeight: CGFloat
-
-    //TextEditorの高さを保持するプロパティ
-    var textEditorHeight: CGFloat {
-        if textHeight < minHeight {
-            return minHeight
-        }
-
-        if textHeight > maxHeight {
-            return maxHeight
-        }
-
-        return textHeight
-    }
-
-    var body: some View {
-        ZStack {
-            Color.gray.opacity(0.4)
-
-            ZStack {
-                //Placeholder
-                if text.isEmpty {
-                    HStack {
-                        Text(placeholder)
-                            .font(.system(size: 16))
-                            .foregroundStyle(.gray)
-                            .padding(.leading, 4)
-                        Spacer()
-                    }
-                }
-
-                CustomTextView(text: $text, height: $textHeight)
-            }
-            .padding(4)
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 8))
-        .frame(height: textEditorHeight) //← ここで高さを反映
-        .padding(.horizontal)
-    }
 }

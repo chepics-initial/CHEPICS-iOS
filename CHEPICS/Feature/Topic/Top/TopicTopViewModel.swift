@@ -18,7 +18,7 @@ import SwiftUI
     // TODO: - モックの削除
     @Published private(set) var comments: [Comment]? = [mockComment1, mockComment2, mockComment3, mockComment4]
     @Published var commentText: String = ""
-    @Published private(set) var selectedImages: [UIImage] = []
+    @Published var selectedImages: [UIImage] = []
     @Published var selectedItems: [PhotosPickerItem] = [] {
         didSet {
             Task {
