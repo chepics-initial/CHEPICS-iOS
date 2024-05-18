@@ -23,7 +23,7 @@ import Foundation
         }
     }
     @Published private(set) var isCurrentUser: Bool = false
-    @Published private(set) var user: User?
+    @Published private(set) var user: User
     @Published private(set) var topics: [Topic]?
     @Published private(set) var comments: [Comment]?
     @Published private(set) var topicUIState: UIState = .loading
@@ -31,13 +31,12 @@ import Foundation
     @Published private(set) var showError = false
     private var isTopicOnAppearFinished = false
     private var isCommentOnAppearFinished = false
-    private let userId: String
     private var isInitialAppear: Bool = true
     private let profileUseCase: any ProfileUseCase
     
-    init(userId: String, profileUseCase: some ProfileUseCase) {
+    init(user: User, profileUseCase: some ProfileUseCase) {
         self.profileUseCase = profileUseCase
-        self.userId = userId
+        self.user = user
     }
     
     func selectTab(type: ProfileTabType) {
@@ -47,8 +46,8 @@ import Foundation
     func onAppear() async {
         if isInitialAppear {
             isInitialAppear = false
-            isCurrentUser = userId == profileUseCase.getCurrentUserId()
-            switch await profileUseCase.fetchUserInformation(userId: userId) {
+            isCurrentUser = user.id == profileUseCase.getCurrentUserId()
+            switch await profileUseCase.fetchUserInformation(userId: user.id) {
             case .success(let user):
                 self.user = user
                 switch selectedTab {
@@ -78,7 +77,7 @@ import Foundation
             topicUIState = .loading
         }
         isTopicOnAppearFinished = true
-        switch await profileUseCase.fetchUserTopics(userId: userId, offset: nil) {
+        switch await profileUseCase.fetchUserTopics(userId: user.id, offset: nil) {
         case .success(let topics):
             self.topics = topics
             topicUIState = .success
@@ -102,7 +101,7 @@ import Foundation
             commentUIState = .loading
         }
         isCommentOnAppearFinished = true
-        switch await profileUseCase.fetchUserComments(userId: userId, offset: nil) {
+        switch await profileUseCase.fetchUserComments(userId: user.id, offset: nil) {
         case .success(let comments):
             self.comments = comments
             commentUIState = .success

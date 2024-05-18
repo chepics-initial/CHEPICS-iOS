@@ -94,7 +94,7 @@ struct TopicTopView: View {
                         }
                         
                         Button {
-                            router.items.append(.profile(userId: viewModel.topic.user.id))
+                            router.items.append(.profile(user: viewModel.topic.user))
                         } label: {
                             UserIconView(url: viewModel.topic.user.profileImageUrl, scale: .topic)
                             
@@ -217,7 +217,7 @@ struct TopicTopView: View {
                 
                 HStack(spacing: 16) {
                     Button {
-                        router.items.append(.profile(userId: viewModel.topic.user.id))
+                        router.items.append(.profile(user: viewModel.topic.user))
                     } label: {
                         UserIconView(url: viewModel.topic.user.profileImageUrl, scale: .topic)
                         
@@ -330,8 +330,8 @@ struct TopicTopView: View {
                                     mainTabViewModel.showImageViewer = true
                                 }
                             }
-                        }, onTapUserInfo: { userId in
-                            router.items.append(.profile(userId: userId))
+                        }, onTapUserInfo: { user in
+                            router.items.append(.profile(user: user))
                         }, onTapLikeButton: {
                             
                         })

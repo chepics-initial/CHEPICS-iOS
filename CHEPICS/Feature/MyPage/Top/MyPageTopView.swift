@@ -16,8 +16,8 @@ struct MyPageTopView: View {
     var body: some View {
         VStack(spacing: 32) {
             Button {
-                if let userId = viewModel.user?.id {
-                    myPageRouter.items.append(.profile(userId: userId))
+                if let user = viewModel.user {
+                    myPageRouter.items.append(.profile(user: user))
                 }
             } label: {
                 HStack {
@@ -93,8 +93,8 @@ struct MyPageTopView: View {
                 ExploreTopView(viewModel: ExploreTopViewModel())
             case .exploreResult(searchText: _):
                 EmptyView()
-            case .profile(userId: let userId):
-                ProfileView(viewModel: ProfileViewModel(userId: userId, profileUseCase: DIFactory.profileUseCase()))
+            case .profile(user: let user):
+                ProfileView(viewModel: ProfileViewModel(user: user, profileUseCase: DIFactory.profileUseCase()))
             case .myPageTopicList:
                 MyPageTopicListView()
             case .comment(comment: let comment):

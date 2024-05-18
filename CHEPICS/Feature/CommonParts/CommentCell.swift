@@ -20,7 +20,7 @@ struct CommentCell: View {
     let comment: Comment
     let type: CommentType
     let onTapImage: (Int) -> Void
-    let onTapUserInfo: (String) -> Void
+    let onTapUserInfo: (User) -> Void
     let onTapLikeButton: () -> Void
     
     var body: some View {
@@ -28,13 +28,13 @@ struct CommentCell: View {
             HStack(alignment: .top, spacing: 8) {
                 UserIconView(url: comment.user.profileImageUrl, scale: .comment)
                     .onTapGesture {
-                        onTapUserInfo(comment.user.id)
+                        onTapUserInfo(comment.user)
                     }
                 
                 VStack(alignment: .leading, spacing: 16) {
                     HStack {
                         Button {
-                            onTapUserInfo(comment.user.id)
+                            onTapUserInfo(comment.user)
                         } label: {
                             HStack {
                                 Text(comment.user.fullname)

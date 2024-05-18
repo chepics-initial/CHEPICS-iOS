@@ -20,117 +20,109 @@ struct ProfileView: View {
     private let commentID = "commentID"
     
     var body: some View {
-        VStack {
-            if let user = viewModel.user {
-                VStack(spacing: 16) {
-                    VStack(alignment: .leading, spacing: 16) {
-                        HStack {
-                            UserIconView(url: user.profileImageUrl, scale: .profile)
-                            
-                            Spacer()
-                            
-                            //                            if viewModel.isCurrentUser {
-                            //                                Button {
-                            //                                    showEditView = true
-                            //                                } label: {
-                            //                                    Image(systemName: "pencil")
-                            //                                        .foregroundStyle(.chepicsPrimary)
-                            //                                }
-                            //
-                            //                            } else {
-                            //                                Button {
-                            //                                    
-                            //                                } label: {
-                            //                                    Text("フォローする")
-                            //                                        .font(.footnote)
-                            //                                        .fontWeight(.semibold)
-                            //                                        .foregroundStyle(.white)
-                            //                                        .padding(8)
-                            //                                        .background {
-                            //                                            RoundedRectangle(cornerRadius: 8)
-                            //                                                .foregroundStyle(Color(.chepicsPrimary))
-                            //                                        }
-                            //                                }
-                            //                            }
-                            Button {
-                                showEditView = true
-                            } label: {
-                                Image(systemName: "pencil")
-                                    .foregroundStyle(.chepicsPrimary)
-                            }
-                        }
-                        
-                        VStack(alignment: .leading) {
-                            Text(user.fullname)
-                                .font(.subheadline)
-                                .fontWeight(.bold)
-                                .multilineTextAlignment(.leading)
-                                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                            
-                            Text("@\(user.username)")
-                                .font(.caption)
-                                .foregroundStyle(.gray)
-                        }
-                        
-                        if let bio = user.bio {
-                            Text(bio)
-                                .font(.caption)
-                                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                                .multilineTextAlignment(.leading)
-                        }
-                        
-                        HStack {
-                            HStack(spacing: 4) {
-                                Text("20")
-                                    .font(.caption)
-                                    .fontWeight(.semibold)
-                                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                                Text("フォロー")
-                                    .font(.caption)
-                                    .foregroundStyle(.gray)
-                            }
-                            
-                            HStack(spacing: 4) {
-                                Text("20")
-                                    .font(.caption)
-                                    .fontWeight(.semibold)
-                                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                                Text("フォロワー")
-                                    .font(.caption)
-                                    .foregroundStyle(.gray)
-                            }
-                            
-                            Spacer()
-                        }
-                    }
-                    .padding(.horizontal)
+        VStack(spacing: 16) {
+            VStack(alignment: .leading, spacing: 16) {
+                HStack {
+                    UserIconView(url: viewModel.user.profileImageUrl, scale: .profile)
                     
-                    headerTab
+                    Spacer()
                     
-                    TabView(selection: $viewModel.selectedTab) {
-                        topicContentView
-                            .tag(ProfileTabType.topics)
-                        
-                        commentContentView
-                            .tag(ProfileTabType.comments)
-                    }
-                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-                    .introspect(.tabView, on: .iOS(.v16, .v17)) { tabView in
-                        tabView.tabBar.isHidden = true
+                    //                            if viewModel.isCurrentUser {
+                    //                                Button {
+                    //                                    showEditView = true
+                    //                                } label: {
+                    //                                    Image(systemName: "pencil")
+                    //                                        .foregroundStyle(.chepicsPrimary)
+                    //                                }
+                    //
+                    //                            } else {
+                    //                                Button {
+                    //
+                    //                                } label: {
+                    //                                    Text("フォローする")
+                    //                                        .font(.footnote)
+                    //                                        .fontWeight(.semibold)
+                    //                                        .foregroundStyle(.white)
+                    //                                        .padding(8)
+                    //                                        .background {
+                    //                                            RoundedRectangle(cornerRadius: 8)
+                    //                                                .foregroundStyle(Color(.chepicsPrimary))
+                    //                                        }
+                    //                                }
+                    //                            }
+                    Button {
+                        showEditView = true
+                    } label: {
+                        Image(systemName: "pencil")
+                            .foregroundStyle(.chepicsPrimary)
                     }
                 }
-            } else {
-                LoadingView(showBackgroundColor: false)
+                
+                VStack(alignment: .leading) {
+                    Text(viewModel.user.fullname)
+                        .font(.subheadline)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.leading)
+                        .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                    
+                    Text("@\(viewModel.user.username)")
+                        .font(.caption)
+                        .foregroundStyle(.gray)
+                }
+                
+                if let bio = viewModel.user.bio {
+                    Text(bio)
+                        .font(.caption)
+                        .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                        .multilineTextAlignment(.leading)
+                }
+                
+                HStack {
+                    HStack(spacing: 4) {
+                        Text("20")
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                        Text("フォロー")
+                            .font(.caption)
+                            .foregroundStyle(.gray)
+                    }
+                    
+                    HStack(spacing: 4) {
+                        Text("20")
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                        Text("フォロワー")
+                            .font(.caption)
+                            .foregroundStyle(.gray)
+                    }
+                    
+                    Spacer()
+                }
+            }
+            .padding(.horizontal)
+            
+            headerTab
+            
+            TabView(selection: $viewModel.selectedTab) {
+                topicContentView
+                    .tag(ProfileTabType.topics)
+                
+                commentContentView
+                    .tag(ProfileTabType.comments)
+            }
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            .introspect(.tabView, on: .iOS(.v16, .v17)) { tabView in
+                tabView.tabBar.isHidden = true
             }
         }
         .onAppear {
             Task { await viewModel.onAppear() }
         }
         .fullScreenCover(isPresented: $showEditView) {
-            if let user = viewModel.user {
-                NavigationStack {
-                    EditProfileView(viewModel: EditProfileViewModel(user: user))
-                }
+            NavigationStack {
+                EditProfileView(viewModel: EditProfileViewModel(user: viewModel.user))
             }
         }
     }
@@ -225,8 +217,8 @@ struct ProfileView: View {
                                             mainTabViewModel.showImageViewer = true
                                         }
                                     }
-                                }, onTapUserInfo: { id in
-                                    router.items.append(.profile(userId: id))
+                                }, onTapUserInfo: { user in
+                                    router.items.append(.profile(user: user))
                                 })
                             }
 
@@ -261,8 +253,8 @@ struct ProfileView: View {
                                         mainTabViewModel.showImageViewer = true
                                     }
                                 }
-                            }, onTapUserInfo: { userId in
-                                router.items.append(.profile(userId: userId))
+                            }, onTapUserInfo: { user in
+                                router.items.append(.profile(user: user))
                             }, onTapLikeButton: {
                                 
                             })
@@ -286,5 +278,5 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView(viewModel: ProfileViewModel(userId: "", profileUseCase: ProfileUseCase_Previews()))
+    ProfileView(viewModel: ProfileViewModel(user: mockUser1, profileUseCase: ProfileUseCase_Previews()))
 }

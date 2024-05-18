@@ -26,8 +26,8 @@ struct CommentDetailView: View {
                                 mainTabViewModel.showImageViewer = true
                             }
                         }
-                    }, onTapUserInfo: { userId in
-                        router.items.append(.profile(userId: userId))
+                    }, onTapUserInfo: { user in
+                        router.items.append(.profile(user: user))
                     }, onTapLikeButton: {
                         
                     })
@@ -56,8 +56,8 @@ struct CommentDetailView: View {
                                         mainTabViewModel.showImageViewer = true
                                     }
                                 }
-                            }, onTapUserInfo: { userId in
-                                router.items.append(.profile(userId: userId))
+                            }, onTapUserInfo: { user in
+                                router.items.append(.profile(user: user))
                             }, onTapLikeButton: {
                                 
                             })

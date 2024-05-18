@@ -92,8 +92,8 @@ struct FeedView: View {
                 ExploreTopView(viewModel: ExploreTopViewModel())
             case .exploreResult(searchText: let searchText):
                 ExploreResultView(viewModel: ExploreResultViewModel(searchText: searchText, exploreResultUseCase: DIFactory.exploreResultUseCase()))
-            case .profile(userId: let userId):
-                ProfileView(viewModel: ProfileViewModel(userId: userId, profileUseCase: DIFactory.profileUseCase()))
+            case .profile(user: let user):
+                ProfileView(viewModel: ProfileViewModel(user: user, profileUseCase: DIFactory.profileUseCase()))
             case .myPageTopicList:
                 EmptyView()
             case .comment(comment: let comment):
@@ -199,8 +199,8 @@ struct FeedView: View {
                                             mainTabViewModel.showImageViewer = true
                                         }
                                     }
-                                }, onTapUserInfo: { id in
-                                    feedRouter.items.append(.profile(userId: id))
+                                }, onTapUserInfo: { user in
+                                    feedRouter.items.append(.profile(user: user))
                                 })
                             }
 
@@ -239,8 +239,8 @@ struct FeedView: View {
                                         mainTabViewModel.showImageViewer = true
                                     }
                                 }
-                            }, onTapUserInfo: { userId in
-                                feedRouter.items.append(.profile(userId: userId))
+                            }, onTapUserInfo: { user in
+                                feedRouter.items.append(.profile(user: user))
                             }, onTapLikeButton: {
                                 
                             })

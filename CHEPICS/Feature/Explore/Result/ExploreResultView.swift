@@ -226,8 +226,8 @@ struct ExploreResultView: View {
                                         mainTabViewModel.showImageViewer = true
                                     }
                                 }
-                            }, onTapUserInfo: { id in
-                                router.items.append(.profile(userId: id))
+                            }, onTapUserInfo: { user in
+                                router.items.append(.profile(user: user))
                             })
                         }
 
@@ -253,8 +253,8 @@ struct ExploreResultView: View {
                                     mainTabViewModel.showImageViewer = true
                                 }
                             }
-                        }, onTapUserInfo: { userId in
-                            router.items.append(.profile(userId: userId))
+                        }, onTapUserInfo: { user in
+                            router.items.append(.profile(user: user))
                         }, onTapLikeButton: {
                             
                         })
@@ -273,7 +273,7 @@ struct ExploreResultView: View {
                 LazyVStack {
                     ForEach(users) { user in
                         Button {
-                            router.items.append(.profile(userId: user.id))
+                            router.items.append(.profile(user: user))
                         } label: {
                             UserCell(user: user)
                         }

@@ -12,7 +12,7 @@ struct TopicCell: View {
     @Environment(\.colorScheme) var colorScheme
     let topic: Topic
     let onTapImage: (Int) -> Void
-    let onTapUserInfo: (String) -> Void
+    let onTapUserInfo: (User) -> Void
     
     var body: some View {
         VStack {
@@ -51,7 +51,7 @@ struct TopicCell: View {
                     }
                     
                     Button {
-                        onTapUserInfo(topic.user.id)
+                        onTapUserInfo(topic.user)
                     } label: {
                         UserIconView(url: topic.user.profileImageUrl, scale: .topic)
                         
