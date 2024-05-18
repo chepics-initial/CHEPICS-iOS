@@ -27,7 +27,7 @@ final class CommentRemoteSource: CommentDataSource {
 //        if let offset {
 //            query["offset"] = offset
 //        }
-//        return await API.request(ServerDirection.production.urlString(for: .userComments), responseType: [Comment].self, queryParameters: query)
+//        return await API.request(ServerDirection.production.urlString(for: .userComments), responseType: Items<Comment>.self, queryParameters: query).map(\.items)
     }
     
     func fetchSetComments(setId: String) async -> Result<[Comment], APIError> {

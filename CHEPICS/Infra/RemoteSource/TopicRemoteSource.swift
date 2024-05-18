@@ -27,7 +27,7 @@ final class TopicRemoteSource: TopicDataSource {
 //        if let offset {
 //            query["offset"] = offset
 //        }
-//        return await API.request(ServerDirection.production.urlString(for: .userTopics), responseType: [Topic].self, queryParameters: query)
+//        return await API.request(ServerDirection.production.urlString(for: .userTopics), responseType: Items<Topic>.self, queryParameters: query).map(\.items)
     }
     
     func fetchTopic(topicId: String) async -> Result<Topic, APIError> {

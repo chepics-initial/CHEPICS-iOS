@@ -13,7 +13,7 @@ import SwiftUI
     @Published private(set) var topic: Topic
     @Published private(set) var viewStatus: TopicViewStatus = .top
     // TODO: - モックの削除
-    @Published private(set) var selectedSet: PickSet? = PickSet(id: "", name: "うちの猫だけが世界一可愛い", votes: 140, commentCount: "")
+    @Published private(set) var selectedSet: PickSet? = PickSet(id: "", name: "うちの猫だけが世界一可愛い", votes: 1400, commentCount: 100)
     @Published private(set) var uiState: UIState = .loading
     // TODO: - モックの削除
     @Published private(set) var comments: [Comment]? = [mockComment1, mockComment2, mockComment3, mockComment4]

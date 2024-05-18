@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct PickSet: Decodable {
+struct PickSet: Identifiable, Decodable {
     let id: String
     let name: String
     let votes: Int
-    let commentCount: String?
+    let commentCount: Int
     
-    init(id: String, name: String, votes: Int, commentCount: String?) {
+    init(id: String, name: String, votes: Int, commentCount: Int) {
         self.id = id
         self.name = name
         self.votes = votes
@@ -21,9 +21,9 @@ struct PickSet: Decodable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case id = "setId"
-        case name = "setName"
-        case votes = "userPickCount"
+        case id = "set_id"
+        case name = "set_name"
+        case votes = "user_pick_count"
         case commentCount
     }
 }

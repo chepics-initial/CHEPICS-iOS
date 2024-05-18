@@ -63,6 +63,10 @@ extension DIFactory {
          TopicTopUseCaseImpl(topicRepository: sharedTopicRepository, commentRepository: sharedCommentRepository)
     }
     
+    static func topicSetListUseCase() -> some TopicSetListUseCase {
+        TopicSetListUseCaseImpl(setRepository: sharedSetRepository)
+    }
+    
     // MARK: - Repository
     static let sharedTopicRepository: some TopicRepository = TopicRepositoryImpl(topicDataSource: sharedTopicDataSource, tokenDataSource: sharedTokenDataSource)
     
@@ -75,6 +79,8 @@ extension DIFactory {
     static let sharedUserRepository: some UserRepository = UserRepositoryImpl(userDataSource: sharedUserDataSource, userStoreDataSource: sharedUserStoreDataSource, tokenDataSource: sharedTokenDataSource)
     
     static let sharedTokenRepository: some TokenRepository = TokenRepositoryImpl(tokenDataSource: sharedTokenDataSource)
+    
+    static let sharedSetRepository: some SetRepository = SetRepositoryImpl(setDataSource: sharedSetDataSource)
     
     // MARK: - DataSource
     static let sharedTopicDataSource: some TopicDataSource = TopicRemoteSource.shared
@@ -90,4 +96,6 @@ extension DIFactory {
     static let sharedUserDataSource: some UserDataSource = UserRemoteSource.shared
     
     static let sharedUserStoreDataSource: some UserStoreDataSource = UserStoreLocalSource.shared
+    
+    static let sharedSetDataSource: some SetDataSource = SetRemoteSource.shared
 }

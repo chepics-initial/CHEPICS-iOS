@@ -26,21 +26,37 @@ struct TopicSetListView: View {
                         .foregroundStyle(.blue)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Text("あなたの意見をセットしてください")
-                    
-                    ForEach(0..<4, id: \.self) { _ in
-                        setCell {
-                            showCommentView = true
+                    switch viewModel.uiState {
+                    case .loading:
+                        LoadingView(showBackgroundColor: false)
+                    case .success:
+                        if let sets = viewModel.sets {
+                            Text("あなたの意見をセットしてください")
+                            
+                            ForEach(sets) { pickSet in
+                                setCell(set: pickSet) {
+                                    showCommentView = true
+                                }
+                            }
+                            
+                            Button(action: {
+                                showCreateSetView = true
+                            }, label: {
+                                Text("セットを追加する")
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(.blue)
+                            })
+                        }
+                    case .failure:
+                        VStack {
+                            Text("通信に失敗しました。インターネット環境を確認して、もう一度お試しください。")
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: .infinity)
+                                .padding(16)
+                            
+                            Spacer()
                         }
                     }
-                    
-                    Button(action: {
-                        showCreateSetView = true
-                    }, label: {
-                        Text("セットを追加する")
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.blue)
-                    })
                 }
                 .padding(16)
             }
@@ -48,7 +64,7 @@ struct TopicSetListView: View {
             Divider()
             
             RoundButton(text: "選択する", isActive: viewModel.isActive, type: .fill) {
-                if let set = viewModel.set {
+                if let set = viewModel.selectedSet {
                     onTapSelectButton(set)
                 }
             }
@@ -76,12 +92,15 @@ struct TopicSetListView: View {
                 })
             }
         }
+        .onAppear {
+            Task { await viewModel.onAppear() }
+        }
     }
     
-    private func setCell(onTapCommentButton: @escaping() -> Void) -> some View {
+    private func setCell(set: PickSet, onTapCommentButton: @escaping() -> Void) -> some View {
         VStack {
             HStack {
-                Text("猫は可愛い")
+                Text(set.name)
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundStyle(Color.getDefaultColor(for: colorScheme))
@@ -97,7 +116,7 @@ struct TopicSetListView: View {
                             .scaledToFit()
                             .frame(width: 16, height: 16)
                         
-                        Text("500件")
+                        Text("\(set.commentCount)件")
                             .font(.caption2)
                     }
                     .foregroundStyle(.blue)
@@ -145,5 +164,5 @@ struct TopicSetListView: View {
 }
 
 #Preview {
-    TopicSetListView(viewModel: TopicSetListViewModel(topicId: ""), onTapSelectButton: {_ in})
+    TopicSetListView(viewModel: TopicSetListViewModel(topicId: "", topicSetListUseCase: TopicSetListUseCase_Previews()), onTapSelectButton: {_ in})
 }

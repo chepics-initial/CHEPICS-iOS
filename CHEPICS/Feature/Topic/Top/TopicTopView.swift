@@ -38,7 +38,7 @@ struct TopicTopView: View {
         }
         .sheet(isPresented: $showSetList, content: {
             NavigationStack {
-                TopicSetListView(viewModel: TopicSetListViewModel(topicId: viewModel.topic.id)) { set in
+                TopicSetListView(viewModel: TopicSetListViewModel(topicId: viewModel.topic.id, topicSetListUseCase: DIFactory.topicSetListUseCase())) { set in
                     Task { await viewModel.selectSet(set: set) }
                 }
             }
