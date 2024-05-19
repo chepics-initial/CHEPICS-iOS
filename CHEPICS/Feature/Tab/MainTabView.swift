@@ -119,5 +119,6 @@ enum Tab {
         case myPageTopicList
         case comment(comment: Comment)
         case topicTop(topic: Topic)
+        case topicDetail(topic: Topic)
     }
 }

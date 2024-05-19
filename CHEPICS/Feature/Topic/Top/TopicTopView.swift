@@ -233,18 +233,22 @@ struct TopicTopView: View {
                         .foregroundStyle(.gray)
                 }
                 
-                HStack(spacing: 4) {
-                    Spacer()
-                    
-                    Text("トピックの詳細を見る")
-                        .font(.footnote)
-                    
-                    Image(systemName: "chevron.forward")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 8, height: 8)
+                Button {
+                    router.items.append(.topicDetail(topic: viewModel.topic))
+                } label: {
+                    HStack(spacing: 4) {
+                        Spacer()
+                        
+                        Text("トピックの詳細を見る")
+                            .font(.footnote)
+                        
+                        Image(systemName: "chevron.forward")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 8, height: 8)
+                    }
+                    .foregroundStyle(.gray)
                 }
-                .foregroundStyle(.gray)
             }
             .padding(16)
             .overlay {

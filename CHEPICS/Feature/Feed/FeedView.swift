@@ -100,6 +100,8 @@ struct FeedView: View {
                 CommentDetailView(viewModel: CommentDetailViewModel(comment: comment))
             case .topicTop(topic: let topic):
                 TopicTopView(viewModel: TopicTopViewModel(topic: topic, topicTopUseCase: DIFactory.topicTopUseCase()))
+            case .topicDetail(topic: let topic):
+                TopicDetailView(topic: topic)
             }
         }
     }
