@@ -74,7 +74,9 @@ struct TopicSetListView: View {
         })
         .fullScreenCover(isPresented: $showCreateSetView, content: {
             NavigationStack {
-                CreateSetView(viewModel: CreateSetViewModel(topicId: viewModel.topicId))
+                CreateSetView(viewModel: CreateSetViewModel(topicId: viewModel.topicId, createSetUseCase: DIFactory.createSetUseCase())) {
+                    Task { await viewModel.fetchSets() }
+                }
             }
         })
         .onChange(of: dismissView, perform: { newValue in
@@ -93,7 +95,7 @@ struct TopicSetListView: View {
             }
         }
         .onAppear {
-            Task { await viewModel.onAppear() }
+            Task { await viewModel.fetchSets() }
         }
     }
     

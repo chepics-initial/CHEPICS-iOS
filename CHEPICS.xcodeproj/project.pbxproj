@@ -144,6 +144,8 @@
 		E4CEEF682BF9265000BB3B3B /* SetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF672BF9265000BB3B3B /* SetRepository.swift */; };
 		E4CEEF6A2BF9268300BB3B3B /* SetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF692BF9268300BB3B3B /* SetDataSource.swift */; };
 		E4CEEF6C2BF926D100BB3B3B /* SetRemoteSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF6B2BF926D100BB3B3B /* SetRemoteSource.swift */; };
+		E4CEEF6E2BF97AB800BB3B3B /* CreateSetBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF6D2BF97AB800BB3B3B /* CreateSetBody.swift */; };
+		E4CEEF702BF97BD600BB3B3B /* CreateSetUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF6F2BF97BD600BB3B3B /* CreateSetUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -311,6 +313,8 @@
 		E4CEEF672BF9265000BB3B3B /* SetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRepository.swift; sourceTree = "<group>"; };
 		E4CEEF692BF9268300BB3B3B /* SetDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDataSource.swift; sourceTree = "<group>"; };
 		E4CEEF6B2BF926D100BB3B3B /* SetRemoteSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRemoteSource.swift; sourceTree = "<group>"; };
+		E4CEEF6D2BF97AB800BB3B3B /* CreateSetBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSetBody.swift; sourceTree = "<group>"; };
+		E4CEEF6F2BF97BD600BB3B3B /* CreateSetUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSetUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -485,6 +489,7 @@
 				E460BEC32BE59661006E4812 /* CreateTopicUseCase.swift */,
 				E4CEEF542BF4422400BB3B3B /* TopicTopUseCase.swift */,
 				E4CEEF652BF9260600BB3B3B /* TopicSetListUseCase.swift */,
+				E4CEEF6F2BF97BD600BB3B3B /* CreateSetUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -574,6 +579,7 @@
 				6916B3872BAAD95C009A8670 /* User.swift */,
 				E457A0D92BCF9B62003DFB9F /* LoginBody.swift */,
 				E4CEEF612BF85DF500BB3B3B /* CreateCommentBody.swift */,
+				E4CEEF6D2BF97AB800BB3B3B /* CreateSetBody.swift */,
 			);
 			path = DomainModel;
 			sourceTree = "<group>";
@@ -1080,6 +1086,7 @@
 				E457A04C2BCA6233003DFB9F /* TokenStoreLocalSource.swift in Sources */,
 				2566F52D2B89943E00CAD739 /* Color+Extension.swift in Sources */,
 				E457A0DF2BD7143F003DFB9F /* SearchTextField.swift in Sources */,
+				E4CEEF702BF97BD600BB3B3B /* CreateSetUseCase.swift in Sources */,
 				253E57F12BF70EC00059C68E /* CustomTextView.swift in Sources */,
 				E460BEC82BE731AF006E4812 /* MyPageTopicListView.swift in Sources */,
 				251FE4272BC79BB8008C3254 /* AuthRemoteSource.swift in Sources */,
@@ -1129,6 +1136,7 @@
 				E4CEEF552BF4422400BB3B3B /* TopicTopUseCase.swift in Sources */,
 				2599A4DB2BF2E57900AFC8E0 /* TopicTopViewModel.swift in Sources */,
 				259B51BD2B860A8B00978256 /* LoginView.swift in Sources */,
+				E4CEEF6E2BF97AB800BB3B3B /* CreateSetBody.swift in Sources */,
 				E4CEEF682BF9265000BB3B3B /* SetRepository.swift in Sources */,
 				25F67D322BAC00F9007406FC /* ImageView.swift in Sources */,
 				25862EB92BBA2F2400FC4225 /* CommentCell.swift in Sources */,

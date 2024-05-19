@@ -11,40 +11,56 @@ struct CreateSetView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: CreateSetViewModel
+    @FocusState private var isFocused: Bool
+    let completion: () -> Void
     
     var body: some View {
-        VStack {
-            Text("セットは短く簡潔に設定するのがおすすめです")
-            
+        ZStack {
             VStack {
-                CustomTextEditor(text: $viewModel.setText, placeHolder: "追加するセットを入力")
-                    .fixedSize(horizontal: false, vertical: true)
-                    .frame(maxWidth: .infinity, minHeight: 48)
+                Text("セットは短く簡潔に設定するのがおすすめです")
                 
-                Color.gray
-                    .frame(height: 1)
+                VStack {
+                    CustomTextEditor(text: $viewModel.setText, placeHolder: "追加するセットを入力")
+                        .focused($isFocused)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(maxWidth: .infinity, minHeight: 48)
+                    
+                    Color.gray
+                        .frame(height: 1)
+                    
+                    HStack(alignment: .bottom) {
+                        Spacer()
+                        
+                        Text("\(viewModel.setText.count)")
+                            .font(.body)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(Color(.chepicsPrimary))
+                        
+                        Text("/ \(Constants.setCount)")
+                            .font(.caption)
+                            .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                    }
+                }
+                .padding()
                 
-                HStack(alignment: .bottom) {
-                    Spacer()
-                    
-                    Text("\(viewModel.setText.count)")
-                        .font(.body)
-                        .fontWeight(.semibold)
-                        .foregroundStyle(Color(.chepicsPrimary))
-                    
-                    Text("/ \(Constants.setCount)")
-                        .font(.caption)
-                        .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                Spacer()
+                
+                Divider()
+                
+                RoundButton(text: "セットを追加", isActive: viewModel.isActive, type: .fill) {
+                    isFocused = false
+                    Task {
+                        await viewModel.onTapButton()
+                        if viewModel.isCompleted {
+                            completion()
+                            dismiss()
+                        }
+                    }
                 }
             }
-            .padding()
             
-            Spacer()
-            
-            Divider()
-            
-            RoundButton(text: "セットを追加", isActive: viewModel.isActive, type: .fill) {
-                
+            if viewModel.isLoading {
+                LoadingView()
             }
         }
         .navigationTitle("セットを追加")
@@ -60,9 +76,18 @@ struct CreateSetView: View {
 
             }
         }
+        .alert("通信エラー", isPresented: $viewModel.showAlert, actions: {
+            Button {
+                isFocused = true
+            } label: {
+                Text("OK")
+            }
+        }, message: {
+            Text("インターネット環境を確認して、もう一度お試しください。")
+        })
     }
 }
 
 #Preview {
-    CreateSetView(viewModel: CreateSetViewModel(topicId: ""))
+    CreateSetView(viewModel: CreateSetViewModel(topicId: "", createSetUseCase: CreateSetUseCase_Previews()), completion: {})
 }

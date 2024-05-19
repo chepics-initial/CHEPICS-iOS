@@ -16,4 +16,9 @@ final class SetRemoteSource: SetDataSource {
         .success([mockSet1, mockSet2, mockSet3])
 //        await API.request(ServerDirection.production.urlString(for: .topicSets), responseType: Items<PickSet>.self, queryParameters: ["topic_id": topicId]).map(\.items)
     }
+    
+    func createSet(body: CreateSetBody) async -> Result<Void, APIError> {
+        .success(())
+//        await API.postRequest(ServerDirection.production.urlString(for: .createSet), responseType: String.self, httpBody: body).map { _ in }
+    }
 }

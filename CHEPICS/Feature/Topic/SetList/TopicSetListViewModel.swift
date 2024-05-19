@@ -27,7 +27,7 @@ import Foundation
         self.topicSetListUseCase = topicSetListUseCase
     }
     
-    func onAppear() async {
+    func fetchSets() async {
         switch await topicSetListUseCase.fetchSets(topicId: topicId) {
         case .success(let sets):
             self.sets = sets

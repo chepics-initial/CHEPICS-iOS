@@ -9,6 +9,7 @@ import Foundation
 
 protocol SetRepository {
     func fetchSets(topicId: String) async -> Result<[PickSet], APIError>
+    func createSet(body: CreateSetBody) async -> Result<Void, APIError>
 }
 
 final class SetRepositoryImpl: SetRepository {
@@ -20,5 +21,9 @@ final class SetRepositoryImpl: SetRepository {
     
     func fetchSets(topicId: String) async -> Result<[PickSet], APIError> {
         await setDataSource.fetchSets(topicId: topicId)
+    }
+    
+    func createSet(body: CreateSetBody) async -> Result<Void, APIError> {
+        await setDataSource.createSet(body: body)
     }
 }
