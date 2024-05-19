@@ -419,15 +419,15 @@
 			isa = PBXGroup;
 			children = (
 				25862EB82BBA2F2300FC4225 /* CommentCell.swift */,
+				E4CEEF632BF86B7A00BB3B3B /* CreateCommentView.swift */,
 				69EC795B2B9C63F30096AA55 /* CustomTextEditor.swift */,
+				253E57F02BF70EC00059C68E /* CustomTextView.swift */,
+				E4CEEF782BF9DC9600BB3B3B /* ErrorView.swift */,
 				252D71542BABEBF600485877 /* GridImagesView.swift */,
 				2566F5352B89F62A00CAD739 /* LoadingView.swift */,
 				252D713C2BA918ED00485877 /* TopicCell.swift */,
 				251A71A92BDA113F002322DD /* UserCell.swift */,
 				251A71AB2BDA13FF002322DD /* UserIconView.swift */,
-				253E57F02BF70EC00059C68E /* CustomTextView.swift */,
-				E4CEEF632BF86B7A00BB3B3B /* CreateCommentView.swift */,
-				E4CEEF782BF9DC9600BB3B3B /* ErrorView.swift */,
 			);
 			path = CommonParts;
 			sourceTree = "<group>";
