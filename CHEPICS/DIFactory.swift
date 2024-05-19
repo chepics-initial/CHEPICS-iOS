@@ -71,6 +71,10 @@ extension DIFactory {
         CreateSetUseCaseImpl(setRepository: sharedSetRepository)
     }
     
+    static func commentDetailUseCase() -> some CommentDetailUseCase {
+        CommentDetailUseCaseImpl(commentRepository: sharedCommentRepository)
+    }
+    
     // MARK: - Repository
     static let sharedTopicRepository: some TopicRepository = TopicRepositoryImpl(topicDataSource: sharedTopicDataSource, tokenDataSource: sharedTokenDataSource)
     

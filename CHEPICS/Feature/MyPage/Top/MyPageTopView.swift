@@ -98,7 +98,7 @@ struct MyPageTopView: View {
             case .myPageTopicList:
                 MyPageTopicListView()
             case .comment(comment: let comment):
-                CommentDetailView(viewModel: CommentDetailViewModel(comment: comment))
+                CommentDetailView(viewModel: CommentDetailViewModel(comment: comment, commentDetailUseCase: DIFactory.commentDetailUseCase()))
             case .topicTop(topic: let topic):
                 TopicTopView(viewModel: TopicTopViewModel(topic: topic, topicTopUseCase: DIFactory.topicTopUseCase()))
             case .topicDetail(topic: let topic):

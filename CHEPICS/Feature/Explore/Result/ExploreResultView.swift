@@ -147,7 +147,7 @@ struct ExploreResultView: View {
                     emptyResultView(text: "関連するトピックが見つかりませんでした。")
                 }
             case .failure:
-                errorMessageView
+                ErrorView()
             }
         }
     }
@@ -165,7 +165,7 @@ struct ExploreResultView: View {
                     emptyResultView(text: "関連するコメントが見つかりませんでした。")
                 }
             case .failure:
-                errorMessageView
+                ErrorView()
             }
         }
     }
@@ -183,19 +183,8 @@ struct ExploreResultView: View {
                     emptyResultView(text: "関連するユーザーが見つかりませんでした。")
                 }
             case .failure:
-                errorMessageView
+                ErrorView()
             }
-        }
-    }
-    
-    private var errorMessageView: some View {
-        VStack {
-            Text("通信に失敗しました。インターネット環境を確認して、もう一度お試しください。")
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity)
-                .padding(16)
-            
-            Spacer()
         }
     }
     

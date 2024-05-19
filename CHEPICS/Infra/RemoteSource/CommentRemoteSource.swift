@@ -34,4 +34,18 @@ final class CommentRemoteSource: CommentDataSource {
         .success([mockComment1, mockComment2, mockComment3, mockComment4])
 //        await API.request(ServerDirection.production.urlString(for: .setComments), responseType: Items<Comment>.self, queryParameters: ["set_id": setId]).map(\.items)
     }
+    
+    func fetchReplies(commentId: String, offset: Int?) async -> Result<[Comment], APIError> {
+        .success([mockComment1, mockComment2, mockComment3, mockComment4])
+//        var query: [String: Any] = ["comment_id": commentId]
+//        if let offset {
+//            query["offset"] = offset
+//        }
+//        return await API.request(ServerDirection.production.urlString(for: .replies), responseType: Items<Comment>.self, queryParameters: query).map(\.items)
+    }
+    
+    func fetchComment(id: String) async -> Result<Comment, APIError> {
+        .success(mockComment1)
+//        await API.request(ServerDirection.production.urlString(for: .comment), responseType: Comment.self, queryParameters: ["comment_id": id])
+    }
 }

@@ -349,14 +349,7 @@ struct TopicTopView: View {
                     }
                 }
             case .failure:
-                VStack {
-                    Text("通信に失敗しました。インターネット環境を確認して、もう一度お試しください。")
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity)
-                        .padding(16)
-                    
-                    Spacer()
-                }
+                ErrorView()
             }
         }
     }

@@ -45,23 +45,32 @@ struct CommentDetailView: View {
                     }
                     .padding()
                     
-                    LazyVStack {
-                        ForEach(0..<5, id: \.self) { _ in
-                            CommentCell(comment: mockComment3, type: .reply, onTapImage: { index in
-                                if let images = mockComment3.images {
-                                    UIApplication.shared.endEditing()
-                                    mainTabViewModel.images = images.map({ $0.url })
-                                    mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
-                                    withAnimation {
-                                        mainTabViewModel.showImageViewer = true
-                                    }
+                    switch viewModel.uiState {
+                    case .loading:
+                        LoadingView()
+                    case .success:
+                        if let replies = viewModel.replies {
+                            LazyVStack {
+                                ForEach(replies) { reply in
+                                    CommentCell(comment: reply, type: .reply, onTapImage: { index in
+                                        if let images = reply.images {
+                                            UIApplication.shared.endEditing()
+                                            mainTabViewModel.images = images.map({ $0.url })
+                                            mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                                            withAnimation {
+                                                mainTabViewModel.showImageViewer = true
+                                            }
+                                        }
+                                    }, onTapUserInfo: { user in
+                                        router.items.append(.profile(user: user))
+                                    }, onTapLikeButton: {
+                                        
+                                    })
                                 }
-                            }, onTapUserInfo: { user in
-                                router.items.append(.profile(user: user))
-                            }, onTapLikeButton: {
-                                
-                            })
+                            }
                         }
+                    case .failure:
+                        ErrorView()
                     }
                 }
                 
@@ -83,9 +92,12 @@ struct CommentDetailView: View {
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
+        .onAppear {
+            Task { await viewModel.onAppear() }
+        }
     }
 }
 
 #Preview {
-    CommentDetailView(viewModel: CommentDetailViewModel(comment: mockComment1))
+    CommentDetailView(viewModel: CommentDetailViewModel(comment: mockComment1, commentDetailUseCase: CommentDetailUseCase_Previews()))
 }

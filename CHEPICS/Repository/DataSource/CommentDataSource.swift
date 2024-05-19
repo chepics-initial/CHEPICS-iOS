@@ -11,4 +11,6 @@ protocol CommentDataSource {
     func fetchFollowingComments(offset: Int?) async -> Result<[Comment], APIError>
     func fetchUserComments(userId: String, offset: Int?) async -> Result<[Comment], APIError>
     func fetchSetComments(setId: String) async -> Result<[Comment], APIError>
+    func fetchReplies(commentId: String, offset: Int?) async -> Result<[Comment], APIError>
+    func fetchComment(id: String) async -> Result<Comment, APIError>
 }
