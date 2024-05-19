@@ -231,6 +231,7 @@
 		25893F792BD0DFCA001174D5 /* ExploreResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreResultView.swift; sourceTree = "<group>"; };
 		25893F7B2BD0DFD5001174D5 /* ExploreResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreResultViewModel.swift; sourceTree = "<group>"; };
 		25893F7D2BD0E042001174D5 /* ExploreTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTopView.swift; sourceTree = "<group>"; };
+		258E198A2BF9E74500FC19D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2599A4872BE4789E00AFC8E0 /* CommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepository.swift; sourceTree = "<group>"; };
 		2599A4892BE478E400AFC8E0 /* CommentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDataSource.swift; sourceTree = "<group>"; };
 		2599A48B2BE4791C00AFC8E0 /* CommentRemoteSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRemoteSource.swift; sourceTree = "<group>"; };
@@ -832,6 +833,7 @@
 		E4C6BE112B6F68EE003B56AD /* CHEPICS */ = {
 			isa = PBXGroup;
 			children = (
+				258E198A2BF9E74500FC19D1 /* Info.plist */,
 				252D71202BA7FFB000485877 /* AppDelegate.swift */,
 				E4C6BE122B6F68EE003B56AD /* CHEPICSApp.swift */,
 				E4C6BE142B6F68EE003B56AD /* ContentView.swift */,
@@ -1378,6 +1380,7 @@
 				DEVELOPMENT_TEAM = 5H954Y6JS7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CHEPICS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1411,6 +1414,7 @@
 				DEVELOPMENT_TEAM = 5H954Y6JS7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CHEPICS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

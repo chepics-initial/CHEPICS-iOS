@@ -160,11 +160,33 @@ private extension DataRequest {
         validation: @escaping Validation
     ) async -> Result<T, APIError> {
         validate(validation)
+        await handleResponseHeader(asyncResponse())
         validate(statusCode: 200 ..< 300)
         return await serializingDecodable(responseType, decoder: decoder, emptyResponseCodes: [200, 204, 205])
             .result
             .mapError { afError in
                 APIError(afError)
             }
+    }
+    
+    func asyncResponse() async -> AFDataResponse<Data?> {
+        await withCheckedContinuation { continuation in
+            response(completionHandler: { response in
+                #if DEBUG
+                debugPrint(response)
+                #endif
+                continuation.resume(returning: response)
+            })
+        }
+    }
+
+    func handleResponseHeader(_ response: AFDataResponse<Data?>) {
+        guard let headers = response.response?.headers.dictionary,
+              let url = URL(string: "https://chepics.com/") else {
+            return
+        }
+        for cookie in HTTPCookie.cookies(withResponseHeaderFields: headers, for: url) {
+            HTTPCookieStorage.shared.setCookie(cookie)
+        }
     }
 }
