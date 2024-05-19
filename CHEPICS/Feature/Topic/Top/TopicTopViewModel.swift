@@ -12,8 +12,7 @@ import SwiftUI
 @MainActor final class TopicTopViewModel: ObservableObject {
     @Published private(set) var topic: Topic
     @Published private(set) var viewStatus: TopicViewStatus = .top
-    // TODO: - モックの削除
-    @Published private(set) var selectedSet: PickSet? = PickSet(id: "", name: "うちの猫だけが世界一可愛い", votes: 1400, commentCount: 100)
+    @Published private(set) var selectedSet: PickSet?
     @Published private(set) var uiState: UIState = .loading
     // TODO: - モックの削除
     @Published private(set) var comments: [Comment]? = [mockComment1, mockComment2, mockComment3, mockComment4]
@@ -52,6 +51,7 @@ import SwiftUI
     
     func selectSet(set: PickSet) async {
         selectedSet = set
+        viewStatus = .detail
         uiState = .loading
         switch await topicTopUseCase.fetchSetComments(setId: set.id) {
         case .success(let comments):

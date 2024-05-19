@@ -14,59 +14,74 @@ struct TopicSetListView: View {
     @State private var showCreateSetView = false
     @State private var showCommentView = false
     @State private var dismissView = false
-    let onTapSelectButton: (PickSet) -> Void
+    let completion: (PickSet) -> Void
     
     var body: some View {
-        VStack {
-            ScrollView {
-                VStack(spacing: 16) {
-                    Text("set")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .foregroundStyle(.blue)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    switch viewModel.uiState {
-                    case .loading:
-                        LoadingView(showBackgroundColor: false)
-                    case .success:
-                        if let sets = viewModel.sets {
-                            Text("あなたの意見をセットしてください")
-                            
-                            ForEach(sets) { pickSet in
-                                setCell(set: pickSet) {
-                                    showCommentView = true
+        ZStack {
+            VStack {
+                ScrollView {
+                    VStack(spacing: 16) {
+                        Text("set")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.blue)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        switch viewModel.uiState {
+                        case .loading:
+                            LoadingView(showBackgroundColor: false)
+                        case .success:
+                            if let sets = viewModel.sets {
+                                Text("あなたの意見をセットしてください")
+                                
+                                ForEach(sets) { pickSet in
+                                    Button {
+                                        viewModel.selectSet(set: pickSet)
+                                    } label: {
+                                        setCell(set: pickSet, isSelected: pickSet.id == viewModel.selectedSet?.id) {
+                                            showCommentView = true
+                                        }
+                                    }
+
                                 }
+                                
+                                Button(action: {
+                                    showCreateSetView = true
+                                }, label: {
+                                    Text("セットを追加する")
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(.blue)
+                                })
                             }
-                            
-                            Button(action: {
-                                showCreateSetView = true
-                            }, label: {
-                                Text("セットを追加する")
-                                    .fontWeight(.semibold)
-                                    .foregroundStyle(.blue)
-                            })
+                        case .failure:
+                            VStack {
+                                Text("通信に失敗しました。インターネット環境を確認して、もう一度お試しください。")
+                                    .multilineTextAlignment(.center)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(16)
+                                
+                                Spacer()
+                            }
                         }
-                    case .failure:
-                        VStack {
-                            Text("通信に失敗しました。インターネット環境を確認して、もう一度お試しください。")
-                                .multilineTextAlignment(.center)
-                                .frame(maxWidth: .infinity)
-                                .padding(16)
-                            
-                            Spacer()
+                    }
+                    .padding(16)
+                }
+                
+                Divider()
+                
+                RoundButton(text: "選択する", isActive: viewModel.isActive, type: .fill) {
+                    Task {
+                        await viewModel.onTapSelectButton()
+                        if viewModel.isCompleted, let set = viewModel.selectedSet {
+                            completion(set)
+                            dismiss()
                         }
                     }
                 }
-                .padding(16)
             }
             
-            Divider()
-            
-            RoundButton(text: "選択する", isActive: viewModel.isActive, type: .fill) {
-                if let set = viewModel.selectedSet {
-                    onTapSelectButton(set)
-                }
+            if viewModel.isLoading {
+                LoadingView()
             }
         }
         .navigationDestination(isPresented: $showCommentView, destination: {
@@ -97,9 +112,17 @@ struct TopicSetListView: View {
         .onAppear {
             Task { await viewModel.fetchSets() }
         }
+        .alert("通信エラー", isPresented: $viewModel.showAlert, actions: {
+            Button {
+            } label: {
+                Text("OK")
+            }
+        }, message: {
+            Text("インターネット環境を確認して、もう一度お試しください。")
+        })
     }
     
-    private func setCell(set: PickSet, onTapCommentButton: @escaping() -> Void) -> some View {
+    private func setCell(set: PickSet, isSelected: Bool, onTapCommentButton: @escaping() -> Void) -> some View {
         VStack {
             HStack {
                 Text(set.name)
@@ -129,7 +152,7 @@ struct TopicSetListView: View {
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 8)
                     .frame(width: getRect().width - 64, height: 32)
-                    .foregroundStyle(.clear)
+                    .foregroundStyle(.white)
                     .overlay {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(style: StrokeStyle())
@@ -157,14 +180,15 @@ struct TopicSetListView: View {
             }
         }
         .padding(16)
+        .background(isSelected ? .blue.opacity(0.4) : .clear)
         .overlay {
             RoundedRectangle(cornerRadius: 8)
-                .stroke(style: StrokeStyle())
-                .foregroundStyle(.gray)
+                .stroke(style: StrokeStyle(lineWidth: isSelected ? 2 : 1))
+                .foregroundStyle(isSelected ? .blue : .gray)
         }
     }
 }
 
 #Preview {
-    TopicSetListView(viewModel: TopicSetListViewModel(topicId: "", topicSetListUseCase: TopicSetListUseCase_Previews()), onTapSelectButton: {_ in})
+    TopicSetListView(viewModel: TopicSetListViewModel(topicId: "", topicSetListUseCase: TopicSetListUseCase_Previews()), completion: {_ in})
 }

@@ -21,4 +21,9 @@ final class SetRemoteSource: SetDataSource {
         .success(())
 //        await API.postRequest(ServerDirection.production.urlString(for: .createSet), responseType: String.self, httpBody: body).map { _ in }
     }
+    
+    func pickSet(body: PickSetBody) async -> Result<PickSet, APIError> {
+        .success(mockSet1)
+//        await API.postRequest(ServerDirection.production.urlString(for: .pickSet), responseType: PickSet.self, httpBody: body)
+    }
 }

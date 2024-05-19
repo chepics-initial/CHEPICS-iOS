@@ -9,6 +9,7 @@ import Foundation
 
 protocol TopicSetListUseCase {
     func fetchSets(topicId: String) async -> Result<[PickSet], APIError>
+    func pickSet(topicId: String, setId: String) async -> Result<PickSet, APIError>
 }
 
 final class TopicSetListUseCaseImpl: TopicSetListUseCase {
@@ -20,5 +21,9 @@ final class TopicSetListUseCaseImpl: TopicSetListUseCase {
     
     func fetchSets(topicId: String) async -> Result<[PickSet], APIError> {
         await setRepository.fetchSets(topicId: topicId)
+    }
+    
+    func pickSet(topicId: String, setId: String) async -> Result<PickSet, APIError> {
+        await setRepository.pickSet(body: PickSetBody(topicId: topicId, setId: setId))
     }
 }
