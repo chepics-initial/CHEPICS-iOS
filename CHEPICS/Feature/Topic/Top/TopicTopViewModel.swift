@@ -15,7 +15,7 @@ import SwiftUI
     @Published private(set) var selectedSet: PickSet?
     @Published private(set) var uiState: UIState = .loading
     // TODO: - モックの削除
-    @Published private(set) var comments: [Comment]? = [mockComment1, mockComment2, mockComment3, mockComment4]
+    @Published private(set) var comments: [Comment]?
     @Published var commentText: String = ""
     @Published var selectedImages: [UIImage] = []
     @Published var selectedItems: [PhotosPickerItem] = [] {
@@ -51,7 +51,7 @@ import SwiftUI
     
     func selectSet(set: PickSet) async {
         selectedSet = set
-        viewStatus = .detail
+        viewStatus = .detail(set)
         uiState = .loading
         switch await topicTopUseCase.fetchSetComments(setId: set.id) {
         case .success(let comments):
@@ -70,7 +70,7 @@ import SwiftUI
 
 enum TopicViewStatus {
     case top
-    case detail
+    case detail(PickSet)
 }
 
 final class TopicTopUseCase_Previews: TopicTopUseCase {

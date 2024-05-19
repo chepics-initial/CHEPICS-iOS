@@ -21,8 +21,8 @@ struct TopicTopView: View {
                 switch viewModel.viewStatus {
                 case .top:
                     topContentView
-                case .detail:
-                    detailContentView
+                case .detail(let set):
+                    detailContentView(set: set)
                 }
             }
             
@@ -145,14 +145,14 @@ struct TopicTopView: View {
         }
     }
     
-    var detailContentView: some View {
+    func detailContentView(set: PickSet) -> some View {
         VStack(alignment: .leading) {
             ScrollView {
                 detailHeaderView
                 
                 detailSetView
                 
-                setCommentView
+                setCommentView(set: set)
             }
             
             CreateCommentView(
@@ -303,39 +303,55 @@ struct TopicTopView: View {
         .padding(.horizontal, 16)
     }
     
-    var setCommentView: some View {
+    func setCommentView(set: PickSet) -> some View {
         VStack {
-            HStack {
-                Image(systemName: "text.bubble.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 16, height: 16)
-                
-                Text("コメント100件")
-                    .fontWeight(.semibold)
-                
-                Spacer()
-            }
-            .padding(16)
-            
-            if let comments = viewModel.comments {
-                LazyVStack {
-                    ForEach(comments) { comment in
-                        CommentCell(comment: comment, type: .set, onTapImage: { index in
-                            if let images = comment.images {
-                                UIApplication.shared.endEditing()
-                                mainTabViewModel.images = images.map({ $0.url })
-                                mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
-                                withAnimation {
-                                    mainTabViewModel.showImageViewer = true
-                                }
-                            }
-                        }, onTapUserInfo: { user in
-                            router.items.append(.profile(user: user))
-                        }, onTapLikeButton: {
-                            
-                        })
+            switch viewModel.uiState {
+            case .loading:
+                LoadingView()
+            case .success:
+                VStack {
+                    HStack {
+                        Image(systemName: "text.bubble.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 16, height: 16)
+                        
+                        Text("コメント\(set.commentCount)件")
+                            .fontWeight(.semibold)
+                        
+                        Spacer()
                     }
+                    .padding(16)
+                    
+                    if let comments = viewModel.comments {
+                        LazyVStack {
+                            ForEach(comments) { comment in
+                                CommentCell(comment: comment, type: .set, onTapImage: { index in
+                                    if let images = comment.images {
+                                        UIApplication.shared.endEditing()
+                                        mainTabViewModel.images = images.map({ $0.url })
+                                        mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                                        withAnimation {
+                                            mainTabViewModel.showImageViewer = true
+                                        }
+                                    }
+                                }, onTapUserInfo: { user in
+                                    router.items.append(.profile(user: user))
+                                }, onTapLikeButton: {
+                                    
+                                })
+                            }
+                        }
+                    }
+                }
+            case .failure:
+                VStack {
+                    Text("通信に失敗しました。インターネット環境を確認して、もう一度お試しください。")
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
+                        .padding(16)
+                    
+                    Spacer()
                 }
             }
         }
