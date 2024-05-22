@@ -14,6 +14,7 @@ struct TopicSetListView: View {
     @State private var showCreateSetView = false
     @State private var showCommentView = false
     @State private var dismissView = false
+    @State private var showConfirmAlert = false
     @State private var showCommentSet: PickSet?
     let completion: (PickSet) -> Void
     
@@ -66,11 +67,15 @@ struct TopicSetListView: View {
                 Divider()
                 
                 RoundButton(text: "選択する", isActive: viewModel.isActive, type: .fill) {
-                    Task {
-                        await viewModel.onTapSelectButton()
-                        if viewModel.isCompleted, let set = viewModel.selectedSet {
-                            completion(set)
-                            dismiss()
+                    if viewModel.isActive && viewModel.currentSet != nil {
+                        showConfirmAlert = true
+                    } else {
+                        Task {
+                            await viewModel.onTapSelectButton()
+                            if viewModel.isCompleted, let set = viewModel.selectedSet {
+                                completion(set)
+                                dismiss()
+                            }
                         }
                     }
                 }
@@ -110,6 +115,26 @@ struct TopicSetListView: View {
         .onAppear {
             Task { await viewModel.fetchSets() }
         }
+        .alert("このセットを選択しますか？", isPresented: $showConfirmAlert, actions: {
+            Button {
+            } label: {
+                Text("キャンセル")
+            }
+            
+            Button {
+                Task {
+                    await viewModel.onTapSelectButton()
+                    if viewModel.isCompleted, let set = viewModel.selectedSet {
+                        completion(set)
+                        dismiss()
+                    }
+                }
+            } label: {
+                Text("選択する")
+            }
+        }, message: {
+            Text("既に他のセットを選択しているため、そのセット内で行ったコメントやいいねは削除されます。")
+        })
         .alert("通信エラー", isPresented: $viewModel.showAlert, actions: {
             Button {
             } label: {
@@ -122,6 +147,22 @@ struct TopicSetListView: View {
     
     private func setCell(set: PickSet, isSelected: Bool, onTapCommentButton: @escaping() -> Void) -> some View {
         VStack {
+            if let currentSet = viewModel.currentSet, currentSet.id == set.id {
+                HStack {
+                    Text("参加中")
+                        .font(.footnote)
+                        .foregroundStyle(.white)
+                        .padding(.vertical, 4)
+                        .padding(.horizontal, 8)
+                        .background {
+                            Capsule(style: .circular)
+                                .foregroundStyle(.chepicsPrimary)
+                        }
+                    
+                    Spacer()
+                }
+            }
+            
             HStack {
                 Text(set.name)
                     .font(.title3)
@@ -201,5 +242,5 @@ struct TopicSetListView: View {
 }
 
 #Preview {
-    TopicSetListView(viewModel: TopicSetListViewModel(topicId: "", topicSetListUseCase: TopicSetListUseCase_Previews()), completion: {_ in})
+    TopicSetListView(viewModel: TopicSetListViewModel(topicId: "", currentSet: nil, topicSetListUseCase: TopicSetListUseCase_Previews()), completion: {_ in})
 }

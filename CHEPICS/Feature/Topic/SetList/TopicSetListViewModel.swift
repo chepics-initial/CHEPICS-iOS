@@ -14,19 +14,22 @@ import Foundation
     @Published private(set) var isLoading = false
     @Published private(set) var isCompleted = false
     @Published var showAlert = false
+    let currentSet: PickSet?
     
     private let topicSetListUseCase: any TopicSetListUseCase
     
     var isActive: Bool {
-        if selectedSet != nil {
-            return true
+        if selectedSet?.id == currentSet?.id || selectedSet == nil {
+            return false
         }
-        return false
+        return true
     }
     let topicId: String
     
-    init(topicId: String, topicSetListUseCase: some TopicSetListUseCase) {
+    init(topicId: String, currentSet: PickSet?, topicSetListUseCase: some TopicSetListUseCase) {
         self.topicId = topicId
+        self.currentSet = currentSet
+        self.selectedSet = currentSet
         self.topicSetListUseCase = topicSetListUseCase
     }
     

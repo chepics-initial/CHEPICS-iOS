@@ -41,6 +41,10 @@ import SwiftUI
     }
     
     func onAppear() async {
+        await fetchTopic()
+    }
+    
+    private func fetchTopic() async {
         switch await topicTopUseCase.fetchTopic(topicId: topic.id) {
         case .success(let topic):
             self.topic = topic
@@ -52,6 +56,7 @@ import SwiftUI
     func selectSet(set: PickSet) async {
         selectedSet = set
         viewStatus = .detail(set)
+        await fetchTopic()
         uiState = .loading
         switch await topicTopUseCase.fetchSetComments(setId: set.id, offset: nil) {
         case .success(let comments):

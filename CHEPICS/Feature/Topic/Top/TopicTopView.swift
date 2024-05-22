@@ -38,7 +38,7 @@ struct TopicTopView: View {
         }
         .sheet(isPresented: $showSetList, content: {
             NavigationStack {
-                TopicSetListView(viewModel: TopicSetListViewModel(topicId: viewModel.topic.id, topicSetListUseCase: DIFactory.topicSetListUseCase())) { set in
+                TopicSetListView(viewModel: TopicSetListViewModel(topicId: viewModel.topic.id, currentSet: viewModel.selectedSet, topicSetListUseCase: DIFactory.topicSetListUseCase())) { set in
                     Task { await viewModel.selectSet(set: set) }
                 }
             }
@@ -182,7 +182,14 @@ struct TopicTopView: View {
                         .scaledToFit()
                         .frame(width: 24)
                     
-                    Text("\(viewModel.topic.votes)人が参加中")
+                    (
+                        Text("\(viewModel.topic.votes)")
+                            .fontWeight(.semibold)
+                        
+                        +
+                        
+                        Text("人が参加中")
+                    )
                         .font(.footnote)
                         .foregroundStyle(.chepicsPrimary)
                     
@@ -301,6 +308,26 @@ struct TopicTopView: View {
                 .background {
                     RoundedRectangle(cornerRadius: 16)
                         .foregroundStyle(.blue)
+                }
+            }
+            
+            HStack {
+                Spacer()
+                
+                Button {
+                    showSetList = true
+                } label: {
+                    Text("全てのセットを見る")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.blue)
+                        .padding(.vertical, 8)
+                        .padding(.horizontal)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(style: StrokeStyle())
+                                .foregroundStyle(.blue)
+                        }
                 }
             }
         }
