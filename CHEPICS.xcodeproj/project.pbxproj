@@ -511,11 +511,11 @@
 				251FE4222BC79A10008C3254 /* AuthRepository.swift */,
 				2599A4872BE4789E00AFC8E0 /* CommentRepository.swift */,
 				256CFEEE2BDBAE900000709E /* SearchRepository.swift */,
+				E4CEEF672BF9265000BB3B3B /* SetRepository.swift */,
 				256CFEFB2BE34D610000709E /* TokenRepository.swift */,
 				6916B3962BAAE3CA009A8670 /* TopicRepository.swift */,
 				256CFEF32BE202820000709E /* UserRepository.swift */,
 				2583F2402B6F6B5C00E68CAD /* DataSource */,
-				E4CEEF672BF9265000BB3B3B /* SetRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -564,9 +564,9 @@
 				251FE4262BC79BB8008C3254 /* AuthRemoteSource.swift */,
 				2599A48B2BE4791C00AFC8E0 /* CommentRemoteSource.swift */,
 				256CFEEC2BDBADD70000709E /* SearchRemoteSource.swift */,
+				E4CEEF6B2BF926D100BB3B3B /* SetRemoteSource.swift */,
 				6916B3942BAAE364009A8670 /* TopicRemoteSource.swift */,
 				256CFEF72BE203070000709E /* UserRemoteSource.swift */,
-				E4CEEF6B2BF926D100BB3B3B /* SetRemoteSource.swift */,
 			);
 			path = RemoteSource;
 			sourceTree = "<group>";

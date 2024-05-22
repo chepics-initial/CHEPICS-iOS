@@ -28,7 +28,7 @@ enum ServerAPI: String {
     case user = "/user"
     case userTopics = "/user/topics"
     case userComments = "/user/comments"
-    case topics = "/topics"
+    case topics = "/topics/recommended"
     case followingUsersComments = "/following-users/comments"
     case topic = "/topic"
     case setComments = "/set/comments"
