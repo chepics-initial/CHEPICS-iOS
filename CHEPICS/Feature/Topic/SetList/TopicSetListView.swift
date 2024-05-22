@@ -32,7 +32,7 @@ struct TopicSetListView: View {
                             LoadingView(showBackgroundColor: false)
                         case .success:
                             if let sets = viewModel.sets {
-                                Text("あなたの意見をセットしてください")
+                                Text("セットを選択してください")
                                 
                                 LazyVStack {
                                     ForEach(sets) { pickSet in
