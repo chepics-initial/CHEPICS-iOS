@@ -53,7 +53,7 @@ import SwiftUI
         selectedSet = set
         viewStatus = .detail(set)
         uiState = .loading
-        switch await topicTopUseCase.fetchSetComments(setId: set.id) {
+        switch await topicTopUseCase.fetchSetComments(setId: set.id, offset: nil) {
         case .success(let comments):
             self.comments = comments
             uiState = .success
@@ -78,7 +78,7 @@ final class TopicTopUseCase_Previews: TopicTopUseCase {
         .success(mockTopic1)
     }
     
-    func fetchSetComments(setId: String) async -> Result<[Comment], APIError> {
+    func fetchSetComments(setId: String, offset: Int?) async -> Result<[Comment], APIError> {
         .success([mockComment1])
     }
 }

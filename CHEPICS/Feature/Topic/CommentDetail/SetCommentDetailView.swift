@@ -9,11 +9,12 @@ import SwiftUI
 
 struct SetCommentDetailView: View {
     @Binding var dismissView: Bool
+    @StateObject var viewModel: SetCommentDetailViewModel
     
     var body: some View {
         VStack {
             VStack {
-                Text("うちの猫だけが世界一可愛い")
+                Text(viewModel.set.name)
                     .font(.title3)
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -28,7 +29,7 @@ struct SetCommentDetailView: View {
                             .scaledToFit()
                             .frame(width: 16)
                         
-                        Text("40")
+                        Text("\(viewModel.set.votes)")
                             .font(.footnote)
                     }
                     
@@ -39,7 +40,7 @@ struct SetCommentDetailView: View {
             
             ScrollView {
                 VStack {
-                    CommentCell(comment: mockComment1, type: .detail, onTapImage: { index in
+                    CommentCell(comment: viewModel.comment, type: .detail, onTapImage: { index in
                         
                     }, onTapUserInfo: { _ in
                         
@@ -61,18 +62,30 @@ struct SetCommentDetailView: View {
                     .padding()
                     
                     LazyVStack {
-                        ForEach(0..<5, id: \.self) { _ in
-                            CommentCell(comment: mockComment3, type: .reply, onTapImage: { index in
-                                
-                            }, onTapUserInfo: { _ in
+                        switch viewModel.uiState {
+                        case .loading:
+                            LoadingView()
+                        case .success:
+                            if let replies = viewModel.replies {
+                                ForEach(replies) { reply in
+                                    CommentCell(comment: reply, type: .reply, onTapImage: { index in
+                                        
+                                    }, onTapUserInfo: { _ in
 
-                            }, onTapLikeButton: {
-                                
-                            })
+                                    }, onTapLikeButton: {
+                                        
+                                    })
+                                }
+                            }
+                        case .failure:
+                            ErrorView()
                         }
                     }
                 }
             }
+        }
+        .onAppear {
+            Task { await viewModel.onAppear() }
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -88,5 +101,5 @@ struct SetCommentDetailView: View {
 }
 
 #Preview {
-    SetCommentDetailView(dismissView: .constant(false))
+    SetCommentDetailView(dismissView: .constant(false), viewModel: SetCommentDetailViewModel(set: mockSet1, comment: mockComment1, setCommentDetailUseCase: SetCommenDetailUseCase_Previews()))
 }

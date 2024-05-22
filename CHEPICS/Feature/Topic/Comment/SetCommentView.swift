@@ -9,8 +9,10 @@ import SwiftUI
 
 struct SetCommentView: View {
     @Environment(\.colorScheme) var colorScheme
+    @StateObject var viewModel: SetCommentViewModel
     @Binding var dismissView: Bool
     @State private var isNavigationActive = false
+    @State private var showReplyComment: Comment?
     
     var body: some View {
         VStack {
@@ -21,13 +23,13 @@ struct SetCommentView: View {
                         .scaledToFit()
                         .frame(width: 16, height: 16)
                     
-                    Text("コメント100件")
+                    Text("コメント\(viewModel.set.commentCount)件")
                         .fontWeight(.semibold)
                     
                     Spacer()
                 }
                 
-                Text("うちの猫だけが世界一可愛い")
+                Text(viewModel.set.name)
                     .font(.title3)
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -42,7 +44,7 @@ struct SetCommentView: View {
                             .scaledToFit()
                             .frame(width: 16)
                         
-                        Text("40")
+                        Text("\(viewModel.set.votes)")
                             .font(.footnote)
                     }
                     
@@ -52,20 +54,33 @@ struct SetCommentView: View {
             .padding()
             
             ScrollView {
-                LazyVStack {
-                    ForEach(0..<5, id: \.self) { _ in
-                        CommentCell(comment: mockComment1, type: .set, onTapImage: { index in
-                        }, onTapUserInfo: { _ in
-                            
-                        }, onTapLikeButton: {
-                            
-                        })
-                        .onTapGesture {
-                            isNavigationActive = true
+                switch viewModel.uiState {
+                case .loading:
+                    LoadingView()
+                case .success:
+                    LazyVStack {
+                        if let comments = viewModel.comments {
+                            ForEach(comments) { comment in
+                                CommentCell(comment: comment, type: .set, onTapImage: { index in
+                                }, onTapUserInfo: { _ in
+                                    
+                                }, onTapLikeButton: {
+                                    
+                                })
+                                .onTapGesture {
+                                    showReplyComment = comment
+                                    isNavigationActive = true
+                                }
+                            }
                         }
                     }
+                case .failure:
+                    ErrorView()
                 }
             }
+        }
+        .onAppear {
+            Task { await viewModel.onAppear() }
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -78,11 +93,13 @@ struct SetCommentView: View {
             }
         }
         .navigationDestination(isPresented: $isNavigationActive) {
-            SetCommentDetailView(dismissView: $dismissView)
+            if let showReplyComment {
+                SetCommentDetailView(dismissView: $dismissView, viewModel: SetCommentDetailViewModel(set: viewModel.set, comment: showReplyComment, setCommentDetailUseCase: DIFactory.setCommentDetailUseCase()))
+            }
         }
     }
 }
 
 #Preview {
-    SetCommentView(dismissView: .constant(false))
+    SetCommentView(viewModel: SetCommentViewModel(set: mockSet1, setCommentUseCase: SetCommentUseCase_Previews()), dismissView: .constant(false))
 }

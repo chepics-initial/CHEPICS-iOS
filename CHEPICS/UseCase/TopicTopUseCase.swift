@@ -9,7 +9,7 @@ import Foundation
 
 protocol TopicTopUseCase {
     func fetchTopic(topicId: String) async -> Result<Topic, APIError>
-    func fetchSetComments(setId: String) async -> Result<[Comment], APIError>
+    func fetchSetComments(setId: String, offset: Int?) async -> Result<[Comment], APIError>
 }
 
 final class TopicTopUseCaseImpl: TopicTopUseCase {
@@ -25,7 +25,7 @@ final class TopicTopUseCaseImpl: TopicTopUseCase {
         await topicRepository.fetchTopic(topicId: topicId)
     }
     
-    func fetchSetComments(setId: String) async -> Result<[Comment], APIError> {
-        await commentRepository.fetchSetComments(setId: setId)
+    func fetchSetComments(setId: String, offset: Int?) async -> Result<[Comment], APIError> {
+        await commentRepository.fetchSetComments(setId: setId, offset: offset)
     }
 }

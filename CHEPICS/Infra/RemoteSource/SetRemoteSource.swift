@@ -19,11 +19,16 @@ final class SetRemoteSource: SetDataSource {
     
     func createSet(body: CreateSetBody) async -> Result<Void, APIError> {
         .success(())
-//        await API.postRequest(ServerDirection.production.urlString(for: .createSet), responseType: String.self, httpBody: body).map { _ in }
+//        await API.postRequest(ServerDirection.production.urlString(for: .set), responseType: String.self, httpBody: body).map { _ in }
     }
     
     func pickSet(body: PickSetBody) async -> Result<PickSet, APIError> {
         .success(mockSet1)
 //        await API.postRequest(ServerDirection.production.urlString(for: .pickSet), responseType: PickSet.self, httpBody: body)
+    }
+    
+    func fetchSet(setId: String) async -> Result<PickSet, APIError> {
+        .success(mockSet1)
+//        await API.request(ServerDirection.production.urlString(for: .set), responseType: PickSet.self, queryParameters: ["set_id": setId])
     }
 }

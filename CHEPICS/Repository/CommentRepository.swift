@@ -10,7 +10,7 @@ import Foundation
 protocol CommentRepository {
     func fetchFollowingComments(offset: Int?) async -> Result<[Comment], APIError>
     func fetchUserComments(userId: String, offset: Int?) async -> Result<[Comment], APIError>
-    func fetchSetComments(setId: String) async -> Result<[Comment], APIError>
+    func fetchSetComments(setId: String, offset: Int?) async -> Result<[Comment], APIError>
     func fetchReplies(commentId: String, offset: Int?) async -> Result<[Comment], APIError>
     func fetchComment(id: String) async -> Result<Comment, APIError>
 }
@@ -51,8 +51,8 @@ final class CommentRepositoryImpl: CommentRepository {
         }
     }
     
-    func fetchSetComments(setId: String) async -> Result<[Comment], APIError> {
-        await commentDataSource.fetchSetComments(setId: setId)
+    func fetchSetComments(setId: String, offset: Int?) async -> Result<[Comment], APIError> {
+        await commentDataSource.fetchSetComments(setId: setId, offset: offset)
     }
     
     func fetchReplies(commentId: String, offset: Int?) async -> Result<[Comment], APIError> {

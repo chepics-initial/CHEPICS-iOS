@@ -14,6 +14,7 @@ struct TopicSetListView: View {
     @State private var showCreateSetView = false
     @State private var showCommentView = false
     @State private var dismissView = false
+    @State private var showCommentSet: PickSet?
     let completion: (PickSet) -> Void
     
     var body: some View {
@@ -40,6 +41,7 @@ struct TopicSetListView: View {
                                             viewModel.selectSet(set: pickSet)
                                         } label: {
                                             setCell(set: pickSet, isSelected: pickSet.id == viewModel.selectedSet?.id) {
+                                                showCommentSet = pickSet
                                                 showCommentView = true
                                             }
                                         }
@@ -79,7 +81,9 @@ struct TopicSetListView: View {
             }
         }
         .navigationDestination(isPresented: $showCommentView, destination: {
-            SetCommentView(dismissView: $dismissView)
+            if let showCommentSet {
+                SetCommentView(viewModel: SetCommentViewModel(set: showCommentSet, setCommentUseCase: DIFactory.setCommentUseCase()), dismissView: $dismissView)
+            }
         })
         .fullScreenCover(isPresented: $showCreateSetView, content: {
             NavigationStack {
@@ -142,6 +146,19 @@ struct TopicSetListView: View {
                 }
 
             }
+            
+            HStack(spacing: 4) {
+                Image(.blackPeople)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 16)
+                
+                Text("\(set.votes)")
+                    .font(.footnote)
+                
+                Spacer()
+            }
+            .foregroundStyle(Color.getDefaultColor(for: colorScheme))
             
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 8)

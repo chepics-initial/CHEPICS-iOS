@@ -33,7 +33,7 @@ enum ServerAPI: String {
     case topic = "/topic"
     case setComments = "/set/comments"
     case topicSets = "/topic/sets"
-    case createSet = "/set"
+    case set = "/set"
     case pickSet = "/pick/set"
     case comment = "/comment"
     case replies = "/comments/children"

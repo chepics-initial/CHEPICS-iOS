@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MainTabViewModel: ObservableObject {
+@MainActor final class MainTabViewModel: ObservableObject {
     @Published var images: [String] = []
     @Published var showImageViewer = false
     @Published var isTappedInFeed = false
