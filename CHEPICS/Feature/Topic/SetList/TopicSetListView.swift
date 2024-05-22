@@ -34,15 +34,16 @@ struct TopicSetListView: View {
                             if let sets = viewModel.sets {
                                 Text("あなたの意見をセットしてください")
                                 
-                                ForEach(sets) { pickSet in
-                                    Button {
-                                        viewModel.selectSet(set: pickSet)
-                                    } label: {
-                                        setCell(set: pickSet, isSelected: pickSet.id == viewModel.selectedSet?.id) {
-                                            showCommentView = true
+                                LazyVStack {
+                                    ForEach(sets) { pickSet in
+                                        Button {
+                                            viewModel.selectSet(set: pickSet)
+                                        } label: {
+                                            setCell(set: pickSet, isSelected: pickSet.id == viewModel.selectedSet?.id) {
+                                                showCommentView = true
+                                            }
                                         }
                                     }
-
                                 }
                                 
                                 Button(action: {

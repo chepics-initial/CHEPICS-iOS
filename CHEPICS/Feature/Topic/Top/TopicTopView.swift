@@ -122,7 +122,7 @@ struct TopicTopView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal, 16)
                     
-                    Text("あなたの意見をセットしてください")
+                    Text("セットを選択してください")
                     
                     Button {
                         showSetList = true
@@ -330,20 +330,24 @@ struct TopicTopView: View {
                     if let comments = viewModel.comments {
                         LazyVStack {
                             ForEach(comments) { comment in
-                                CommentCell(comment: comment, type: .set, onTapImage: { index in
-                                    if let images = comment.images {
-                                        UIApplication.shared.endEditing()
-                                        mainTabViewModel.images = images.map({ $0.url })
-                                        mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
-                                        withAnimation {
-                                            mainTabViewModel.showImageViewer = true
+                                Button {
+                                    router.items.append(.comment(comment: comment))
+                                } label: {
+                                    CommentCell(comment: comment, type: .set, onTapImage: { index in
+                                        if let images = comment.images {
+                                            UIApplication.shared.endEditing()
+                                            mainTabViewModel.images = images.map({ $0.url })
+                                            mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                                            withAnimation {
+                                                mainTabViewModel.showImageViewer = true
+                                            }
                                         }
-                                    }
-                                }, onTapUserInfo: { user in
-                                    router.items.append(.profile(user: user))
-                                }, onTapLikeButton: {
-                                    
-                                })
+                                    }, onTapUserInfo: { user in
+                                        router.items.append(.profile(user: user))
+                                    }, onTapLikeButton: {
+                                        
+                                    })
+                                }
                             }
                         }
                     }
