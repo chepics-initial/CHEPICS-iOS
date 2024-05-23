@@ -39,47 +39,45 @@ struct SetCommentDetailView: View {
             .padding()
             
             ScrollView {
-                VStack {
-                    CommentCell(comment: viewModel.comment, type: .detail, onTapImage: { index in
-                        
-                    }, onTapUserInfo: { _ in
-                        
-                    }, onTapLikeButton: {
-                        
-                    })
+                CommentCell(comment: viewModel.comment, type: .detail, onTapImage: { index in
                     
-                    HStack {
-                        Image(systemName: "text.bubble.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 16, height: 16)
-                        
-                        Text("リプライ5件")
-                            .fontWeight(.semibold)
-                        
-                        Spacer()
-                    }
-                    .padding()
+                }, onTapUserInfo: { _ in
                     
-                    LazyVStack {
-                        switch viewModel.uiState {
-                        case .loading:
-                            LoadingView()
-                        case .success:
-                            if let replies = viewModel.replies {
-                                ForEach(replies) { reply in
-                                    CommentCell(comment: reply, type: .reply, onTapImage: { index in
-                                        
-                                    }, onTapUserInfo: { _ in
+                }, onTapLikeButton: {
+                    
+                })
+                
+                HStack {
+                    Image(systemName: "text.bubble.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 16, height: 16)
+                    
+                    Text("リプライ5件")
+                        .fontWeight(.semibold)
+                    
+                    Spacer()
+                }
+                .padding()
+                
+                LazyVStack {
+                    switch viewModel.uiState {
+                    case .loading:
+                        LoadingView()
+                    case .success:
+                        if let replies = viewModel.replies {
+                            ForEach(replies) { reply in
+                                CommentCell(comment: reply, type: .reply, onTapImage: { index in
+                                    
+                                }, onTapUserInfo: { _ in
 
-                                    }, onTapLikeButton: {
-                                        
-                                    })
-                                }
+                                }, onTapLikeButton: {
+                                    
+                                })
                             }
-                        case .failure:
-                            ErrorView()
                         }
+                    case .failure:
+                        ErrorView()
                     }
                 }
             }

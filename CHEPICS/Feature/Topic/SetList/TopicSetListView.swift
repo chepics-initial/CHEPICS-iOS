@@ -41,7 +41,7 @@ struct TopicSetListView: View {
                                         Button {
                                             viewModel.selectSet(set: pickSet)
                                         } label: {
-                                            setCell(set: pickSet, isSelected: pickSet.id == viewModel.selectedSet?.id) {
+                                            SetCell(currentSet: viewModel.currentSet, set: pickSet, isSelected: pickSet.id == viewModel.selectedSet?.id) {
                                                 showCommentSet = pickSet
                                                 showCommentView = true
                                             }
@@ -144,10 +144,18 @@ struct TopicSetListView: View {
             Text("インターネット環境を確認して、もう一度お試しください。")
         })
     }
+}
+
+private struct SetCell: View {
+    @Environment(\.colorScheme) var colorScheme
+    let currentSet: PickSet?
+    let set: PickSet
+    let isSelected: Bool
+    let onTapCommentButton: () -> Void
     
-    private func setCell(set: PickSet, isSelected: Bool, onTapCommentButton: @escaping() -> Void) -> some View {
+    var body: some View {
         VStack {
-            if let currentSet = viewModel.currentSet, currentSet.id == set.id {
+            if let currentSet, currentSet.id == set.id {
                 HStack {
                     Text("参加中")
                         .font(.footnote)
