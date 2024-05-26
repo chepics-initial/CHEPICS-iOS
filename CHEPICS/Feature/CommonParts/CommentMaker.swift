@@ -1,5 +1,5 @@
 //
-//  CreateCommentView.swift
+//  CommentMaker.swift
 //  CHEPICS
 //
 //  Created by 川尻辰義 on 2024/05/18.
@@ -22,7 +22,7 @@ enum CreateCommentType {
     }
 }
 
-struct CreateCommentView: View {
+struct CommentMaker: View {
     @Binding var text: String
     @Binding var selectedImages: [UIImage]
     @Binding var selectedItems: [PhotosPickerItem]
@@ -171,5 +171,5 @@ struct CustomHeightTextEditor: View {
 }
 
 #Preview {
-    CreateCommentView(text: .constant(""), selectedImages: .constant([]), selectedItems: .constant([]), type: .comment, onTapSubmitButton: {})
+    CommentMaker(text: .constant(""), selectedImages: .constant([]), selectedItems: .constant([]), type: .comment, onTapSubmitButton: {})
 }

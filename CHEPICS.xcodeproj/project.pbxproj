@@ -143,7 +143,7 @@
 		E4CEEF5D2BF4667A00BB3B3B /* SetCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF5C2BF4667A00BB3B3B /* SetCommentView.swift */; };
 		E4CEEF602BF4818200BB3B3B /* SetCommentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF5F2BF4818200BB3B3B /* SetCommentDetailView.swift */; };
 		E4CEEF622BF85DF500BB3B3B /* CreateCommentBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF612BF85DF500BB3B3B /* CreateCommentBody.swift */; };
-		E4CEEF642BF86B7A00BB3B3B /* CreateCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF632BF86B7A00BB3B3B /* CreateCommentView.swift */; };
+		E4CEEF642BF86B7A00BB3B3B /* CommentMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF632BF86B7A00BB3B3B /* CommentMaker.swift */; };
 		E4CEEF662BF9260600BB3B3B /* TopicSetListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF652BF9260600BB3B3B /* TopicSetListUseCase.swift */; };
 		E4CEEF682BF9265000BB3B3B /* SetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF672BF9265000BB3B3B /* SetRepository.swift */; };
 		E4CEEF6A2BF9268300BB3B3B /* SetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF692BF9268300BB3B3B /* SetDataSource.swift */; };
@@ -321,7 +321,7 @@
 		E4CEEF5C2BF4667A00BB3B3B /* SetCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCommentView.swift; sourceTree = "<group>"; };
 		E4CEEF5F2BF4818200BB3B3B /* SetCommentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCommentDetailView.swift; sourceTree = "<group>"; };
 		E4CEEF612BF85DF500BB3B3B /* CreateCommentBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommentBody.swift; sourceTree = "<group>"; };
-		E4CEEF632BF86B7A00BB3B3B /* CreateCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommentView.swift; sourceTree = "<group>"; };
+		E4CEEF632BF86B7A00BB3B3B /* CommentMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMaker.swift; sourceTree = "<group>"; };
 		E4CEEF652BF9260600BB3B3B /* TopicSetListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicSetListUseCase.swift; sourceTree = "<group>"; };
 		E4CEEF672BF9265000BB3B3B /* SetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRepository.swift; sourceTree = "<group>"; };
 		E4CEEF692BF9268300BB3B3B /* SetDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDataSource.swift; sourceTree = "<group>"; };
@@ -427,7 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				25862EB82BBA2F2300FC4225 /* CommentCell.swift */,
-				E4CEEF632BF86B7A00BB3B3B /* CreateCommentView.swift */,
+				E4CEEF632BF86B7A00BB3B3B /* CommentMaker.swift */,
 				69EC795B2B9C63F30096AA55 /* CustomTextEditor.swift */,
 				253E57F02BF70EC00059C68E /* CustomTextView.swift */,
 				E4CEEF782BF9DC9600BB3B3B /* ErrorView.swift */,
@@ -481,6 +481,7 @@
 				259B51BA2B860A5B00978256 /* Authentication */,
 				E4CEEF472BEF447B00BB3B3B /* Comment */,
 				2566F5322B89F5E900CAD739 /* CommonParts */,
+				E48B3F102C02C0F600542868 /* CreateComment */,
 				69EC79532B9C609B0096AA55 /* CreateTopic */,
 				251FE43A2BCE38CF008C3254 /* Explore */,
 				2566F5252B898C5400CAD739 /* Extension */,
@@ -818,6 +819,13 @@
 				E460BEC72BE731AF006E4812 /* MyPageTopicListView.swift */,
 			);
 			path = TopicList;
+			sourceTree = "<group>";
+		};
+		E48B3F102C02C0F600542868 /* CreateComment */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CreateComment;
 			sourceTree = "<group>";
 		};
 		E4C6BE062B6F68ED003B56AD = {
@@ -1168,7 +1176,7 @@
 				69EC79572B9C60C60096AA55 /* CreateTopicViewModel.swift in Sources */,
 				69EC793B2B8AC0BF0096AA55 /* PasswordRegistrationUseCase.swift in Sources */,
 				E4CEEF722BF9877100BB3B3B /* PickSetBody.swift in Sources */,
-				E4CEEF642BF86B7A00BB3B3B /* CreateCommentView.swift in Sources */,
+				E4CEEF642BF86B7A00BB3B3B /* CommentMaker.swift in Sources */,
 				6916B3952BAAE364009A8670 /* TopicRemoteSource.swift in Sources */,
 				25C88DAE2B8C33C4002455A3 /* IconRegistrationView.swift in Sources */,
 				6916B3A12BAAF6D3009A8670 /* Date+Extension.swift in Sources */,
