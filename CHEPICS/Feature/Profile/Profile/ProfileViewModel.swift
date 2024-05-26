@@ -124,6 +124,10 @@ import Foundation
         isTopicOnAppearFinished = false
         isCommentOnAppearFinished = false
     }
+    
+    func onTapFollowButton() async {
+        
+    }
 }
 
 enum ProfileTabType: CaseIterable {

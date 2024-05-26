@@ -27,34 +27,28 @@ struct ProfileView: View {
                     
                     Spacer()
                     
-                    //                            if viewModel.isCurrentUser {
-                    //                                Button {
-                    //                                    showEditView = true
-                    //                                } label: {
-                    //                                    Image(systemName: "pencil")
-                    //                                        .foregroundStyle(.chepicsPrimary)
-                    //                                }
-                    //
-                    //                            } else {
-                    //                                Button {
-                    //
-                    //                                } label: {
-                    //                                    Text("フォローする")
-                    //                                        .font(.footnote)
-                    //                                        .fontWeight(.semibold)
-                    //                                        .foregroundStyle(.white)
-                    //                                        .padding(8)
-                    //                                        .background {
-                    //                                            RoundedRectangle(cornerRadius: 8)
-                    //                                                .foregroundStyle(Color(.chepicsPrimary))
-                    //                                        }
-                    //                                }
-                    //                            }
-                    Button {
-                        showEditView = true
-                    } label: {
-                        Image(systemName: "pencil")
-                            .foregroundStyle(.chepicsPrimary)
+                    if viewModel.isCurrentUser {
+                        Button {
+                            showEditView = true
+                        } label: {
+                            Image(systemName: "pencil")
+                                .foregroundStyle(.chepicsPrimary)
+                        }
+                        
+                    } else if let isFollowing = viewModel.user.isFollowing {
+                        Button {
+                            Task { await viewModel.onTapFollowButton() }
+                        } label: {
+                            Text(isFollowing ? "フォロー中" : "フォローする")
+                                .font(.footnote)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.white)
+                                .padding(8)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .foregroundStyle(Color(.chepicsPrimary))
+                                }
+                        }
                     }
                 }
                 
@@ -77,28 +71,30 @@ struct ProfileView: View {
                         .multilineTextAlignment(.leading)
                 }
                 
-                HStack {
-                    HStack(spacing: 4) {
-                        Text("20")
-                            .font(.caption)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                        Text("フォロー")
-                            .font(.caption)
-                            .foregroundStyle(.gray)
+                if let following = viewModel.user.following, let followers = viewModel.user.followers {
+                    HStack {
+                        HStack(spacing: 4) {
+                            Text("\(following)")
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                            Text("フォロー")
+                                .font(.caption)
+                                .foregroundStyle(.gray)
+                        }
+                        
+                        HStack(spacing: 4) {
+                            Text("\(followers)")
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                            Text("フォロワー")
+                                .font(.caption)
+                                .foregroundStyle(.gray)
+                        }
+                        
+                        Spacer()
                     }
-                    
-                    HStack(spacing: 4) {
-                        Text("20")
-                            .font(.caption)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                        Text("フォロワー")
-                            .font(.caption)
-                            .foregroundStyle(.gray)
-                    }
-                    
-                    Spacer()
                 }
             }
             .padding(.horizontal)
@@ -221,7 +217,6 @@ struct ProfileView: View {
                                     router.items.append(.profile(user: user))
                                 })
                             }
-
                         }
                     }
                 }
