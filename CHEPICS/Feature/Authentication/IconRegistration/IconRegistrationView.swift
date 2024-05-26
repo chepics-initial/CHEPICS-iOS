@@ -71,12 +71,12 @@ struct IconRegistrationView: View {
             }
             
             RoundButton(text: "スキップ", isActive: true, type: .border) {
-                
+                viewModel.onTapSkipButton()
             }
         }
     }
 }
 
 #Preview {
-    IconRegistrationView(viewModel: IconRegistrationViewModel())
+    IconRegistrationView(viewModel: IconRegistrationViewModel(iconRegistrationUseCase: IconRegistrationUseCase_Previews()))
 }

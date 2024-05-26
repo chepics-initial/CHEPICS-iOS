@@ -101,7 +101,7 @@ struct NameRegistrationView: View {
             }
         }
         .navigationDestination(isPresented: $viewModel.isPresented, destination: {
-            CompleteRegistrationView()
+            CompleteRegistrationView(viewModel: CompleteRegistrationViewModel(completeRegistrationUseCase: DIFactory.completeRegistrationUseCase()))
         })
         .alert("このユーザー名は使用されています", isPresented: $viewModel.showAlert) {
             Button {

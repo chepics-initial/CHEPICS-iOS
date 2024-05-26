@@ -15,7 +15,11 @@ import SwiftUI
         didSet { Task { await loadImage() } }
     }
     
-    init() {}
+    private let iconRegistrationUseCase: any IconRegistrationUseCase
+    
+    init(iconRegistrationUseCase: some IconRegistrationUseCase) {
+        self.iconRegistrationUseCase = iconRegistrationUseCase
+    }
     
     private func loadImage() async {
         guard let item = selectedItem else { return }
@@ -23,5 +27,15 @@ import SwiftUI
         guard let data = try? await item.loadTransferable(type: Data.self) else { return }
         guard let uiImage = UIImage(data: data) else { return }
         profileImage = Image(uiImage: uiImage)
+    }
+    
+    func onTapSkipButton() {
+        iconRegistrationUseCase.skip()
+    }
+}
+
+final class IconRegistrationUseCase_Previews: IconRegistrationUseCase {
+    func skip() {
+        
     }
 }

@@ -87,6 +87,14 @@ extension DIFactory {
         CreateCommentUseCaseImpl(commentRepository: sharedCommentRepository)
     }
     
+    static func iconRegistrationUseCase() -> some IconRegistrationUseCase {
+        IconRegistrationUseCaseImpl(authRepository: sharedAuthRepository)
+    }
+    
+    static func completeRegistrationUseCase() -> some CompleteRegistrationUseCase {
+        CompleteRegistrationUseCaseImpl(authRepository: sharedAuthRepository)
+    }
+    
     // MARK: - Repository
     static let sharedTopicRepository: some TopicRepository = TopicRepositoryImpl(topicDataSource: sharedTopicDataSource, tokenDataSource: sharedTokenDataSource)
     

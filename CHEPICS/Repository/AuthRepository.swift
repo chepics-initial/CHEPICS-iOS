@@ -12,12 +12,14 @@ protocol AuthRepository {
     func checkCode(_: CheckCodeBody) async -> Result<Void, APIError>
     func createUser(password: String) async -> Result<Void, APIError>
     func login(_: LoginBody) async -> Result<Void, APIError>
+    func skip()
 }
 
 final class AuthRepositoryImpl: AuthRepository {
     private let authDataSource: any AuthDataSource
     private let tokenDataSource: any TokenDataSource
     private var registrationEmail: String?
+    private var accessToken = ""
     
     init(authDataSource: some AuthDataSource, tokenDataSource: some TokenDataSource) {
         self.authDataSource = authDataSource
@@ -43,6 +45,7 @@ final class AuthRepositoryImpl: AuthRepository {
         switch await authDataSource.createUser(CreateUserBody(email: registrationEmail, password: password)) {
         case .success(let response):
             tokenDataSource.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
+            self.accessToken = response.accessToken
             return .success(())
         case .failure(let error):
             return .failure(error)
@@ -58,5 +61,9 @@ final class AuthRepositoryImpl: AuthRepository {
         case .failure(let error):
             return .failure(error)
         }
+    }
+    
+    func skip() {
+        tokenDataSource.sendAccessTokenSubject(accessToken: accessToken)
     }
 }

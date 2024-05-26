@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CompleteRegistrationView: View {
     @Environment(\.colorScheme) var colorScheme
+    @StateObject var viewModel: CompleteRegistrationViewModel
     
     var body: some View {
         VStack {
@@ -22,13 +23,13 @@ struct CompleteRegistrationView: View {
             Spacer()
             
             NavigationLink {
-                IconRegistrationView(viewModel: IconRegistrationViewModel())
+                IconRegistrationView(viewModel: IconRegistrationViewModel(iconRegistrationUseCase: DIFactory.iconRegistrationUseCase()))
             } label: {
                 RoundButtonContentView(text: "プロフィール画像を設定", isActive: true, type: .fill)
             }
             
             RoundButton(text: "スキップ", isActive: true, type: .border) {
-                
+                viewModel.onTapSkipButton()
             }
         }
         .navigationBarBackButtonHidden()
@@ -36,5 +37,5 @@ struct CompleteRegistrationView: View {
 }
 
 #Preview {
-    CompleteRegistrationView()
+    CompleteRegistrationView(viewModel: CompleteRegistrationViewModel(completeRegistrationUseCase: CompleteRegistrationUseCase_Previews()))
 }
