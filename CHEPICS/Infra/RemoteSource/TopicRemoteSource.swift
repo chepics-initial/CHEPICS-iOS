@@ -13,12 +13,11 @@ final class TopicRemoteSource: TopicDataSource {
     private init() {}
     
     func fetchFavoriteTopics(offset: Int?) async -> Result<[Topic], APIError> {
-        .success([mockTopic1, mockTopic2, mockTopic3, mockTopic4, mockTopic5, mockTopic6])
-//        var query: [String: Any] = [:]
-//        if let offset {
-//            query["offset"] = offset
-//        }
-//        return await API.request(ServerDirection.production.urlString(for: .topics), responseType: Items<Topic>.self, queryParameters: query).map(\.items)
+        var query: [String: Any] = [:]
+        if let offset {
+            query["offset"] = offset
+        }
+        return await API.request(ServerDirection.production.urlString(for: .topics), responseType: Items<Topic>.self, queryParameters: query).map(\.items)
     }
     
     func fetchUserTopics(userId: String, offset: Int?) async -> Result<[Topic], APIError> {

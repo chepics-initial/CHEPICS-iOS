@@ -146,7 +146,7 @@ enum API {
     static func getHeaders() -> [String: String] {
         var headers = [String: String]()
         if let accessToken = UserDefaults.standard.accessToken {
-            headers[RequestHeaderKeys.bffAuthToken.rawValue] = accessToken
+            headers[RequestHeaderKeys.bffAuthToken.rawValue] = "Bearer \(accessToken)"
         }
         return headers
     }
