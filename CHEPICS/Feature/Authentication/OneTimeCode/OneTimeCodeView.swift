@@ -27,7 +27,7 @@ struct OneTimeCodeView: View {
                     }
                 }
             
-            HStack {
+            HStack(spacing: 4) {
                 ForEach(0 ..< Constants.oneTimeCodeCount, id: \.self) { index in
                     VStack {
                         Text(viewModel.getCodeIndex(index: index))

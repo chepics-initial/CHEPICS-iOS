@@ -9,7 +9,7 @@ import UIKit
 
 
 enum Constants {
-    static let oneTimeCodeCount = 4
+    static let oneTimeCodeCount = 6
     static let passwordCount = 8
     static let nameCount = 30
     static let bioCount = 100

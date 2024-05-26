@@ -17,4 +17,10 @@ struct AuthResponse: Decodable {
         self.accessToken = accessToken
         self.refreshToken = refreshToken
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case userId = "user_id"
+        case accessToken = "access_token"
+        case refreshToken = "refresh_token"
+    }
 }

@@ -27,7 +27,7 @@ final class AuthRepositoryImpl: AuthRepository {
     }
     
     func createCode(email: String) async -> Result<String, APIError> {
-        await authDataSource.createCode(email: email)
+        await authDataSource.createCode(CreateCode(email: email))
     }
     
     func checkCode(_ body: CheckCodeBody) async -> Result<Void, APIError> {

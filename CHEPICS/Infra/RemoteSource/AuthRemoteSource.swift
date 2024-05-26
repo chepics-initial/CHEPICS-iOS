@@ -12,12 +12,12 @@ final class AuthRemoteSource: AuthDataSource {
     
     private init() {}
     
-    func createCode(email: String) async -> Result<String, APIError> {
-        await API.postRequest(ServerDirection.production.urlString(for: .createCode), responseType: String.self, httpBody: email)
+    func createCode(_ body: CreateCode) async -> Result<String, APIError> {
+        await API.postRequest(ServerDirection.production.urlString(for: .createCode), responseType: CreateCode.self, httpBody: body).map(\.email)
     }
     
     func checkCode(_ body: CheckCodeBody) async -> Result<String, APIError> {
-        await API.postRequest(ServerDirection.production.urlString(for: .checkCode), responseType: String.self, httpBody: body)
+        await API.postRequest(ServerDirection.production.urlString(for: .checkCode), responseType: CreateCode.self, httpBody: body).map(\.email)
     }
     
     func createUser(_ body: CreateUserBody) async -> Result<AuthResponse, APIError> {
