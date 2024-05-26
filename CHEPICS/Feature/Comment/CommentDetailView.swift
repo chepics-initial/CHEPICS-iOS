@@ -19,7 +19,6 @@ struct CommentDetailView: View {
                 ScrollView {
                     CommentCell(comment: viewModel.comment, type: .detail, onTapImage: { index in
                         if let images = viewModel.comment.images {
-                            UIApplication.shared.endEditing()
                             mainTabViewModel.images = images.map({ $0.url })
                             mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
                             withAnimation {
@@ -54,7 +53,6 @@ struct CommentDetailView: View {
                                 ForEach(replies) { reply in
                                     CommentCell(comment: reply, type: .reply, onTapImage: { index in
                                         if let images = reply.images {
-                                            UIApplication.shared.endEditing()
                                             mainTabViewModel.images = images.map({ $0.url })
                                             mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
                                             withAnimation {
@@ -73,24 +71,7 @@ struct CommentDetailView: View {
                         ErrorView()
                     }
                 }
-                
-                CreateCommentView(
-                    text: $viewModel.commentText,
-                    selectedImages: $viewModel.selectedImages,
-                    selectedItems: $viewModel.selectedItems,
-                    type: .reply
-                ) {
-                    UIApplication.shared.endEditing()
-                    Task { await viewModel.onTapSubmitButton() }
-                }
             }
-            
-            if viewModel.isLoading {
-                LoadingView()
-            }
-        }
-        .onTapGesture {
-            UIApplication.shared.endEditing()
         }
         .onAppear {
             Task { await viewModel.onAppear() }

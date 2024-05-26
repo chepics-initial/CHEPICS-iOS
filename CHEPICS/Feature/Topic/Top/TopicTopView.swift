@@ -14,27 +14,19 @@ struct TopicTopView: View {
     @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: TopicTopViewModel
     @State private var showSetList = false
+    @State private var showCreateCommentView = false
     
     var body: some View {
-        ZStack {
-            VStack {
-                switch viewModel.viewStatus {
-                case .top:
-                    topContentView
-                case .detail(let set):
-                    detailContentView(set: set)
-                }
-            }
-            
-            if viewModel.isLoading {
-                LoadingView()
+        VStack {
+            switch viewModel.viewStatus {
+            case .top:
+                topContentView
+            case .detail(let set):
+                detailContentView(set: set)
             }
         }
         .onAppear {
             Task { await viewModel.onAppear() }
-        }
-        .onTapGesture {
-            UIApplication.shared.endEditing()
         }
         .sheet(isPresented: $showSetList, content: {
             NavigationStack {
@@ -43,6 +35,11 @@ struct TopicTopView: View {
                 }
             }
         })
+        .fullScreenCover(isPresented: $showCreateCommentView) {
+            NavigationStack {
+                EmptyView()
+            }
+        }
     }
     
     var topContentView: some View {
@@ -72,7 +69,6 @@ struct TopicTopView: View {
                     
                     if let images = viewModel.topic.images {
                         GridImagesView(images: images.map({ $0.url }), onTapImage: { index in
-                            UIApplication.shared.endEditing()
                             mainTabViewModel.images = images.map({ $0.url })
                             mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
                             withAnimation {
@@ -155,14 +151,25 @@ struct TopicTopView: View {
                 setCommentView(set: set)
             }
             
-            CreateCommentView(
-                text: $viewModel.commentText,
-                selectedImages: $viewModel.selectedImages,
-                selectedItems: $viewModel.selectedItems,
-                type: .comment
-            ) {
-                UIApplication.shared.endEditing()
-                Task { await viewModel.onTapSubmitButton() }
+            Divider()
+            
+            HStack {
+                Spacer()
+                
+                Button {
+                    showCreateCommentView = true
+                } label: {
+                    HStack {
+                        Image(systemName: "text.bubble.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 16, height: 16)
+                        
+                        Text("コメントする")
+                    }
+                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                    .padding()
+                }
             }
         }
     }
@@ -213,7 +220,6 @@ struct TopicTopView: View {
                 
                 if let images = viewModel.topic.images {
                     GridImagesView(images: images.map({ $0.url }), onTapImage: { index in
-                        UIApplication.shared.endEditing()
                         mainTabViewModel.images = images.map({ $0.url })
                         mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
                         withAnimation {
@@ -362,7 +368,6 @@ struct TopicTopView: View {
                                 } label: {
                                     CommentCell(comment: comment, type: .set, onTapImage: { index in
                                         if let images = comment.images {
-                                            UIApplication.shared.endEditing()
                                             mainTabViewModel.images = images.map({ $0.url })
                                             mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
                                             withAnimation {
