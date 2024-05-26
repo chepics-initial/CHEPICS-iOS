@@ -53,6 +53,7 @@ final class AuthRepositoryImpl: AuthRepository {
         switch await authDataSource.login(body) {
         case .success(let response):
             tokenDataSource.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
+            tokenDataSource.sendAccessTokenSubject(accessToken: response.accessToken)
             return .success(())
         case .failure(let error):
             return .failure(error)

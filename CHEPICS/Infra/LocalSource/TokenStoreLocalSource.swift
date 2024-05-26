@@ -19,6 +19,10 @@ final class TokenStoreLocalSource: TokenDataSource {
         TokenStore.storeToken(accessToken: accessToken, refreshToken: refreshToken)
     }
     
+    func sendAccessTokenSubject(accessToken: String) {
+        tokenStatusSubject.send(accessToken)
+    }
+    
     func removeToken() {
         TokenStore.removeToken()
         tokenStatusSubject.send(nil)

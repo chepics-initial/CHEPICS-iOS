@@ -10,6 +10,7 @@ import Combine
 
 protocol TokenDataSource {
     func storeToken(accessToken: String, refreshToken: String)
+    func sendAccessTokenSubject(accessToken: String)
     func removeToken()
     func observeTokenStatus() -> AnyPublisher<String?, Never>
 }
