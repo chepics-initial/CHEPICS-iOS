@@ -17,9 +17,8 @@ struct Topic: Decodable, Identifiable {
     let votes: Int
     let set: [PickSet]?
     let registerTime: Date
-    let updateTime: Date
     
-    init(id: String, title: String, link: String?, description: String?, images: [TopicImage]?, user: User, votes: Int, set: [PickSet]?, registerTime: Date, updateTime: Date) {
+    init(id: String, title: String, link: String?, description: String?, images: [TopicImage]?, user: User, votes: Int, set: [PickSet]?, registerTime: Date) {
         self.id = id
         self.title = title
         self.link = link
@@ -29,7 +28,6 @@ struct Topic: Decodable, Identifiable {
         self.votes = votes
         self.set = set
         self.registerTime = registerTime
-        self.updateTime = updateTime
     }
     
     enum CodingKeys: String, CodingKey {
@@ -37,11 +35,10 @@ struct Topic: Decodable, Identifiable {
         case title = "topic_name"
         case link = "topic_link"
         case description = "topic_description"
-        case images = "topic_image"
+        case images = "topic_images"
         case user = "create_user"
         case votes = "user_pick_count"
         case set
-        case registerTime
-        case updateTime
+        case registerTime = "register_time"
     }
 }

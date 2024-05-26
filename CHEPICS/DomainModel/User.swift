@@ -14,18 +14,14 @@ struct User: Decodable, Identifiable {
     let fullname: String
     let bio: String?
     let profileImageUrl: String?
-    let registerTime: Date
-    let updateTime: Date
     
-    init(id: String, email: String, username: String, fullname: String, bio: String?, profileImageUrl: String?, registerTime: Date, updateTime: Date) {
+    init(id: String, email: String, username: String, fullname: String, bio: String?, profileImageUrl: String?) {
         self.id = id
         self.email = email
         self.username = username
         self.fullname = fullname
         self.bio = bio
         self.profileImageUrl = profileImageUrl
-        self.registerTime = registerTime
-        self.updateTime = updateTime
     }
     
     enum CodingKeys: String, CodingKey {
@@ -33,6 +29,6 @@ struct User: Decodable, Identifiable {
         case username = "user_name"
         case fullname = "display_name"
         case profileImageUrl = "user_image_url"
-        case email, bio, registerTime, updateTime
+        case email, bio
     }
 }

@@ -8,19 +8,19 @@
 import Foundation
 
 struct TopicImage: Decodable {
-    let id: String?
     let topicId: String?
+    let number: Int
     let url: String
     
-    init(id: String?, topicId: String?, url: String) {
-        self.id = id
+    init(topicId: String?, number: Int, url: String) {
         self.topicId = topicId
+        self.number = number
         self.url = url
     }
     
     enum CodingKeys: String, CodingKey {
-        case id = "topic_image_id"
-        case topicId
+        case topicId = "topic_id"
+        case number = "seq_no"
         case url = "image_url"
     }
 }
