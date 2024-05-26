@@ -9,7 +9,7 @@ import Foundation
 
 struct User: Decodable, Identifiable {
     let id: String
-    let email: String
+    let email: String?
     let username: String
     let fullname: String
     let bio: String?

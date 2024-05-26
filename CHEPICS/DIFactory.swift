@@ -98,7 +98,7 @@ extension DIFactory {
     // MARK: - Repository
     static let sharedTopicRepository: some TopicRepository = TopicRepositoryImpl(topicDataSource: sharedTopicDataSource, tokenDataSource: sharedTokenDataSource)
     
-    static let sharedAuthRepository: some AuthRepository = AuthRepositoryImpl(authDataSource: sharedAuthDataSource, tokenDataSource: sharedTokenDataSource)
+    static let sharedAuthRepository: some AuthRepository = AuthRepositoryImpl(authDataSource: sharedAuthDataSource, tokenDataSource: sharedTokenDataSource, userStoreDataSource: sharedUserStoreDataSource)
     
     static let sharedSearchRepository: some SearchRepository = SearchRepositoryImpl(searchDataSource: sharedSearchDataSource, tokenDataSource: sharedTokenDataSource)
     

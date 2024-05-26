@@ -19,12 +19,14 @@ protocol AuthRepository {
 final class AuthRepositoryImpl: AuthRepository {
     private let authDataSource: any AuthDataSource
     private let tokenDataSource: any TokenDataSource
+    private let userStoreDataSource: any UserStoreDataSource
     private var registrationEmail: String?
     private var accessToken = ""
     
-    init(authDataSource: some AuthDataSource, tokenDataSource: some TokenDataSource) {
+    init(authDataSource: some AuthDataSource, tokenDataSource: some TokenDataSource, userStoreDataSource: some UserStoreDataSource) {
         self.authDataSource = authDataSource
         self.tokenDataSource = tokenDataSource
+        self.userStoreDataSource = userStoreDataSource
     }
     
     func createCode(email: String) async -> Result<String, APIError> {
@@ -45,6 +47,7 @@ final class AuthRepositoryImpl: AuthRepository {
         guard let registrationEmail else { return .failure(.otherError) }
         switch await authDataSource.createUser(CreateUserBody(email: registrationEmail, password: password)) {
         case .success(let response):
+            userStoreDataSource.storeUserId(userId: response.userId)
             tokenDataSource.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
             self.accessToken = response.accessToken
             return .success(())
@@ -56,6 +59,7 @@ final class AuthRepositoryImpl: AuthRepository {
     func login(_ body: LoginBody) async -> Result<Void, APIError> {
         switch await authDataSource.login(body) {
         case .success(let response):
+            userStoreDataSource.storeUserId(userId: response.userId)
             tokenDataSource.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
             tokenDataSource.sendAccessTokenSubject(accessToken: response.accessToken)
             return .success(())

@@ -8,7 +8,6 @@
 import Foundation
 
 protocol UserRepository {
-    func storeUserId(userId: String)
     func getUserId() -> String
     func fetchUser(userId: String) async -> Result<User, APIError>
 }
@@ -38,10 +37,6 @@ final class UserRepositoryImpl: UserRepository {
             }
             return .failure(error)
         }
-    }
-    
-    func storeUserId(userId: String) {
-        userStoreDataSource.storeUserId(userId: userId)
     }
     
     func getUserId() -> String {

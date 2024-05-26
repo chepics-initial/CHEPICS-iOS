@@ -13,7 +13,6 @@ final class UserRemoteSource: UserDataSource {
     private init() {}
     
     func fetchUser(userId: String) async -> Result<User, APIError> {
-        .success(mockUser1)
-//        await API.request(ServerDirection.production.urlString(for: .user), responseType: User.self, queryParameters: ["user_id": userId])
+        await API.request(ServerDirection.production.urlString(for: .user), responseType: User.self, queryParameters: ["user_id": userId])
     }
 }
