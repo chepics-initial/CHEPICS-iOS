@@ -102,6 +102,7 @@ struct CommentCell: View {
                                     .frame(width: 16, height: 16)
                                     .foregroundStyle(.gray)
                             }
+                            .padding(.trailing, 8)
                         }
                         
                         Button {

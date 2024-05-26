@@ -48,6 +48,7 @@ struct SetCommentDetailView: View {
                 }, onTapLikeButton: {
                     
                 }, onTapReplyButton: {
+                    replyFor = nil
                     showCreateReplyView = true
                 })
                 
@@ -104,7 +105,7 @@ struct SetCommentDetailView: View {
         }
         .fullScreenCover(isPresented: $showCreateReplyView) {
             NavigationStack {
-                EmptyView()
+                CreateCommentView(viewModel: CreateCommentViewModel(topicId: viewModel.comment.topicId, setId: viewModel.comment.setId, parentId: viewModel.comment.id, type: .reply, replyFor: replyFor, createCommentUseCase: DIFactory.createCommentUseCase()))
             }
         }
     }

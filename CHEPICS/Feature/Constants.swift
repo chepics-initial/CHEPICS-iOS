@@ -15,7 +15,8 @@ enum Constants {
     static let bioCount = 100
     static let topicTitleCount = 100
     static let topicDescriptionCount = 300
-    static let topicImageCount = 4
+    static let commentCount = 300
+    static let imageCount = 4
     static let setCount = 50
 }
 

@@ -23,7 +23,7 @@ struct CreateTopicView: View {
                     
                     linkView
                     
-                    imageView
+                    PostImagesView(selectedItems: $viewModel.selectedItems, images: viewModel.selectedImages)                    
                 }
                 .padding(.horizontal, 16)
             }
@@ -62,7 +62,6 @@ struct CreateTopicView: View {
                     Image(systemName: "xmark")
                         .foregroundStyle(.gray)
                 }
-
             }
         }
         .navigationTitle("新規投稿")
@@ -183,62 +182,6 @@ struct CreateTopicView: View {
             
             Color.gray
                 .frame(height: 1)
-        }
-    }
-    
-    private var imageView: some View {
-        VStack(alignment: .leading) {
-            Text("画像")
-                .font(.headline)
-                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-            
-            ScrollView(.horizontal) {
-                HStack {
-                    ForEach(viewModel.selectedImages, id: \.self) { image in
-                        PhotosPicker(
-                            selection: $viewModel.selectedItems,
-                            maxSelectionCount: 4,
-                            selectionBehavior: .ordered,
-                            matching: .images
-                        ) {
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 120, height: 120)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .stroke(style: StrokeStyle())
-                                        .foregroundStyle(.gray)
-                                }
-                        }
-                    }
-                    
-                    if viewModel.selectedImages.count < Constants.topicImageCount {
-                        PhotosPicker(
-                            selection: $viewModel.selectedItems,
-                            maxSelectionCount: 4,
-                            selectionBehavior: .ordered,
-                            matching: .images
-                        ) {
-                            Image(systemName: "plus")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 32)
-                                .foregroundStyle(.gray)
-                                .padding()
-                                .frame(width: 120, height: 120)
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .stroke(style: StrokeStyle())
-                                        .foregroundStyle(.gray)
-                                }
-                        }
-                    }
-                }
-                .padding(1)
-            }
-            .scrollIndicators(.hidden)
         }
     }
 }

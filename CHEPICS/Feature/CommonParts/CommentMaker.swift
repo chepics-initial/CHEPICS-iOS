@@ -8,20 +8,6 @@
 import SwiftUI
 import PhotosUI
 
-enum CreateCommentType {
-    case comment
-    case reply
-    
-    var placeholder: String {
-        switch self {
-        case .comment:
-            "コメントを入力"
-        case .reply:
-            "リプライを入力"
-        }
-    }
-}
-
 struct CommentMaker: View {
     @Binding var text: String
     @Binding var selectedImages: [UIImage]
@@ -72,7 +58,7 @@ struct CommentMaker: View {
                                 }
                             }
                             
-                            if selectedImages.count < Constants.topicImageCount {
+                            if selectedImages.count < Constants.imageCount {
                                 PhotosPicker(
                                     selection: $selectedItems,
                                     maxSelectionCount: 4,

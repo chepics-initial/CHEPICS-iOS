@@ -29,7 +29,7 @@ import SwiftUI
     }
     @Published private(set) var selectedImages: [UIImage] = []
     var isActive: Bool {
-        return isValidInput(title) && title.count <= Constants.topicTitleCount && description.count <= Constants.topicDescriptionCount && (link.isEmpty || isValidUrl(link))
+        isValidInput(title) && title.count <= Constants.topicTitleCount && description.count <= Constants.topicDescriptionCount && (link.isEmpty || isValidUrl(link))
     }
     
     private let createTopicUseCase: any CreateTopicUseCase
