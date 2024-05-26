@@ -66,7 +66,7 @@ struct SetCommentView: View {
                                     
                                 }, onTapLikeButton: {
                                     
-                                })
+                                }, onTapReplyButton: {})
                                 .onTapGesture {
                                     showReplyComment = comment
                                     isNavigationActive = true

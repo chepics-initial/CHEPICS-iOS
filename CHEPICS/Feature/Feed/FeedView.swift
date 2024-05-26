@@ -245,6 +245,8 @@ struct FeedView: View {
                                 feedRouter.items.append(.profile(user: user))
                             }, onTapLikeButton: {
                                 
+                            }, onTapReplyButton: {
+                                
                             })
                             .onTapGesture {
                                 feedRouter.items.append(.comment(comment: comment))

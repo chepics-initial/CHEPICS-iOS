@@ -22,6 +22,7 @@ struct CommentCell: View {
     let onTapImage: (Int) -> Void
     let onTapUserInfo: (User) -> Void
     let onTapLikeButton: () -> Void
+    let onTapReplyButton: () -> Void
     
     var body: some View {
         VStack {
@@ -88,6 +89,21 @@ struct CommentCell: View {
                     HStack {
                         Spacer()
                         
+                        switch type {
+                        case .comment, .set:
+                            EmptyView()
+                        case .detail, .reply:
+                            Button {
+                                onTapReplyButton()
+                            } label: {
+                                Image(systemName: "bubble.right")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 16, height: 16)
+                                    .foregroundStyle(.gray)
+                            }
+                        }
+                        
                         Button {
                             onTapLikeButton()
                         } label: {
@@ -117,5 +133,5 @@ struct CommentCell: View {
 }
 
 #Preview {
-    CommentCell(comment: mockComment2, type: .comment, onTapImage: { _ in }, onTapUserInfo: { _ in }, onTapLikeButton: {})
+    CommentCell(comment: mockComment2, type: .comment, onTapImage: { _ in }, onTapUserInfo: { _ in }, onTapLikeButton: {}, onTapReplyButton: {})
 }

@@ -246,6 +246,8 @@ struct ExploreResultView: View {
                             router.items.append(.profile(user: user))
                         }, onTapLikeButton: {
                             
+                        }, onTapReplyButton: {
+                            
                         })
                         .onTapGesture {
                             router.items.append(.comment(comment: comment))

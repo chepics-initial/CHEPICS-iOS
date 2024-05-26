@@ -12,6 +12,8 @@ struct CommentDetailView: View {
     @EnvironmentObject var router: NavigationRouter
     @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: CommentDetailViewModel
+    @State private var showCreateReplyView = false
+    @State private var replyFor: Comment?
     
     var body: some View {
         ZStack {
@@ -29,6 +31,8 @@ struct CommentDetailView: View {
                         router.items.append(.profile(user: user))
                     }, onTapLikeButton: {
                         
+                    }, onTapReplyButton: {
+                        showCreateReplyView = true
                     })
                     
                     HStack {
@@ -63,6 +67,9 @@ struct CommentDetailView: View {
                                         router.items.append(.profile(user: user))
                                     }, onTapLikeButton: {
                                         
+                                    }, onTapReplyButton: {
+                                        replyFor = reply
+                                        showCreateReplyView = true
                                     })
                                 }
                             }
@@ -75,6 +82,11 @@ struct CommentDetailView: View {
         }
         .onAppear {
             Task { await viewModel.onAppear() }
+        }
+        .fullScreenCover(isPresented: $showCreateReplyView) {
+            NavigationStack {
+                EmptyView()
+            }
         }
     }
 }

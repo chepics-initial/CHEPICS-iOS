@@ -378,6 +378,8 @@ struct TopicTopView: View {
                                         router.items.append(.profile(user: user))
                                     }, onTapLikeButton: {
                                         
+                                    }, onTapReplyButton: {
+                                        
                                     })
                                 }
                             }

@@ -10,6 +10,8 @@ import SwiftUI
 struct SetCommentDetailView: View {
     @Binding var dismissView: Bool
     @StateObject var viewModel: SetCommentDetailViewModel
+    @State private var showCreateReplyView = false
+    @State private var replyFor: Comment?
     
     var body: some View {
         VStack {
@@ -45,6 +47,8 @@ struct SetCommentDetailView: View {
                     
                 }, onTapLikeButton: {
                     
+                }, onTapReplyButton: {
+                    showCreateReplyView = true
                 })
                 
                 HStack {
@@ -73,6 +77,9 @@ struct SetCommentDetailView: View {
 
                                 }, onTapLikeButton: {
                                     
+                                }, onTapReplyButton: {
+                                    replyFor = reply
+                                    showCreateReplyView = true
                                 })
                             }
                         }
@@ -93,6 +100,11 @@ struct SetCommentDetailView: View {
                     Image(systemName: "xmark")
                         .foregroundStyle(.gray)
                 }
+            }
+        }
+        .fullScreenCover(isPresented: $showCreateReplyView) {
+            NavigationStack {
+                EmptyView()
             }
         }
     }
