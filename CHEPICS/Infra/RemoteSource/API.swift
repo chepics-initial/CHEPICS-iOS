@@ -11,6 +11,7 @@ import Alamofire
 enum API {
     private static let decoder = {
         let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
         return decoder
     }()
     
