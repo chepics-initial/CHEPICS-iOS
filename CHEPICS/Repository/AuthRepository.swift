@@ -12,6 +12,7 @@ protocol AuthRepository {
     func checkCode(_: CheckCodeBody) async -> Result<Void, APIError>
     func createUser(password: String) async -> Result<Void, APIError>
     func login(_: LoginBody) async -> Result<Void, APIError>
+    func logout()
     func skip()
 }
 
@@ -61,6 +62,10 @@ final class AuthRepositoryImpl: AuthRepository {
         case .failure(let error):
             return .failure(error)
         }
+    }
+    
+    func logout() {
+        tokenDataSource.removeToken()
     }
     
     func skip() {

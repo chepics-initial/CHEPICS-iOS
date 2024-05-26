@@ -24,10 +24,18 @@ import Foundation
             return
         }
     }
+    
+    func logout() {
+        myPageTopUseCase.logout()
+    }
 }
 
 final class MyPageTopUseCase_Previews: MyPageTopUseCase {
     func fetchUser() async -> Result<User, APIError> {
         .success(mockUser1)
+    }
+    
+    func logout() {
+        
     }
 }

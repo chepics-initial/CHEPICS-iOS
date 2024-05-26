@@ -9,16 +9,23 @@ import Foundation
 
 protocol MyPageTopUseCase {
     func fetchUser() async -> Result<User, APIError>
+    func logout()
 }
 
 final class MyPageTopUseCaseImpl: MyPageTopUseCase {
     private let userRepository: any UserRepository
+    private let authRepository: any AuthRepository
     
-    init(userRepository: some UserRepository) {
+    init(userRepository: some UserRepository, authRepository: some AuthRepository) {
         self.userRepository = userRepository
+        self.authRepository = authRepository
     }
     
     func fetchUser() async -> Result<User, APIError> {
         await userRepository.fetchUser(userId: userRepository.getUserId())
+    }
+    
+    func logout() {
+        authRepository.logout()
     }
 }

@@ -82,7 +82,7 @@ struct MyPageTopView: View {
             }
 
             Button(action: {
-                
+                viewModel.logout()
             }, label: {
                 Text("ログアウト")
             })

@@ -52,7 +52,7 @@ extension DIFactory {
     }
     
     static func myPageTopUseCase() -> some MyPageTopUseCase {
-        MyPageTopUseCaseImpl(userRepository: sharedUserRepository)
+        MyPageTopUseCaseImpl(userRepository: sharedUserRepository, authRepository: sharedAuthRepository)
     }
     
     static func createTopicUseCase() -> some CreateTopicUseCase {
