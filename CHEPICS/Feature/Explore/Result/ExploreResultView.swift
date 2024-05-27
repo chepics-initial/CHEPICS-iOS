@@ -142,9 +142,23 @@ struct ExploreResultView: View {
                     .frame(maxHeight: .infinity)
             case .success:
                 if let topics = viewModel.topics, !topics.isEmpty {
-                    topicListView(topics: topics)
+                    TopicListView(topics: topics, onTapCell: { topic in
+                        router.items.append(.topicTop(topic: topic))
+                    }, onTapImage: { topic, index in
+                        if let images = topic.images {
+                            mainTabViewModel.images = images.map({ $0.url })
+                            mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                            withAnimation {
+                                mainTabViewModel.showImageViewer = true
+                            }
+                        }
+                    }, onTapUserInfo: { user in
+                        router.items.append(.profile(user: user))
+                    }, refresh: {
+                        Task { await viewModel.fetchTopics() }
+                    })
                 } else {
-                    emptyResultView(text: "関連するトピックが見つかりませんでした。")
+                    EmptyResultView(text: "関連するトピックが見つかりませんでした。")
                 }
             case .failure:
                 ErrorView()
@@ -160,9 +174,21 @@ struct ExploreResultView: View {
                     .frame(maxHeight: .infinity)
             case .success:
                 if let comments = viewModel.comments, !comments.isEmpty {
-                    commentListView(comments: comments)
+                    CommentListView(comments: comments, onTapCell: { comment in
+                        router.items.append(.comment(comment: comment))
+                    }, onTapImage: { comment, index in
+                        if let images = comment.images {
+                            mainTabViewModel.images = images.map({ $0.url })
+                            mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                            withAnimation {
+                                mainTabViewModel.showImageViewer = true
+                            }
+                        }
+                    }, onTapUserInfo: { user in
+                        router.items.append(.profile(user: user))
+                    })
                 } else {
-                    emptyResultView(text: "関連するコメントが見つかりませんでした。")
+                    EmptyResultView(text: "関連するコメントが見つかりませんでした。")
                 }
             case .failure:
                 ErrorView()
@@ -178,17 +204,23 @@ struct ExploreResultView: View {
                     .frame(maxHeight: .infinity)
             case .success:
                 if let users = viewModel.users, !users.isEmpty {
-                    userListView(users: users)
+                    UserListView(users: users) { user in
+                        router.items.append(.profile(user: user))
+                    }
                 } else {
-                    emptyResultView(text: "関連するユーザーが見つかりませんでした。")
+                    EmptyResultView(text: "関連するユーザーが見つかりませんでした。")
                 }
             case .failure:
                 ErrorView()
             }
         }
     }
+}
+
+private struct EmptyResultView: View {
+    let text: String
     
-    private func emptyResultView(text: String) -> some View {
+    var body: some View {
         VStack {
             Text(text)
                 .multilineTextAlignment(.center)
@@ -198,25 +230,27 @@ struct ExploreResultView: View {
             Spacer()
         }
     }
+}
+
+private struct TopicListView: View {
+    let topics: [Topic]
+    let onTapCell: (Topic) -> Void
+    let onTapImage: (Topic, Int) -> Void
+    let onTapUserInfo: (User) -> Void
+    let refresh: () -> Void
     
-    private func topicListView(topics: [Topic]) -> some View {
+    var body: some View {
         ScrollViewReader { reader in
             ScrollView {
                 LazyVStack {
                     ForEach(topics) { topic in
                         Button {
-                            router.items.append(.topicTop(topic: topic))
+                            onTapCell(topic)
                         } label: {
                             TopicCell(topic: topic, onTapImage: { index in
-                                if let images = topic.images {
-                                    mainTabViewModel.images = images.map({ $0.url })
-                                    mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
-                                    withAnimation {
-                                        mainTabViewModel.showImageViewer = true
-                                    }
-                                }
+                                onTapImage(topic, index)
                             }, onTapUserInfo: { user in
-                                router.items.append(.profile(user: user))
+                                onTapUserInfo(user)
                             })
                         }
 
@@ -224,47 +258,53 @@ struct ExploreResultView: View {
                 }
             }
             .refreshable {
-                Task { await viewModel.fetchTopics() }
+                refresh()
             }
         }
     }
+}
+
+private struct CommentListView: View {
+    let comments: [Comment]
+    let onTapCell: (Comment) -> Void
+    let onTapImage: (Comment, Int) -> Void
+    let onTapUserInfo: (User) -> Void
     
-    private func commentListView(comments: [Comment]) -> some View {
+    var body: some View {
         ScrollViewReader { reader in
             ScrollView {
                 LazyVStack {
                     ForEach(comments) { comment in
                         CommentCell(comment: comment, type: .comment, onTapImage: { index in
-                            if let images = comment.images {
-                                mainTabViewModel.images = images.map({ $0.url })
-                                mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
-                                withAnimation {
-                                    mainTabViewModel.showImageViewer = true
-                                }
-                            }
+                            onTapImage(comment, index)
                         }, onTapUserInfo: { user in
-                            router.items.append(.profile(user: user))
+                            onTapUserInfo(user)
                         }, onTapLikeButton: {
                             
                         }, onTapReplyButton: {
                             
                         })
                         .onTapGesture {
-                            router.items.append(.comment(comment: comment))
+                            onTapCell(comment)
                         }
                     }
                 }
             }
         }
     }
+}
+
+private struct UserListView: View {
+    let users: [User]
+    let onTapCell: (User) -> Void
     
-    private func userListView(users: [User]) -> some View {
+    var body: some View {
         ScrollViewReader { reader in
             ScrollView {
                 LazyVStack {
                     ForEach(users) { user in
                         Button {
-                            router.items.append(.profile(user: user))
+                            onTapCell(user)
                         } label: {
                             UserCell(user: user)
                         }

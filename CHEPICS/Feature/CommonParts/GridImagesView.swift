@@ -20,7 +20,9 @@ struct GridImagesView: View {
         VStack(spacing: 8) {
             LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
                 ForEach(gridImages.indices, id: \.self) { index in
-                    imageView(index: index)
+                    GridImageItemView(url: images[index]) {
+                        onTapImage(index)
+                    }
                 }
             }
             
@@ -39,21 +41,6 @@ struct GridImagesView: View {
         }
     }
     
-    private func imageView(index: Int) -> some View {
-        Button {
-            onTapImage(index)
-        } label: {
-            Color.clear
-                .aspectRatio(1, contentMode: .fit)
-                .overlay {
-                    KFImage(URL(string: images[index]))
-                        .resizable()
-                        .scaledToFill()
-                }
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-        }
-    }
-    
     private func getHeight(_ type: ContentType) -> CGFloat {
         switch type {
         case .topic:
@@ -62,6 +49,26 @@ struct GridImagesView: View {
         case .comment:
             // コメントは横のpaddingが16＆アイコン画像の横幅が32＆HStackのspacingが8＆画像の間隔が8という仮定のもとでこの16+32+8+8+16=80というマイナスをしている
             return (getRect().width - 80) / 2
+        }
+    }
+}
+
+private struct GridImageItemView: View {
+    let url: String
+    let onTapImage: () -> Void
+    
+    var body: some View {
+        Button {
+            onTapImage()
+        } label: {
+            Color.clear
+                .aspectRatio(1, contentMode: .fit)
+                .overlay {
+                    KFImage(URL(string: url))
+                        .resizable()
+                        .scaledToFill()
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 8))
         }
     }
 }
