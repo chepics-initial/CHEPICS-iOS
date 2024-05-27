@@ -12,6 +12,12 @@ import PhotosUI
     @Published private(set) var comment: Comment
     @Published private(set) var uiState: UIState = .loading
     @Published private(set) var replies: [Comment]?
+    @Published var showCreateReplyView = false
+    @Published var replyFor: Comment? {
+        didSet {
+            showCreateReplyView = true
+        }
+    }
     
     private let commentDetailUseCase: any CommentDetailUseCase
     

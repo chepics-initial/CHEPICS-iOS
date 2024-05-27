@@ -12,8 +12,6 @@ struct CommentDetailView: View {
     @EnvironmentObject var router: NavigationRouter
     @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: CommentDetailViewModel
-    @State private var showCreateReplyView = false
-    @State private var replyFor: Comment?
     
     var body: some View {
         ZStack {
@@ -32,8 +30,7 @@ struct CommentDetailView: View {
                     }, onTapLikeButton: {
                         
                     }, onTapReplyButton: {
-                        replyFor = nil
-                        showCreateReplyView = true
+                        viewModel.replyFor = nil
                     })
                     
                     HStack {
@@ -69,8 +66,7 @@ struct CommentDetailView: View {
                                     }, onTapLikeButton: {
                                         
                                     }, onTapReplyButton: {
-                                        replyFor = reply
-                                        showCreateReplyView = true
+                                        viewModel.replyFor = reply
                                     })
                                 }
                             }
@@ -84,9 +80,18 @@ struct CommentDetailView: View {
         .onAppear {
             Task { await viewModel.onAppear() }
         }
-        .fullScreenCover(isPresented: $showCreateReplyView) {
+        .fullScreenCover(isPresented: $viewModel.showCreateReplyView) {
             NavigationStack {
-                CreateCommentView(viewModel: CreateCommentViewModel(topicId: viewModel.comment.topicId, setId: viewModel.comment.setId, parentId: viewModel.comment.id, type: .reply, replyFor: replyFor, createCommentUseCase: DIFactory.createCommentUseCase()))
+                CreateCommentView(
+                    viewModel: CreateCommentViewModel(
+                        topicId: viewModel.comment.topicId,
+                        setId: viewModel.comment.setId,
+                        parentId: viewModel.comment.id,
+                        type: .reply,
+                        replyFor: viewModel.replyFor,
+                        createCommentUseCase: DIFactory.createCommentUseCase()
+                    )
+                )
             }
         }
     }
