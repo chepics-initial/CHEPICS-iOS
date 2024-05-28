@@ -38,7 +38,7 @@ import SwiftUI
     
     func selectSet(set: PickSet) async {
         selectedSet = set
-        viewStatus = .detail(set)
+        viewStatus = .detail
         await fetchTopic()
         uiState = .loading
         switch await topicTopUseCase.fetchSetComments(setId: set.id, offset: nil) {
@@ -53,7 +53,7 @@ import SwiftUI
 
 enum TopicViewStatus {
     case top
-    case detail(PickSet)
+    case detail
 }
 
 final class TopicTopUseCase_Previews: TopicTopUseCase {

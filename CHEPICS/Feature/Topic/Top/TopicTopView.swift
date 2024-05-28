@@ -21,8 +21,8 @@ struct TopicTopView: View {
             switch viewModel.viewStatus {
             case .top:
                 topContentView
-            case .detail(let set):
-                detailContentView(set: set)
+            case .detail:
+                detailContentView
             }
         }
         .onAppear {
@@ -143,14 +143,14 @@ struct TopicTopView: View {
         }
     }
     
-    func detailContentView(set: PickSet) -> some View {
+    var detailContentView: some View {
         VStack(alignment: .leading) {
             ScrollView {
                 detailHeaderView
                 
                 detailSetView
                 
-                setCommentView(set: set)
+                setCommentView
             }
             
             Divider()
@@ -342,47 +342,49 @@ struct TopicTopView: View {
         .padding(.horizontal, 16)
     }
     
-    func setCommentView(set: PickSet) -> some View {
+    var setCommentView: some View {
         VStack {
             switch viewModel.uiState {
             case .loading:
                 LoadingView()
             case .success:
-                VStack {
-                    HStack {
-                        Image(systemName: "text.bubble.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 16, height: 16)
+                if let selectedSet = viewModel.selectedSet {
+                    VStack {
+                        HStack {
+                            Image(systemName: "text.bubble.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 16, height: 16)
+                            
+                            Text("コメント\(selectedSet.commentCount)件")
+                                .fontWeight(.semibold)
+                            
+                            Spacer()
+                        }
+                        .padding(16)
                         
-                        Text("コメント\(set.commentCount)件")
-                            .fontWeight(.semibold)
-                        
-                        Spacer()
-                    }
-                    .padding(16)
-                    
-                    if let comments = viewModel.comments {
-                        LazyVStack {
-                            ForEach(comments) { comment in
-                                Button {
-                                    router.items.append(.comment(comment: comment))
-                                } label: {
-                                    CommentCell(comment: comment, type: .set, onTapImage: { index in
-                                        if let images = comment.images {
-                                            mainTabViewModel.images = images.map({ $0.url })
-                                            mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
-                                            withAnimation {
-                                                mainTabViewModel.showImageViewer = true
+                        if let comments = viewModel.comments {
+                            LazyVStack {
+                                ForEach(comments) { comment in
+                                    Button {
+                                        router.items.append(.comment(comment: comment))
+                                    } label: {
+                                        CommentCell(comment: comment, type: .set, onTapImage: { index in
+                                            if let images = comment.images {
+                                                mainTabViewModel.images = images.map({ $0.url })
+                                                mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                                                withAnimation {
+                                                    mainTabViewModel.showImageViewer = true
+                                                }
                                             }
-                                        }
-                                    }, onTapUserInfo: { user in
-                                        router.items.append(.profile(user: user))
-                                    }, onTapLikeButton: {
-                                        
-                                    }, onTapReplyButton: {
-                                        
-                                    })
+                                        }, onTapUserInfo: { user in
+                                            router.items.append(.profile(user: user))
+                                        }, onTapLikeButton: {
+                                            
+                                        }, onTapReplyButton: {
+                                            
+                                        })
+                                    }
                                 }
                             }
                         }
