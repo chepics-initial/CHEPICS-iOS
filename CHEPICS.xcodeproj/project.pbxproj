@@ -608,6 +608,7 @@
 				251FE4362BC8EFA3008C3254 /* CheckCodeBody.swift */,
 				E49366262BC0B6670093D286 /* Comment.swift */,
 				E49366282BC0B7E50093D286 /* CommentImage.swift */,
+				E48B3F212C02F29400542868 /* CreateCode.swift */,
 				E4CEEF612BF85DF500BB3B3B /* CreateCommentBody.swift */,
 				E4CEEF6D2BF97AB800BB3B3B /* CreateSetBody.swift */,
 				E457A0452BCA60CC003DFB9F /* CreateUserBody.swift */,
@@ -621,7 +622,6 @@
 				6916B38B2BAADA96009A8670 /* TopicImage.swift */,
 				251FE4342BC7A525008C3254 /* URLDefinitions.swift */,
 				6916B3872BAAD95C009A8670 /* User.swift */,
-				E48B3F212C02F29400542868 /* CreateCode.swift */,
 			);
 			path = DomainModel;
 			sourceTree = "<group>";
