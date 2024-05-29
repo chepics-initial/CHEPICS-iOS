@@ -12,11 +12,11 @@ import Foundation
         didSet {
             switch selectedTab {
             case .topics:
-                if topicUIState != .success || !isTopicOnAppearFinished {
+                if !isTopicFetchStarted {
                     Task { await fetchTopics() }
                 }
             case .comments:
-                if commentUIState != .success || !isCommentOnAppearFinished {
+                if !isCommentFetchStarted {
                     Task { await fetchComments() }
                 }
             }
@@ -29,8 +29,8 @@ import Foundation
     @Published private(set) var topicUIState: UIState = .loading
     @Published private(set) var commentUIState: UIState = .loading
     @Published private(set) var showError = false
-    private var isTopicOnAppearFinished = false
-    private var isCommentOnAppearFinished = false
+    private var isTopicFetchStarted = false
+    private var isCommentFetchStarted = false
     private var isInitialAppear: Bool = true
     private let profileUseCase: any ProfileUseCase
     
@@ -69,7 +69,7 @@ import Foundation
         if topicUIState != .success {
             topicUIState = .loading
         }
-        isTopicOnAppearFinished = true
+        isTopicFetchStarted = true
         switch await profileUseCase.fetchUserTopics(userId: user.id, offset: nil) {
         case .success(let topics):
             self.topics = topics
@@ -83,7 +83,7 @@ import Foundation
         if commentUIState != .success {
             commentUIState = .loading
         }
-        isCommentOnAppearFinished = true
+        isCommentFetchStarted = true
         switch await profileUseCase.fetchUserComments(userId: user.id, offset: nil) {
         case .success(let comments):
             self.comments = comments
@@ -91,11 +91,6 @@ import Foundation
         case .failure:
             commentUIState = .failure
         }
-    }
-    
-    func onDisappear() {
-        isTopicOnAppearFinished = false
-        isCommentOnAppearFinished = false
     }
     
     func onTapFollowButton() async {

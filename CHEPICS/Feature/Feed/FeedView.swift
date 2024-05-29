@@ -60,9 +60,6 @@ struct FeedView: View {
                 }
             }
         }
-        .onDisappear {
-            viewModel.onDisappear()
-        }
         .fullScreenCover(isPresented: $showCreateTopicView, content: {
             NavigationStack {
                 CreateTopicView(viewModel: CreateTopicViewModel(createTopicUseCase: DIFactory.createTopicUseCase()))
@@ -153,12 +150,15 @@ struct FeedView: View {
             case .success:
                 topicListView
             case .failure:
-                Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity)
-                    .padding(16)
-                
-                Spacer()
+                ScrollView {
+                    Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
+                        .padding(16)
+                }
+                .refreshable {
+                    Task { await viewModel.fetchTopics() }
+                }
             }
         }
     }
@@ -172,12 +172,15 @@ struct FeedView: View {
             case .success:
                 commentListView
             case .failure:
-                Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity)
-                    .padding(16)
-                
-                Spacer()
+                ScrollView {
+                    Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
+                        .padding(16)
+                }
+                .refreshable {
+                    Task { await viewModel.fetchComments() }
+                }
             }
         }
     }
