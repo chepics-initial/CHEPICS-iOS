@@ -221,13 +221,13 @@ private struct SetCell: View {
                 
                 // 両サイドのpaddingを計算してwidthをつける
                 RoundedRectangle(cornerRadius: 8)
-                    .frame(width: (getRect().width - 64) * 0.95, height: 32)
+                    .frame(width: (getRect().width - 64) * (set.rate / 100), height: 32)
                     .foregroundStyle(.blue)
                 
                 HStack {
                     Spacer()
                     
-                    Text("95%")
+                    Text("\(Int(set.rate))%")
                         .font(.caption)
                         .foregroundStyle(.blue)
                         .padding(2)
