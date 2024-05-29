@@ -27,7 +27,7 @@ final class TopicRepositoryImpl: TopicRepository {
     }
     
     func fetchUserTopics(userId: String, offset: Int?) async -> Result<[Topic], APIError> {
-        await resultHandle(result: topicDataSource.fetchFavoriteTopics(offset: offset))
+        await resultHandle(result: topicDataSource.fetchUserTopics(userId: userId, offset: offset))
     }
     
     func fetchTopic(topicId: String) async -> Result<Topic, APIError> {
