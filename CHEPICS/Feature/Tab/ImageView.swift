@@ -14,7 +14,7 @@ struct ImageView: View {
     let onDismiss: () -> Void
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .topTrailing) {
             GeometryReader { geometry in
                 let pageSize = geometry.size
                 HStack(spacing: 0) {
@@ -33,6 +33,17 @@ struct ImageView: View {
                 // ✅ オフセットを変えることで擬似的に HorizontalPager の振る舞いを再現する
                 .offset(viewModel.pagerState.offset)
             }
+            
+            Button {
+                onDismiss()
+            } label: {
+                Image(systemName: "xmark")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 16, height: 16)
+                    .foregroundStyle(.gray)
+            }
+            .padding()
         }
         .background(Color.black)
     }
