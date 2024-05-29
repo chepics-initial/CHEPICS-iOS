@@ -35,12 +35,11 @@ import Foundation
             case .decodingError, .networkError, .invalidStatus, .otherError:
                 showAlert = true
             case .errorResponse(let errorResponse, _):
-                switch errorResponse.errorCode {
-                case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .INVALID_ACCESS_TOKEN, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
-                    showAlert = true
-                case .EMAIL_OR_PASSWORD_INCORRECT:
+                if errorResponse.errorCode == .EMAIL_OR_PASSWORD_INCORRECT {
                     showInvalidAlert = true
+                    return
                 }
+                showAlert = true
             }
         }
     }

@@ -63,15 +63,21 @@ enum API {
                 return .failure(firstError)
             case .errorResponse(let errorResponse, _):
                 switch errorResponse.errorCode {
-                case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
+                case .USED_EMAIL,
+                        .CODE_INCORRECT_OR_EXPIRED,
+                        .NOT_CONFIRMED_EMAIL,
+                        .EMAIL_OR_PASSWORD_INCORRECT,
+                        .RESOURCE_NOT_FOUND,
+                        .INVALID_REFRESH_TOKEN,
+                        .INTERNAL_SERVER_ERROR:
                     return .failure(firstError)
-                case .INVALID_ACCESS_TOKEN:
+                case .UNAUTHORIZED:
                     guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),
                           let refreshToken = TokenStore.getRefreshToken() else { return .failure(firstError) }
                     switch await API.postRequest(
                         ServerDirection.production.urlString(for: .createRefreshToken),
                         responseType: AuthResponse.self,
-                        httpBody: refreshToken
+                        httpBody: TokenRefreshBody(refreshToken: refreshToken)
                     ) {
                     case .success(let response):
                         TokenStore.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
@@ -111,33 +117,28 @@ enum API {
                 return .failure(firstError)
             case .errorResponse(let errorResponse, _):
                 switch errorResponse.errorCode {
-                case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
+                case .USED_EMAIL,
+                        .CODE_INCORRECT_OR_EXPIRED,
+                        .NOT_CONFIRMED_EMAIL,
+                        .EMAIL_OR_PASSWORD_INCORRECT,
+                        .RESOURCE_NOT_FOUND,
+                        .INVALID_REFRESH_TOKEN,
+                        .INTERNAL_SERVER_ERROR:
                     return .failure(firstError)
-                case .INVALID_ACCESS_TOKEN:
+                case .UNAUTHORIZED:
                     guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),
                           let refreshToken = TokenStore.getRefreshToken() else { return .failure(firstError) }
                     switch await API.postRequest(
                         ServerDirection.production.urlString(for: .createRefreshToken),
                         responseType: AuthResponse.self,
-                        httpBody: refreshToken
+                        httpBody: TokenRefreshBody(refreshToken: refreshToken)
                     ) {
                     case .success(let response):
                         TokenStore.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
                         
                         return await postRequest(baseURLString, responseType: responseType, httpBody: httpBody)
                     case .failure(let secondError):
-                        switch secondError {
-                        case .decodingError, .networkError, .invalidStatus, .otherError:
-                            return .failure(secondError)
-                        case .errorResponse(let errorResponse, _):
-                            switch errorResponse.errorCode {
-                            case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
-                                return .failure(secondError)
-                            case .INVALID_ACCESS_TOKEN:
-                                // TODO: - refreshTokenが切れていた時の対処
-                                fatalError()
-                            }
-                        }
+                        return .failure(secondError)
                     }
                 }
             }
@@ -173,14 +174,14 @@ private extension DataRequest {
     func asyncResponse() async -> AFDataResponse<Data?> {
         await withCheckedContinuation { continuation in
             response(completionHandler: { response in
-                #if DEBUG
+#if DEBUG
                 debugPrint(response)
-                #endif
+#endif
                 continuation.resume(returning: response)
             })
         }
     }
-
+    
     func handleResponseHeader(_ response: AFDataResponse<Data?>) {
         guard let headers = response.response?.headers.dictionary,
               let url = URL(string: "https://chepics.com/") else {

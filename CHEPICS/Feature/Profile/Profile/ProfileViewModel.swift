@@ -57,17 +57,10 @@ import Foundation
                     await fetchComments()
                 }
             case .failure(let error):
-                switch error {
-                case .decodingError, .networkError, .invalidStatus, .otherError:
-                    showError = true
-                case .errorResponse(let errorResponse, _):
-                    switch errorResponse.errorCode {
-                    case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
-                        showError = true
-                    case .INVALID_ACCESS_TOKEN:
-                        return
-                    }
+                if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
+                    return
                 }
+                showError = true
             }
         }
     }
@@ -81,18 +74,8 @@ import Foundation
         case .success(let topics):
             self.topics = topics
             topicUIState = .success
-        case .failure(let error):
-            switch error {
-            case .decodingError, .networkError, .invalidStatus, .otherError:
-                topicUIState = .failure
-            case .errorResponse(let errorResponse, _):
-                switch errorResponse.errorCode {
-                case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
-                    topicUIState = .failure
-                case .INVALID_ACCESS_TOKEN:
-                    return
-                }
-            }
+        case .failure:
+            topicUIState = .failure
         }
     }
     
@@ -105,18 +88,8 @@ import Foundation
         case .success(let comments):
             self.comments = comments
             commentUIState = .success
-        case .failure(let error):
-            switch error {
-            case .decodingError, .networkError, .invalidStatus, .otherError:
-                commentUIState = .failure
-            case .errorResponse(let errorResponse, _):
-                switch errorResponse.errorCode {
-                case .USED_EMAIL, .CODE_INCORRECT_OR_EXPIRED, .NOT_CONFIRMED_EMAIL, .EMAIL_OR_PASSWORD_INCORRECT, .RESOURCE_NOT_FOUND, .INTERNAL_SERVER_ERROR:
-                    commentUIState = .failure
-                case .INVALID_ACCESS_TOKEN:
-                    return
-                }
-            }
+        case .failure:
+            commentUIState = .failure
         }
     }
     

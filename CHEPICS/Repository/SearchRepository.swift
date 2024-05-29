@@ -23,38 +23,30 @@ final class SearchRepositoryImpl: SearchRepository {
     }
     
     func fetchSearchedTopics(word: String) async -> Result<[Topic], APIError> {
-        switch await searchDataSource.fetchSearchedTopics(word: word) {
-        case .success(let response):
-            return .success(response)
-        case .failure(let error):
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_ACCESS_TOKEN {
-                tokenDataSource.removeToken()
-            }
-            return .failure(error)
-        }
+        await resultHandle(result: searchDataSource.fetchSearchedTopics(word: word))
     }
     
     func fetchSearchedComments(word: String) async -> Result<[Comment], APIError> {
-        switch await searchDataSource.fetchSearchedComments(word: word) {
-        case .success(let response):
-            return .success(response)
+        await resultHandle(result: searchDataSource.fetchSearchedComments(word: word))
+    }
+    
+    func fetchSearchedUsers(word: String) async -> Result<[User], APIError> {
+        await resultHandle(result: searchDataSource.fetchSearchedUsers(word: word))
+    }
+    
+    private func resultHandle<T>(result: Result<T, APIError>) -> Result<T, APIError> {
+        switch result {
+        case .success(let success):
+            return .success(success)
         case .failure(let error):
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_ACCESS_TOKEN {
-                tokenDataSource.removeToken()
-            }
+            tokenExpiredHandle(error: error)
             return .failure(error)
         }
     }
     
-    func fetchSearchedUsers(word: String) async -> Result<[User], APIError> {
-        switch await searchDataSource.fetchSearchedUsers(word: word) {
-        case .success(let response):
-            return .success(response)
-        case .failure(let error):
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_ACCESS_TOKEN {
-                tokenDataSource.removeToken()
-            }
-            return .failure(error)
+    private func tokenExpiredHandle(error: APIError) {
+        if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
+            tokenDataSource.removeToken()
         }
     }
 }

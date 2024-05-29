@@ -129,6 +129,7 @@
 		E48B3F1E2C02EFA900542868 /* CompleteRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F1D2C02EFA900542868 /* CompleteRegistrationViewModel.swift */; };
 		E48B3F202C02EFD400542868 /* CompleteRegistrationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F1F2C02EFD400542868 /* CompleteRegistrationUseCase.swift */; };
 		E48B3F222C02F29400542868 /* CreateCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F212C02F29400542868 /* CreateCode.swift */; };
+		E48B3F262C06B32500542868 /* TokenRefreshBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F252C06B32500542868 /* TokenRefreshBody.swift */; };
 		E49366232BBD05830093D286 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = E49366222BBD05830093D286 /* Nuke */; };
 		E49366252BBD05830093D286 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = E49366242BBD05830093D286 /* NukeUI */; };
 		E49366272BC0B6670093D286 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49366262BC0B6670093D286 /* Comment.swift */; };
@@ -314,6 +315,7 @@
 		E48B3F1D2C02EFA900542868 /* CompleteRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRegistrationViewModel.swift; sourceTree = "<group>"; };
 		E48B3F1F2C02EFD400542868 /* CompleteRegistrationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRegistrationUseCase.swift; sourceTree = "<group>"; };
 		E48B3F212C02F29400542868 /* CreateCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCode.swift; sourceTree = "<group>"; };
+		E48B3F252C06B32500542868 /* TokenRefreshBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefreshBody.swift; sourceTree = "<group>"; };
 		E49366262BC0B6670093D286 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E49366282BC0B7E50093D286 /* CommentImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentImage.swift; sourceTree = "<group>"; };
 		E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHEPICS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -622,6 +624,7 @@
 				6916B38B2BAADA96009A8670 /* TopicImage.swift */,
 				251FE4342BC7A525008C3254 /* URLDefinitions.swift */,
 				6916B3872BAAD95C009A8670 /* User.swift */,
+				E48B3F252C06B32500542868 /* TokenRefreshBody.swift */,
 			);
 			path = DomainModel;
 			sourceTree = "<group>";
@@ -1167,6 +1170,7 @@
 				E48B3F162C02C1B600542868 /* CreateCommentViewModel.swift in Sources */,
 				256C67142BAD483F00260ADE /* ProfileViewModel.swift in Sources */,
 				6916B3862BAAD8A6009A8670 /* Topic.swift in Sources */,
+				E48B3F262C06B32500542868 /* TokenRefreshBody.swift in Sources */,
 				E4CEEF622BF85DF500BB3B3B /* CreateCommentBody.swift in Sources */,
 				251FE4332BC7A365008C3254 /* APIError+Extension.swift in Sources */,
 				E457A0482BCA6131003DFB9F /* AuthResponse.swift in Sources */,

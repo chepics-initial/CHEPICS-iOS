@@ -18,13 +18,20 @@ struct ErrorResponse: Decodable {
         self.errorCode = errorCode
     }
     
-    enum ErrorCode: Decodable {
+    enum ErrorCode: String, Decodable {
         case USED_EMAIL
         case CODE_INCORRECT_OR_EXPIRED
         case NOT_CONFIRMED_EMAIL
         case EMAIL_OR_PASSWORD_INCORRECT
-        case INVALID_ACCESS_TOKEN
+        case UNAUTHORIZED
         case RESOURCE_NOT_FOUND
         case INTERNAL_SERVER_ERROR
+        case INVALID_REFRESH_TOKEN
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case statusCode = "status_code"
+        case errorCode = "error_code"
+        case message
     }
 }

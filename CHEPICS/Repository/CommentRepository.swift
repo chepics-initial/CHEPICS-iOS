@@ -28,38 +28,38 @@ final class CommentRepositoryImpl: CommentRepository {
     }
     
     func fetchFollowingComments(offset: Int?) async -> Result<[Comment], APIError> {
-        switch await commentDataSource.fetchFollowingComments(offset: offset) {
-        case .success(let response):
-            return .success(response)
-        case .failure(let error):
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_ACCESS_TOKEN {
-                tokenDataSource.removeToken()
-            }
-            return .failure(error)
-        }
+        await resultHandle(result: commentDataSource.fetchFollowingComments(offset: offset))
     }
     
     func fetchUserComments(userId: String, offset: Int?) async -> Result<[Comment], APIError> {
-        switch await commentDataSource.fetchUserComments(userId: userId, offset: offset) {
-        case .success(let response):
-            return .success(response)
+        await resultHandle(result: commentDataSource.fetchUserComments(userId: userId, offset: offset))
+    }
+    
+    func fetchSetComments(setId: String, offset: Int?) async -> Result<[Comment], APIError> {
+        await resultHandle(result: commentDataSource.fetchSetComments(setId: setId, offset: offset))
+    }
+    
+    func fetchReplies(commentId: String, offset: Int?) async -> Result<[Comment], APIError> {
+        await resultHandle(result: commentDataSource.fetchReplies(commentId: commentId, offset: offset))
+    }
+    
+    func fetchComment(id: String) async -> Result<Comment, APIError> {
+        await resultHandle(result: commentDataSource.fetchComment(id: id))
+    }
+    
+    private func resultHandle<T>(result: Result<T, APIError>) -> Result<T, APIError> {
+        switch result {
+        case .success(let success):
+            return .success(success)
         case .failure(let error):
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_ACCESS_TOKEN {
-                tokenDataSource.removeToken()
-            }
+            tokenExpiredHandle(error: error)
             return .failure(error)
         }
     }
     
-    func fetchSetComments(setId: String, offset: Int?) async -> Result<[Comment], APIError> {
-        await commentDataSource.fetchSetComments(setId: setId, offset: offset)
-    }
-    
-    func fetchReplies(commentId: String, offset: Int?) async -> Result<[Comment], APIError> {
-        await commentDataSource.fetchReplies(commentId: commentId, offset: offset)
-    }
-    
-    func fetchComment(id: String) async -> Result<Comment, APIError> {
-        await commentDataSource.fetchComment(id: id)
+    private func tokenExpiredHandle(error: APIError) {
+        if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
+            tokenDataSource.removeToken()
+        }
     }
 }

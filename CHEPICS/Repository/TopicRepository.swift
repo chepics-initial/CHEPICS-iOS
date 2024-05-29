@@ -23,30 +23,30 @@ final class TopicRepositoryImpl: TopicRepository {
     }
     
     func fetchFavoriteTopics(offset: Int?) async -> Result<[Topic], APIError> {
-        switch await topicDataSource.fetchFavoriteTopics(offset: offset) {
-        case .success(let response):
-            return .success(response)
-        case .failure(let error):
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_ACCESS_TOKEN {
-                tokenDataSource.removeToken()
-            }
-            return .failure(error)
-        }
+        await resultHandle(result: topicDataSource.fetchFavoriteTopics(offset: offset))
     }
     
     func fetchUserTopics(userId: String, offset: Int?) async -> Result<[Topic], APIError> {
-        switch await topicDataSource.fetchUserTopics(userId: userId, offset: offset) {
-        case .success(let response):
-            return .success(response)
+        await resultHandle(result: topicDataSource.fetchFavoriteTopics(offset: offset))
+    }
+    
+    func fetchTopic(topicId: String) async -> Result<Topic, APIError> {
+        await resultHandle(result: topicDataSource.fetchTopic(topicId: topicId))
+    }
+    
+    private func resultHandle<T>(result: Result<T, APIError>) -> Result<T, APIError> {
+        switch result {
+        case .success(let success):
+            return .success(success)
         case .failure(let error):
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_ACCESS_TOKEN {
-                tokenDataSource.removeToken()
-            }
+            tokenExpiredHandle(error: error)
             return .failure(error)
         }
     }
     
-    func fetchTopic(topicId: String) async -> Result<Topic, APIError> {
-        await topicDataSource.fetchTopic(topicId: topicId)
+    private func tokenExpiredHandle(error: APIError) {
+        if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
+            tokenDataSource.removeToken()
+        }
     }
 }

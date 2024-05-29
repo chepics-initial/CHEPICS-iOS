@@ -28,18 +28,26 @@ final class UserRepositoryImpl: UserRepository {
     }
     
     func fetchUser(userId: String) async -> Result<User, APIError> {
-        switch await userDataSource.fetchUser(userId: userId) {
-        case .success(let response):
-            return .success(response)
-        case .failure(let error):
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_ACCESS_TOKEN {
-                tokenDataSource.removeToken()
-            }
-            return .failure(error)
-        }
+        await resultHandle(result: userDataSource.fetchUser(userId: userId))
     }
     
     func getUserId() -> String {
         userStoreDataSource.getUserId()
+    }
+    
+    private func resultHandle<T>(result: Result<T, APIError>) -> Result<T, APIError> {
+        switch result {
+        case .success(let success):
+            return .success(success)
+        case .failure(let error):
+            tokenExpiredHandle(error: error)
+            return .failure(error)
+        }
+    }
+    
+    private func tokenExpiredHandle(error: APIError) {
+        if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
+            tokenDataSource.removeToken()
+        }
     }
 }

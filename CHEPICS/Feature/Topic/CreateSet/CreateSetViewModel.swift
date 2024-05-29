@@ -31,7 +31,7 @@ import Foundation
         case .success:
             isCompleted = true
         case .failure(let error):
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_ACCESS_TOKEN {
+            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .UNAUTHORIZED {
                 return
             }
             showAlert = true

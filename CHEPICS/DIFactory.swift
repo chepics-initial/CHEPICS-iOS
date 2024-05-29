@@ -108,7 +108,7 @@ extension DIFactory {
     
     static let sharedTokenRepository: some TokenRepository = TokenRepositoryImpl(tokenDataSource: sharedTokenDataSource)
     
-    static let sharedSetRepository: some SetRepository = SetRepositoryImpl(setDataSource: sharedSetDataSource)
+    static let sharedSetRepository: some SetRepository = SetRepositoryImpl(setDataSource: sharedSetDataSource,tokenDataSource: sharedTokenDataSource)
     
     // MARK: - DataSource
     static let sharedTopicDataSource: some TopicDataSource = TopicRemoteSource.shared
