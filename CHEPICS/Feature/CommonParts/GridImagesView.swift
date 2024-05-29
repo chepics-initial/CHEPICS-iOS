@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct GridImagesView: View {
     let images: [String]
@@ -30,12 +29,19 @@ struct GridImagesView: View {
                 Button {
                     onTapImage(images.count - 1)
                 } label: {
-                    KFImage(URL(string: images[images.count - 1]))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(maxWidth: .infinity)
-                        .frame(height: getHeight(type))
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                    AsyncImage(url: URL(string: images[images.count - 1])) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(maxWidth: .infinity)
+                            .frame(height: getHeight(type))
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    } placeholder: {
+                        RoundedRectangle(cornerRadius: 8)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: getHeight(type))
+                            .foregroundStyle(.gray)
+                    }
                 }
             }
         }
@@ -64,9 +70,13 @@ private struct GridImageItemView: View {
             Color.clear
                 .aspectRatio(1, contentMode: .fit)
                 .overlay {
-                    KFImage(URL(string: url))
-                        .resizable()
-                        .scaledToFill()
+                    AsyncImage(url: URL(string: url)) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                    } placeholder: {
+                        Color.gray
+                    }
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 8))
         }

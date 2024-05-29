@@ -71,7 +71,7 @@ enum API {
                         .INVALID_REFRESH_TOKEN,
                         .INTERNAL_SERVER_ERROR:
                     return .failure(firstError)
-                case .UNAUTHORIZED:
+                case .INVALID_ACCESS_TOKEN:
                     guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),
                           let refreshToken = TokenStore.getRefreshToken() else { return .failure(firstError) }
                     switch await API.postRequest(
@@ -125,7 +125,7 @@ enum API {
                         .INVALID_REFRESH_TOKEN,
                         .INTERNAL_SERVER_ERROR:
                     return .failure(firstError)
-                case .UNAUTHORIZED:
+                case .INVALID_ACCESS_TOKEN:
                     guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),
                           let refreshToken = TokenStore.getRefreshToken() else { return .failure(firstError) }
                     switch await API.postRequest(

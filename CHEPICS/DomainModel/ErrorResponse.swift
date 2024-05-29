@@ -23,9 +23,9 @@ struct ErrorResponse: Decodable {
         case CODE_INCORRECT_OR_EXPIRED
         case NOT_CONFIRMED_EMAIL
         case EMAIL_OR_PASSWORD_INCORRECT
-        case UNAUTHORIZED
         case RESOURCE_NOT_FOUND
         case INTERNAL_SERVER_ERROR
+        case INVALID_ACCESS_TOKEN
         case INVALID_REFRESH_TOKEN
     }
     

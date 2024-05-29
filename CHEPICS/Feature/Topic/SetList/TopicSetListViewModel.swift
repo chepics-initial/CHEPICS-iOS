@@ -65,7 +65,7 @@ import Foundation
             self.selectedSet = set
             isCompleted = true
         case .failure(let error):
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .UNAUTHORIZED {
+            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
                 return
             }
             showAlert = true

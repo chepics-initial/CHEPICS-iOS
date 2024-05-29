@@ -83,7 +83,6 @@
 		6916B3932BAAE30E009A8670 /* TopicDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3922BAAE30E009A8670 /* TopicDataSource.swift */; };
 		6916B3952BAAE364009A8670 /* TopicRemoteSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3942BAAE364009A8670 /* TopicRemoteSource.swift */; };
 		6916B3972BAAE3CA009A8670 /* TopicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3962BAAE3CA009A8670 /* TopicRepository.swift */; };
-		6916B39A2BAAE60B009A8670 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6916B3992BAAE60B009A8670 /* Kingfisher */; };
 		6916B39D2BAAED64009A8670 /* FeedUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B39C2BAAED64009A8670 /* FeedUseCase.swift */; };
 		6916B39F2BAAF4B3009A8670 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B39E2BAAF4B3009A8670 /* Int+Extension.swift */; };
 		6916B3A12BAAF6D3009A8670 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3A02BAAF6D3009A8670 /* Date+Extension.swift */; };
@@ -360,7 +359,6 @@
 				251FE42A2BC79C85008C3254 /* Alamofire in Frameworks */,
 				E49366232BBD05830093D286 /* Nuke in Frameworks */,
 				E457A04F2BCA6A7B003DFB9F /* KeychainAccess in Frameworks */,
-				6916B39A2BAAE60B009A8670 /* Kingfisher in Frameworks */,
 				25862EBF2BBB7D9700FC4225 /* SwiftUIIntrospect in Frameworks */,
 				E49366252BBD05830093D286 /* NukeUI in Frameworks */,
 			);
@@ -1001,7 +999,6 @@
 			);
 			name = CHEPICS;
 			packageProductDependencies = (
-				6916B3992BAAE60B009A8670 /* Kingfisher */,
 				25862EBE2BBB7D9700FC4225 /* SwiftUIIntrospect */,
 				E49366222BBD05830093D286 /* Nuke */,
 				E49366242BBD05830093D286 /* NukeUI */,
@@ -1081,7 +1078,6 @@
 			);
 			mainGroup = E4C6BE062B6F68ED003B56AD;
 			packageReferences = (
-				6916B3982BAAE60B009A8670 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				25862EBD2BBB7D9700FC4225 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				E49366212BBD05830093D286 /* XCRemoteSwiftPackageReference "Nuke" */,
 				251FE4282BC79C85008C3254 /* XCRemoteSwiftPackageReference "Alamofire" */,
@@ -1627,14 +1623,6 @@
 				minimumVersion = 1.1.3;
 			};
 		};
-		6916B3982BAAE60B009A8670 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.11.0;
-			};
-		};
 		E457A04D2BCA6A7B003DFB9F /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
@@ -1663,11 +1651,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 25862EBD2BBB7D9700FC4225 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = SwiftUIIntrospect;
-		};
-		6916B3992BAAE60B009A8670 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6916B3982BAAE60B009A8670 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
 		};
 		E457A04E2BCA6A7B003DFB9F /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
