@@ -19,7 +19,7 @@ struct CommentImage: Decodable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case commentId
+        case commentId = "comment_id"
         case number = "seq_no"
         case url = "image_url"
     }

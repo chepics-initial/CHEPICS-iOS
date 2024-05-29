@@ -13,21 +13,19 @@ final class CommentRemoteSource: CommentDataSource {
     private init() {}
     
     func fetchFollowingComments(offset: Int?) async -> Result<[Comment], APIError> {
-        .success([mockComment1, mockComment2, mockComment3, mockComment4])
-//        var query: [String: Any] = [:]
-//        if let offset {
-//            query["offset"] = offset
-//        }
-//        return await API.request(ServerDirection.production.urlString(for: .followingUsersComments), responseType: Items<Comment>.self, queryParameters: query).map(\.items)
+        var query: [String: Any] = [:]
+        if let offset {
+            query["offset"] = offset
+        }
+        return await API.request(ServerDirection.production.urlString(for: .followingUsersComments), responseType: Items<Comment>.self, queryParameters: query).map(\.items)
     }
     
     func fetchUserComments(userId: String, offset: Int?) async -> Result<[Comment], APIError> {
-        .success([mockComment1, mockComment2, mockComment3, mockComment4])
-//        var query: [String: Any] = ["user_id": userId]
-//        if let offset {
-//            query["offset"] = offset
-//        }
-//        return await API.request(ServerDirection.production.urlString(for: .userComments), responseType: Items<Comment>.self, queryParameters: query).map(\.items)
+        var query: [String: Any] = ["user_id": userId]
+        if let offset {
+            query["offset"] = offset
+        }
+        return await API.request(ServerDirection.production.urlString(for: .userComments), responseType: Items<Comment>.self, queryParameters: query).map(\.items)
     }
     
     func fetchSetComments(setId: String, offset: Int?) async -> Result<[Comment], APIError> {

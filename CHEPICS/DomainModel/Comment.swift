@@ -51,9 +51,9 @@ struct Comment: Decodable, Identifiable {
     
     enum CodingKeys: String, CodingKey {
         case id = "comment_id"
-        case parentId
-        case topicId
-        case setId
+        case parentId = "parent_id"
+        case topicId = "topic_id"
+        case setId = "set_id"
         case topic = "topic_name"
         case comment
         case link = "comment_link"
@@ -61,6 +61,6 @@ struct Comment: Decodable, Identifiable {
         case votes = "comment_like_count"
         case isLiked = "has_user_liked_comment"
         case user = "create_user"
-        case registerTime
+        case registerTime = "register_time"
     }
 }

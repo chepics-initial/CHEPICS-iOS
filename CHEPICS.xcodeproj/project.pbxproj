@@ -620,11 +620,11 @@
 				E457A0D92BCF9B62003DFB9F /* LoginBody.swift */,
 				6916B38D2BAADBC4009A8670 /* PickSet.swift */,
 				E4CEEF712BF9877100BB3B3B /* PickSetBody.swift */,
+				E48B3F252C06B32500542868 /* TokenRefreshBody.swift */,
 				6916B3852BAAD8A6009A8670 /* Topic.swift */,
 				6916B38B2BAADA96009A8670 /* TopicImage.swift */,
 				251FE4342BC7A525008C3254 /* URLDefinitions.swift */,
 				6916B3872BAAD95C009A8670 /* User.swift */,
-				E48B3F252C06B32500542868 /* TokenRefreshBody.swift */,
 			);
 			path = DomainModel;
 			sourceTree = "<group>";
