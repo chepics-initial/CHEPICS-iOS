@@ -15,6 +15,7 @@ import Foundation
     @Published private(set) var isCompleted = false
     @Published var showAlert = false
     let currentSet: PickSet?
+    private var isFetchFinished = false
     
     private let topicSetListUseCase: any TopicSetListUseCase
     
@@ -33,11 +34,18 @@ import Foundation
         self.topicSetListUseCase = topicSetListUseCase
     }
     
+    func onAppear() async {
+        if !isFetchFinished {
+            await fetchSets()
+        }
+    }
+    
     func fetchSets() async {
         switch await topicSetListUseCase.fetchSets(topicId: topicId) {
         case .success(let sets):
             self.sets = sets
             uiState = .success
+            isFetchFinished = true
         case .failure:
             uiState = .failure
         }

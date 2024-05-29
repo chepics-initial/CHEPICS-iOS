@@ -1,5 +1,5 @@
 //
-//  CreateSetBody.swift
+//  CreateSet.swift
 //  CHEPICS
 //
 //  Created by 川尻辰義 on 2024/05/19.
@@ -17,7 +17,19 @@ struct CreateSetBody: Encodable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case topicId
+        case topicId = "topic_id"
         case setText = "set_name"
+    }
+}
+
+struct CreateSetResponse: Decodable {
+    let setId: String
+    
+    init(setId: String) {
+        self.setId = setId
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case setId = "set_id"
     }
 }

@@ -29,25 +29,22 @@ final class CommentRemoteSource: CommentDataSource {
     }
     
     func fetchSetComments(setId: String, offset: Int?) async -> Result<[Comment], APIError> {
-        .success([mockComment1, mockComment2, mockComment3, mockComment4])
-//        var query: [String: Any] = ["set_id": setId]
-//        if let offset {
-//            query["offset"] = offset
-//        }
-//        return await API.request(ServerDirection.production.urlString(for: .setComments), responseType: Items<Comment>.self, queryParameters: query).map(\.items)
+        var query: [String: Any] = ["set_id": setId]
+        if let offset {
+            query["offset"] = offset
+        }
+        return await API.request(ServerDirection.production.urlString(for: .setComments), responseType: Items<Comment>.self, queryParameters: query).map(\.items)
     }
     
     func fetchReplies(commentId: String, offset: Int?) async -> Result<[Comment], APIError> {
-        .success([mockComment1, mockComment2, mockComment3, mockComment4])
-//        var query: [String: Any] = ["comment_id": commentId]
-//        if let offset {
-//            query["offset"] = offset
-//        }
-//        return await API.request(ServerDirection.production.urlString(for: .replies), responseType: Items<Comment>.self, queryParameters: query).map(\.items)
+        var query: [String: Any] = ["comment_id": commentId]
+        if let offset {
+            query["offset"] = offset
+        }
+        return await API.request(ServerDirection.production.urlString(for: .replies), responseType: Items<Comment>.self, queryParameters: query).map(\.items)
     }
     
     func fetchComment(id: String) async -> Result<Comment, APIError> {
-        .success(mockComment1)
-//        await API.request(ServerDirection.production.urlString(for: .comment), responseType: Comment.self, queryParameters: ["comment_id": id])
+        await API.request(ServerDirection.production.urlString(for: .comment), responseType: Comment.self, queryParameters: ["comment_id": id])
     }
 }

@@ -15,4 +15,9 @@ struct PickSetBody: Encodable {
         self.topicId = topicId
         self.setId = setId
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case topicId = "topic_id"
+        case setId = "set_id"
+    }
 }

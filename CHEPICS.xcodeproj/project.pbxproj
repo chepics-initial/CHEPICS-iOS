@@ -157,7 +157,7 @@
 		E4CEEF682BF9265000BB3B3B /* SetRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF672BF9265000BB3B3B /* SetRepository.swift */; };
 		E4CEEF6A2BF9268300BB3B3B /* SetDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF692BF9268300BB3B3B /* SetDataSource.swift */; };
 		E4CEEF6C2BF926D100BB3B3B /* SetRemoteSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF6B2BF926D100BB3B3B /* SetRemoteSource.swift */; };
-		E4CEEF6E2BF97AB800BB3B3B /* CreateSetBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF6D2BF97AB800BB3B3B /* CreateSetBody.swift */; };
+		E4CEEF6E2BF97AB800BB3B3B /* CreateSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF6D2BF97AB800BB3B3B /* CreateSet.swift */; };
 		E4CEEF702BF97BD600BB3B3B /* CreateSetUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF6F2BF97BD600BB3B3B /* CreateSetUseCase.swift */; };
 		E4CEEF722BF9877100BB3B3B /* PickSetBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF712BF9877100BB3B3B /* PickSetBody.swift */; };
 		E4CEEF752BF9959600BB3B3B /* TopicDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CEEF742BF9959600BB3B3B /* TopicDetailView.swift */; };
@@ -344,7 +344,7 @@
 		E4CEEF672BF9265000BB3B3B /* SetRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRepository.swift; sourceTree = "<group>"; };
 		E4CEEF692BF9268300BB3B3B /* SetDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetDataSource.swift; sourceTree = "<group>"; };
 		E4CEEF6B2BF926D100BB3B3B /* SetRemoteSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRemoteSource.swift; sourceTree = "<group>"; };
-		E4CEEF6D2BF97AB800BB3B3B /* CreateSetBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSetBody.swift; sourceTree = "<group>"; };
+		E4CEEF6D2BF97AB800BB3B3B /* CreateSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSet.swift; sourceTree = "<group>"; };
 		E4CEEF6F2BF97BD600BB3B3B /* CreateSetUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSetUseCase.swift; sourceTree = "<group>"; };
 		E4CEEF712BF9877100BB3B3B /* PickSetBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickSetBody.swift; sourceTree = "<group>"; };
 		E4CEEF742BF9959600BB3B3B /* TopicDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailView.swift; sourceTree = "<group>"; };
@@ -612,7 +612,7 @@
 				E49366282BC0B7E50093D286 /* CommentImage.swift */,
 				E48B3F212C02F29400542868 /* CreateCode.swift */,
 				E4CEEF612BF85DF500BB3B3B /* CreateCommentBody.swift */,
-				E4CEEF6D2BF97AB800BB3B3B /* CreateSetBody.swift */,
+				E4CEEF6D2BF97AB800BB3B3B /* CreateSet.swift */,
 				E457A0452BCA60CC003DFB9F /* CreateUserBody.swift */,
 				251FE42F2BC7A164008C3254 /* ErrorResponse.swift */,
 				252D71312BA83ED200485877 /* HeaderKeys.swift */,
@@ -1216,7 +1216,7 @@
 				E4CEEF552BF4422400BB3B3B /* TopicTopUseCase.swift in Sources */,
 				2599A4DB2BF2E57900AFC8E0 /* TopicTopViewModel.swift in Sources */,
 				259B51BD2B860A8B00978256 /* LoginView.swift in Sources */,
-				E4CEEF6E2BF97AB800BB3B3B /* CreateSetBody.swift in Sources */,
+				E4CEEF6E2BF97AB800BB3B3B /* CreateSet.swift in Sources */,
 				E4CEEF682BF9265000BB3B3B /* SetRepository.swift in Sources */,
 				25F67D322BAC00F9007406FC /* ImageView.swift in Sources */,
 				25862EB92BBA2F2400FC4225 /* CommentCell.swift in Sources */,

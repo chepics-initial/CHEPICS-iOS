@@ -113,7 +113,7 @@ struct TopicSetListView: View {
             }
         }
         .onAppear {
-            Task { await viewModel.fetchSets() }
+            Task { await viewModel.onAppear() }
         }
         .alert("このセットを選択しますか？", isPresented: $showConfirmAlert, actions: {
             Button {
