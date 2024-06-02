@@ -40,10 +40,19 @@ import SwiftUI
     
     func onTapSubmitButton() async {
         isLoading = true
-        try! await Task.sleep(nanoseconds: 1_000_000_000)
+        let result = await createTopicUseCase.createTopic(title: title)
         isLoading = false
+        switch result {
+        case .success(let success):
+            return
+        case .failure(let failure):
+            print("DEBUG: error is \(failure.localizedDescription)")
+        }
     }
 }
 
 final class CreateTopicUseCase_Previews: CreateTopicUseCase {
+    func createTopic(title: String) async -> Result<Void, APIError> {
+        .success(())
+    }
 }

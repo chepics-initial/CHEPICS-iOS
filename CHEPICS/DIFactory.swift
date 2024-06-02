@@ -95,6 +95,10 @@ extension DIFactory {
         CompleteRegistrationUseCaseImpl(authRepository: sharedAuthRepository)
     }
     
+    static func editProfileUseCase() -> some EditProfileUseCase {
+        EditProfileUseCaseImpl(userRepository: sharedUserRepository)
+    }
+    
     // MARK: - Repository
     static let sharedTopicRepository: some TopicRepository = TopicRepositoryImpl(topicDataSource: sharedTopicDataSource, tokenDataSource: sharedTokenDataSource)
     

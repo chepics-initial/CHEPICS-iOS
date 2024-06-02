@@ -15,4 +15,8 @@ final class UserRemoteSource: UserDataSource {
     func fetchUser(userId: String) async -> Result<User, APIError> {
         await API.request(ServerDirection.production.urlString(for: .user), responseType: User.self, queryParameters: ["user_id": userId])
     }
+    
+    func updateUser(username: String, fullname: String) async -> Result<Void, APIError> {
+        await API.updateUser(username: username, fullname: fullname, ServerDirection.production.urlString(for: .updateUser), responseType: String.self).map { _ in }
+    }
 }

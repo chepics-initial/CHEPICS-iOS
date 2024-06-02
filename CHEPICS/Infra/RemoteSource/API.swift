@@ -145,6 +145,40 @@ enum API {
         }
     }
     
+    static func updateUser<T: Decodable>(
+        username: String,
+        fullname: String,
+        _ baseURLString: String,
+        responseType: T.Type
+    ) async -> Result<T, APIError> {
+        let headers = getHeaders()
+        return await AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(username.data(using: .utf8)!, withName: "user_name")
+            multipartFormData.append(fullname.data(using: .utf8)!, withName: "display_name")
+        }, to: baseURLString, method: .post, headers: HTTPHeaders(headers))
+        .handleRequest(
+            responseType: responseType,
+            decoder: decoder,
+            validation: makeValidation()
+        )
+    }
+    
+    static func createTopic<T: Decodable>(
+        title: String,
+        _ baseURLString: String,
+        responseType: T.Type
+    ) async -> Result<T, APIError> {
+        let headers = getHeaders()
+        return await AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(title.data(using: .utf8)!, withName: "topic_name")
+        }, to: baseURLString, method: .post, headers: HTTPHeaders(headers))
+        .handleRequest(
+            responseType: responseType,
+            decoder: decoder,
+            validation: makeValidation()
+        )
+    }
+    
     static func getHeaders() -> [String: String] {
         var headers = [String: String]()
         if let accessToken = UserDefaults.standard.accessToken {

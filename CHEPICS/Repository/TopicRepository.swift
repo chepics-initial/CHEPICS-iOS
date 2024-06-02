@@ -11,6 +11,7 @@ protocol TopicRepository {
     func fetchFavoriteTopics(offset: Int?) async -> Result<[Topic], APIError>
     func fetchUserTopics(userId: String, offset: Int?) async -> Result<[Topic], APIError>
     func fetchTopic(topicId: String) async -> Result<Topic, APIError>
+    func createTopic(title: String) async -> Result<Void, APIError>
 }
 
 final class TopicRepositoryImpl: TopicRepository {
@@ -32,6 +33,10 @@ final class TopicRepositoryImpl: TopicRepository {
     
     func fetchTopic(topicId: String) async -> Result<Topic, APIError> {
         await resultHandle(result: topicDataSource.fetchTopic(topicId: topicId))
+    }
+    
+    func createTopic(title: String) async -> Result<Void, APIError> {
+        await resultHandle(result: topicDataSource.createTopic(title: title))
     }
     
     private func resultHandle<T>(result: Result<T, APIError>) -> Result<T, APIError> {

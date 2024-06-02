@@ -118,7 +118,7 @@ struct ProfileView: View {
         }
         .fullScreenCover(isPresented: $showEditView) {
             NavigationStack {
-                EditProfileView(viewModel: EditProfileViewModel(user: viewModel.user))
+                EditProfileView(viewModel: EditProfileViewModel(user: viewModel.user, editProfileUseCase: DIFactory.editProfileUseCase()))
             }
         }
     }

@@ -8,6 +8,7 @@
 import Foundation
 
 protocol CreateTopicUseCase {
+    func createTopic(title: String) async -> Result<Void, APIError>
 }
 
 final class CreateTopicUseCaseImpl: CreateTopicUseCase {
@@ -15,5 +16,9 @@ final class CreateTopicUseCaseImpl: CreateTopicUseCase {
     
     init(topicRepository: some TopicRepository) {
         self.topicRepository = topicRepository
+    }
+    
+    func createTopic(title: String) async -> Result<Void, APIError> {
+        await topicRepository.createTopic(title: title)
     }
 }

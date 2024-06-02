@@ -26,6 +26,7 @@ enum ServerAPI: String {
     case createRefreshToken = "/auth/token/refresh"
     case login = "/auth/login"
     case user = "/user"
+    case updateUser = "/user/update"
     case userTopics = "/user/topics"
     case userComments = "/user/comments"
     case topics = "/topics/recommended"
