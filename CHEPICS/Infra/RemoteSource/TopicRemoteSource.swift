@@ -32,7 +32,7 @@ final class TopicRemoteSource: TopicDataSource {
         await API.request(ServerDirection.production.urlString(for: .topic), responseType: Topic.self, queryParameters: ["topic_id": topicId])
     }
     
-    func createTopic(title: String) async -> Result<Void, APIError> {
-        await API.createTopic(title: title, ServerDirection.production.urlString(for: .topic), responseType: CreateTopicResponse.self).map { _ in }
+    func createTopic(title: String, link: String?, description: String?, images: [Data]?) async -> Result<Void, APIError> {
+        await API.createTopic(title: title, link: link, description: description, images: images, ServerDirection.production.urlString(for: .topic), responseType: CreateTopicResponse.self).map { _ in }
     }
 }

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct TopicCell: View {
     @Environment(\.colorScheme) var colorScheme

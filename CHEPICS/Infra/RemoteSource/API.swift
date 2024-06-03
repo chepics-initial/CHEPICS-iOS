@@ -165,12 +165,27 @@ enum API {
     
     static func createTopic<T: Decodable>(
         title: String,
+        link: String?,
+        description: String?,
+        images: [Data]?,
         _ baseURLString: String,
         responseType: T.Type
     ) async -> Result<T, APIError> {
         let headers = getHeaders()
         return await AF.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(title.data(using: .utf8)!, withName: "topic_name")
+            if let link {
+                multipartFormData.append(link.data(using: .utf8)!, withName: "topic_link")
+            }
+            if let description {
+                multipartFormData.append(description.data(using: .utf8)!, withName: "topic_description")
+            }
+            if let images {
+                for (index, image) in images.enumerated() {
+                    multipartFormData.append(Data(String(index + 1).utf8), withName: "topic_images[\(index)][seq_no]")
+                    multipartFormData.append(image, withName: "topic_images[\(index)][image_file]", fileName: "image\(index).jpg", mimeType: "image/jpeg")
+                }
+            }
         }, to: baseURLString, method: .post, headers: HTTPHeaders(headers))
         .handleRequest(
             responseType: responseType,

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CreateTopicUseCase {
-    func createTopic(title: String) async -> Result<Void, APIError>
+    func createTopic(title: String, link: String?, description: String?, images: [Data]?) async -> Result<Void, APIError>
 }
 
 final class CreateTopicUseCaseImpl: CreateTopicUseCase {
@@ -18,7 +18,7 @@ final class CreateTopicUseCaseImpl: CreateTopicUseCase {
         self.topicRepository = topicRepository
     }
     
-    func createTopic(title: String) async -> Result<Void, APIError> {
-        await topicRepository.createTopic(title: title)
+    func createTopic(title: String, link: String?, description: String?, images: [Data]?) async -> Result<Void, APIError> {
+        await topicRepository.createTopic(title: title, link: link, description: description, images: images)
     }
 }

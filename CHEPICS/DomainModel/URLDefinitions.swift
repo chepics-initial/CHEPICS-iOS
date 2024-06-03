@@ -13,7 +13,7 @@ enum ServerDirection: String {
     var domain: String {
         rawValue
     }
-
+    
     public func urlString(for api: ServerAPI) -> String {
         domain + api.rawValue
     }

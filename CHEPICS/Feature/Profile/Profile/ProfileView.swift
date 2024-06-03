@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct ProfileView: View {
     @EnvironmentObject var mainTabViewModel: MainTabViewModel
