@@ -10,6 +10,7 @@ import Foundation
 protocol UserRepository {
     func getUserId() -> String
     func fetchUser(userId: String) async -> Result<User, APIError>
+    func follow(_: FollowBody) async -> Result<Bool, APIError>
 }
 
 final class UserRepositoryImpl: UserRepository {
@@ -33,6 +34,10 @@ final class UserRepositoryImpl: UserRepository {
     
     func getUserId() -> String {
         userStoreDataSource.getUserId()
+    }
+    
+    func follow(_ body: FollowBody) async -> Result<Bool, APIError> {
+        await resultHandle(result: userDataSource.follow(body))
     }
     
     private func resultHandle<T>(result: Result<T, APIError>) -> Result<T, APIError> {

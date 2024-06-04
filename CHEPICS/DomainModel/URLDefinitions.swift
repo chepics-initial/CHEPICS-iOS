@@ -38,4 +38,5 @@ enum ServerAPI: String {
     case comment = "/comment"
     case replies = "/comments/children"
     case like = "/comment/like"
+    case follow = "/follow"
 }

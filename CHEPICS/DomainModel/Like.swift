@@ -27,11 +27,10 @@ struct LikeResponse: Decodable {
     let isLiked: Bool
     let count: Int
     
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.commentId = try container.decode(String.self, forKey: .commentId)
-        self.isLiked = try container.decode(Bool.self, forKey: .isLiked)
-        self.count = try container.decode(Int.self, forKey: .count)
+    init(commentId: String, isLiked: Bool, count: Int) {
+        self.commentId = commentId
+        self.isLiked = isLiked
+        self.count = count
     }
     
     enum CodingKeys: String, CodingKey {
