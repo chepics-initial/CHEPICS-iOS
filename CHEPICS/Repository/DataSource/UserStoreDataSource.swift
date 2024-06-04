@@ -10,4 +10,6 @@ import Foundation
 protocol UserStoreDataSource {
     func getUserId() -> String
     func storeUserId(userId: String)
+    func storeUserData(data: UserData)
+    func getUserData() -> UserData?
 }
