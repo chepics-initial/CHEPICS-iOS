@@ -28,4 +28,16 @@ extension View {
         let window = UIApplication.shared.connectedScenes.first as? UIWindowScene
         return window?.screen.bounds ?? .zero
     }
+    
+    func networkError(_ isPresented: Binding<Bool>, closeAction: (() -> Void)? = nil) -> some View {
+        alert("通信エラー", isPresented: isPresented, actions: {
+            Button {
+                closeAction?()
+            } label: {
+                Text("OK")
+            }
+        }, message: {
+            Text("インターネット環境を確認して、もう一度お試しください。")
+        })
+    }
 }
