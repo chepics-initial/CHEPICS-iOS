@@ -28,7 +28,7 @@ extension DIFactory {
     }
     
     static func nameRegistrationUseCase() -> some NameRegistrationUseCase {
-        NameRegistrationUseCaseImpl()
+        NameRegistrationUseCaseImpl(userRepository: sharedUserRepository)
     }
     
     static func feedUseCase() -> some FeedUseCase {
@@ -88,7 +88,7 @@ extension DIFactory {
     }
     
     static func iconRegistrationUseCase() -> some IconRegistrationUseCase {
-        IconRegistrationUseCaseImpl(authRepository: sharedAuthRepository)
+        IconRegistrationUseCaseImpl(authRepository: sharedAuthRepository, userRepository: sharedUserRepository)
     }
     
     static func completeRegistrationUseCase() -> some CompleteRegistrationUseCase {
