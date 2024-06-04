@@ -76,14 +76,8 @@ struct CreateSetView: View {
 
             }
         }
-        .alert("通信エラー", isPresented: $viewModel.showAlert, actions: {
-            Button {
-                isFocused = true
-            } label: {
-                Text("OK")
-            }
-        }, message: {
-            Text("インターネット環境を確認して、もう一度お試しください。")
+        .networkError($viewModel.showAlert, closeAction: {
+            isFocused = true
         })
     }
 }

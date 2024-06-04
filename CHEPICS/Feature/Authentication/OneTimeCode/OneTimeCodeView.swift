@@ -77,14 +77,8 @@ struct OneTimeCodeView: View {
         }
         .modifier(ToastModifier(showToast: $viewModel.showResendToast, text: "認証コードを再送信しました"))
         .modifier(ToastModifier(showToast: $viewModel.showResendFailureToast, text: "認証コードの再送信に失敗しました"))
-        .alert("通信エラー", isPresented: $viewModel.showFailureAlert, actions: {
-            Button {
-                isFocused = true
-            } label: {
-                Text("OK")
-            }
-        }, message: {
-            Text("インターネット環境を確認して、もう一度お試しください。")
+        .networkError($viewModel.showFailureAlert, closeAction: {
+            isFocused = true
         })
         .alert("認証に失敗しました", isPresented: $viewModel.showInvalidAlert, actions: {
             Button {

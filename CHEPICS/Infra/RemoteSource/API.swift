@@ -148,6 +148,8 @@ enum API {
     static func updateUser<T: Decodable>(
         username: String,
         fullname: String,
+        bio: String?,
+        image: Data?,
         _ baseURLString: String,
         responseType: T.Type
     ) async -> Result<T, APIError> {
@@ -155,6 +157,14 @@ enum API {
         return await AF.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(username.data(using: .utf8)!, withName: "user_name")
             multipartFormData.append(fullname.data(using: .utf8)!, withName: "display_name")
+            if let bio {
+                multipartFormData.append(bio.data(using: .utf8)!, withName: "bio")
+            }
+            if let image {
+                multipartFormData.append(image, withName: "user_image", fileName: "image.jpg", mimeType: "image/jpeg")
+            }
+            let isUpdated = image != nil ? "true" : "false"
+            multipartFormData.append(Data(isUpdated.utf8), withName: "is_update_user_image")
         }, to: baseURLString, method: .post, headers: HTTPHeaders(headers))
         .handleRequest(
             responseType: responseType,

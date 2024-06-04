@@ -13,8 +13,10 @@ import PhotosUI
     @Published var username: String = ""
     @Published var fullname: String = ""
     @Published var bio: String = ""
+    @Published var showAlert = false
+    @Published private(set) var isLoading = false
     @Published private(set) var isCompleted = false
-    @Published private(set) var profileImage: Image?
+    @Published private(set) var profileImage: UIImage?
     @Published private(set) var profileImageUrl: String?
     var selectedItem: PhotosPickerItem? {
         didSet { Task { await loadImage() } }
@@ -40,27 +42,38 @@ import PhotosUI
     }
     
     func onTapSaveButton() async {
-        let result = await editProfileUseCase.updateUser(username: username, fullname: fullname)
-        switch result {
-        case .success(let success):
-            return
-        case .failure(let failure):
-            print("DEBUG: error is \(failure.localizedDescription)")
+        isLoading = true
+        var imageData: Data?
+        if let profileImage {
+            guard let data = profileImage.jpegData(compressionQuality: 0.8) else {
+                isLoading = false
+                return
+            }
+            imageData = data
         }
-//        isCompleted = true
+        let result = await editProfileUseCase.updateUser(username: username, fullname: fullname, bio: !bio.isEmpty ? bio : nil, image: imageData)
+        isLoading = false
+        switch result {
+        case .success:
+            isCompleted = true
+        case .failure(let error):
+            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
+                return
+            }
+            showAlert = true
+        }
     }
     
     private func loadImage() async {
         guard let item = selectedItem else { return }
         
         guard let data = try? await item.loadTransferable(type: Data.self) else { return }
-        guard let uiImage = UIImage(data: data) else { return }
-        profileImage = Image(uiImage: uiImage)
+        profileImage = UIImage(data: data)
     }
 }
 
 final class EditProfileUseCase_Previews: EditProfileUseCase {
-    func updateUser(username: String, fullname: String) async -> Result<Void, APIError> {
+    func updateUser(username: String, fullname: String, bio: String?, image: Data?) async -> Result<Void, APIError> {
         .success(())
     }
 }

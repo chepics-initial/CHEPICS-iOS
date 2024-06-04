@@ -20,7 +20,7 @@ struct EditProfileView: View {
                     PhotosPicker(selection: $viewModel.selectedItem, matching: .any(of: [.images, .not(.videos)])) {
                         ZStack(alignment: .bottomTrailing) {
                             if let profileImage = viewModel.profileImage {
-                                profileImage
+                                Image(uiImage: profileImage)
                                     .resizable()
                                     .scaledToFill()
                                     .frame(width: 96, height: 96)
@@ -97,7 +97,12 @@ struct EditProfileView: View {
                     }
                 }
             }
+            
+            if viewModel.isLoading {
+                LoadingView()
+            }
         }
+        .networkError($viewModel.showAlert)
         .navigationTitle("プロフィール編集")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
