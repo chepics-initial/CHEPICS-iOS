@@ -21,6 +21,8 @@
 		251FE4372BC8EFA3008C3254 /* CheckCodeBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251FE4362BC8EFA3008C3254 /* CheckCodeBody.swift */; };
 		251FE43E2BCE3938008C3254 /* ExploreTopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251FE43D2BCE3938008C3254 /* ExploreTopViewModel.swift */; };
 		25270D9D2C0EB9FA00E6F517 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25270D9C2C0EB9FA00E6F517 /* UserData.swift */; };
+		25270D972C0DBF4200E6F517 /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25270D962C0DBF4200E6F517 /* Like.swift */; };
+		25270D992C0DC67500E6F517 /* Follow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25270D982C0DC67500E6F517 /* Follow.swift */; };
 		252D71212BA7FFB100485877 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252D71202BA7FFB000485877 /* AppDelegate.swift */; };
 		252D71322BA83ED200485877 /* HeaderKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252D71312BA83ED200485877 /* HeaderKeys.swift */; };
 		252D71392BA913C600485877 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252D71382BA913C600485877 /* MainTabView.swift */; };
@@ -211,6 +213,8 @@
 		251FE4362BC8EFA3008C3254 /* CheckCodeBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckCodeBody.swift; sourceTree = "<group>"; };
 		251FE43D2BCE3938008C3254 /* ExploreTopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTopViewModel.swift; sourceTree = "<group>"; };
 		25270D9C2C0EB9FA00E6F517 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		25270D962C0DBF4200E6F517 /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
+		25270D982C0DC67500E6F517 /* Follow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follow.swift; sourceTree = "<group>"; };
 		252D71202BA7FFB000485877 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		252D71312BA83ED200485877 /* HeaderKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderKeys.swift; sourceTree = "<group>"; };
 		252D71382BA913C600485877 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -621,8 +625,10 @@
 				E48B3F292C0B23A900542868 /* CreateTopicResponse.swift */,
 				E457A0452BCA60CC003DFB9F /* CreateUserBody.swift */,
 				251FE42F2BC7A164008C3254 /* ErrorResponse.swift */,
+				25270D982C0DC67500E6F517 /* Follow.swift */,
 				252D71312BA83ED200485877 /* HeaderKeys.swift */,
 				6916B3832BAAD5AB009A8670 /* Items.swift */,
+				25270D962C0DBF4200E6F517 /* Like.swift */,
 				E457A0D92BCF9B62003DFB9F /* LoginBody.swift */,
 				6916B38D2BAADBC4009A8670 /* PickSet.swift */,
 				E4CEEF712BF9877100BB3B3B /* PickSetBody.swift */,
@@ -1207,6 +1213,7 @@
 				E460BEC22BE4CE6B006E4812 /* MyPageTopUseCase.swift in Sources */,
 				256CFEEF2BDBAE900000709E /* SearchRepository.swift in Sources */,
 				69EC794F2B8B644F0096AA55 /* NameRegistrationUseCase.swift in Sources */,
+				25270D972C0DBF4200E6F517 /* Like.swift in Sources */,
 				251FE4302BC7A164008C3254 /* ErrorResponse.swift in Sources */,
 				6916B3842BAAD5AB009A8670 /* Items.swift in Sources */,
 				6916B38E2BAADBC4009A8670 /* PickSet.swift in Sources */,
@@ -1254,6 +1261,7 @@
 				69EC79352B8ABE750096AA55 /* PasswordRegistrationView.swift in Sources */,
 				2599A4902BE4B17100AFC8E0 /* UserStoreLocalSource.swift in Sources */,
 				2566F53B2B89FB4900CAD739 /* OneTimeCodeView.swift in Sources */,
+				25270D992C0DC67500E6F517 /* Follow.swift in Sources */,
 				256C67172BAD6BB500260ADE /* ProfileUseCase.swift in Sources */,
 				252D71552BABEBF600485877 /* GridImagesView.swift in Sources */,
 				E4CEEF6A2BF9268300BB3B3B /* SetDataSource.swift in Sources */,
@@ -1443,7 +1451,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.21;
+				CURRENT_PROJECT_VERSION = 0.0.22;
 				DEVELOPMENT_ASSET_PATHS = "\"CHEPICS/Preview Content\"";
 				DEVELOPMENT_TEAM = 5H954Y6JS7;
 				ENABLE_PREVIEWS = YES;
@@ -1477,7 +1485,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.0.21;
+				CURRENT_PROJECT_VERSION = 0.0.22;
 				DEVELOPMENT_ASSET_PATHS = "\"CHEPICS/Preview Content\"";
 				DEVELOPMENT_TEAM = 5H954Y6JS7;
 				ENABLE_PREVIEWS = YES;

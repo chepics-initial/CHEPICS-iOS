@@ -26,4 +26,8 @@ final class UserRemoteSource: UserDataSource {
             responseType: String.self
         ).map { _ in }
     }
+    
+    func follow(_ body: FollowBody) async -> Result<Bool, APIError> {
+        await API.postRequest(ServerDirection.production.urlString(for: .follow), responseType: FollowResponse.self, httpBody: body).map(\.isFollow)
+    }
 }

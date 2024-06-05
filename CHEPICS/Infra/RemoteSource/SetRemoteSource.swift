@@ -12,8 +12,12 @@ final class SetRemoteSource: SetDataSource {
     
     private init() {}
     
-    func fetchSets(topicId: String) async -> Result<[PickSet], APIError> {
-        await API.request(ServerDirection.production.urlString(for: .topicSets), responseType: Items<PickSet>.self, queryParameters: ["topic_id": topicId]).map(\.items)
+    func fetchSets(topicId: String, offset: Int?) async -> Result<[PickSet], APIError> {
+        var query: [String: Any] = ["topic_id": topicId]
+        if let offset {
+            query["offset"] = offset
+        }
+        return await API.request(ServerDirection.production.urlString(for: .topicSets), responseType: Items<PickSet>.self, queryParameters: query).map(\.items)
     }
     
     func createSet(body: CreateSetBody) async -> Result<Void, APIError> {

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol SetRepository {
-    func fetchSets(topicId: String) async -> Result<[PickSet], APIError>
+    func fetchSets(topicId: String, offset: Int?) async -> Result<[PickSet], APIError>
     func createSet(body: CreateSetBody) async -> Result<Void, APIError>
     func pickSet(body: PickSetBody) async -> Result<PickSet, APIError>
     func fetchSet(setId: String) async -> Result<PickSet, APIError>
@@ -23,8 +23,8 @@ final class SetRepositoryImpl: SetRepository {
         self.tokenDataSource = tokenDataSource
     }
     
-    func fetchSets(topicId: String) async -> Result<[PickSet], APIError> {
-        await resultHandle(result: setDataSource.fetchSets(topicId: topicId))
+    func fetchSets(topicId: String, offset: Int?) async -> Result<[PickSet], APIError> {
+        await resultHandle(result: setDataSource.fetchSets(topicId: topicId, offset: offset))
     }
     
     func createSet(body: CreateSetBody) async -> Result<Void, APIError> {
