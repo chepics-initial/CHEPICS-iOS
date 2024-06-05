@@ -23,7 +23,7 @@ final class UserRemoteSource: UserDataSource {
             bio: bio,
             image: image,
             ServerDirection.production.urlString(for: .updateUser),
-            responseType: String.self
+            responseType: UpdateUserResponse.self
         ).map { _ in }
     }
     
