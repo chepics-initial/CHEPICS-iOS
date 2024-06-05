@@ -11,7 +11,9 @@ struct ContentView: View {
     @StateObject var viewModel: ContentViewModel
     
     var body: some View {
-        if viewModel.isLoggedIn {
+        if viewModel.isSplashProgress {
+            SplashView(viewModel: SplashViewModel(splashUseCase: DIFactory.splashUseCase()))
+        } else if viewModel.isLoggedIn {
             MainTabView(viewModel: MainTabViewModel(mainTabUseCase: DIFactory.mainTabUseCase()))
         } else {
             NavigationStack {
@@ -22,5 +24,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(viewModel: ContentViewModel(tokenUseCase: TokenUseCase_Previews()))
+    ContentView(viewModel: ContentViewModel(tokenUseCase: TokenUseCase_Previews(), splashUseCase: SplashUseCase_Previews()))
 }

@@ -136,6 +136,14 @@
 		E48B3F2C2C0B280C00542868 /* EditProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F2B2C0B280C00542868 /* EditProfileUseCase.swift */; };
 		E48B3F2E2C1074D800542868 /* UpdateUserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F2D2C1074D800542868 /* UpdateUserResponse.swift */; };
 		E48B3F312C1079E200542868 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E48B3F302C1079E200542868 /* Kingfisher */; };
+		E48B3F342C10917500542868 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = E48B3F332C10917500542868 /* Lottie */; };
+		E48B3F362C10927D00542868 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F352C10927D00542868 /* SplashView.swift */; };
+		E48B3F3C2C1093C800542868 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F3B2C1093C800542868 /* SplashViewModel.swift */; };
+		E48B3F3E2C1093F700542868 /* SplashUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F3D2C1093F700542868 /* SplashUseCase.swift */; };
+		E48B3F402C10940C00542868 /* SplashRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F3F2C10940C00542868 /* SplashRepository.swift */; };
+		E48B3F422C10941E00542868 /* SplashDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F412C10941E00542868 /* SplashDataSource.swift */; };
+		E48B3F442C1094B500542868 /* SplashLocalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F432C1094B500542868 /* SplashLocalSource.swift */; };
+		E48B3F482C109DB100542868 /* ChepicsSplash.json in Resources */ = {isa = PBXBuildFile; fileRef = E48B3F472C109DB100542868 /* ChepicsSplash.json */; };
 		E49366232BBD05830093D286 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = E49366222BBD05830093D286 /* Nuke */; };
 		E49366252BBD05830093D286 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = E49366242BBD05830093D286 /* NukeUI */; };
 		E49366272BC0B6670093D286 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49366262BC0B6670093D286 /* Comment.swift */; };
@@ -328,6 +336,13 @@
 		E48B3F292C0B23A900542868 /* CreateTopicResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTopicResponse.swift; sourceTree = "<group>"; };
 		E48B3F2B2C0B280C00542868 /* EditProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileUseCase.swift; sourceTree = "<group>"; };
 		E48B3F2D2C1074D800542868 /* UpdateUserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserResponse.swift; sourceTree = "<group>"; };
+		E48B3F352C10927D00542868 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		E48B3F3B2C1093C800542868 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
+		E48B3F3D2C1093F700542868 /* SplashUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashUseCase.swift; sourceTree = "<group>"; };
+		E48B3F3F2C10940C00542868 /* SplashRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashRepository.swift; sourceTree = "<group>"; };
+		E48B3F412C10941E00542868 /* SplashDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashDataSource.swift; sourceTree = "<group>"; };
+		E48B3F432C1094B500542868 /* SplashLocalSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashLocalSource.swift; sourceTree = "<group>"; };
+		E48B3F472C109DB100542868 /* ChepicsSplash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ChepicsSplash.json; path = ../../../../Downloads/ChepicsSplash.json; sourceTree = "<group>"; };
 		E49366262BC0B6670093D286 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E49366282BC0B7E50093D286 /* CommentImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentImage.swift; sourceTree = "<group>"; };
 		E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHEPICS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -370,6 +385,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E48B3F312C1079E200542868 /* Kingfisher in Frameworks */,
+				E48B3F342C10917500542868 /* Lottie in Frameworks */,
 				251FE42A2BC79C85008C3254 /* Alamofire in Frameworks */,
 				E49366232BBD05830093D286 /* Nuke in Frameworks */,
 				E457A04F2BCA6A7B003DFB9F /* KeychainAccess in Frameworks */,
@@ -520,6 +536,7 @@
 				E4CEEF4C2BF0B3BE00BB3B3B /* Modifier */,
 				E460BEBC2BE4CD57006E4812 /* MyPage */,
 				25F67D732BAD0AD5007406FC /* Profile */,
+				E48B3F3A2C1093B500542868 /* Splash */,
 				252D71372BA913B400485877 /* Tab */,
 				2599A4D62BF2E4AD00AFC8E0 /* Topic */,
 			);
@@ -545,6 +562,7 @@
 				E48B3F0E2BFE1C6700542868 /* SetCommentDetailUseCase.swift */,
 				E48B3F172C02C27500542868 /* CreateCommentUseCase.swift */,
 				E48B3F2B2C0B280C00542868 /* EditProfileUseCase.swift */,
+				E48B3F3D2C1093F700542868 /* SplashUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -560,6 +578,7 @@
 				6916B3962BAAE3CA009A8670 /* TopicRepository.swift */,
 				256CFEF32BE202820000709E /* UserRepository.swift */,
 				2583F2402B6F6B5C00E68CAD /* DataSource */,
+				E48B3F3F2C10940C00542868 /* SplashRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -586,6 +605,7 @@
 				6916B3922BAAE30E009A8670 /* TopicDataSource.swift */,
 				256CFEF52BE202BF0000709E /* UserDataSource.swift */,
 				2599A48D2BE4B15100AFC8E0 /* UserStoreDataSource.swift */,
+				E48B3F412C10941E00542868 /* SplashDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -597,6 +617,7 @@
 				251FE4202BC764C6008C3254 /* UserDefaults+Infra.swift */,
 				E457A0502BCA6BAF003DFB9F /* KeychainAccess.swift */,
 				2599A48F2BE4B17100AFC8E0 /* UserStoreLocalSource.swift */,
+				E48B3F432C1094B500542868 /* SplashLocalSource.swift */,
 			);
 			path = LocalSource;
 			sourceTree = "<group>";
@@ -873,6 +894,24 @@
 			path = CreateComment;
 			sourceTree = "<group>";
 		};
+		E48B3F372C1092DB00542868 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				E48B3F472C109DB100542868 /* ChepicsSplash.json */,
+				E4C6BE162B6F68F2003B56AD /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		E48B3F3A2C1093B500542868 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				E48B3F352C10927D00542868 /* SplashView.swift */,
+				E48B3F3B2C1093C800542868 /* SplashViewModel.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
 		E4C6BE062B6F68ED003B56AD = {
 			isa = PBXGroup;
 			children = (
@@ -902,13 +941,13 @@
 				E4C6BE142B6F68EE003B56AD /* ContentView.swift */,
 				2599A4932BE4B6D700AFC8E0 /* ContentViewModel.swift */,
 				2566F52A2B898D6300CAD739 /* DIFactory.swift */,
-				E4C6BE162B6F68F2003B56AD /* Assets.xcassets */,
 				2583F2432B6F6B9400E68CAD /* DomainModel */,
 				2583F23C2B6F6B2400E68CAD /* Feature */,
 				2583F23F2B6F6B5700E68CAD /* Infra */,
 				6916B38F2BAADD73009A8670 /* Mock */,
 				E4C6BE182B6F68F2003B56AD /* Preview Content */,
 				2583F23E2B6F6B4400E68CAD /* Repository */,
+				E48B3F372C1092DB00542868 /* Resource */,
 				2566F5442B8AA62100CAD739 /* UICommon */,
 				2583F23D2B6F6B2B00E68CAD /* UseCase */,
 			);
@@ -1025,6 +1064,7 @@
 				251FE4292BC79C85008C3254 /* Alamofire */,
 				E457A04E2BCA6A7B003DFB9F /* KeychainAccess */,
 				E48B3F302C1079E200542868 /* Kingfisher */,
+				E48B3F332C10917500542868 /* Lottie */,
 			);
 			productName = CHEPICS;
 			productReference = E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */;
@@ -1104,6 +1144,7 @@
 				251FE4282BC79C85008C3254 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				E457A04D2BCA6A7B003DFB9F /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				E48B3F2F2C1079E200542868 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				E48B3F322C10917500542868 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = E4C6BE102B6F68EE003B56AD /* Products */;
 			projectDirPath = "";
@@ -1121,6 +1162,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E48B3F482C109DB100542868 /* ChepicsSplash.json in Resources */,
 				E4C6BE1A2B6F68F2003B56AD /* Preview Assets.xcassets in Resources */,
 				E4C6BE172B6F68F2003B56AD /* Assets.xcassets in Resources */,
 			);
@@ -1151,6 +1193,7 @@
 				6916B3882BAAD95C009A8670 /* User.swift in Sources */,
 				251FE4232BC79A10008C3254 /* AuthRepository.swift in Sources */,
 				E460BEC42BE59661006E4812 /* CreateTopicUseCase.swift in Sources */,
+				E48B3F442C1094B500542868 /* SplashLocalSource.swift in Sources */,
 				E49366272BC0B6670093D286 /* Comment.swift in Sources */,
 				69EC79522B8B67B70096AA55 /* CompleteRegistrationView.swift in Sources */,
 				69EC794B2B8B61EA0096AA55 /* NameRegistrationView.swift in Sources */,
@@ -1197,6 +1240,7 @@
 				E4C6BE152B6F68EE003B56AD /* ContentView.swift in Sources */,
 				E4CEEF752BF9959600BB3B3B /* TopicDetailView.swift in Sources */,
 				E460BEB92BE1AC03006E4812 /* EditProfileViewModel.swift in Sources */,
+				E48B3F402C10940C00542868 /* SplashRepository.swift in Sources */,
 				E4CEEF792BF9DC9600BB3B3B /* ErrorView.swift in Sources */,
 				E4CEEF4B2BEF4A0A00BB3B3B /* CommentDetailViewModel.swift in Sources */,
 				252D71532BABBA5A00485877 /* MainTabViewModel.swift in Sources */,
@@ -1219,6 +1263,8 @@
 				2583F2472B6F6CD400E68CAD /* FeedView.swift in Sources */,
 				E460BEC22BE4CE6B006E4812 /* MyPageTopUseCase.swift in Sources */,
 				256CFEEF2BDBAE900000709E /* SearchRepository.swift in Sources */,
+				E48B3F3E2C1093F700542868 /* SplashUseCase.swift in Sources */,
+				E48B3F362C10927D00542868 /* SplashView.swift in Sources */,
 				69EC794F2B8B644F0096AA55 /* NameRegistrationUseCase.swift in Sources */,
 				25270D972C0DBF4200E6F517 /* Like.swift in Sources */,
 				251FE4302BC7A164008C3254 /* ErrorResponse.swift in Sources */,
@@ -1247,6 +1293,7 @@
 				251FE43E2BCE3938008C3254 /* ExploreTopViewModel.swift in Sources */,
 				252D713F2BA91BAA00485877 /* FeedViewModel.swift in Sources */,
 				E460BEB72BE1AB77006E4812 /* EditProfileView.swift in Sources */,
+				E48B3F422C10941E00542868 /* SplashDataSource.swift in Sources */,
 				E457A0D82BCF9130003DFB9F /* TokenStore.swift in Sources */,
 				256CFEED2BDBADD70000709E /* SearchRemoteSource.swift in Sources */,
 				E457A0462BCA60CC003DFB9F /* CreateUserBody.swift in Sources */,
@@ -1293,6 +1340,7 @@
 				E457A04A2BCA61C4003DFB9F /* TokenDataSource.swift in Sources */,
 				2566F5432B8A176A00CAD739 /* APIError.swift in Sources */,
 				E457A0512BCA6BAF003DFB9F /* KeychainAccess.swift in Sources */,
+				E48B3F3C2C1093C800542868 /* SplashViewModel.swift in Sources */,
 				2599A5182BF5BE4600AFC8E0 /* Navigation+Extension.swift in Sources */,
 				251A71AC2BDA13FF002322DD /* UserIconView.swift in Sources */,
 				256CFEF62BE202BF0000709E /* UserDataSource.swift in Sources */,
@@ -1667,6 +1715,14 @@
 				minimumVersion = 7.11.0;
 			};
 		};
+		E48B3F322C10917500542868 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.3;
+			};
+		};
 		E49366212BBD05830093D286 /* XCRemoteSwiftPackageReference "Nuke" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/Nuke";
@@ -1697,6 +1753,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E48B3F2F2C1079E200542868 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		E48B3F332C10917500542868 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E48B3F322C10917500542868 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 		E49366222BBD05830093D286 /* Nuke */ = {
 			isa = XCSwiftPackageProductDependency;

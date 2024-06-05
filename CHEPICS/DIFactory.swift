@@ -99,6 +99,10 @@ extension DIFactory {
         EditProfileUseCaseImpl(userRepository: sharedUserRepository)
     }
     
+    static func splashUseCase() -> some SplashUseCase {
+        SplashUseCaseImpl(splashRepository: sharedSplashRepository)
+    }
+    
     // MARK: - Repository
     static let sharedTopicRepository: some TopicRepository = TopicRepositoryImpl(topicDataSource: sharedTopicDataSource, tokenDataSource: sharedTokenDataSource)
     
@@ -113,6 +117,8 @@ extension DIFactory {
     static let sharedTokenRepository: some TokenRepository = TokenRepositoryImpl(tokenDataSource: sharedTokenDataSource)
     
     static let sharedSetRepository: some SetRepository = SetRepositoryImpl(setDataSource: sharedSetDataSource,tokenDataSource: sharedTokenDataSource)
+    
+    static let sharedSplashRepository: some SplashRepository = SplashRepositoryImpl(splashDataSource: sharedSplashDataSource)
     
     // MARK: - DataSource
     static let sharedTopicDataSource: some TopicDataSource = TopicRemoteSource.shared
@@ -130,4 +136,6 @@ extension DIFactory {
     static let sharedUserStoreDataSource: some UserStoreDataSource = UserStoreLocalSource.shared
     
     static let sharedSetDataSource: some SetDataSource = SetRemoteSource.shared
+    
+    static let sharedSplashDataSource: some SplashDataSource = SplashLocalSource.shared
 }

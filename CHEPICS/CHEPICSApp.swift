@@ -13,7 +13,7 @@ struct CHEPICSApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: ContentViewModel(tokenUseCase: DIFactory.tokenUseCase()))
+            ContentView(viewModel: ContentViewModel(tokenUseCase: DIFactory.tokenUseCase(), splashUseCase: DIFactory.splashUseCase()))
         }
     }
 }
