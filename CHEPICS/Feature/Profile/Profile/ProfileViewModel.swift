@@ -29,6 +29,8 @@ import Foundation
     @Published private(set) var topicUIState: UIState = .loading
     @Published private(set) var commentUIState: UIState = .loading
     @Published private(set) var showError = false
+    @Published private(set) var isFollowing: Bool?
+    @Published private(set) var isEnabled: Bool = true
     private var isTopicFetchStarted = false
     private var isCommentFetchStarted = false
     private var isInitialAppear: Bool = true
@@ -37,6 +39,7 @@ import Foundation
     init(user: User, profileUseCase: some ProfileUseCase) {
         self.profileUseCase = profileUseCase
         self.user = user
+        isFollowing = user.isFollowing
     }
     
     func selectTab(type: ProfileTabType) {
@@ -50,6 +53,7 @@ import Foundation
             switch await profileUseCase.fetchUserInformation(userId: user.id) {
             case .success(let user):
                 self.user = user
+                isFollowing = user.isFollowing
                 switch selectedTab {
                 case .topics:
                     await fetchTopics()
@@ -94,7 +98,18 @@ import Foundation
     }
     
     func onTapFollowButton() async {
-        
+        isEnabled = false
+        let result = await profileUseCase.follow(userId: user.id)
+        isEnabled = true
+        switch result {
+        case .success(let isFollow):
+            isFollowing = isFollow
+        case .failure(let error):
+            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
+                return
+            }
+            showError = true
+        }
     }
 }
 
@@ -127,5 +142,9 @@ final class ProfileUseCase_Previews: ProfileUseCase {
     
     func fetchUserComments(userId: String, offset: Int?) async -> Result<[Comment], APIError> {
         .success([])
+    }
+    
+    func follow(userId: String) async -> Result<Bool, APIError> {
+        .success(true)
     }
 }
