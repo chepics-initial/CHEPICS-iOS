@@ -80,6 +80,7 @@ private struct ImagePagerPage: View {
                             imageSize: fitImageSize,
                             index: index,
                             pagerState: pagerState,
+                            isZoomEnabled: true,
                             onDraggingOver: {
                                 pagerState.moveToDesiredOffset(pageSize: pageSize, additionalOffset: $0)
                             },
@@ -113,6 +114,57 @@ private struct ImagePagerPage: View {
                             }
                         )
                     )
+            } else {
+                ZStack {
+                    Rectangle()
+                        .foregroundStyle(Color(uiColor: .lightGray))
+                        .frame(width: pageSize.width, height: getRect().height / 3)
+                    Image(systemName: "photo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: pageSize.width / 4)
+                        .foregroundColor(.gray)
+                }
+                .modifier(
+                    ImageGestureModifier(
+                        pageSize: pageSize,
+                        imageSize: CGSize(width: getRect().width, height: getRect().height / 3),
+                        index: index,
+                        pagerState: pagerState,
+                        isZoomEnabled: false,
+                        onDraggingOver: {
+                            pagerState.moveToDesiredOffset(pageSize: pageSize, additionalOffset: $0)
+                        },
+                        onDraggingOverEnded: { predictedEndTranslation in
+                            // ✅ 水平方向のドラッグ操作が完了した後、 `predictedEndTranslation` （慣性を考慮した移動量）を基に前後のページへ移動する
+                            let scrollThreshold = pageSize.width / 2.0
+                            withAnimation(.easeOut) {
+                                if predictedEndTranslation.width < -scrollThreshold {
+                                    pagerState.scrollToNextPage(pageSize: pageSize)
+                                } else if predictedEndTranslation.width > scrollThreshold {
+                                    pagerState.scrollToPrevPage(pageSize: pageSize)
+                                } else {
+                                    pagerState.moveToDesiredOffset(pageSize: pageSize)
+                                }
+                            }
+                            
+                            // 垂直方向のドラッグ操作が完了した後、 `predictedEndTranslation` を基に必要に応じて画面を閉じる
+                            let dismisssThreshold = pageSize.height / 4.0
+                            if abs(predictedEndTranslation.height) > dismisssThreshold {
+                                withAnimation(.easeOut) {
+                                    pagerState.invokeDismissTransition(
+                                        pageSize: pageSize,
+                                        predictedEndTranslationY: predictedEndTranslation.height
+                                    )
+                                }
+                                onDismiss()
+                            }
+                        },
+                        onDraggingOverCanceled: {
+                            pagerState.moveToDesiredOffset(pageSize: pageSize)
+                        }
+                    )
+                )
             }
         }
     }
@@ -172,6 +224,7 @@ private struct ImageGestureModifier: ViewModifier {
     let imageSize: CGSize
     let index: Int
     let pagerState: ImagePagerState
+    let isZoomEnabled: Bool
     
     // ✅ 画像端を超えてドラッグした際の移動量をコールバックで受け取れるようにしている
     let onDraggingOver: (CGSize) -> Void
@@ -260,21 +313,40 @@ private struct ImageGestureModifier: ViewModifier {
     }
     
     func body(content: Content) -> some View {
-        content.offset(x: currentOffset.width, y: currentOffset.height)
-            .scaleEffect(currentScale)
-            .clipShape(Rectangle())
-            .gesture(dragGesture)
-            .simultaneousGesture(pinchGesture)
-            .onTapGesture {
-                if currentScale != 1.0 {
-                    withAnimation {
-                        currentScale = 1.0
-                        currentOffset = .zero
-                        unclampedOffset = .zero
-                        draggingOverAxis = nil
+        if isZoomEnabled {
+            content
+                .offset(x: currentOffset.width, y: currentOffset.height)
+                .scaleEffect(currentScale)
+                .clipShape(Rectangle())
+                .gesture(dragGesture)
+                .simultaneousGesture(pinchGesture)
+                .onTapGesture {
+                    if currentScale != 1.0 {
+                        withAnimation {
+                            currentScale = 1.0
+                            currentOffset = .zero
+                            unclampedOffset = .zero
+                            draggingOverAxis = nil
+                        }
                     }
                 }
-            }
+        } else {
+            content
+                .offset(x: currentOffset.width, y: currentOffset.height)
+                .scaleEffect(currentScale)
+                .clipShape(Rectangle())
+                .gesture(dragGesture)
+                .onTapGesture {
+                    if currentScale != 1.0 {
+                        withAnimation {
+                            currentScale = 1.0
+                            currentOffset = .zero
+                            unclampedOffset = .zero
+                            draggingOverAxis = nil
+                        }
+                    }
+                }
+        }
     }
     
     /// ドラッグ操作の移動量から画像の表示位置（オフセット）を確定させる
