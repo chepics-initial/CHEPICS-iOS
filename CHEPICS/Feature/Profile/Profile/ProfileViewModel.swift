@@ -53,6 +53,7 @@ import Foundation
             switch await profileUseCase.fetchUserInformation(userId: user.id) {
             case .success(let user):
                 self.user = user
+                isFollowing = user.isFollowing
                 switch selectedTab {
                 case .topics:
                     await fetchTopics()
