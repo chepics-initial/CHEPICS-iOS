@@ -10,6 +10,7 @@ import Foundation
 protocol UserRepository {
     func getUserId() -> String
     func fetchUser(userId: String) async -> Result<User, APIError>
+    func updateUser(username: String, fullname: String) async -> Result<Void, APIError>
     func follow(_: FollowBody) async -> Result<Bool, APIError>
 }
 
@@ -36,6 +37,10 @@ final class UserRepositoryImpl: UserRepository {
         userStoreDataSource.getUserId()
     }
     
+    func updateUser(username: String, fullname: String) async -> Result<Void, APIError> {
+        await resultHandle(result: userDataSource.updateUser(username: username, fullname: fullname))
+    }
+
     func follow(_ body: FollowBody) async -> Result<Bool, APIError> {
         await resultHandle(result: userDataSource.follow(body))
     }

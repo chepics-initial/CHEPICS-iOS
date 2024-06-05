@@ -60,7 +60,7 @@ extension DIFactory {
     }
     
     static func topicTopUseCase() -> some TopicTopUseCase {
-         TopicTopUseCaseImpl(topicRepository: sharedTopicRepository, commentRepository: sharedCommentRepository)
+        TopicTopUseCaseImpl(topicRepository: sharedTopicRepository, commentRepository: sharedCommentRepository)
     }
     
     static func topicSetListUseCase() -> some TopicSetListUseCase {
@@ -93,6 +93,10 @@ extension DIFactory {
     
     static func completeRegistrationUseCase() -> some CompleteRegistrationUseCase {
         CompleteRegistrationUseCaseImpl(authRepository: sharedAuthRepository)
+    }
+    
+    static func editProfileUseCase() -> some EditProfileUseCase {
+        EditProfileUseCaseImpl(userRepository: sharedUserRepository)
     }
     
     // MARK: - Repository

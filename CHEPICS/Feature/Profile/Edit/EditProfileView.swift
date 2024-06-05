@@ -210,5 +210,5 @@ struct EditProfileView: View {
 }
 
 #Preview {
-    EditProfileView(viewModel: EditProfileViewModel(user: mockUser1))
+    EditProfileView(viewModel: EditProfileViewModel(user: mockUser1, editProfileUseCase: EditProfileUseCase_Previews()))
 }

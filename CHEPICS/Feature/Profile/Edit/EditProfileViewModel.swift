@@ -23,10 +23,11 @@ import PhotosUI
         !username.isEmpty && !fullname.isEmpty && username.count <= Constants.nameCount && fullname.count <= Constants.nameCount
     }
     private let user: User
-
+    private let editProfileUseCase: any EditProfileUseCase
     
-    init(user: User) {
+    init(user: User, editProfileUseCase: some EditProfileUseCase) {
         self.user = user
+        self.editProfileUseCase = editProfileUseCase
     }
     
     func onAppear() {
@@ -39,7 +40,14 @@ import PhotosUI
     }
     
     func onTapSaveButton() async {
-        isCompleted = true
+        let result = await editProfileUseCase.updateUser(username: username, fullname: fullname)
+        switch result {
+        case .success(let success):
+            return
+        case .failure(let failure):
+            print("DEBUG: error is \(failure.localizedDescription)")
+        }
+//        isCompleted = true
     }
     
     private func loadImage() async {
@@ -48,5 +56,11 @@ import PhotosUI
         guard let data = try? await item.loadTransferable(type: Data.self) else { return }
         guard let uiImage = UIImage(data: data) else { return }
         profileImage = Image(uiImage: uiImage)
+    }
+}
+
+final class EditProfileUseCase_Previews: EditProfileUseCase {
+    func updateUser(username: String, fullname: String) async -> Result<Void, APIError> {
+        .success(())
     }
 }

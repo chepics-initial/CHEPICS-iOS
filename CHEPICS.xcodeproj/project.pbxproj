@@ -131,6 +131,8 @@
 		E48B3F202C02EFD400542868 /* CompleteRegistrationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F1F2C02EFD400542868 /* CompleteRegistrationUseCase.swift */; };
 		E48B3F222C02F29400542868 /* CreateCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F212C02F29400542868 /* CreateCode.swift */; };
 		E48B3F262C06B32500542868 /* TokenRefreshBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F252C06B32500542868 /* TokenRefreshBody.swift */; };
+		E48B3F2A2C0B23A900542868 /* CreateTopicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F292C0B23A900542868 /* CreateTopicResponse.swift */; };
+		E48B3F2C2C0B280C00542868 /* EditProfileUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F2B2C0B280C00542868 /* EditProfileUseCase.swift */; };
 		E49366232BBD05830093D286 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = E49366222BBD05830093D286 /* Nuke */; };
 		E49366252BBD05830093D286 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = E49366242BBD05830093D286 /* NukeUI */; };
 		E49366272BC0B6670093D286 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49366262BC0B6670093D286 /* Comment.swift */; };
@@ -319,6 +321,8 @@
 		E48B3F1F2C02EFD400542868 /* CompleteRegistrationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRegistrationUseCase.swift; sourceTree = "<group>"; };
 		E48B3F212C02F29400542868 /* CreateCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCode.swift; sourceTree = "<group>"; };
 		E48B3F252C06B32500542868 /* TokenRefreshBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefreshBody.swift; sourceTree = "<group>"; };
+		E48B3F292C0B23A900542868 /* CreateTopicResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTopicResponse.swift; sourceTree = "<group>"; };
+		E48B3F2B2C0B280C00542868 /* EditProfileUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileUseCase.swift; sourceTree = "<group>"; };
 		E49366262BC0B6670093D286 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E49366282BC0B7E50093D286 /* CommentImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentImage.swift; sourceTree = "<group>"; };
 		E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHEPICS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -534,6 +538,7 @@
 				E48B3F0A2BFE176600542868 /* SetCommentUseCase.swift */,
 				E48B3F0E2BFE1C6700542868 /* SetCommentDetailUseCase.swift */,
 				E48B3F172C02C27500542868 /* CreateCommentUseCase.swift */,
+				E48B3F2B2C0B280C00542868 /* EditProfileUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -568,13 +573,13 @@
 			isa = PBXGroup;
 			children = (
 				251FE4242BC79B79008C3254 /* AuthDataSource.swift */,
+				2599A4892BE478E400AFC8E0 /* CommentDataSource.swift */,
 				256CFEEA2BDBAD7F0000709E /* SearchDataSource.swift */,
+				E4CEEF692BF9268300BB3B3B /* SetDataSource.swift */,
 				E457A0492BCA61C4003DFB9F /* TokenDataSource.swift */,
 				6916B3922BAAE30E009A8670 /* TopicDataSource.swift */,
 				256CFEF52BE202BF0000709E /* UserDataSource.swift */,
-				2599A4892BE478E400AFC8E0 /* CommentDataSource.swift */,
 				2599A48D2BE4B15100AFC8E0 /* UserStoreDataSource.swift */,
-				E4CEEF692BF9268300BB3B3B /* SetDataSource.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -615,6 +620,7 @@
 				E48B3F212C02F29400542868 /* CreateCode.swift */,
 				E4CEEF612BF85DF500BB3B3B /* CreateCommentBody.swift */,
 				E4CEEF6D2BF97AB800BB3B3B /* CreateSet.swift */,
+				E48B3F292C0B23A900542868 /* CreateTopicResponse.swift */,
 				E457A0452BCA60CC003DFB9F /* CreateUserBody.swift */,
 				251FE42F2BC7A164008C3254 /* ErrorResponse.swift */,
 				25270D982C0DC67500E6F517 /* Follow.swift */,
@@ -1257,6 +1263,7 @@
 				E4CEEF6A2BF9268300BB3B3B /* SetDataSource.swift in Sources */,
 				E460BEBE2BE4CD6B006E4812 /* MyPageTopView.swift in Sources */,
 				2599A4882BE4789E00AFC8E0 /* CommentRepository.swift in Sources */,
+				E48B3F2A2C0B23A900542868 /* CreateTopicResponse.swift in Sources */,
 				251FE41F2BC76192008C3254 /* API.swift in Sources */,
 				2566F5462B8AA63D00CAD739 /* UIViewControllerLifeCycleRepresentable.swift in Sources */,
 				2566F52B2B898D6300CAD739 /* DIFactory.swift in Sources */,
@@ -1266,6 +1273,7 @@
 				E4C6BE132B6F68EE003B56AD /* CHEPICSApp.swift in Sources */,
 				E48B3F1A2C02C4D500542868 /* PostImagesView.swift in Sources */,
 				E4CEEF5A2BF44B1700BB3B3B /* CreateSetViewModel.swift in Sources */,
+				E48B3F2C2C0B280C00542868 /* EditProfileUseCase.swift in Sources */,
 				E48B3F0D2BFE1C6000542868 /* SetCommentDetailViewModel.swift in Sources */,
 				25C88DB02B8C33FD002455A3 /* IconRegistrationViewModel.swift in Sources */,
 				E48B3F0B2BFE176600542868 /* SetCommentUseCase.swift in Sources */,

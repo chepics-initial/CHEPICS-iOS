@@ -14,6 +14,9 @@ import SwiftUI
     @Published var title: String = ""
     @Published var description: String = ""
     @Published var link: String = ""
+    @Published private(set) var isCompleted = false
+    @Published var showAlert = false
+    @Published private(set) var selectedImages: [UIImage] = []
     @Published var selectedItems: [PhotosPickerItem] = [] {
         didSet {
             Task {
@@ -27,7 +30,6 @@ import SwiftUI
             }
         }
     }
-    @Published private(set) var selectedImages: [UIImage] = []
     var isActive: Bool {
         isValidInput(title) && title.count <= Constants.topicTitleCount && description.count <= Constants.topicDescriptionCount && (link.isEmpty || isValidUrl(link))
     }
@@ -40,10 +42,30 @@ import SwiftUI
     
     func onTapSubmitButton() async {
         isLoading = true
-        try! await Task.sleep(nanoseconds: 1_000_000_000)
+        var imageData = [Data]()
+        for image in selectedImages {
+            guard let data = image.jpegData(compressionQuality: 0.8) else {
+                isLoading = false
+                return
+            }
+            imageData.append(data)
+        }
+        let result = await createTopicUseCase.createTopic(title: title, link: link, description: description, images: imageData.isEmpty ? nil : imageData)
         isLoading = false
+        switch result {
+        case .success:
+            isCompleted = true
+        case .failure(let error):
+            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
+                return
+            }
+            showAlert = true
+        }
     }
 }
 
 final class CreateTopicUseCase_Previews: CreateTopicUseCase {
+    func createTopic(title: String, link: String?, description: String?, images: [Data]?) async -> Result<Void, APIError> {
+        .success(())
+    }
 }
