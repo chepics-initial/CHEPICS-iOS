@@ -143,7 +143,7 @@
 		E48B3F402C10940C00542868 /* SplashRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F3F2C10940C00542868 /* SplashRepository.swift */; };
 		E48B3F422C10941E00542868 /* SplashDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F412C10941E00542868 /* SplashDataSource.swift */; };
 		E48B3F442C1094B500542868 /* SplashLocalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F432C1094B500542868 /* SplashLocalSource.swift */; };
-		E48B3F482C109DB100542868 /* ChepicsSplash.json in Resources */ = {isa = PBXBuildFile; fileRef = E48B3F472C109DB100542868 /* ChepicsSplash.json */; };
+		E48B3F4A2C111CBC00542868 /* ChepicsSplash.json in Resources */ = {isa = PBXBuildFile; fileRef = E48B3F492C111CBC00542868 /* ChepicsSplash.json */; };
 		E49366232BBD05830093D286 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = E49366222BBD05830093D286 /* Nuke */; };
 		E49366252BBD05830093D286 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = E49366242BBD05830093D286 /* NukeUI */; };
 		E49366272BC0B6670093D286 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49366262BC0B6670093D286 /* Comment.swift */; };
@@ -342,7 +342,7 @@
 		E48B3F3F2C10940C00542868 /* SplashRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashRepository.swift; sourceTree = "<group>"; };
 		E48B3F412C10941E00542868 /* SplashDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashDataSource.swift; sourceTree = "<group>"; };
 		E48B3F432C1094B500542868 /* SplashLocalSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashLocalSource.swift; sourceTree = "<group>"; };
-		E48B3F472C109DB100542868 /* ChepicsSplash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ChepicsSplash.json; path = ../../../../Downloads/ChepicsSplash.json; sourceTree = "<group>"; };
+		E48B3F492C111CBC00542868 /* ChepicsSplash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ChepicsSplash.json; sourceTree = "<group>"; };
 		E49366262BC0B6670093D286 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E49366282BC0B7E50093D286 /* CommentImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentImage.swift; sourceTree = "<group>"; };
 		E4C6BE0F2B6F68EE003B56AD /* CHEPICS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CHEPICS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -897,7 +897,7 @@
 		E48B3F372C1092DB00542868 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				E48B3F472C109DB100542868 /* ChepicsSplash.json */,
+				E48B3F492C111CBC00542868 /* ChepicsSplash.json */,
 				E4C6BE162B6F68F2003B56AD /* Assets.xcassets */,
 			);
 			path = Resource;
@@ -1162,7 +1162,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E48B3F482C109DB100542868 /* ChepicsSplash.json in Resources */,
+				E48B3F4A2C111CBC00542868 /* ChepicsSplash.json in Resources */,
 				E4C6BE1A2B6F68F2003B56AD /* Preview Assets.xcassets in Resources */,
 				E4C6BE172B6F68F2003B56AD /* Assets.xcassets in Resources */,
 			);
