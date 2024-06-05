@@ -47,4 +47,8 @@ final class CommentRemoteSource: CommentDataSource {
     func fetchComment(id: String) async -> Result<Comment, APIError> {
         await API.request(ServerDirection.production.urlString(for: .comment), responseType: Comment.self, queryParameters: ["comment_id": id])
     }
+    
+    func likeComment(_ body: LikeBody) async -> Result<LikeResponse, APIError> {
+        await API.postRequest(ServerDirection.production.urlString(for: .like), responseType: LikeResponse.self, httpBody: body)
+    }
 }

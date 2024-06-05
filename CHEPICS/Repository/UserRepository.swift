@@ -11,6 +11,7 @@ protocol UserRepository {
     func getUserId() -> String
     func fetchUser(userId: String) async -> Result<User, APIError>
     func updateUser(username: String, fullname: String, bio: String?, image: Data?) async -> Result<Void, APIError>
+    func follow(_: FollowBody) async -> Result<Bool, APIError>
 }
 
 final class UserRepositoryImpl: UserRepository {
@@ -38,6 +39,10 @@ final class UserRepositoryImpl: UserRepository {
     
     func updateUser(username: String, fullname: String, bio: String?, image: Data?) async -> Result<Void, APIError> {
         await resultHandle(result: userDataSource.updateUser(username: username, fullname: fullname, bio: bio, image: image))
+    }
+
+    func follow(_ body: FollowBody) async -> Result<Bool, APIError> {
+        await resultHandle(result: userDataSource.follow(body))
     }
     
     private func resultHandle<T>(result: Result<T, APIError>) -> Result<T, APIError> {

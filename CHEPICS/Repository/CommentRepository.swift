@@ -13,6 +13,7 @@ protocol CommentRepository {
     func fetchSetComments(setId: String, offset: Int?) async -> Result<[Comment], APIError>
     func fetchReplies(commentId: String, offset: Int?) async -> Result<[Comment], APIError>
     func fetchComment(id: String) async -> Result<Comment, APIError>
+    func likeComment(_: LikeBody) async -> Result<LikeResponse, APIError>
 }
 
 final class CommentRepositoryImpl: CommentRepository {
@@ -45,6 +46,10 @@ final class CommentRepositoryImpl: CommentRepository {
     
     func fetchComment(id: String) async -> Result<Comment, APIError> {
         await resultHandle(result: commentDataSource.fetchComment(id: id))
+    }
+    
+    func likeComment(_ body: LikeBody) async -> Result<LikeResponse, APIError> {
+        await resultHandle(result: commentDataSource.likeComment(body))
     }
     
     private func resultHandle<T>(result: Result<T, APIError>) -> Result<T, APIError> {

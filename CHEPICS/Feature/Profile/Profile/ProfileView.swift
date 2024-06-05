@@ -34,7 +34,7 @@ struct ProfileView: View {
                                 .foregroundStyle(.chepicsPrimary)
                         }
                         
-                    } else if let isFollowing = viewModel.user.isFollowing {
+                    } else if let isFollowing = viewModel.isFollowing {
                         Button {
                             Task { await viewModel.onTapFollowButton() }
                         } label: {
@@ -48,6 +48,7 @@ struct ProfileView: View {
                                         .foregroundStyle(Color(.chepicsPrimary))
                                 }
                         }
+                        .disabled(!viewModel.isEnabled)
                     }
                 }
                 

@@ -41,7 +41,7 @@ import Foundation
     }
     
     func fetchSets() async {
-        switch await topicSetListUseCase.fetchSets(topicId: topicId) {
+        switch await topicSetListUseCase.fetchSets(topicId: topicId, offset: nil) {
         case .success(let sets):
             self.sets = sets
             uiState = .success
@@ -74,7 +74,7 @@ import Foundation
 }
 
 final class TopicSetListUseCase_Previews: TopicSetListUseCase {
-    func fetchSets(topicId: String) async -> Result<[PickSet], APIError> {
+    func fetchSets(topicId: String, offset: Int?) async -> Result<[PickSet], APIError> {
         .success([])
     }
     
