@@ -8,7 +8,7 @@
 import Foundation
 
 protocol EditProfileUseCase {
-    func updateUser(username: String, fullname: String) async -> Result<Void, APIError>
+    func updateUser(username: String, fullname: String, bio: String?, image: Data?) async -> Result<Void, APIError>
 }
 
 final class EditProfileUseCaseImpl: EditProfileUseCase {
@@ -18,7 +18,7 @@ final class EditProfileUseCaseImpl: EditProfileUseCase {
         self.userRepository = userRepository
     }
     
-    func updateUser(username: String, fullname: String) async -> Result<Void, APIError> {
-        await userRepository.updateUser(username: username, fullname: fullname)
+    func updateUser(username: String, fullname: String, bio: String?, image: Data?) async -> Result<Void, APIError> {
+        await userRepository.updateUser(username: username, fullname: fullname, bio: bio, image: image)
     }
 }

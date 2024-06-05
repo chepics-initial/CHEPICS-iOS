@@ -135,14 +135,7 @@ struct TopicSetListView: View {
         }, message: {
             Text("既に他のセットを選択しているため、そのセット内で行ったコメントやいいねは削除されます。")
         })
-        .alert("通信エラー", isPresented: $viewModel.showAlert, actions: {
-            Button {
-            } label: {
-                Text("OK")
-            }
-        }, message: {
-            Text("インターネット環境を確認して、もう一度お試しください。")
-        })
+        .networkError($viewModel.showAlert)
     }
 }
 
