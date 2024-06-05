@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PhotosUI
+import Kingfisher
 
 struct EditProfileView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -26,24 +27,15 @@ struct EditProfileView: View {
                                     .frame(width: 96, height: 96)
                                     .clipShape(Circle())
                             } else if let profileImageUrl = viewModel.profileImageUrl {
-                                AsyncImage(url: URL(string: profileImageUrl)) { image in
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 96, height: 96)
-                                        .clipShape(Circle())
-                                } placeholder: {
-                                    Image(systemName: "person.fill")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 96, height: 96)
-                                        .foregroundStyle(.gray)
-                                        .padding(24)
-                                        .background {
-                                            Circle()
-                                                .foregroundStyle(Color(.lightGray))
-                                        }
-                                }
+                                KFImage(URL(string: profileImageUrl))
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 96, height: 96)
+                                    .clipShape(Circle())
+                                    .background {
+                                        Circle()
+                                            .foregroundStyle(Color(.lightGray))
+                                    }
                             } else {
                                 Image(systemName: "person.fill")
                                     .resizable()

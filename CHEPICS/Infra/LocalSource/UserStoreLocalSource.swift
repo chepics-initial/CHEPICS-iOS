@@ -9,6 +9,7 @@ import Foundation
 
 final class UserStoreLocalSource: UserStoreDataSource {
     static let shared = UserStoreLocalSource()
+    private var data: UserData?
     
     private init() {}
     
@@ -18,5 +19,13 @@ final class UserStoreLocalSource: UserStoreDataSource {
     
     func storeUserId(userId: String) {
         UserDefaults.standard.userId = userId
+    }
+    
+    func storeUserData(data: UserData) {
+        self.data = data
+    }
+    
+    func getUserData() -> UserData? {
+        data
     }
 }

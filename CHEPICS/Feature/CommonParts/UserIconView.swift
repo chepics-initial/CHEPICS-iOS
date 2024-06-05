@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 enum IconScale {
     case topic
@@ -33,22 +34,15 @@ struct UserIconView: View {
     
     var body: some View {
         if let url {
-            AsyncImage(url: URL(string: url)) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: scale.scaleValue, height: scale.scaleValue)
-                    .clipShape(Circle())
-            } placeholder: {
-                Image(systemName: "person.fill")
-                    .resizable()
-                    .scaledToFill()
-                    .foregroundStyle(.chepicsPrimary)
-                    .padding(12)
-                    .frame(width: scale.scaleValue, height: scale.scaleValue)
-                    .background(.chepicsPrimary.opacity(0.4))
-                    .clipShape(Circle())
-            }
+            KFImage(URL(string: url))
+                .resizable()
+                .scaledToFill()
+                .frame(width: scale.scaleValue, height: scale.scaleValue)
+                .clipShape(Circle())
+                .background {
+                    Circle()
+                        .foregroundStyle(.gray)
+                }
         } else {
             Image(systemName: "person.fill")
                 .resizable()

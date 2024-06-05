@@ -33,6 +33,7 @@ struct NameRegistrationView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                 .padding(.horizontal)
+                .padding(.bottom)
 
             TextField("ユーザー名を入力", text: $viewModel.username)
                 .padding()
@@ -66,6 +67,7 @@ struct NameRegistrationView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                 .padding(.horizontal)
+                .padding(.bottom)
             
             TextField("表示名を入力", text: $viewModel.fullname)
                 .padding()
@@ -103,17 +105,7 @@ struct NameRegistrationView: View {
         .navigationDestination(isPresented: $viewModel.isPresented, destination: {
             CompleteRegistrationView(viewModel: CompleteRegistrationViewModel(completeRegistrationUseCase: DIFactory.completeRegistrationUseCase()))
         })
-        .alert("このユーザー名は使用されています", isPresented: $viewModel.showAlert) {
-            Button {
-                
-            } label: {
-                Text("OK")
-            }
-
-        } message: {
-            Text("他のユーザー名を設定してください")
-        }
-
+        .networkError($viewModel.showAlert)
     }
 }
 

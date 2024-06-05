@@ -12,14 +12,13 @@ protocol NameRegistrationUseCase {
 }
 
 final class NameRegistrationUseCaseImpl: NameRegistrationUseCase {
-    init() {}
+    private let userRepository: any UserRepository
+    
+    init(userRepository: some UserRepository) {
+        self.userRepository = userRepository
+    }
     
     func registerName(username: String, fullname: String) async -> Result<Void, APIError> {
-        try! await Task.sleep(nanoseconds: 1_000_000_000)
-        if username == "aaa" {
-            return .failure(.otherError)
-        }
-        
-        return .success(())
+        await userRepository.updateUser(username: username, fullname: fullname, bio: nil, image: nil)
     }
 }

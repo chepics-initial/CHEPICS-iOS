@@ -30,7 +30,10 @@ import Foundation
         switch result {
         case .success:
             isPresented = true
-        case .failure:
+        case .failure(let error):
+            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
+                return
+            }
             showAlert = true
         }
     }
