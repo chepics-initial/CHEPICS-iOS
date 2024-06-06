@@ -104,6 +104,13 @@ import Foundation
         switch result {
         case .success(let isFollow):
             isFollowing = isFollow
+            switch await profileUseCase.fetchUserInformation(userId: user.id) {
+            case .success(let user):
+                self.user = user
+                isFollowing = user.isFollowing
+            case .failure:
+                return
+            }
         case .failure(let error):
             if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
                 return
