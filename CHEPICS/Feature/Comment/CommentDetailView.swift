@@ -48,7 +48,7 @@ struct CommentDetailView: View {
                     
                     switch viewModel.uiState {
                     case .loading:
-                        LoadingView()
+                        LoadingView(showBackgroundColor: false)
                     case .success:
                         if let replies = viewModel.replies {
                             LazyVStack {

@@ -56,7 +56,7 @@ struct SetCommentView: View {
             ScrollView {
                 switch viewModel.uiState {
                 case .loading:
-                    LoadingView()
+                    LoadingView(showBackgroundColor: false)
                 case .success:
                     LazyVStack {
                         if let comments = viewModel.comments {

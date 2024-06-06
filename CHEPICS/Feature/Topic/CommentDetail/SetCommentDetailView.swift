@@ -20,7 +20,7 @@ struct SetCommentDetailView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 HStack(spacing: 16) {
-                    Text("20%")
+                    Text("\(Int(viewModel.set.rate))%")
                         .font(.footnote)
                     
                     HStack(spacing: 4) {
@@ -65,7 +65,7 @@ struct SetCommentDetailView: View {
                 LazyVStack {
                     switch viewModel.uiState {
                     case .loading:
-                        LoadingView()
+                        LoadingView(showBackgroundColor: false)
                     case .success:
                         if let replies = viewModel.replies {
                             ForEach(replies) { reply in

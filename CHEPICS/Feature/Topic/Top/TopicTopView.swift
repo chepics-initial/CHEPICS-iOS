@@ -346,7 +346,7 @@ struct TopicTopView: View {
         VStack {
             switch viewModel.uiState {
             case .loading:
-                LoadingView()
+                LoadingView(showBackgroundColor: false)
             case .success:
                 if let selectedSet = viewModel.selectedSet {
                     VStack {
