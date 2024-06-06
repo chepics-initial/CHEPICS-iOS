@@ -8,22 +8,58 @@
 import SwiftUI
 
 struct MyPageTopicListView: View {
-    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var router: NavigationRouter
+    @StateObject var viewModel: MyPageTopicListViewModel
     
     var body: some View {
         VStack {
-            ScrollView {
-                LazyVStack {
-                    ForEach(0 ..< 10, id: \.self) { _ in
-                        myPageTopicCell
-                    }
+            switch viewModel.uiState {
+            case .loading:
+                LoadingView(showBackgroundColor: false)
+            case .success:
+                content
+            case .failure:
+                ScrollView {
+                    ErrorView()
+                }
+                .refreshable {
+                    Task { await viewModel.fetchSets() }
                 }
             }
+        }
+        .onAppear {
+            Task { await viewModel.onAppear() }
         }
         .navigationTitle("参加中のセット")
     }
     
-    var myPageTopicCell: some View {
+    var content: some View {
+        ScrollView {
+            LazyVStack {
+                if let sets = viewModel.sets {
+                    // MARK: - 一時的にidをsetのidにした（おそらく複数同じsetIDのセルが並ぶことはないから問題ないはず）
+                    ForEach(sets, id: \.set.id) { mySet in
+                        Button {
+                            router.items.append(.topicTop(topic: mySet.topic))
+                        } label: {
+                            MyPageTopicCell(set: mySet)
+                        }
+
+                    }
+                }
+            }
+        }
+        .refreshable {
+            Task { await viewModel.fetchSets() }
+        }
+    }
+}
+
+private struct MyPageTopicCell: View {
+    @Environment(\.colorScheme) var colorScheme
+    let set: MySet
+    
+    var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 Text("topic")
@@ -34,12 +70,12 @@ struct MyPageTopicListView: View {
                 
                 Image(.orangePeople)
                 
-                Text("300")
+                Text("\(set.topic.votes)")
                     .font(.footnote)
                     .foregroundStyle(.chepicsPrimary)
             }
             
-            Text("どの猫が一番好き？")
+            Text(set.topic.title)
                 .fontWeight(.semibold)
                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
             
@@ -50,19 +86,19 @@ struct MyPageTopicListView: View {
                 
                 Spacer()
                 
-                Text("30%")
+                Text("\(Int(set.set.rate))%")
                     .font(.footnote)
                     .foregroundStyle(.blue)
                     .padding(.trailing, 16)
                 
                 Image(.bluePeople)
                 
-                Text("90")
+                Text("\(set.set.votes)")
                     .font(.footnote)
                     .foregroundStyle(.blue)
             }
             
-            Text("うちの猫だけが世界一可愛い")
+            Text("\(set.set.name)")
                 .font(.headline)
                 .fontWeight(.semibold)
                 .foregroundStyle(.white)
@@ -84,5 +120,5 @@ struct MyPageTopicListView: View {
 }
 
 #Preview {
-    MyPageTopicListView()
+    MyPageTopicListView(viewModel: MyPageTopicListViewModel(myPageTopicListUseCase: MyPageTopicListUseCase_Previews()))
 }

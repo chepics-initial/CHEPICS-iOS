@@ -31,4 +31,12 @@ final class SetRemoteSource: SetDataSource {
     func fetchSet(setId: String) async -> Result<PickSet, APIError> {
         await API.request(ServerDirection.production.urlString(for: .set), responseType: PickSet.self, queryParameters: ["set_id": setId])
     }
+    
+    func fetchPickedSets(offset: Int?) async -> Result<[MySet], APIError> {
+        var query: [String: Any] = [:]
+        if let offset {
+            query["offset"] = offset
+        }
+        return await API.request(ServerDirection.production.urlString(for: .pickedSets), responseType: Items<MySet>.self, queryParameters: query).map(\.items)
+    }
 }

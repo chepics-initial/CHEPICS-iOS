@@ -12,6 +12,7 @@ protocol SetRepository {
     func createSet(body: CreateSetBody) async -> Result<Void, APIError>
     func pickSet(body: PickSetBody) async -> Result<PickSet, APIError>
     func fetchSet(setId: String) async -> Result<PickSet, APIError>
+    func fetchPickedSets(offset: Int?) async -> Result<[MySet], APIError>
 }
 
 final class SetRepositoryImpl: SetRepository {
@@ -37,6 +38,10 @@ final class SetRepositoryImpl: SetRepository {
     
     func fetchSet(setId: String) async -> Result<PickSet, APIError> {
         await resultHandle(result: setDataSource.fetchSet(setId: setId))
+    }
+    
+    func fetchPickedSets(offset: Int?) async -> Result<[MySet], APIError> {
+        await resultHandle(result: setDataSource.fetchPickedSets(offset: offset))
     }
     
     private func resultHandle<T>(result: Result<T, APIError>) -> Result<T, APIError> {

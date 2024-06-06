@@ -103,6 +103,10 @@ extension DIFactory {
         SplashUseCaseImpl(splashRepository: sharedSplashRepository)
     }
     
+    static func myPageTopicListUseCase() -> some MyPageTopicListUseCase {
+        MyPageTopicListUseCaseImpl(setRepository: sharedSetRepository)
+    }
+    
     // MARK: - Repository
     static let sharedTopicRepository: some TopicRepository = TopicRepositoryImpl(topicDataSource: sharedTopicDataSource, tokenDataSource: sharedTokenDataSource)
     
