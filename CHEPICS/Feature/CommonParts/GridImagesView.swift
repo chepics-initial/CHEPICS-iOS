@@ -37,8 +37,16 @@ struct GridImagesView: View {
                         .frame(height: getHeight(type))
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         .background {
-                            RoundedRectangle(cornerRadius: 8)
-                                .foregroundStyle(.gray)
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .foregroundStyle(Color(uiColor: .lightGray))
+                                
+                                Image(systemName: "photo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: getRect().width / 8)
+                                    .foregroundStyle(.gray)
+                            }
                         }
                 }
             }
@@ -71,8 +79,16 @@ private struct GridImageItemView: View {
                         .resizable()
                         .scaledToFill()
                         .background {
-                            RoundedRectangle(cornerRadius: 8)
-                                .foregroundStyle(.gray)
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .foregroundStyle(Color(uiColor: .lightGray))
+                                
+                                Image(systemName: "photo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: getRect().width / 8)
+                                    .foregroundStyle(.gray)
+                            }
                         }
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 8))
