@@ -24,13 +24,13 @@ struct EditProfileView: View {
                                 Image(uiImage: profileImage)
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: 96, height: 96)
+                                    .frame(width: 144, height: 144)
                                     .clipShape(Circle())
                             } else if let profileImageUrl = viewModel.profileImageUrl {
                                 KFImage(URL(string: profileImageUrl))
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: 96, height: 96)
+                                    .frame(width: 144, height: 144)
                                     .clipShape(Circle())
                                     .background {
                                         Circle()

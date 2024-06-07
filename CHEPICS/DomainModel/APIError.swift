@@ -9,7 +9,7 @@ import Foundation
 
 // TODO: - エラーの詳細が決まり次第修正必須
 enum APIError: Error, Equatable {
-    case decodingError(any Error)
+    case decodingError(Int?, (any Error)?)
     case networkError(any Error)
     case invalidStatus(Int)
     case errorResponse(ErrorResponse, Int)

@@ -552,24 +552,24 @@
 		2583F23D2B6F6B2B00E68CAD /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				E4CEEF762BF9A26400BB3B3B /* CommentDetailUseCase.swift */,
+				E48B3F172C02C27500542868 /* CreateCommentUseCase.swift */,
+				E4CEEF6F2BF97BD600BB3B3B /* CreateSetUseCase.swift */,
+				E460BEC32BE59661006E4812 /* CreateTopicUseCase.swift */,
+				E48B3F2B2C0B280C00542868 /* EditProfileUseCase.swift */,
+				2599A4912BE4B29300AFC8E0 /* MainTabUseCase.swift */,
+				2510159D2C1175F200E82D1E /* MyPageTopicListUseCase.swift */,
+				E460BEC12BE4CE6B006E4812 /* MyPageTopUseCase.swift */,
+				E48B3F0E2BFE1C6700542868 /* SetCommentDetailUseCase.swift */,
+				E48B3F0A2BFE176600542868 /* SetCommentUseCase.swift */,
+				E48B3F3D2C1093F700542868 /* SplashUseCase.swift */,
+				E460BEBA2BE4C82B006E4812 /* TokenUseCase.swift */,
+				E4CEEF652BF9260600BB3B3B /* TopicSetListUseCase.swift */,
+				E4CEEF542BF4422400BB3B3B /* TopicTopUseCase.swift */,
 				69EC79322B8ABDE10096AA55 /* Authentication */,
 				6916B39B2BAAED5D009A8670 /* Feed */,
 				256C67152BAD6BA600260ADE /* Profile */,
 				256CFEF02BDBAF1D0000709E /* Search */,
-				2599A4912BE4B29300AFC8E0 /* MainTabUseCase.swift */,
-				E460BEBA2BE4C82B006E4812 /* TokenUseCase.swift */,
-				E460BEC12BE4CE6B006E4812 /* MyPageTopUseCase.swift */,
-				E460BEC32BE59661006E4812 /* CreateTopicUseCase.swift */,
-				E4CEEF542BF4422400BB3B3B /* TopicTopUseCase.swift */,
-				E4CEEF652BF9260600BB3B3B /* TopicSetListUseCase.swift */,
-				E4CEEF6F2BF97BD600BB3B3B /* CreateSetUseCase.swift */,
-				E4CEEF762BF9A26400BB3B3B /* CommentDetailUseCase.swift */,
-				E48B3F0A2BFE176600542868 /* SetCommentUseCase.swift */,
-				E48B3F0E2BFE1C6700542868 /* SetCommentDetailUseCase.swift */,
-				E48B3F172C02C27500542868 /* CreateCommentUseCase.swift */,
-				E48B3F2B2C0B280C00542868 /* EditProfileUseCase.swift */,
-				E48B3F3D2C1093F700542868 /* SplashUseCase.swift */,
-				2510159D2C1175F200E82D1E /* MyPageTopicListUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -581,11 +581,11 @@
 				2599A4872BE4789E00AFC8E0 /* CommentRepository.swift */,
 				256CFEEE2BDBAE900000709E /* SearchRepository.swift */,
 				E4CEEF672BF9265000BB3B3B /* SetRepository.swift */,
+				E48B3F3F2C10940C00542868 /* SplashRepository.swift */,
 				256CFEFB2BE34D610000709E /* TokenRepository.swift */,
 				6916B3962BAAE3CA009A8670 /* TopicRepository.swift */,
 				256CFEF32BE202820000709E /* UserRepository.swift */,
 				2583F2402B6F6B5C00E68CAD /* DataSource */,
-				E48B3F3F2C10940C00542868 /* SplashRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";

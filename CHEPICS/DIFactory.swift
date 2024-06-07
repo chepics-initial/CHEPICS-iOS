@@ -60,7 +60,7 @@ extension DIFactory {
     }
     
     static func topicTopUseCase() -> some TopicTopUseCase {
-        TopicTopUseCaseImpl(topicRepository: sharedTopicRepository, commentRepository: sharedCommentRepository)
+        TopicTopUseCaseImpl(topicRepository: sharedTopicRepository, commentRepository: sharedCommentRepository, setRepository: sharedSetRepository)
     }
     
     static func topicSetListUseCase() -> some TopicSetListUseCase {

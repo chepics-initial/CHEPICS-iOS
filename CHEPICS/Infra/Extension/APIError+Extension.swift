@@ -8,14 +8,15 @@
 import Foundation
 import Alamofire
 
-// TODO: - 確認事項が決まり次第修正必須
 extension APIError {
-    init(_ afError: AFError) {
+    init(statusCode: Int?, _ afError: AFError) {
         switch afError {
         case .responseSerializationFailed(reason: let reason):
             switch reason {
             case .decodingFailed(error: let error):
-                self = .decodingError(error)
+                self = .decodingError(nil, error)
+            case .invalidEmptyResponse(type: _):
+                self = .decodingError(statusCode, nil)
             default:
                 self = .otherError
             }

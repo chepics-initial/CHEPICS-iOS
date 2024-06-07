@@ -214,19 +214,19 @@ enum API {
 }
 
 private extension DataRequest {
-    // TODO: - 確認事項が決まり次第修正必須
     func handleRequest<T: Decodable>(
         responseType: T.Type,
         decoder: JSONDecoder,
         validation: @escaping Validation
     ) async -> Result<T, APIError> {
         validate(validation)
-        await handleResponseHeader(asyncResponse())
+        let response = await asyncResponse()
+        handleResponseHeader(response)
         validate(statusCode: 200 ..< 300)
         return await serializingDecodable(responseType, decoder: decoder, emptyResponseCodes: [200, 204, 205])
             .result
             .mapError { afError in
-                APIError(afError)
+                APIError(statusCode: response.response?.statusCode, afError)
             }
     }
     

@@ -39,4 +39,16 @@ final class SetRemoteSource: SetDataSource {
         }
         return await API.request(ServerDirection.production.urlString(for: .pickedSets), responseType: Items<MySet>.self, queryParameters: query).map(\.items)
     }
+    
+    func fetchPickedSet(topicId: String) async -> Result<PickSet?, APIError> {
+        switch await API.request(ServerDirection.production.urlString(for: .pickSet), responseType: PickSet.self, queryParameters: ["topic_id": topicId]) {
+        case .success(let response):
+            return .success(response)
+        case .failure(let error):
+            if case .decodingError(let code, _) = error, let statusCode = code, statusCode == 204 {
+                return .success(nil)
+            }
+            return .failure(error)
+        }
+    }
 }

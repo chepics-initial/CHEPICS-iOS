@@ -23,6 +23,10 @@ struct TopicTopView: View {
                 topContentView
             case .detail:
                 detailContentView
+            case .loading:
+                LoadingView(showBackgroundColor: false)
+            case .failure:
+                ErrorView()
             }
         }
         .onAppear {

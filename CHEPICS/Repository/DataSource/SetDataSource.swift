@@ -13,4 +13,5 @@ protocol SetDataSource {
     func pickSet(body: PickSetBody) async -> Result<PickSet, APIError>
     func fetchSet(setId: String) async -> Result<PickSet, APIError>
     func fetchPickedSets(offset: Int?) async -> Result<[MySet], APIError>
+    func fetchPickedSet(topicId: String) async -> Result<PickSet?, APIError>
 }
