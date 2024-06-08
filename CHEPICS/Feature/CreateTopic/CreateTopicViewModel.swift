@@ -50,7 +50,7 @@ import SwiftUI
             }
             imageData.append(data)
         }
-        let result = await createTopicUseCase.createTopic(title: title, link: link, description: description, images: imageData.isEmpty ? nil : imageData)
+        let result = await createTopicUseCase.createTopic(title: title, link: link, description: isValidInput(description) ? description : nil, images: imageData.isEmpty ? nil : imageData)
         isLoading = false
         switch result {
         case .success:
