@@ -13,6 +13,7 @@ struct EditProfileView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: EditProfileViewModel
+    let completion: () -> Void
     
     var body: some View {
         ZStack {
@@ -84,6 +85,7 @@ struct EditProfileView: View {
                         UIApplication.shared.endEditing()
                         await viewModel.onTapSaveButton()
                         if viewModel.isCompleted {
+                            completion()
                             dismiss()
                         }
                     }
@@ -207,5 +209,5 @@ struct EditProfileView: View {
 }
 
 #Preview {
-    EditProfileView(viewModel: EditProfileViewModel(user: mockUser1, editProfileUseCase: EditProfileUseCase_Previews()))
+    EditProfileView(viewModel: EditProfileViewModel(user: mockUser1, editProfileUseCase: EditProfileUseCase_Previews()), completion: {})
 }

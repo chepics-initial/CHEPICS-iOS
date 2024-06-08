@@ -28,7 +28,6 @@ import Foundation
     @Published private(set) var comments: [Comment]?
     @Published private(set) var topicUIState: UIState = .loading
     @Published private(set) var commentUIState: UIState = .loading
-    @Published private(set) var showError = false
     @Published private(set) var isFollowing: Bool?
     @Published private(set) var isEnabled: Bool = true
     private var isTopicFetchStarted = false
@@ -60,12 +59,19 @@ import Foundation
                 case .comments:
                     await fetchComments()
                 }
-            case .failure(let error):
-                if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
-                    return
-                }
-                showError = true
+            case .failure:
+                return
             }
+        }
+    }
+    
+    func fetchUser() async {
+        switch await profileUseCase.fetchUserInformation(userId: user.id) {
+        case .success(let user):
+            self.user = user
+            isFollowing = user.isFollowing
+        case .failure:
+            return
         }
     }
     
@@ -104,18 +110,9 @@ import Foundation
         switch result {
         case .success(let isFollow):
             isFollowing = isFollow
-            switch await profileUseCase.fetchUserInformation(userId: user.id) {
-            case .success(let user):
-                self.user = user
-                isFollowing = user.isFollowing
-            case .failure:
-                return
-            }
-        case .failure(let error):
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
-                return
-            }
-            showError = true
+            await fetchUser()
+        case .failure:
+            return
         }
     }
 }
