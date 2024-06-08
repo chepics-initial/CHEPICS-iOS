@@ -23,13 +23,7 @@ final class MyPageTopicListViewModel: ObservableObject {
         if isInitialAppear || uiState == .failure {
             isInitialAppear = false
             uiState = .loading
-            switch await myPageTopicListUseCase.fetchPickedSets(offset: nil) {
-            case .success(let sets):
-                self.sets = sets
-                uiState = .success
-            case .failure:
-                uiState = .failure
-            }
+            await fetchSets()
         }
     }
     
