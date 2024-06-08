@@ -184,6 +184,7 @@ struct CreateTopicView: View {
                     .opacity(viewModel.link.isEmpty ? 0.5 : 1)
                     .padding(.horizontal, 4)
             }
+            .frame(height: 44)
             
             Color.gray
                 .frame(height: 1)

@@ -30,6 +30,7 @@ struct CustomTextEditor: View {
                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                 .opacity(text.isEmpty ? 0.5 : 1)
         }
+        .frame(minHeight: 44)
     }
 }
 
