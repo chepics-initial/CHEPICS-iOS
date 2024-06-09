@@ -728,13 +728,13 @@
 		259B51BA2B860A5B00978256 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				25C88DAC2B8C33B4002455A3 /* IconRegistration */,
 				69EC79502B8B67A70096AA55 /* Completion */,
-				69EC79492B8B61D80096AA55 /* NameRegistration */,
-				69EC79332B8ABE610096AA55 /* PasswordRegistration */,
-				2566F5392B89FB1800CAD739 /* OneTimeCode */,
 				2566F52F2B89976D00CAD739 /* EmailRegistration */,
+				25C88DAC2B8C33B4002455A3 /* IconRegistration */,
 				2566F52E2B89976300CAD739 /* Login */,
+				69EC79492B8B61D80096AA55 /* NameRegistration */,
+				2566F5392B89FB1800CAD739 /* OneTimeCode */,
+				69EC79332B8ABE610096AA55 /* PasswordRegistration */,
 				259B51C02B860C7000978256 /* ViewParts */,
 			);
 			path = Authentication;
