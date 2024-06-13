@@ -21,16 +21,16 @@ struct MyPageTopView: View {
                 }
             } label: {
                 HStack {
-                    UserIconView(url: viewModel.user?.profileImageUrl, scale: .profile)
+                    UserIconView(url: viewModel.uiModel?.profileImageUrl, scale: .profile)
                     
-                    if let user = viewModel.user {
+                    if let uiModel = viewModel.uiModel {
                         VStack(alignment: .leading) {
-                            Text(user.fullname)
+                            Text(uiModel.fullname)
                                 .font(.title3)
                                 .fontWeight(.semibold)
                                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                             
-                            Text("@\(user.username)")
+                            Text("@\(uiModel.username)")
                                 .font(.footnote)
                                 .foregroundStyle(.gray)
                         }

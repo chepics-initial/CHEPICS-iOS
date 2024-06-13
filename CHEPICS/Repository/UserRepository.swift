@@ -31,7 +31,15 @@ final class UserRepositoryImpl: UserRepository {
     }
     
     func fetchUser(userId: String) async -> Result<User, APIError> {
-        await resultHandle(result: userDataSource.fetchUser(userId: userId))
+        switch await resultHandle(result: userDataSource.fetchUser(userId: userId)) {
+        case .success(let user):
+            if userId == getUserId() {
+                userStoreDataSource.storeUserData(data: UserData(username: user.username, fullname: user.fullname, bio: user.bio, profileImageUrl: user.profileImageUrl))
+            }
+            return .success(user)
+        case .failure(let error):
+            return .failure(error)
+        }
     }
     
     func getUserId() -> String {
@@ -41,7 +49,7 @@ final class UserRepositoryImpl: UserRepository {
     func updateUser(username: String, fullname: String, bio: String?, image: Data?) async -> Result<Void, APIError> {
         switch await resultHandle(result: userDataSource.updateUser(username: username, fullname: fullname, bio: bio, image: image)) {
         case .success:
-            userStoreDataSource.storeUserData(data: UserData(username: username, fullname: fullname, bio: bio))
+            userStoreDataSource.storeUserData(data: UserData(username: username, fullname: fullname, bio: bio, profileImageUrl: nil))
             return .success(())
         case .failure(let error):
             return .failure(error)
