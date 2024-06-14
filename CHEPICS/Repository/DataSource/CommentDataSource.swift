@@ -14,4 +14,13 @@ protocol CommentDataSource {
     func fetchReplies(commentId: String, offset: Int?) async -> Result<[Comment], APIError>
     func fetchComment(id: String) async -> Result<Comment, APIError>
     func likeComment(_: LikeBody) async -> Result<LikeResponse, APIError>
+    func createComment(
+        parentId: String?,
+        topicId: String,
+        setId: String,
+        comment: String,
+        link: String?,
+        replyFor: [String]?,
+        images: [Data]?
+    ) async -> Result<Void, APIError>
 }

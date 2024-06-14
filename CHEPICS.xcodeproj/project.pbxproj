@@ -78,6 +78,7 @@
 		259B51C22B860CA000978256 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B51C12B860CA000978256 /* RoundButton.swift */; };
 		25C88DAE2B8C33C4002455A3 /* IconRegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C88DAD2B8C33C4002455A3 /* IconRegistrationView.swift */; };
 		25C88DB02B8C33FD002455A3 /* IconRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C88DAF2B8C33FD002455A3 /* IconRegistrationViewModel.swift */; };
+		25EF2B852C1BC3BA00C9568E /* CreateCommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EF2B842C1BC3BA00C9568E /* CreateCommentResponse.swift */; };
 		25F67D322BAC00F9007406FC /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F67D312BAC00F9007406FC /* ImageView.swift */; };
 		25F67D752BAD0C61007406FC /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F67D742BAD0C61007406FC /* ProfileView.swift */; };
 		6916B3842BAAD5AB009A8670 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916B3832BAAD5AB009A8670 /* Items.swift */; };
@@ -283,6 +284,7 @@
 		259B51C12B860CA000978256 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		25C88DAD2B8C33C4002455A3 /* IconRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconRegistrationView.swift; sourceTree = "<group>"; };
 		25C88DAF2B8C33FD002455A3 /* IconRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconRegistrationViewModel.swift; sourceTree = "<group>"; };
+		25EF2B842C1BC3BA00C9568E /* CreateCommentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCommentResponse.swift; sourceTree = "<group>"; };
 		25F67D312BAC00F9007406FC /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		25F67D742BAD0C61007406FC /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		6916B3832BAAD5AB009A8670 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
@@ -653,6 +655,7 @@
 				E49366282BC0B7E50093D286 /* CommentImage.swift */,
 				E48B3F212C02F29400542868 /* CreateCode.swift */,
 				E4CEEF612BF85DF500BB3B3B /* CreateCommentBody.swift */,
+				25EF2B842C1BC3BA00C9568E /* CreateCommentResponse.swift */,
 				E4CEEF6D2BF97AB800BB3B3B /* CreateSet.swift */,
 				E48B3F292C0B23A900542868 /* CreateTopicResponse.swift */,
 				E457A0452BCA60CC003DFB9F /* CreateUserBody.swift */,
@@ -662,16 +665,16 @@
 				6916B3832BAAD5AB009A8670 /* Items.swift */,
 				25270D962C0DBF4200E6F517 /* Like.swift */,
 				E457A0D92BCF9B62003DFB9F /* LoginBody.swift */,
+				251015992C1174AB00E82D1E /* MySet.swift */,
 				6916B38D2BAADBC4009A8670 /* PickSet.swift */,
 				E4CEEF712BF9877100BB3B3B /* PickSetBody.swift */,
 				E48B3F252C06B32500542868 /* TokenRefreshBody.swift */,
 				6916B3852BAAD8A6009A8670 /* Topic.swift */,
 				6916B38B2BAADA96009A8670 /* TopicImage.swift */,
+				E48B3F2D2C1074D800542868 /* UpdateUserResponse.swift */,
 				251FE4342BC7A525008C3254 /* URLDefinitions.swift */,
 				6916B3872BAAD95C009A8670 /* User.swift */,
 				25270D9C2C0EB9FA00E6F517 /* UserData.swift */,
-				E48B3F2D2C1074D800542868 /* UpdateUserResponse.swift */,
-				251015992C1174AB00E82D1E /* MySet.swift */,
 			);
 			path = DomainModel;
 			sourceTree = "<group>";
@@ -1305,6 +1308,7 @@
 				251FE43E2BCE3938008C3254 /* ExploreTopViewModel.swift in Sources */,
 				252D713F2BA91BAA00485877 /* FeedViewModel.swift in Sources */,
 				E460BEB72BE1AB77006E4812 /* EditProfileView.swift in Sources */,
+				25EF2B852C1BC3BA00C9568E /* CreateCommentResponse.swift in Sources */,
 				E48B3F422C10941E00542868 /* SplashDataSource.swift in Sources */,
 				E457A0D82BCF9130003DFB9F /* TokenStore.swift in Sources */,
 				256CFEED2BDBADD70000709E /* SearchRemoteSource.swift in Sources */,

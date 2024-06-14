@@ -11,5 +11,10 @@ protocol TopicDataSource {
     func fetchFavoriteTopics(offset: Int?) async -> Result<[Topic], APIError>
     func fetchUserTopics(userId: String, offset: Int?) async -> Result<[Topic], APIError>
     func fetchTopic(topicId: String) async -> Result<Topic, APIError>
-    func createTopic(title: String, link: String?, description: String?, images: [Data]?) async -> Result<Void, APIError>
+    func createTopic(
+        title: String,
+        link: String?,
+        description: String?,
+        images: [Data]?
+    ) async -> Result<Void, APIError>
 }

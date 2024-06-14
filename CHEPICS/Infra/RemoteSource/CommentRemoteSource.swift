@@ -51,4 +51,26 @@ final class CommentRemoteSource: CommentDataSource {
     func likeComment(_ body: LikeBody) async -> Result<LikeResponse, APIError> {
         await API.postRequest(ServerDirection.production.urlString(for: .like), responseType: LikeResponse.self, httpBody: body)
     }
+    
+    func createComment(
+        parentId: String?,
+        topicId: String,
+        setId: String,
+        comment: String,
+        link: String?,
+        replyFor: [String]?,
+        images: [Data]?
+    ) async -> Result<Void, APIError> {
+        await API.createComment(
+            parentId: parentId,
+            topicId: topicId,
+            setId: setId,
+            comment: comment,
+            link: link,
+            replyFor: replyFor,
+            images: images,
+            ServerDirection.production.urlString(for: .comment),
+            responseType: CreateCommentResponse.self
+        ).map { _ in }
+    }
 }

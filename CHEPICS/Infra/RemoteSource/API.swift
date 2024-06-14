@@ -204,6 +204,47 @@ enum API {
         )
     }
     
+    static func createComment<T: Decodable>(
+        parentId: String?,
+        topicId: String,
+        setId: String,
+        comment: String,
+        link: String?,
+        replyFor: [String]?,
+        images: [Data]?,
+        _ baseURLString: String,
+        responseType: T.Type
+    ) async -> Result<T, APIError> {
+        let headers = getHeaders()
+        return await AF.upload(multipartFormData: { multipartFormData in
+            if let parentId {
+                multipartFormData.append(parentId.data(using: .utf8)!, withName: "parent_id")
+            }
+            multipartFormData.append(topicId.data(using: .utf8)!, withName: "topic_id")
+            multipartFormData.append(setId.data(using: .utf8)!, withName: "set_id")
+            multipartFormData.append(comment.data(using: .utf8)!, withName: "comment")
+            if let link {
+                multipartFormData.append(link.data(using: .utf8)!, withName: "comment_link")
+            }
+            if let replyFor {
+                for (index, userId) in replyFor.enumerated() {
+                    multipartFormData.append(userId.data(using: .utf8)!, withName: "to_user_ids[\(index)]")
+                }
+            }
+            if let images {
+                for (index, image) in images.enumerated() {
+                    multipartFormData.append(Data(String(index + 1).utf8), withName: "comment_images[\(index)][seq_no]")
+                    multipartFormData.append(image, withName: "comment_images[\(index)][image_file]", fileName: "image\(index).jpg", mimeType: "image/jpeg")
+                }
+            }
+        }, to: baseURLString, method: .post, headers: HTTPHeaders(headers))
+        .handleRequest(
+            responseType: responseType,
+            decoder: decoder,
+            validation: makeValidation()
+        )
+    }
+    
     static func getHeaders() -> [String: String] {
         var headers = [String: String]()
         if let accessToken = UserDefaults.standard.accessToken {

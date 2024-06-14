@@ -14,6 +14,15 @@ protocol CommentRepository {
     func fetchReplies(commentId: String, offset: Int?) async -> Result<[Comment], APIError>
     func fetchComment(id: String) async -> Result<Comment, APIError>
     func likeComment(_: LikeBody) async -> Result<LikeResponse, APIError>
+    func createComment(
+        parentId: String?,
+        topicId: String,
+        setId: String,
+        comment: String,
+        link: String?,
+        replyFor: [String]?,
+        images: [Data]?
+    ) async -> Result<Void, APIError>
 }
 
 final class CommentRepositoryImpl: CommentRepository {
@@ -50,6 +59,28 @@ final class CommentRepositoryImpl: CommentRepository {
     
     func likeComment(_ body: LikeBody) async -> Result<LikeResponse, APIError> {
         await resultHandle(result: commentDataSource.likeComment(body))
+    }
+    
+    func createComment(
+        parentId: String?,
+        topicId: String,
+        setId: String,
+        comment: String,
+        link: String?,
+        replyFor: [String]?,
+        images: [Data]?
+    ) async -> Result<Void, APIError> {
+        await resultHandle(
+            result: commentDataSource.createComment(
+                parentId: parentId,
+                topicId: topicId,
+                setId: setId,
+                comment: comment,
+                link: link,
+                replyFor: replyFor,
+                images: images
+            )
+        )
     }
     
     private func resultHandle<T>(result: Result<T, APIError>) -> Result<T, APIError> {
