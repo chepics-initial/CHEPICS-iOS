@@ -35,7 +35,7 @@ struct SetCommentView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 HStack(spacing: 16) {
-                    Text("20%")
+                    Text("\(Int(viewModel.set.rate))%")
                         .font(.footnote)
                     
                     HStack(spacing: 4) {
