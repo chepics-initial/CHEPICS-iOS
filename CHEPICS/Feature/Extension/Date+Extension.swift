@@ -9,25 +9,35 @@ import Foundation
 
 extension Date {
     func timestampString() -> String {
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.minute, .hour, .day, .calendar]
-        formatter.maximumUnitCount = 1
-        formatter.unitsStyle = .abbreviated
-        formatter.calendar?.locale = Locale(identifier: "ja_JP")
-        if let differenceString = formatter.string(from: self, to: Date()) {
-            let difference = Calendar.current.dateComponents([.day], from: self, to: Date())
-            if let days = difference.day, days >= 7 {
-                let dateFormatter = DateFormatter()
-                dateFormatter.locale = Locale(identifier: "ja_JP")
-                dateFormatter.dateStyle = .long
-                dateFormatter.timeStyle = .none
-                
-                return dateFormatter.string(from: self)
-            }
-            
-            return differenceString
+        let calendar = Calendar(identifier: .gregorian)
+        let now = Date()
+        
+        let diffDays = calendar.dateComponents([.day], from: self, to: now).day
+        let diffHours = calendar.dateComponents([.hour], from: self, to: now).hour
+        let diffMinutes = calendar.dateComponents([.minute], from: self, to: now).minute
+        let diffSeconds = calendar.dateComponents([.second], from: self, to: now).second
+        
+        if let diffMinutes, diffMinutes < 1, let diffSeconds {
+            return "\(diffSeconds)秒前"
         }
         
-        return ""
+        if let diffHours, diffHours < 1, let diffMinutes {
+            return "\(diffMinutes)分前"
+        }
+        
+        if let diffDays {
+            if diffDays < 1, let diffHours {
+                return "\(diffHours)時間前"
+            }
+            if diffDays < 7 {
+                return "\(diffDays)日前"
+            }
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ja_JP")
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .none
+        return dateFormatter.string(from: self)
     }
 }
