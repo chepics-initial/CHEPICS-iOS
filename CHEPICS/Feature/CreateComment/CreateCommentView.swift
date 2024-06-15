@@ -65,7 +65,12 @@ struct CreateCommentView: View {
                 Divider()
                 
                 RoundButton(text: "投稿", isActive: viewModel.isActive, type: .fill) {
-                    Task { await viewModel.onTapSubmitButton() }
+                    Task {
+                        await viewModel.onTapSubmitButton()
+                        if viewModel.isCompleted {
+                            dismiss()
+                        }
+                    }
                 }
             }
         }
