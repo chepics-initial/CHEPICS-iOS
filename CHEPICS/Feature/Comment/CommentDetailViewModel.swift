@@ -13,7 +13,8 @@ import PhotosUI
     @Published private(set) var uiState: UIState = .loading
     @Published private(set) var replies: [Comment]?
     @Published var showCreateReplyView = false
-    @Published var replyFor: Comment? {
+    @Published var showReplyRestriction = false
+    @Published private(set) var replyFor: Comment? {
         didSet {
             showCreateReplyView = true
         }
@@ -42,6 +43,20 @@ import PhotosUI
             uiState = .failure
         }
     }
+    
+    func onTapReplyButton(replyFor: Comment?) async {
+        switch await commentDetailUseCase.isPickedSet(topicId: comment.topicId) {
+        case .success(let isPicked):
+            if isPicked {
+                self.replyFor = replyFor
+                return
+            }
+            
+            showReplyRestriction = true
+        case .failure:
+            return
+        }
+    }
 }
 
 final class CommentDetailUseCase_Previews: CommentDetailUseCase {
@@ -51,5 +66,9 @@ final class CommentDetailUseCase_Previews: CommentDetailUseCase {
     
     func fetchReplies(commentId: String, offset: Int?) async -> Result<[Comment], APIError> {
         .success([])
+    }
+    
+    func isPickedSet(topicId: String) async -> Result<Bool, APIError> {
+        .success(true)
     }
 }

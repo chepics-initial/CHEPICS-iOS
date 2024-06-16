@@ -72,7 +72,7 @@ extension DIFactory {
     }
     
     static func commentDetailUseCase() -> some CommentDetailUseCase {
-        CommentDetailUseCaseImpl(commentRepository: sharedCommentRepository)
+        CommentDetailUseCaseImpl(commentRepository: sharedCommentRepository, setRepository: sharedSetRepository)
     }
     
     static func setCommentUseCase() -> some SetCommentUseCase {

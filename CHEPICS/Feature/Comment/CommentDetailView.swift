@@ -30,7 +30,7 @@ struct CommentDetailView: View {
                     }, onTapLikeButton: {
                         
                     }, onTapReplyButton: {
-                        viewModel.replyFor = nil
+                        Task { await viewModel.onTapReplyButton(replyFor: nil) }
                     })
                     
                     HStack {
@@ -66,7 +66,7 @@ struct CommentDetailView: View {
                                     }, onTapLikeButton: {
                                         
                                     }, onTapReplyButton: {
-                                        viewModel.replyFor = reply
+                                        Task { await viewModel.onTapReplyButton(replyFor: reply) }
                                     })
                                 }
                             }
@@ -77,6 +77,7 @@ struct CommentDetailView: View {
                 }
             }
         }
+        .modifier(ToastModifier(showToast: $viewModel.showReplyRestriction, text: "トピック内でセットを選択することでリプライが可能になります"))
         .onAppear {
             Task { await viewModel.onAppear() }
         }
