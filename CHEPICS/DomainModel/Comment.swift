@@ -57,7 +57,7 @@ struct Comment: Decodable, Identifiable {
         case topic = "topic_name"
         case comment
         case link = "comment_link"
-        case images = "comment_image"
+        case images = "comment_images"
         case votes = "comment_like_count"
         case isLiked = "has_user_liked_comment"
         case user = "create_user"
