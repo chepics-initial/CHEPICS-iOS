@@ -14,6 +14,7 @@ import PhotosUI
     @Published private(set) var replies: [Comment]?
     @Published var showCreateReplyView = false
     @Published var showReplyRestriction = false
+    @Published private(set) var footerStatus: FooterStatus = .loadingStopped
     @Published private(set) var replyFor: Comment? {
         didSet {
             showCreateReplyView = true
@@ -38,9 +39,36 @@ import PhotosUI
         switch await commentDetailUseCase.fetchReplies(commentId: comment.id, offset: nil) {
         case .success(let replies):
             self.replies = replies
+            if replies.count < Constants.arrayLimit {
+                footerStatus = .allFetched
+            } else {
+                footerStatus = .loadingStopped
+            }
             uiState = .success
         case .failure:
             uiState = .failure
+        }
+    }
+    
+    func onAppearFooterView() async {
+        guard footerStatus == .loadingStopped || footerStatus == .failure else { return }
+        footerStatus = .loadingStarted
+        switch await commentDetailUseCase.fetchReplies(commentId: comment.id, offset: replies?.count) {
+        case .success(let additionalReplies):
+            for additionalReply in additionalReplies {
+                if let index = self.replies?.firstIndex(where: { $0.id == additionalReply.id }) {
+                    self.replies?[index] = additionalReply
+                } else {
+                    self.replies?.append(additionalReply)
+                }
+            }
+            if additionalReplies.count < Constants.arrayLimit {
+                footerStatus = .allFetched
+            } else {
+                footerStatus = .loadingStopped
+            }
+        case .failure:
+            footerStatus = .failure
         }
     }
     

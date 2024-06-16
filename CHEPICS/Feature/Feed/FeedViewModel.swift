@@ -26,6 +26,7 @@ import Foundation
     @Published private(set) var comments: [Comment]?
     @Published private(set) var topicUIState: UIState = .loading
     @Published private(set) var commentUIState: UIState = .loading
+    @Published private(set) var footerStatus: FooterStatus = .loadingStopped
     @Published var showLikeFailureAlert = false
     private var isTopicFetchStarted = false
     private var isCommentFetchStarted = false
@@ -62,6 +63,11 @@ import Foundation
         switch await feedUseCase.fetchComments(offset: nil) {
         case .success(let comments):
             self.comments = comments
+            if comments.count < Constants.arrayLimit {
+                footerStatus = .allFetched
+            } else {
+                footerStatus = .loadingStopped
+            }
             commentUIState = .success
         case .failure:
             commentUIState = .failure
@@ -79,6 +85,28 @@ import Foundation
             if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .ERROR_LIKE_FAILED {
                 showLikeFailureAlert = true
             }
+        }
+    }
+    
+    func onAppearFooterView() async {
+        guard footerStatus == .loadingStopped || footerStatus == .failure else { return }
+        footerStatus = .loadingStarted
+        switch await feedUseCase.fetchComments(offset: comments?.count) {
+        case .success(let additionalComments):
+            for additionalComment in additionalComments {
+                if let index = self.comments?.firstIndex(where: { $0.id == additionalComment.id }) {
+                    self.comments?[index] = additionalComment
+                } else {
+                    self.comments?.append(additionalComment)
+                }
+            }
+            if additionalComments.count < Constants.arrayLimit {
+                footerStatus = .allFetched
+            } else {
+                footerStatus = .loadingStopped
+            }
+        case .failure:
+            footerStatus = .failure
         }
     }
 }
@@ -109,10 +137,4 @@ final class FeedUseCase_Previews: FeedUseCase {
     func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError> {
         .success(LikeResponse(commentId: "", isLiked: true, count: 1))
     }
-}
-
-enum UIState {
-    case loading
-    case success
-    case failure
 }

@@ -256,6 +256,11 @@ struct FeedView: View {
                                 feedRouter.items.append(.comment(comment: comment))
                             }
                         }
+                        
+                        FooterView(footerStatus: viewModel.footerStatus)
+                            .onAppear {
+                                Task { await viewModel.onAppearFooterView() }
+                            }
                     }
                 }
             }

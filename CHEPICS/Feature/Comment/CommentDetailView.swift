@@ -69,6 +69,11 @@ struct CommentDetailView: View {
                                         Task { await viewModel.onTapReplyButton(replyFor: reply) }
                                     })
                                 }
+                                
+                                FooterView(footerStatus: viewModel.footerStatus)
+                                    .onAppear {
+                                        Task { await viewModel.onAppearFooterView() }
+                                    }
                             }
                         }
                     case .failure:
