@@ -26,6 +26,7 @@ import Foundation
     @Published private(set) var comments: [Comment]?
     @Published private(set) var topicUIState: UIState = .loading
     @Published private(set) var commentUIState: UIState = .loading
+    @Published var showLikeFailureAlert = false
     private var isTopicFetchStarted = false
     private var isCommentFetchStarted = false
     
@@ -66,6 +67,20 @@ import Foundation
             commentUIState = .failure
         }
     }
+    
+    func onTapLikeButton(comment: Comment) async {
+        switch await feedUseCase.like(setId: comment.setId, commentId: comment.id) {
+        case .success(let response):
+            if let index = comments?.firstIndex(where: { $0.id == response.commentId }) {
+                comments?[index].votes = response.count
+                comments?[index].isLiked = response.isLiked
+            }
+        case .failure(let error):
+            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .ERROR_LIKE_FAILED {
+                showLikeFailureAlert = true
+            }
+        }
+    }
 }
 
 enum FeedTabType: CaseIterable {
@@ -89,6 +104,10 @@ final class FeedUseCase_Previews: FeedUseCase {
     
     func fetchComments(offset: Int?) async -> Result<[Comment], APIError> {
         .success([])
+    }
+    
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError> {
+        .success(LikeResponse(commentId: "", isLiked: true, count: 1))
     }
 }
 

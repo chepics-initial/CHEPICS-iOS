@@ -27,6 +27,9 @@ struct ErrorResponse: Decodable {
         case INTERNAL_SERVER_ERROR
         case INVALID_ACCESS_TOKEN
         case INVALID_REFRESH_TOKEN
+        case ERROR_LIKE_FAILED
+        case ERROR_SET_NOT_PICKED
+        case ERROR_TOPIC_NOT_PICKED
     }
     
     enum CodingKeys: String, CodingKey {

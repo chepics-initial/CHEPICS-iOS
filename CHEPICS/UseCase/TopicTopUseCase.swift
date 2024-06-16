@@ -11,6 +11,7 @@ protocol TopicTopUseCase {
     func fetchTopic(topicId: String) async -> Result<Topic, APIError>
     func fetchSetComments(setId: String, offset: Int?) async -> Result<[Comment], APIError>
     func fetchPickedSet(topicId: String) async -> Result<PickSet?, APIError>
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError>
 }
 
 final class TopicTopUseCaseImpl: TopicTopUseCase {
@@ -38,5 +39,9 @@ final class TopicTopUseCaseImpl: TopicTopUseCase {
     
     func fetchPickedSet(topicId: String) async -> Result<PickSet?, APIError> {
         await setRepository.fetchPickedSet(topicId: topicId)
+    }
+    
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError> {
+        await commentRepository.likeComment(LikeBody(setId: setId, commentId: commentId))
     }
 }

@@ -16,9 +16,10 @@ struct Comment: Decodable, Identifiable {
     let comment: String
     let link: String?
     let images: [CommentImage]?
-    let votes: Int
-    let isLiked: Bool
+    var votes: Int
+    var isLiked: Bool
     let user: User
+    let replyFor: [User]?
     let registerTime: Date
     
     init(
@@ -33,6 +34,7 @@ struct Comment: Decodable, Identifiable {
         votes: Int,
         isLiked: Bool,
         user: User,
+        replyFor: [User]?,
         registerTime: Date
     ) {
         self.id = id
@@ -46,6 +48,7 @@ struct Comment: Decodable, Identifiable {
         self.votes = votes
         self.isLiked = isLiked
         self.user = user
+        self.replyFor = replyFor
         self.registerTime = registerTime
     }
     
@@ -61,6 +64,7 @@ struct Comment: Decodable, Identifiable {
         case votes = "comment_like_count"
         case isLiked = "has_user_liked_comment"
         case user = "create_user"
+        case replyFor = "to_users"
         case registerTime = "register_time"
     }
 }

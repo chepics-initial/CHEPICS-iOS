@@ -10,6 +10,7 @@ import Foundation
 protocol FeedUseCase {
     func fetchFavoriteTopics(offset: Int?) async -> Result<[Topic], APIError>
     func fetchComments(offset: Int?) async -> Result<[Comment], APIError>
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError>
 }
 
 final class FeedUseCaseImpl: FeedUseCase {
@@ -27,5 +28,9 @@ final class FeedUseCaseImpl: FeedUseCase {
     
     func fetchComments(offset: Int?) async -> Result<[Comment], APIError> {
         await commentRepository.fetchFollowingComments(offset: offset)
+    }
+    
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError> {
+        await commentRepository.likeComment(LikeBody(setId: setId, commentId: commentId))
     }
 }

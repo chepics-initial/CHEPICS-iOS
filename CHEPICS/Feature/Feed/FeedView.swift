@@ -50,6 +50,7 @@ struct FeedView: View {
             .padding(.bottom, 16)
             .padding(.trailing, 16)
         }
+        .modifier(ToastModifier(showToast: $viewModel.showLikeFailureAlert, text: "選択していないセットのコメントにはいいねをすることができません"))
         .onAppear {
             Task {
                 switch viewModel.selectedTab {
@@ -247,7 +248,7 @@ struct FeedView: View {
                             }, onTapUserInfo: { user in
                                 feedRouter.items.append(.profile(user: user))
                             }, onTapLikeButton: {
-                                
+                                Task { await viewModel.onTapLikeButton(comment: comment) }
                             }, onTapReplyButton: {
                                 
                             })

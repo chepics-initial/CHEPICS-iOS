@@ -69,7 +69,10 @@ enum API {
                         .EMAIL_OR_PASSWORD_INCORRECT,
                         .RESOURCE_NOT_FOUND,
                         .INVALID_REFRESH_TOKEN,
-                        .INTERNAL_SERVER_ERROR:
+                        .INTERNAL_SERVER_ERROR,
+                        .ERROR_LIKE_FAILED,
+                        .ERROR_SET_NOT_PICKED,
+                        .ERROR_TOPIC_NOT_PICKED:
                     return .failure(firstError)
                 case .INVALID_ACCESS_TOKEN:
                     guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),
@@ -123,7 +126,10 @@ enum API {
                         .EMAIL_OR_PASSWORD_INCORRECT,
                         .RESOURCE_NOT_FOUND,
                         .INVALID_REFRESH_TOKEN,
-                        .INTERNAL_SERVER_ERROR:
+                        .INTERNAL_SERVER_ERROR,
+                        .ERROR_LIKE_FAILED,
+                        .ERROR_SET_NOT_PICKED,
+                        .ERROR_TOPIC_NOT_PICKED:
                     return .failure(firstError)
                 case .INVALID_ACCESS_TOKEN:
                     guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),

@@ -15,6 +15,7 @@ import SwiftUI
     @Published private(set) var selectedSet: PickSet?
     @Published private(set) var uiState: UIState = .loading
     @Published private(set) var comments: [Comment]?
+    @Published var showLikeFailureAlert = false
     private var isInitialAppear = true
     private let topicTopUseCase: any TopicTopUseCase
     
@@ -25,6 +26,7 @@ import SwiftUI
     
     func onAppear() async {
         if isInitialAppear || viewStatus == .failure {
+            isInitialAppear = false
             switch await topicTopUseCase.fetchPickedSet(topicId: topic.id) {
             case .success(let pickSet):
                 if let pickSet {
@@ -61,6 +63,20 @@ import SwiftUI
             uiState = .failure
         }
     }
+    
+    func onTapLikeButton(comment: Comment) async {
+        switch await topicTopUseCase.like(setId: comment.setId, commentId: comment.id) {
+        case .success(let response):
+            if let index = comments?.firstIndex(where: { $0.id == response.commentId }) {
+                comments?[index].votes = response.count
+                comments?[index].isLiked = response.isLiked
+            }
+        case .failure(let error):
+            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .ERROR_LIKE_FAILED {
+                showLikeFailureAlert = true
+            }
+        }
+    }
 }
 
 enum TopicViewStatus {
@@ -81,5 +97,9 @@ final class TopicTopUseCase_Previews: TopicTopUseCase {
     
     func fetchPickedSet(topicId: String) async -> Result<PickSet?, APIError> {
         .success(nil)
+    }
+    
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError> {
+        .success(LikeResponse(commentId: "", isLiked: true, count: 1))
     }
 }

@@ -29,6 +29,7 @@ struct TopicTopView: View {
                 ErrorView()
             }
         }
+        .modifier(ToastModifier(showToast: $viewModel.showLikeFailureAlert, text: "選択していないセットのコメントにはいいねをすることができません"))
         .onAppear {
             Task { await viewModel.onAppear() }
         }
@@ -384,7 +385,7 @@ struct TopicTopView: View {
                                         }, onTapUserInfo: { user in
                                             router.items.append(.profile(user: user))
                                         }, onTapLikeButton: {
-                                            
+                                            Task { await viewModel.onTapLikeButton(comment: comment) }
                                         }, onTapReplyButton: {
                                             
                                         })

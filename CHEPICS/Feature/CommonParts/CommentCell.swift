@@ -62,12 +62,26 @@ struct CommentCell: View {
                                 .frame(width: 4, height: 24)
                                 .foregroundStyle(.chepicsPrimary)
                             
-                            Text("猫が可愛い")
+                            Text(comment.topic)
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundStyle(.chepicsPrimary)
                         }
                     case .detail, .reply, .set:
                         EmptyView()
+                    }
+                    
+                    if let replyFor = comment.replyFor?.first {
+                        HStack {
+                            Image(systemName: "arrowshape.turn.up.left.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 16, height: 16)
+                            
+                            Text(replyFor.fullname)
+                                .font(.footnote)
+                        }
+                        .foregroundStyle(.chepicsPrimary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     
                     Text(comment.comment)
