@@ -8,9 +8,9 @@
 import Foundation
 
 protocol ExploreResultUseCase {
-    func fetchSearchedTopics(word: String) async -> Result<[Topic], APIError>
-    func fetchSearchedComments(word: String) async -> Result<[Comment], APIError>
-    func fetchSearchedUsers(word: String) async -> Result<[User], APIError>
+    func fetchSearchedTopics(word: String, offset: Int?) async -> Result<[Topic], APIError>
+    func fetchSearchedComments(word: String, offset: Int?) async -> Result<[Comment], APIError>
+    func fetchSearchedUsers(word: String, offset: Int?) async -> Result<[User], APIError>
     func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError>
 }
 
@@ -23,16 +23,16 @@ final class ExploreResultUseCaseImpl: ExploreResultUseCase {
         self.commentRepository = commentRepository
     }
     
-    func fetchSearchedTopics(word: String) async -> Result<[Topic], APIError> {
-        await searchRepository.fetchSearchedTopics(word: word)
+    func fetchSearchedTopics(word: String, offset: Int?) async -> Result<[Topic], APIError> {
+        await searchRepository.fetchSearchedTopics(word: word, offset: offset)
     }
     
-    func fetchSearchedComments(word: String) async -> Result<[Comment], APIError> {
-        await searchRepository.fetchSearchedComments(word: word)
+    func fetchSearchedComments(word: String, offset: Int?) async -> Result<[Comment], APIError> {
+        await searchRepository.fetchSearchedComments(word: word, offset: offset)
     }
     
-    func fetchSearchedUsers(word: String) async -> Result<[User], APIError> {
-        await searchRepository.fetchSearchedUsers(word: word)
+    func fetchSearchedUsers(word: String, offset: Int?) async -> Result<[User], APIError> {
+        await searchRepository.fetchSearchedUsers(word: word, offset: offset)
     }
     
     func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError> {

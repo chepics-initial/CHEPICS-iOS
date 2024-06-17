@@ -163,7 +163,12 @@ struct ExploreResultView: View {
                     EmptyResultView(text: "関連するトピックが見つかりませんでした。")
                 }
             case .failure:
-                ErrorView()
+                ScrollView {
+                    ErrorView()
+                }
+                .refreshable {
+                    Task { await viewModel.fetchTopics() }
+                }
             }
         }
     }
@@ -195,7 +200,12 @@ struct ExploreResultView: View {
                     EmptyResultView(text: "関連するコメントが見つかりませんでした。")
                 }
             case .failure:
-                ErrorView()
+                ScrollView {
+                    ErrorView()
+                }
+                .refreshable {
+                    Task { await viewModel.fetchComments() }
+                }
             }
         }
     }
@@ -215,7 +225,12 @@ struct ExploreResultView: View {
                     EmptyResultView(text: "関連するユーザーが見つかりませんでした。")
                 }
             case .failure:
-                ErrorView()
+                ScrollView {
+                    ErrorView()
+                }
+                .refreshable {
+                    Task { await viewModel.fetchUsers() }
+                }
             }
         }
     }
@@ -257,7 +272,6 @@ private struct TopicListView: View {
                                 onTapUserInfo(user)
                             })
                         }
-
                     }
                 }
             }

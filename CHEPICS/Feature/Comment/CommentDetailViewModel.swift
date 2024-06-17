@@ -22,7 +22,7 @@ import PhotosUI
             showCreateReplyView = true
         }
     }
-    
+    private var isInitialAppear = true
     private let commentDetailUseCase: any CommentDetailUseCase
     
     init(comment: Comment, commentDetailUseCase: some CommentDetailUseCase) {
@@ -38,17 +38,20 @@ import PhotosUI
             break
         }
         
-        switch await commentDetailUseCase.fetchReplies(commentId: comment.id, offset: nil) {
-        case .success(let replies):
-            self.replies = replies
-            if replies.count < Constants.arrayLimit {
-                footerStatus = .allFetched
-            } else {
-                footerStatus = .loadingStopped
+        if isInitialAppear || uiState == .failure {
+            isInitialAppear = false
+            switch await commentDetailUseCase.fetchReplies(commentId: comment.id, offset: nil) {
+            case .success(let replies):
+                self.replies = replies
+                if replies.count < Constants.arrayLimit {
+                    footerStatus = .allFetched
+                } else {
+                    footerStatus = .loadingStopped
+                }
+                uiState = .success
+            case .failure:
+                uiState = .failure
             }
-            uiState = .success
-        case .failure:
-            uiState = .failure
         }
     }
     

@@ -12,17 +12,17 @@ final class SearchRemoteSource: SearchDataSource {
     
     private init() {}
     
-    func fetchSearchedTopics(word: String) async -> Result<[Topic], APIError> {
+    func fetchSearchedTopics(word: String, offset: Int?) async -> Result<[Topic], APIError> {
         try! await Task.sleep(nanoseconds: 1_000_000_000)
         return .success([mockTopic1, mockTopic2, mockTopic3, mockTopic4])
     }
     
-    func fetchSearchedComments(word: String) async -> Result<[Comment], APIError> {
+    func fetchSearchedComments(word: String, offset: Int?) async -> Result<[Comment], APIError> {
         try! await Task.sleep(nanoseconds: 1_000_000_000)
         return .success([mockComment1, mockComment2, mockComment3, mockComment4])
     }
     
-    func fetchSearchedUsers(word: String) async -> Result<[User], APIError> {
+    func fetchSearchedUsers(word: String, offset: Int?) async -> Result<[User], APIError> {
         try! await Task.sleep(nanoseconds: 1_000_000_000)
         return .success([mockUser1, mockUser2, mockUser3, mockUser4])
     }

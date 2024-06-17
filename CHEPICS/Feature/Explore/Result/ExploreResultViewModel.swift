@@ -36,9 +36,12 @@ final class ExploreResultViewModel: ObservableObject {
     @Published private(set) var userUIState: UIState = .loading
     @Published var showLikeCommentFailureAlert = false
     @Published var showLikeReplyFailureAlert = false
+    @Published private(set) var topicFooterStatus: FooterStatus = .loadingStopped
+    @Published private(set) var commentFooterStatus: FooterStatus = .loadingStopped
+    @Published private(set) var userFooterStatus: FooterStatus = .loadingStopped
     let initialSearchText: String
     
-    private var isFirstAppear = true
+    private var isInitialAppear = true
     
     private let exploreResultUseCase: any ExploreResultUseCase
         
@@ -53,8 +56,8 @@ final class ExploreResultViewModel: ObservableObject {
     }
     
     func onAppear() async {
-        if isFirstAppear {
-            isFirstAppear = false
+        if isInitialAppear {
+            isInitialAppear = false
             switch selectedTab {
             case .topics:
                 await fetchTopics()
@@ -67,11 +70,11 @@ final class ExploreResultViewModel: ObservableObject {
     }
     
     func fetchTopics() async {
-        if topicUIState != .success {
+        if topicUIState == .failure {
             topicUIState = .loading
         }
         
-        switch await exploreResultUseCase.fetchSearchedTopics(word: searchText) {
+        switch await exploreResultUseCase.fetchSearchedTopics(word: searchText, offset: nil) {
         case .success(let topics):
             self.topics = topics
             topicUIState = .success
@@ -81,11 +84,11 @@ final class ExploreResultViewModel: ObservableObject {
     }
     
     func fetchComments() async {
-        if commentUIState != .success {
+        if commentUIState == .failure {
             commentUIState = .loading
         }
         
-        switch await exploreResultUseCase.fetchSearchedComments(word: searchText) {
+        switch await exploreResultUseCase.fetchSearchedComments(word: searchText, offset: nil) {
         case .success(let comments):
             self.comments = comments
             commentUIState = .success
@@ -95,11 +98,11 @@ final class ExploreResultViewModel: ObservableObject {
     }
     
     func fetchUsers() async {
-        if userUIState != .success {
+        if userUIState == .failure {
             userUIState = .loading
         }
         
-        switch await exploreResultUseCase.fetchSearchedUsers(word: searchText) {
+        switch await exploreResultUseCase.fetchSearchedUsers(word: searchText, offset: nil) {
         case .success(let users):
             self.users = users
             userUIState = .success
@@ -153,15 +156,15 @@ enum SearchTabType: CaseIterable {
 }
 
 final class ExploreResultUseCase_Previews: ExploreResultUseCase {
-    func fetchSearchedTopics(word: String) async -> Result<[Topic], APIError> {
+    func fetchSearchedTopics(word: String, offset: Int?) async -> Result<[Topic], APIError> {
         .success([])
     }
     
-    func fetchSearchedComments(word: String) async -> Result<[Comment], APIError> {
+    func fetchSearchedComments(word: String, offset: Int?) async -> Result<[Comment], APIError> {
         .success([])
     }
     
-    func fetchSearchedUsers(word: String) async -> Result<[User], APIError> {
+    func fetchSearchedUsers(word: String, offset: Int?) async -> Result<[User], APIError> {
         .success([])
     }
     

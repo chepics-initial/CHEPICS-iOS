@@ -153,10 +153,7 @@ struct FeedView: View {
                 topicListView
             case .failure:
                 ScrollView {
-                    Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity)
-                        .padding(16)
+                    ErrorView()
                 }
                 .refreshable {
                     Task { await viewModel.fetchTopics() }
@@ -175,10 +172,7 @@ struct FeedView: View {
                 commentListView
             case .failure:
                 ScrollView {
-                    Text("投稿の取得に失敗しました。インターネット環境を確認して、もう一度お試しください。")
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity)
-                        .padding(16)
+                    ErrorView()
                 }
                 .refreshable {
                     Task { await viewModel.fetchComments() }

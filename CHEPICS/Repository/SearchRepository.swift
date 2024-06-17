@@ -8,9 +8,9 @@
 import Foundation
 
 protocol SearchRepository {
-    func fetchSearchedTopics(word: String) async -> Result<[Topic], APIError>
-    func fetchSearchedComments(word: String) async -> Result<[Comment], APIError>
-    func fetchSearchedUsers(word: String) async -> Result<[User], APIError>
+    func fetchSearchedTopics(word: String, offset: Int?) async -> Result<[Topic], APIError>
+    func fetchSearchedComments(word: String, offset: Int?) async -> Result<[Comment], APIError>
+    func fetchSearchedUsers(word: String, offset: Int?) async -> Result<[User], APIError>
 }
 
 final class SearchRepositoryImpl: SearchRepository {
@@ -22,16 +22,16 @@ final class SearchRepositoryImpl: SearchRepository {
         self.tokenDataSource = tokenDataSource
     }
     
-    func fetchSearchedTopics(word: String) async -> Result<[Topic], APIError> {
-        await resultHandle(result: searchDataSource.fetchSearchedTopics(word: word))
+    func fetchSearchedTopics(word: String, offset: Int?) async -> Result<[Topic], APIError> {
+        await resultHandle(result: searchDataSource.fetchSearchedTopics(word: word, offset: offset))
     }
     
-    func fetchSearchedComments(word: String) async -> Result<[Comment], APIError> {
-        await resultHandle(result: searchDataSource.fetchSearchedComments(word: word))
+    func fetchSearchedComments(word: String, offset: Int?) async -> Result<[Comment], APIError> {
+        await resultHandle(result: searchDataSource.fetchSearchedComments(word: word, offset: offset))
     }
     
-    func fetchSearchedUsers(word: String) async -> Result<[User], APIError> {
-        await resultHandle(result: searchDataSource.fetchSearchedUsers(word: word))
+    func fetchSearchedUsers(word: String, offset: Int?) async -> Result<[User], APIError> {
+        await resultHandle(result: searchDataSource.fetchSearchedUsers(word: word, offset: offset))
     }
     
     private func resultHandle<T>(result: Result<T, APIError>) -> Result<T, APIError> {
