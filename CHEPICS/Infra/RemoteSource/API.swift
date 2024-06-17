@@ -76,20 +76,6 @@ enum API {
                         .ERROR_TOPIC_NOT_PICKED:
                     return .failure(firstError)
                 case .INVALID_ACCESS_TOKEN:
-                    //                    guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),
-                    //                          let refreshToken = TokenStore.getRefreshToken() else { return .failure(firstError) }
-                    //                    switch await API.postRequest(
-                    //                        ServerDirection.production.urlString(for: .createRefreshToken),
-                    //                        responseType: AuthResponse.self,
-                    //                        httpBody: TokenRefreshBody(refreshToken: refreshToken)
-                    //                    ) {
-                    //                    case .success(let response):
-                    //                        TokenStore.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
-                    //
-                    //                        return await request(baseURLString, responseType: responseType, queryParameters: queryParameters)
-                    //                    case .failure(let secondError):
-                    //                        return .failure(secondError)
-                    //                    }
                     switch await refreshToken(baseURLString, firstError: firstError) {
                     case .success:
                         return await request(baseURLString, responseType: responseType, queryParameters: queryParameters)
@@ -138,20 +124,6 @@ enum API {
                         .ERROR_TOPIC_NOT_PICKED:
                     return .failure(firstError)
                 case .INVALID_ACCESS_TOKEN:
-                    //                    guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),
-                    //                          let refreshToken = TokenStore.getRefreshToken() else { return .failure(firstError) }
-                    //                    switch await API.postRequest(
-                    //                        ServerDirection.production.urlString(for: .createRefreshToken),
-                    //                        responseType: AuthResponse.self,
-                    //                        httpBody: TokenRefreshBody(refreshToken: refreshToken)
-                    //                    ) {
-                    //                    case .success(let response):
-                    //                        TokenStore.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
-                    //
-                    //                        return await postRequest(baseURLString, responseType: responseType, httpBody: httpBody)
-                    //                    case .failure(let secondError):
-                    //                        return .failure(secondError)
-                    //                    }
                     switch await refreshToken(baseURLString, firstError: firstError) {
                     case .success:
                         return await postRequest(baseURLString, responseType: responseType, httpBody: httpBody)
@@ -208,27 +180,6 @@ enum API {
                         .ERROR_TOPIC_NOT_PICKED:
                     return .failure(firstError)
                 case .INVALID_ACCESS_TOKEN:
-                    //                    guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),
-                    //                          let refreshToken = TokenStore.getRefreshToken() else { return .failure(firstError) }
-                    //                    switch await API.postRequest(
-                    //                        ServerDirection.production.urlString(for: .createRefreshToken),
-                    //                        responseType: AuthResponse.self,
-                    //                        httpBody: TokenRefreshBody(refreshToken: refreshToken)
-                    //                    ) {
-                    //                    case .success(let response):
-                    //                        TokenStore.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
-                    //
-                    //                        return await updateUser(
-                    //                            username: username,
-                    //                            fullname: fullname,
-                    //                            bio: bio,
-                    //                            image: image,
-                    //                            baseURLString,
-                    //                            responseType: responseType
-                    //                        )
-                    //                    case .failure(let secondError):
-                    //                        return .failure(secondError)
-                    //                    }
                     switch await refreshToken(baseURLString, firstError: firstError) {
                     case .success:
                         return await updateUser(
@@ -295,27 +246,6 @@ enum API {
                         .ERROR_TOPIC_NOT_PICKED:
                     return .failure(firstError)
                 case .INVALID_ACCESS_TOKEN:
-//                    guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),
-//                          let refreshToken = TokenStore.getRefreshToken() else { return .failure(firstError) }
-//                    switch await API.postRequest(
-//                        ServerDirection.production.urlString(for: .createRefreshToken),
-//                        responseType: AuthResponse.self,
-//                        httpBody: TokenRefreshBody(refreshToken: refreshToken)
-//                    ) {
-//                    case .success(let response):
-//                        TokenStore.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
-//                        
-//                        return await createTopic(
-//                            title: title,
-//                            link: link,
-//                            description: description,
-//                            images: images,
-//                            baseURLString,
-//                            responseType: responseType
-//                        )
-//                    case .failure(let secondError):
-//                        return .failure(secondError)
-//                    }
                     switch await refreshToken(baseURLString, firstError: firstError) {
                     case .success:
                         return await createTopic(
@@ -392,30 +322,6 @@ enum API {
                         .ERROR_TOPIC_NOT_PICKED:
                     return .failure(firstError)
                 case .INVALID_ACCESS_TOKEN:
-//                    guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),
-//                          let refreshToken = TokenStore.getRefreshToken() else { return .failure(firstError) }
-//                    switch await API.postRequest(
-//                        ServerDirection.production.urlString(for: .createRefreshToken),
-//                        responseType: AuthResponse.self,
-//                        httpBody: TokenRefreshBody(refreshToken: refreshToken)
-//                    ) {
-//                    case .success(let response):
-//                        TokenStore.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
-//                        
-//                        return await createComment(
-//                            parentId: parentId,
-//                            topicId: topicId,
-//                            setId: setId,
-//                            comment: comment,
-//                            link: link,
-//                            replyFor: replyFor,
-//                            images: images,
-//                            baseURLString,
-//                            responseType: responseType
-//                        )
-//                    case .failure(let secondError):
-//                        return .failure(secondError)
-//                    }
                     switch await refreshToken(baseURLString, firstError: firstError) {
                     case .success:
                         return await createComment(
@@ -459,7 +365,8 @@ enum API {
                 return .failure(secondError)
             }
         } else {
-            return .failure(firstError)
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
+            return await refreshToken(baseURLString, firstError: firstError)
         }
     }
     
