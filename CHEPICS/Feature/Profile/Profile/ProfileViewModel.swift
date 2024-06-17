@@ -30,6 +30,8 @@ import Foundation
     @Published private(set) var commentUIState: UIState = .loading
     @Published private(set) var isFollowing: Bool?
     @Published private(set) var isEnabled: Bool = true
+    @Published var showLikeCommentFailureAlert = false
+    @Published var showLikeReplyFailureAlert = false
     private var isTopicFetchStarted = false
     private var isCommentFetchStarted = false
     private var isInitialAppear: Bool = true
@@ -115,6 +117,28 @@ import Foundation
             return
         }
     }
+    
+    func onTapLikeButton(comment: Comment) async {
+        switch await profileUseCase.like(setId: comment.setId, commentId: comment.id) {
+        case .success(let response):
+            if let index = comments?.firstIndex(where: { $0.id == response.commentId }) {
+                comments?[index].votes = response.count
+                comments?[index].isLiked = response.isLiked
+            }
+        case .failure(let error):
+            if case .errorResponse(let errorResponse, _) = error {
+                if errorResponse.errorCode == .ERROR_SET_NOT_PICKED {
+                    showLikeCommentFailureAlert = true
+                    return
+                }
+                
+                if errorResponse.errorCode == .ERROR_SET_NOT_PICKED {
+                    showLikeReplyFailureAlert = true
+                    return
+                }
+            }
+        }
+    }
 }
 
 enum ProfileTabType: CaseIterable {
@@ -150,5 +174,9 @@ final class ProfileUseCase_Previews: ProfileUseCase {
     
     func follow(userId: String) async -> Result<Bool, APIError> {
         .success(true)
+    }
+    
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError> {
+        .success(mockLikeResponse)
     }
 }

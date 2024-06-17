@@ -27,7 +27,8 @@ import Foundation
     @Published private(set) var topicUIState: UIState = .loading
     @Published private(set) var commentUIState: UIState = .loading
     @Published private(set) var footerStatus: FooterStatus = .loadingStopped
-    @Published var showLikeFailureAlert = false
+    @Published var showLikeCommentFailureAlert = false
+    @Published var showLikeReplyFailureAlert = false
     private var isTopicFetchStarted = false
     private var isCommentFetchStarted = false
     
@@ -82,8 +83,16 @@ import Foundation
                 comments?[index].isLiked = response.isLiked
             }
         case .failure(let error):
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .ERROR_LIKE_FAILED {
-                showLikeFailureAlert = true
+            if case .errorResponse(let errorResponse, _) = error {
+                if errorResponse.errorCode == .ERROR_SET_NOT_PICKED {
+                    showLikeCommentFailureAlert = true
+                    return
+                }
+                
+                if errorResponse.errorCode == .ERROR_SET_NOT_PICKED {
+                    showLikeReplyFailureAlert = true
+                    return
+                }
             }
         }
     }
@@ -135,6 +144,6 @@ final class FeedUseCase_Previews: FeedUseCase {
     }
     
     func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError> {
-        .success(LikeResponse(commentId: "", isLiked: true, count: 1))
+        .success(mockLikeResponse)
     }
 }

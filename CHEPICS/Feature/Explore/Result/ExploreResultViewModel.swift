@@ -34,6 +34,8 @@ final class ExploreResultViewModel: ObservableObject {
     @Published private(set) var topicUIState: UIState = .loading
     @Published private(set) var commentUIState: UIState = .loading
     @Published private(set) var userUIState: UIState = .loading
+    @Published var showLikeCommentFailureAlert = false
+    @Published var showLikeReplyFailureAlert = false
     let initialSearchText: String
     
     private var isFirstAppear = true
@@ -109,6 +111,28 @@ final class ExploreResultViewModel: ObservableObject {
     func onTapDeleteButton() {
         searchText = ""
     }
+    
+    func onTapLikeButton(comment: Comment) async {
+        switch await exploreResultUseCase.like(setId: comment.setId, commentId: comment.id) {
+        case .success(let response):
+            if let index = comments?.firstIndex(where: { $0.id == response.commentId }) {
+                comments?[index].votes = response.count
+                comments?[index].isLiked = response.isLiked
+            }
+        case .failure(let error):
+            if case .errorResponse(let errorResponse, _) = error {
+                if errorResponse.errorCode == .ERROR_SET_NOT_PICKED {
+                    showLikeCommentFailureAlert = true
+                    return
+                }
+                
+                if errorResponse.errorCode == .ERROR_SET_NOT_PICKED {
+                    showLikeReplyFailureAlert = true
+                    return
+                }
+            }
+        }
+    }
 }
 
 enum SearchTabType: CaseIterable {
@@ -139,5 +163,9 @@ final class ExploreResultUseCase_Previews: ExploreResultUseCase {
     
     func fetchSearchedUsers(word: String) async -> Result<[User], APIError> {
         .success([])
+    }
+    
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError> {
+        .success(mockLikeResponse)
     }
 }

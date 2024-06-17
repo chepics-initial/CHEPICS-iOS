@@ -40,7 +40,7 @@ extension DIFactory {
     }
     
     static func exploreResultUseCase() -> some ExploreResultUseCase {
-        ExploreResultUseCaseImpl(searchRepository: sharedSearchRepository)
+        ExploreResultUseCaseImpl(searchRepository: sharedSearchRepository, commentRepository: sharedCommentRepository)
     }
     
     static func tokenUseCase() -> some TokenUseCase {

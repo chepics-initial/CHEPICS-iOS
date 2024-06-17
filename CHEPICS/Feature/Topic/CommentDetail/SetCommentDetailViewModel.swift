@@ -13,6 +13,8 @@ import Foundation
     @Published private(set) var replies: [Comment]?
     @Published private(set) var uiState: UIState = .loading
     @Published var showCreateReplyView = false
+    @Published var showLikeCommentFailureAlert = false
+    @Published var showLikeReplyFailureAlert = false
     @Published var replyFor: Comment? {
         didSet {
             showCreateReplyView = true
@@ -31,6 +33,33 @@ import Foundation
         await fetchSet()
         await fetchComment()
         await fetchReplies()
+    }
+    
+    func onTapLikeButton(comment: Comment) async {
+        switch await setCommentDetailUseCase.like(setId: comment.setId, commentId: comment.id) {
+        case .success(let response):
+            if self.comment.id == response.commentId {
+                self.comment.votes = response.count
+                self.comment.isLiked = response.isLiked
+                return
+            }
+            if let index = replies?.firstIndex(where: { $0.id == response.commentId }) {
+                replies?[index].votes = response.count
+                replies?[index].isLiked = response.isLiked
+            }
+        case .failure(let error):
+            if case .errorResponse(let errorResponse, _) = error {
+                if errorResponse.errorCode == .ERROR_SET_NOT_PICKED {
+                    showLikeCommentFailureAlert = true
+                    return
+                }
+                
+                if errorResponse.errorCode == .ERROR_SET_NOT_PICKED {
+                    showLikeReplyFailureAlert = true
+                    return
+                }
+            }
+        }
     }
     
     private func fetchSet() async {
@@ -73,5 +102,9 @@ final class SetCommenDetailUseCase_Previews: SetCommentDetailUseCase {
     
     func fetchReplies(commentId: String, offset: Int?) async -> Result<[Comment], APIError> {
         .success([])
+    }
+    
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError> {
+        .success(mockLikeResponse)
     }
 }

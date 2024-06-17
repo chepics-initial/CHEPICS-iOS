@@ -113,6 +113,8 @@ struct ProfileView: View {
                 tabView.tabBar.isHidden = true
             }
         }
+        .modifier(ToastModifier(showToast: $viewModel.showLikeCommentFailureAlert, text: "選択していないセットのコメントにはいいねをすることができません"))
+        .modifier(ToastModifier(showToast: $viewModel.showLikeCommentFailureAlert, text: "参加していないトピックの返信にはいいねをすることができません"))
         .onAppear {
             Task { await viewModel.onAppear() }
         }
@@ -215,8 +217,7 @@ struct ProfileView: View {
                                             mainTabViewModel.showImageViewer = true
                                         }
                                     }
-                                }, onTapUserInfo: { user in
-                                    router.items.append(.profile(user: user))
+                                }, onTapUserInfo: { _ in
                                 })
                             }
                         }
@@ -250,10 +251,9 @@ struct ProfileView: View {
                                         mainTabViewModel.showImageViewer = true
                                     }
                                 }
-                            }, onTapUserInfo: { user in
-                                router.items.append(.profile(user: user))
+                            }, onTapUserInfo: { _ in
                             }, onTapLikeButton: {
-                                
+                                Task { await viewModel.onTapLikeButton(comment: comment) }
                             }, onTapReplyButton: {
                                 
                             })

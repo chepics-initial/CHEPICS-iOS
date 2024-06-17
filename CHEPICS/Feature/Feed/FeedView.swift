@@ -50,7 +50,8 @@ struct FeedView: View {
             .padding(.bottom, 16)
             .padding(.trailing, 16)
         }
-        .modifier(ToastModifier(showToast: $viewModel.showLikeFailureAlert, text: "選択していないセットのコメントにはいいねをすることができません"))
+        .modifier(ToastModifier(showToast: $viewModel.showLikeCommentFailureAlert, text: "選択していないセットのコメントにはいいねをすることができません"))
+        .modifier(ToastModifier(showToast: $viewModel.showLikeCommentFailureAlert, text: "参加していないトピックの返信にはいいねをすることができません"))
         .onAppear {
             Task {
                 switch viewModel.selectedTab {

@@ -11,6 +11,7 @@ protocol SetCommentDetailUseCase {
     func fetchSet(setId: String) async -> Result<PickSet, APIError>
     func fetchComment(commentId: String) async -> Result<Comment, APIError>
     func fetchReplies(commentId: String, offset: Int?) async -> Result<[Comment], APIError>
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError>
 }
 
 final class SetCommentDetailUseCaseImpl: SetCommentDetailUseCase {
@@ -32,5 +33,9 @@ final class SetCommentDetailUseCaseImpl: SetCommentDetailUseCase {
     
     func fetchReplies(commentId: String, offset: Int?) async -> Result<[Comment], APIError> {
         await commentRepository.fetchReplies(commentId: commentId, offset: offset)
+    }
+    
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError> {
+        await commentRepository.likeComment(LikeBody(setId: setId, commentId: commentId))
     }
 }

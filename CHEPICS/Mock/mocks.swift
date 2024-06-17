@@ -223,6 +223,8 @@ let mockSet1 = PickSet(id: "1", name: "猫は可愛い", votes: 1324, commentCou
 let mockSet2 = PickSet(id: "2", name: "猫より犬の方が好き", votes: 3432, commentCount: 400, rate: 33.33)
 let mockSet3 = PickSet(id: "3", name: "うちの猫だけが世界一可愛い", votes: 847, commentCount: 200, rate: 33.33)
 
+let mockLikeResponse = LikeResponse(commentId: "", isLiked: true, count: 1)
+
 func getPreviousDate(value: Int) -> Date {
     let currentDate = Date()
     let calendar = Calendar.current

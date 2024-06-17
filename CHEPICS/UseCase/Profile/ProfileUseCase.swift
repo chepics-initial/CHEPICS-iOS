@@ -13,6 +13,7 @@ protocol ProfileUseCase {
     func fetchUserTopics(userId: String, offset: Int?) async -> Result<[Topic], APIError>
     func fetchUserComments(userId: String, offset: Int?) async -> Result<[Comment], APIError>
     func follow(userId: String) async -> Result<Bool, APIError>
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError>
 }
 
 final class ProfileUseCaseImpl: ProfileUseCase {
@@ -48,5 +49,9 @@ final class ProfileUseCaseImpl: ProfileUseCase {
     
     func follow(userId: String) async -> Result<Bool, APIError> {
         await userRepository.follow(FollowBody(userId: userId))
+    }
+    
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError> {
+        await commentRepository.likeComment(LikeBody(setId: setId, commentId: commentId))
     }
 }

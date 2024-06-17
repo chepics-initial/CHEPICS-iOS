@@ -10,6 +10,7 @@ import Foundation
 protocol SetCommentUseCase {
     func fetchSet(setId: String) async -> Result<PickSet, APIError>
     func fetchComments(setId: String, offset: Int?) async -> Result<[Comment], APIError>
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError>
 }
 
 final class SetCommentUseCaseImpl: SetCommentUseCase {
@@ -28,14 +29,8 @@ final class SetCommentUseCaseImpl: SetCommentUseCase {
     func fetchComments(setId: String, offset: Int?) async -> Result<[Comment], APIError> {
         await commentRepository.fetchSetComments(setId: setId, offset: offset)
     }
-}
-
-final class SetCommentUseCase_Previews: SetCommentUseCase {
-    func fetchSet(setId: String) async -> Result<PickSet, APIError> {
-        .success(mockSet1)
-    }
     
-    func fetchComments(setId: String, offset: Int?) async -> Result<[Comment], APIError> {
-        .success([])
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError> {
+        await commentRepository.likeComment(LikeBody(setId: setId, commentId: commentId))
     }
 }

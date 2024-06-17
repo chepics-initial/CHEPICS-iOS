@@ -70,6 +70,8 @@ struct ExploreResultView: View {
                 }
             }
         }
+        .modifier(ToastModifier(showToast: $viewModel.showLikeCommentFailureAlert, text: "選択していないセットのコメントにはいいねをすることができません"))
+        .modifier(ToastModifier(showToast: $viewModel.showLikeCommentFailureAlert, text: "参加していないトピックの返信にはいいねをすることができません"))
         .onAppear {
             Task { await viewModel.onAppear() }
         }
@@ -186,6 +188,8 @@ struct ExploreResultView: View {
                         }
                     }, onTapUserInfo: { user in
                         router.items.append(.profile(user: user))
+                    }, onTapLikeButton: { comment in
+                        Task { await viewModel.onTapLikeButton(comment: comment) }
                     })
                 } else {
                     EmptyResultView(text: "関連するコメントが見つかりませんでした。")
@@ -269,6 +273,7 @@ private struct CommentListView: View {
     let onTapCell: (Comment) -> Void
     let onTapImage: (Comment, Int) -> Void
     let onTapUserInfo: (User) -> Void
+    let onTapLikeButton: (Comment) -> Void
     
     var body: some View {
         ScrollViewReader { reader in
@@ -280,7 +285,7 @@ private struct CommentListView: View {
                         }, onTapUserInfo: { user in
                             onTapUserInfo(user)
                         }, onTapLikeButton: {
-                            
+                            onTapLikeButton(comment)
                         }, onTapReplyButton: {
                             
                         })

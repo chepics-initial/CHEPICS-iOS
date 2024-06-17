@@ -72,7 +72,7 @@ import SwiftUI
                 comments?[index].isLiked = response.isLiked
             }
         case .failure(let error):
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .ERROR_LIKE_FAILED {
+            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .ERROR_SET_NOT_PICKED {
                 showLikeFailureAlert = true
             }
         }
@@ -100,6 +100,6 @@ final class TopicTopUseCase_Previews: TopicTopUseCase {
     }
     
     func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError> {
-        .success(LikeResponse(commentId: "", isLiked: true, count: 1))
+        .success(mockLikeResponse)
     }
 }

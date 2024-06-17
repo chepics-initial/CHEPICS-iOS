@@ -28,7 +28,7 @@ struct CommentDetailView: View {
                     }, onTapUserInfo: { user in
                         router.items.append(.profile(user: user))
                     }, onTapLikeButton: {
-                        
+                        Task { await viewModel.onTapLikeButton(comment: viewModel.comment) }
                     }, onTapReplyButton: {
                         Task { await viewModel.onTapReplyButton(replyFor: nil) }
                     })
@@ -64,7 +64,7 @@ struct CommentDetailView: View {
                                     }, onTapUserInfo: { user in
                                         router.items.append(.profile(user: user))
                                     }, onTapLikeButton: {
-                                        
+                                        Task { await viewModel.onTapLikeButton(comment: reply) }
                                     }, onTapReplyButton: {
                                         Task { await viewModel.onTapReplyButton(replyFor: reply) }
                                     })
@@ -83,6 +83,8 @@ struct CommentDetailView: View {
             }
         }
         .modifier(ToastModifier(showToast: $viewModel.showReplyRestriction, text: "トピック内でセットを選択することでリプライが可能になります"))
+        .modifier(ToastModifier(showToast: $viewModel.showLikeCommentFailureAlert, text: "選択していないセットのコメントにはいいねをすることができません"))
+        .modifier(ToastModifier(showToast: $viewModel.showLikeCommentFailureAlert, text: "参加していないトピックの返信にはいいねをすることができません"))
         .onAppear {
             Task { await viewModel.onAppear() }
         }

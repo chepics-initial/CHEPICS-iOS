@@ -15,6 +15,8 @@ import PhotosUI
     @Published var showCreateReplyView = false
     @Published var showReplyRestriction = false
     @Published private(set) var footerStatus: FooterStatus = .loadingStopped
+    @Published var showLikeCommentFailureAlert = false
+    @Published var showLikeReplyFailureAlert = false
     @Published private(set) var replyFor: Comment? {
         didSet {
             showCreateReplyView = true
@@ -72,6 +74,33 @@ import PhotosUI
         }
     }
     
+    func onTapLikeButton(comment: Comment) async {
+        switch await commentDetailUseCase.like(setId: comment.setId, commentId: comment.id) {
+        case .success(let response):
+            if self.comment.id == response.commentId {
+                self.comment.votes = response.count
+                self.comment.isLiked = response.isLiked
+                return
+            }
+            if let index = replies?.firstIndex(where: { $0.id == response.commentId }) {
+                replies?[index].votes = response.count
+                replies?[index].isLiked = response.isLiked
+            }
+        case .failure(let error):
+            if case .errorResponse(let errorResponse, _) = error {
+                if errorResponse.errorCode == .ERROR_SET_NOT_PICKED {
+                    showLikeCommentFailureAlert = true
+                    return
+                }
+                
+                if errorResponse.errorCode == .ERROR_SET_NOT_PICKED {
+                    showLikeReplyFailureAlert = true
+                    return
+                }
+            }
+        }
+    }
+    
     func onTapReplyButton(replyFor: Comment?) async {
         switch await commentDetailUseCase.isPickedSet(topicId: comment.topicId) {
         case .success(let isPicked):
@@ -98,5 +127,9 @@ final class CommentDetailUseCase_Previews: CommentDetailUseCase {
     
     func isPickedSet(topicId: String) async -> Result<Bool, APIError> {
         .success(true)
+    }
+    
+    func like(setId: String, commentId: String) async -> Result<LikeResponse, APIError> {
+        .success(mockLikeResponse)
     }
 }

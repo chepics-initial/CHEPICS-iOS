@@ -44,7 +44,7 @@ struct SetCommentDetailView: View {
                 }, onTapUserInfo: { _ in
                     
                 }, onTapLikeButton: {
-                    
+                    Task { await viewModel.onTapLikeButton(comment: viewModel.comment) }
                 }, onTapReplyButton: {
                     viewModel.replyFor = nil
                 })
@@ -74,7 +74,7 @@ struct SetCommentDetailView: View {
                                 }, onTapUserInfo: { _ in
                                     
                                 }, onTapLikeButton: {
-                                    
+                                    Task { await viewModel.onTapLikeButton(comment: reply) }
                                 }, onTapReplyButton: {
                                     viewModel.replyFor = reply
                                 })
@@ -86,6 +86,8 @@ struct SetCommentDetailView: View {
                 }
             }
         }
+        .modifier(ToastModifier(showToast: $viewModel.showLikeCommentFailureAlert, text: "選択していないセットのコメントにはいいねをすることができません"))
+        .modifier(ToastModifier(showToast: $viewModel.showLikeCommentFailureAlert, text: "参加していないトピックの返信にはいいねをすることができません"))
         .onAppear {
             Task { await viewModel.onAppear() }
         }

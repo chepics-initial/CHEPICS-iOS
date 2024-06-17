@@ -70,7 +70,6 @@ enum API {
                         .RESOURCE_NOT_FOUND,
                         .INVALID_REFRESH_TOKEN,
                         .INTERNAL_SERVER_ERROR,
-                        .ERROR_LIKE_FAILED,
                         .ERROR_SET_NOT_PICKED,
                         .ERROR_TOPIC_NOT_PICKED:
                     return .failure(firstError)
@@ -127,7 +126,6 @@ enum API {
                         .RESOURCE_NOT_FOUND,
                         .INVALID_REFRESH_TOKEN,
                         .INTERNAL_SERVER_ERROR,
-                        .ERROR_LIKE_FAILED,
                         .ERROR_SET_NOT_PICKED,
                         .ERROR_TOPIC_NOT_PICKED:
                     return .failure(firstError)
@@ -160,7 +158,7 @@ enum API {
         responseType: T.Type
     ) async -> Result<T, APIError> {
         let headers = getHeaders()
-        return await AF.upload(multipartFormData: { multipartFormData in
+        switch await AF.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(username.data(using: .utf8)!, withName: "user_name")
             multipartFormData.append(fullname.data(using: .utf8)!, withName: "display_name")
             if let bio {
@@ -176,7 +174,50 @@ enum API {
             responseType: responseType,
             decoder: decoder,
             validation: makeValidation()
-        )
+        ) {
+        case .success(let response):
+            return .success(response)
+        case .failure(let firstError):
+            switch firstError {
+            case .decodingError, .networkError, .invalidStatus, .otherError:
+                return .failure(firstError)
+            case .errorResponse(let errorResponse, _):
+                switch errorResponse.errorCode {
+                case .USED_EMAIL,
+                        .CODE_INCORRECT_OR_EXPIRED,
+                        .NOT_CONFIRMED_EMAIL,
+                        .EMAIL_OR_PASSWORD_INCORRECT,
+                        .RESOURCE_NOT_FOUND,
+                        .INVALID_REFRESH_TOKEN,
+                        .INTERNAL_SERVER_ERROR,
+                        .ERROR_SET_NOT_PICKED,
+                        .ERROR_TOPIC_NOT_PICKED:
+                    return .failure(firstError)
+                case .INVALID_ACCESS_TOKEN:
+                    guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),
+                          let refreshToken = TokenStore.getRefreshToken() else { return .failure(firstError) }
+                    switch await API.postRequest(
+                        ServerDirection.production.urlString(for: .createRefreshToken),
+                        responseType: AuthResponse.self,
+                        httpBody: TokenRefreshBody(refreshToken: refreshToken)
+                    ) {
+                    case .success(let response):
+                        TokenStore.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
+                        
+                        return await updateUser(
+                            username: username,
+                            fullname: fullname,
+                            bio: bio,
+                            image: image,
+                            baseURLString,
+                            responseType: responseType
+                        )
+                    case .failure(let secondError):
+                        return .failure(secondError)
+                    }
+                }
+            }
+        }
     }
     
     static func createTopic<T: Decodable>(
@@ -188,7 +229,7 @@ enum API {
         responseType: T.Type
     ) async -> Result<T, APIError> {
         let headers = getHeaders()
-        return await AF.upload(multipartFormData: { multipartFormData in
+        switch await AF.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(title.data(using: .utf8)!, withName: "topic_name")
             if let link {
                 multipartFormData.append(link.data(using: .utf8)!, withName: "topic_link")
@@ -207,7 +248,50 @@ enum API {
             responseType: responseType,
             decoder: decoder,
             validation: makeValidation()
-        )
+        ) {
+        case .success(let response):
+            return .success(response)
+        case .failure(let firstError):
+            switch firstError {
+            case .decodingError, .networkError, .invalidStatus, .otherError:
+                return .failure(firstError)
+            case .errorResponse(let errorResponse, _):
+                switch errorResponse.errorCode {
+                case .USED_EMAIL,
+                        .CODE_INCORRECT_OR_EXPIRED,
+                        .NOT_CONFIRMED_EMAIL,
+                        .EMAIL_OR_PASSWORD_INCORRECT,
+                        .RESOURCE_NOT_FOUND,
+                        .INVALID_REFRESH_TOKEN,
+                        .INTERNAL_SERVER_ERROR,
+                        .ERROR_SET_NOT_PICKED,
+                        .ERROR_TOPIC_NOT_PICKED:
+                    return .failure(firstError)
+                case .INVALID_ACCESS_TOKEN:
+                    guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),
+                          let refreshToken = TokenStore.getRefreshToken() else { return .failure(firstError) }
+                    switch await API.postRequest(
+                        ServerDirection.production.urlString(for: .createRefreshToken),
+                        responseType: AuthResponse.self,
+                        httpBody: TokenRefreshBody(refreshToken: refreshToken)
+                    ) {
+                    case .success(let response):
+                        TokenStore.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
+                        
+                        return await createTopic(
+                            title: title,
+                            link: link,
+                            description: description,
+                            images: images,
+                            baseURLString,
+                            responseType: responseType
+                        )
+                    case .failure(let secondError):
+                        return .failure(secondError)
+                    }
+                }
+            }
+        }
     }
     
     static func createComment<T: Decodable>(
@@ -222,7 +306,7 @@ enum API {
         responseType: T.Type
     ) async -> Result<T, APIError> {
         let headers = getHeaders()
-        return await AF.upload(multipartFormData: { multipartFormData in
+        switch await AF.upload(multipartFormData: { multipartFormData in
             if let parentId {
                 multipartFormData.append(parentId.data(using: .utf8)!, withName: "parent_id")
             }
@@ -248,7 +332,53 @@ enum API {
             responseType: responseType,
             decoder: decoder,
             validation: makeValidation()
-        )
+        ) {
+        case .success(let response):
+            return .success(response)
+        case .failure(let firstError):
+            switch firstError {
+            case .decodingError, .networkError, .invalidStatus, .otherError:
+                return .failure(firstError)
+            case .errorResponse(let errorResponse, _):
+                switch errorResponse.errorCode {
+                case .USED_EMAIL,
+                        .CODE_INCORRECT_OR_EXPIRED,
+                        .NOT_CONFIRMED_EMAIL,
+                        .EMAIL_OR_PASSWORD_INCORRECT,
+                        .RESOURCE_NOT_FOUND,
+                        .INVALID_REFRESH_TOKEN,
+                        .INTERNAL_SERVER_ERROR,
+                        .ERROR_SET_NOT_PICKED,
+                        .ERROR_TOPIC_NOT_PICKED:
+                    return .failure(firstError)
+                case .INVALID_ACCESS_TOKEN:
+                    guard baseURLString != ServerDirection.production.urlString(for: .createRefreshToken),
+                          let refreshToken = TokenStore.getRefreshToken() else { return .failure(firstError) }
+                    switch await API.postRequest(
+                        ServerDirection.production.urlString(for: .createRefreshToken),
+                        responseType: AuthResponse.self,
+                        httpBody: TokenRefreshBody(refreshToken: refreshToken)
+                    ) {
+                    case .success(let response):
+                        TokenStore.storeToken(accessToken: response.accessToken, refreshToken: response.refreshToken)
+                        
+                        return await createComment(
+                            parentId: parentId,
+                            topicId: topicId,
+                            setId: setId,
+                            comment: comment,
+                            link: link,
+                            replyFor: replyFor,
+                            images: images,
+                            baseURLString,
+                            responseType: responseType
+                        )
+                    case .failure(let secondError):
+                        return .failure(secondError)
+                    }
+                }
+            }
+        }
     }
     
     static func getHeaders() -> [String: String] {
