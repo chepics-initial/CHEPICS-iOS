@@ -221,6 +221,11 @@ struct ProfileView: View {
                                 })
                             }
                         }
+                        
+                        FooterView(footerStatus: viewModel.topicFooterStatus)
+                            .onAppear {
+                                Task { await viewModel.onAppearTopicFooterView() }
+                            }
                     }
                 }
             }
@@ -261,6 +266,11 @@ struct ProfileView: View {
                                 router.items.append(.comment(comment: comment))
                             }
                         }
+                        
+                        FooterView(footerStatus: viewModel.commentFooterStatus)
+                            .onAppear {
+                                Task { await viewModel.onAppearCommentFooterView() }
+                            }
                     }
                 }
             }

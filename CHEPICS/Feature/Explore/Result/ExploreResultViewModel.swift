@@ -77,6 +77,11 @@ final class ExploreResultViewModel: ObservableObject {
         switch await exploreResultUseCase.fetchSearchedTopics(word: searchText, offset: nil) {
         case .success(let topics):
             self.topics = topics
+            if topics.count < Constants.arrayLimit {
+                topicFooterStatus = .allFetched
+            } else {
+                topicFooterStatus = .loadingStopped
+            }
             topicUIState = .success
         case .failure:
             topicUIState = .failure
@@ -91,6 +96,11 @@ final class ExploreResultViewModel: ObservableObject {
         switch await exploreResultUseCase.fetchSearchedComments(word: searchText, offset: nil) {
         case .success(let comments):
             self.comments = comments
+            if comments.count < Constants.arrayLimit {
+                commentFooterStatus = .allFetched
+            } else {
+                commentFooterStatus = .loadingStopped
+            }
             commentUIState = .success
         case .failure:
             commentUIState = .failure
@@ -105,6 +115,11 @@ final class ExploreResultViewModel: ObservableObject {
         switch await exploreResultUseCase.fetchSearchedUsers(word: searchText, offset: nil) {
         case .success(let users):
             self.users = users
+            if users.count < Constants.arrayLimit {
+                userFooterStatus = .allFetched
+            } else {
+                userFooterStatus = .loadingStopped
+            }
             userUIState = .success
         case .failure:
             userUIState = .failure
@@ -134,6 +149,72 @@ final class ExploreResultViewModel: ObservableObject {
                     return
                 }
             }
+        }
+    }
+    
+    func onAppearTopicFooterView() async {
+        guard topicFooterStatus == .loadingStopped || topicFooterStatus == .failure else { return }
+        topicFooterStatus = .loadingStarted
+        switch await exploreResultUseCase.fetchSearchedTopics(word: searchText, offset: topics?.count) {
+        case .success(let additionalTopics):
+            for additionalTopic in additionalTopics {
+                if let index = topics?.firstIndex(where: { $0.id == additionalTopic.id }) {
+                    topics?[index] = additionalTopic
+                } else {
+                    topics?.append(additionalTopic)
+                }
+            }
+            if additionalTopics.count < Constants.arrayLimit {
+                topicFooterStatus = .allFetched
+            } else {
+                topicFooterStatus = .loadingStopped
+            }
+        case .failure:
+            topicFooterStatus = .failure
+        }
+    }
+    
+    func onAppearCommentFooterView() async {
+        guard commentFooterStatus == .loadingStopped || commentFooterStatus == .failure else { return }
+        commentFooterStatus = .loadingStarted
+        switch await exploreResultUseCase.fetchSearchedComments(word: searchText, offset: comments?.count) {
+        case .success(let additionalComments):
+            for additionalComment in additionalComments {
+                if let index = comments?.firstIndex(where: { $0.id == additionalComment.id }) {
+                    comments?[index] = additionalComment
+                } else {
+                    comments?.append(additionalComment)
+                }
+            }
+            if additionalComments.count < Constants.arrayLimit {
+                commentFooterStatus = .allFetched
+            } else {
+                commentFooterStatus = .loadingStopped
+            }
+        case .failure:
+            commentFooterStatus = .failure
+        }
+    }
+    
+    func onAppearUserFooterView() async {
+        guard userFooterStatus == .loadingStopped || userFooterStatus == .failure else { return }
+        userFooterStatus = .loadingStarted
+        switch await exploreResultUseCase.fetchSearchedUsers(word: searchText, offset: users?.count) {
+        case .success(let additionalUsers):
+            for additionalUser in additionalUsers {
+                if let index = users?.firstIndex(where: { $0.id == additionalUser.id }) {
+                    users?[index] = additionalUser
+                } else {
+                    users?.append(additionalUser)
+                }
+            }
+            if additionalUsers.count < Constants.arrayLimit {
+                userFooterStatus = .allFetched
+            } else {
+                userFooterStatus = .loadingStopped
+            }
+        case .failure:
+            userFooterStatus = .failure
         }
     }
 }

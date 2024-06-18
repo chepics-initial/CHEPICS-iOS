@@ -204,8 +204,12 @@ struct FeedView: View {
                                     feedRouter.items.append(.profile(user: user))
                                 })
                             }
-
                         }
+                        
+                        FooterView(footerStatus: viewModel.topicFooterStatus)
+                            .onAppear {
+                                Task { await viewModel.onAppearTopicFooterView() }
+                            }
                     }
                 }
             }
@@ -252,9 +256,9 @@ struct FeedView: View {
                             }
                         }
                         
-                        FooterView(footerStatus: viewModel.footerStatus)
+                        FooterView(footerStatus: viewModel.commentFooterStatus)
                             .onAppear {
-                                Task { await viewModel.onAppearFooterView() }
+                                Task { await viewModel.onAppearCommentFooterView() }
                             }
                     }
                 }

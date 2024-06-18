@@ -79,6 +79,11 @@ struct SetCommentDetailView: View {
                                     viewModel.replyFor = reply
                                 })
                             }
+                            
+                            FooterView(footerStatus: viewModel.footerStatus)
+                                .onAppear {
+                                    Task { await viewModel.onAppearFooterView() }
+                                }
                         }
                     case .failure:
                         ErrorView()

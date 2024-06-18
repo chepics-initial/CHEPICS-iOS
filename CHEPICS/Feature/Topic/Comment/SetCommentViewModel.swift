@@ -13,7 +13,8 @@ import Foundation
     @Published private(set) var uiState: UIState = .loading
     @Published var showLikeCommentFailureAlert = false
     @Published var showLikeReplyFailureAlert = false
-    
+    @Published private(set) var footerStatus: FooterStatus = .loadingStopped
+    private var isInitialAppear = true
     private let setCommentUseCase: any SetCommentUseCase
     
     init(set: PickSet, setCommentUseCase: some SetCommentUseCase) {
@@ -23,7 +24,10 @@ import Foundation
     
     func onAppear() async {
         await fetchSet()
-        await fetchComments()
+        if isInitialAppear || uiState == .failure {
+            isInitialAppear = false
+            await fetchComments()
+        }
     }
     
     func onTapLikeButton(comment: Comment) async {
@@ -48,6 +52,28 @@ import Foundation
         }
     }
     
+    func onAppearFooterView() async {
+        guard footerStatus == .loadingStopped || footerStatus == .failure else { return }
+        footerStatus = .loadingStarted
+        switch await setCommentUseCase.fetchComments(setId: set.id, offset: comments?.count) {
+        case .success(let additionalComments):
+            for additionalComment in additionalComments {
+                if let index = comments?.firstIndex(where: { $0.id == additionalComment.id }) {
+                    comments?[index] = additionalComment
+                } else {
+                    comments?.append(additionalComment)
+                }
+            }
+            if additionalComments.count < Constants.arrayLimit {
+                footerStatus = .allFetched
+            } else {
+                footerStatus = .loadingStopped
+            }
+        case .failure:
+            footerStatus = .failure
+        }
+    }
+    
     private func fetchSet() async {
         switch await setCommentUseCase.fetchSet(setId: set.id) {
         case .success(let pickSet):
@@ -61,6 +87,11 @@ import Foundation
         switch await setCommentUseCase.fetchComments(setId: set.id, offset: nil) {
         case .success(let comments):
             self.comments = comments
+            if comments.count < Constants.arrayLimit {
+                footerStatus = .allFetched
+            } else {
+                footerStatus = .loadingStopped
+            }
             uiState = .success
         case .failure:
             uiState = .failure

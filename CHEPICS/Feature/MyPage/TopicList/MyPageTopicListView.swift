@@ -44,8 +44,12 @@ struct MyPageTopicListView: View {
                         } label: {
                             MyPageTopicCell(set: mySet)
                         }
-
                     }
+                    
+                    FooterView(footerStatus: viewModel.footerStatus)
+                        .onAppear {
+                            Task { await viewModel.onAppearFooterView() }
+                        }
                 }
             }
         }

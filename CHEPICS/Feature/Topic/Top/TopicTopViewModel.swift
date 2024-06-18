@@ -15,6 +15,7 @@ import SwiftUI
     @Published private(set) var selectedSet: PickSet?
     @Published private(set) var uiState: UIState = .loading
     @Published private(set) var comments: [Comment]?
+    @Published private(set) var footerStatus: FooterStatus = .loadingStopped
     @Published var showLikeFailureAlert = false
     private var isInitialAppear = true
     private let topicTopUseCase: any TopicTopUseCase
@@ -58,6 +59,11 @@ import SwiftUI
         switch await topicTopUseCase.fetchSetComments(setId: set.id, offset: nil) {
         case .success(let comments):
             self.comments = comments
+            if comments.count < Constants.arrayLimit {
+                footerStatus = .allFetched
+            } else {
+                footerStatus = .loadingStopped
+            }
             uiState = .success
         case .failure:
             uiState = .failure
@@ -75,6 +81,28 @@ import SwiftUI
             if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .ERROR_SET_NOT_PICKED {
                 showLikeFailureAlert = true
             }
+        }
+    }
+    
+    func onAppearFooterView() async {
+        guard footerStatus == .loadingStopped || footerStatus == .failure, let selectedSet else { return }
+        footerStatus = .loadingStarted
+        switch await topicTopUseCase.fetchSetComments(setId: selectedSet.id, offset: comments?.count) {
+        case .success(let additionalComments):
+            for additionalComment in additionalComments {
+                if let index = comments?.firstIndex(where: { $0.id == additionalComment.id }) {
+                    comments?[index] = additionalComment
+                } else {
+                    comments?.append(additionalComment)
+                }
+            }
+            if additionalComments.count < Constants.arrayLimit {
+                footerStatus = .allFetched
+            } else {
+                footerStatus = .loadingStopped
+            }
+        case .failure:
+            footerStatus = .failure
         }
     }
 }

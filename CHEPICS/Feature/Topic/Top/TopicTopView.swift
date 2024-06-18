@@ -391,6 +391,11 @@ struct TopicTopView: View {
                                         })
                                     }
                                 }
+                                
+                                FooterView(footerStatus: viewModel.footerStatus)
+                                    .onAppear {
+                                        Task { await viewModel.onAppearFooterView() }
+                                    }
                             }
                         }
                     }

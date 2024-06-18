@@ -144,7 +144,7 @@ struct ExploreResultView: View {
                     .frame(maxHeight: .infinity)
             case .success:
                 if let topics = viewModel.topics, !topics.isEmpty {
-                    TopicListView(topics: topics, onTapCell: { topic in
+                    TopicListView(topics: topics, footerStatus: viewModel.topicFooterStatus, onTapCell: { topic in
                         router.items.append(.topicTop(topic: topic))
                     }, onTapImage: { topic, index in
                         if let images = topic.images {
@@ -158,6 +158,8 @@ struct ExploreResultView: View {
                         router.items.append(.profile(user: user))
                     }, refresh: {
                         Task { await viewModel.fetchTopics() }
+                    }, onAppearFotterView: {
+                        Task { await viewModel.onAppearTopicFooterView() }
                     })
                 } else {
                     EmptyResultView(text: "関連するトピックが見つかりませんでした。")
@@ -181,7 +183,7 @@ struct ExploreResultView: View {
                     .frame(maxHeight: .infinity)
             case .success:
                 if let comments = viewModel.comments, !comments.isEmpty {
-                    CommentListView(comments: comments, onTapCell: { comment in
+                    CommentListView(comments: comments, footerStatus: viewModel.commentFooterStatus, onTapCell: { comment in
                         router.items.append(.comment(comment: comment))
                     }, onTapImage: { comment, index in
                         if let images = comment.images {
@@ -195,6 +197,8 @@ struct ExploreResultView: View {
                         router.items.append(.profile(user: user))
                     }, onTapLikeButton: { comment in
                         Task { await viewModel.onTapLikeButton(comment: comment) }
+                    }, onAppearFotterView: {
+                        Task { await viewModel.onAppearCommentFooterView() }
                     })
                 } else {
                     EmptyResultView(text: "関連するコメントが見つかりませんでした。")
@@ -218,9 +222,11 @@ struct ExploreResultView: View {
                     .frame(maxHeight: .infinity)
             case .success:
                 if let users = viewModel.users, !users.isEmpty {
-                    UserListView(users: users) { user in
+                    UserListView(users: users, footerStatus: viewModel.userFooterStatus, onTapCell: { user in
                         router.items.append(.profile(user: user))
-                    }
+                    }, onAppearFotterView: {
+                        Task { await viewModel.onAppearUserFooterView() }
+                    })
                 } else {
                     EmptyResultView(text: "関連するユーザーが見つかりませんでした。")
                 }
@@ -253,10 +259,12 @@ private struct EmptyResultView: View {
 
 private struct TopicListView: View {
     let topics: [Topic]
+    let footerStatus: FooterStatus
     let onTapCell: (Topic) -> Void
     let onTapImage: (Topic, Int) -> Void
     let onTapUserInfo: (User) -> Void
     let refresh: () -> Void
+    let onAppearFotterView: () -> Void
     
     var body: some View {
         ScrollViewReader { reader in
@@ -273,6 +281,11 @@ private struct TopicListView: View {
                             })
                         }
                     }
+                    
+                    FooterView(footerStatus: footerStatus)
+                        .onAppear {
+                            onAppearFotterView()
+                        }
                 }
             }
             .refreshable {
@@ -284,10 +297,12 @@ private struct TopicListView: View {
 
 private struct CommentListView: View {
     let comments: [Comment]
+    let footerStatus: FooterStatus
     let onTapCell: (Comment) -> Void
     let onTapImage: (Comment, Int) -> Void
     let onTapUserInfo: (User) -> Void
     let onTapLikeButton: (Comment) -> Void
+    let onAppearFotterView: () -> Void
     
     var body: some View {
         ScrollViewReader { reader in
@@ -307,6 +322,11 @@ private struct CommentListView: View {
                             onTapCell(comment)
                         }
                     }
+                    
+                    FooterView(footerStatus: footerStatus)
+                        .onAppear {
+                            onAppearFotterView()
+                        }
                 }
             }
         }
@@ -315,7 +335,9 @@ private struct CommentListView: View {
 
 private struct UserListView: View {
     let users: [User]
+    let footerStatus: FooterStatus
     let onTapCell: (User) -> Void
+    let onAppearFotterView: () -> Void
     
     var body: some View {
         ScrollViewReader { reader in
@@ -328,6 +350,11 @@ private struct UserListView: View {
                             UserCell(user: user)
                         }
                     }
+                    
+                    FooterView(footerStatus: footerStatus)
+                        .onAppear {
+                            onAppearFotterView()
+                        }
                 }
             }
         }

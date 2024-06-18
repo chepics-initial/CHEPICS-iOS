@@ -72,6 +72,11 @@ struct SetCommentView: View {
                                     isNavigationActive = true
                                 }
                             }
+                            
+                            FooterView(footerStatus: viewModel.footerStatus)
+                                .onAppear {
+                                    Task { await viewModel.onAppearFooterView() }
+                                }
                         }
                     }
                 case .failure:

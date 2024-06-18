@@ -47,6 +47,11 @@ struct TopicSetListView: View {
                                             }
                                         }
                                     }
+                                    
+                                    FooterView(footerStatus: viewModel.footerStatus)
+                                        .onAppear {
+                                            Task { await viewModel.onAppearFooterView() }
+                                        }
                                 }
                                 
                                 Button(action: {

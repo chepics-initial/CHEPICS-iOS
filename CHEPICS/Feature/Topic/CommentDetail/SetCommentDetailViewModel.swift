@@ -15,12 +15,13 @@ import Foundation
     @Published var showCreateReplyView = false
     @Published var showLikeCommentFailureAlert = false
     @Published var showLikeReplyFailureAlert = false
+    @Published private(set) var footerStatus: FooterStatus = .loadingStopped
     @Published var replyFor: Comment? {
         didSet {
             showCreateReplyView = true
         }
     }
-    
+    private var isInitialAppear = true
     private let setCommentDetailUseCase: any SetCommentDetailUseCase
     
     init(set: PickSet, comment: Comment, setCommentDetailUseCase: some SetCommentDetailUseCase) {
@@ -32,7 +33,10 @@ import Foundation
     func onAppear() async {
         await fetchSet()
         await fetchComment()
-        await fetchReplies()
+        if isInitialAppear || uiState == .failure {
+            isInitialAppear = false
+            await fetchReplies()
+        }
     }
     
     func onTapLikeButton(comment: Comment) async {
@@ -62,6 +66,28 @@ import Foundation
         }
     }
     
+    func onAppearFooterView() async {
+        guard footerStatus == .loadingStopped || footerStatus == .failure else { return }
+        footerStatus = .loadingStarted
+        switch await setCommentDetailUseCase.fetchReplies(commentId: comment.id, offset: replies?.count) {
+        case .success(let additionalReplies):
+            for additionalReply in additionalReplies {
+                if let index = replies?.firstIndex(where: { $0.id == additionalReply.id }) {
+                    replies?[index] = additionalReply
+                } else {
+                    replies?.append(additionalReply)
+                }
+            }
+            if additionalReplies.count < Constants.arrayLimit {
+                footerStatus = .allFetched
+            } else {
+                footerStatus = .loadingStopped
+            }
+        case .failure:
+            footerStatus = .failure
+        }
+    }
+    
     private func fetchSet() async {
         switch await setCommentDetailUseCase.fetchSet(setId: set.id) {
         case .success(let pickset):
@@ -84,6 +110,11 @@ import Foundation
         switch await setCommentDetailUseCase.fetchReplies(commentId: comment.id, offset: nil) {
         case .success(let replies):
             self.replies = replies
+            if replies.count < Constants.arrayLimit {
+                footerStatus = .allFetched
+            } else {
+                footerStatus = .loadingStopped
+            }
             uiState = .success
         case .failure:
             uiState = .failure

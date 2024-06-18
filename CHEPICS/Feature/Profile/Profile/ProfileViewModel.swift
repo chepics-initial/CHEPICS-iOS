@@ -32,6 +32,8 @@ import Foundation
     @Published private(set) var isEnabled: Bool = true
     @Published var showLikeCommentFailureAlert = false
     @Published var showLikeReplyFailureAlert = false
+    @Published private(set) var topicFooterStatus: FooterStatus = .loadingStopped
+    @Published private(set) var commentFooterStatus: FooterStatus = .loadingStopped
     private var isTopicFetchStarted = false
     private var isCommentFetchStarted = false
     private var isInitialAppear: Bool = true
@@ -85,6 +87,11 @@ import Foundation
         switch await profileUseCase.fetchUserTopics(userId: user.id, offset: nil) {
         case .success(let topics):
             self.topics = topics
+            if topics.count < Constants.arrayLimit {
+                topicFooterStatus = .allFetched
+            } else {
+                topicFooterStatus = .loadingStopped
+            }
             topicUIState = .success
         case .failure:
             topicUIState = .failure
@@ -99,6 +106,11 @@ import Foundation
         switch await profileUseCase.fetchUserComments(userId: user.id, offset: nil) {
         case .success(let comments):
             self.comments = comments
+            if comments.count < Constants.arrayLimit {
+                commentFooterStatus = .allFetched
+            } else {
+                commentFooterStatus = .loadingStopped
+            }
             commentUIState = .success
         case .failure:
             commentUIState = .failure
@@ -137,6 +149,50 @@ import Foundation
                     return
                 }
             }
+        }
+    }
+    
+    func onAppearTopicFooterView() async {
+        guard topicFooterStatus == .loadingStopped || topicFooterStatus == .failure else { return }
+        topicFooterStatus = .loadingStarted
+        switch await profileUseCase.fetchUserTopics(userId: user.id, offset: topics?.count) {
+        case .success(let additionalTopics):
+            for additionalTopic in additionalTopics {
+                if let index = topics?.firstIndex(where: { $0.id == additionalTopic.id }) {
+                    topics?[index] = additionalTopic
+                } else {
+                    topics?.append(additionalTopic)
+                }
+            }
+            if additionalTopics.count < Constants.arrayLimit {
+                topicFooterStatus = .allFetched
+            } else {
+                topicFooterStatus = .loadingStopped
+            }
+        case .failure:
+            topicFooterStatus = .failure
+        }
+    }
+    
+    func onAppearCommentFooterView() async {
+        guard commentFooterStatus == .loadingStopped || commentFooterStatus == .failure else { return }
+        commentFooterStatus = .loadingStarted
+        switch await profileUseCase.fetchUserComments(userId: user.id, offset: comments?.count) {
+        case .success(let additionalComments):
+            for additionalComment in additionalComments {
+                if let index = comments?.firstIndex(where: { $0.id == additionalComment.id }) {
+                    comments?[index] = additionalComment
+                } else {
+                    comments?.append(additionalComment)
+                }
+            }
+            if additionalComments.count < Constants.arrayLimit {
+                commentFooterStatus = .allFetched
+            } else {
+                commentFooterStatus = .loadingStopped
+            }
+        case .failure:
+            commentFooterStatus = .failure
         }
     }
 }
