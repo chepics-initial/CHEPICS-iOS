@@ -13,6 +13,9 @@ import PhotosUI
     @Published var linkText = ""
     @Published private(set) var isLoading: Bool = false
     @Published private(set) var isCompleted = false
+    @Published var showNetworkAlert = false
+    @Published var showCommentRestrictionAlert = false
+    @Published var showReplyRestrictionAlert = false
     @Published var selectedItems: [PhotosPickerItem] = [] {
         didSet {
             Task {
@@ -27,18 +30,14 @@ import PhotosUI
         }
     }
     @Published private(set) var selectedImages: [UIImage] = []
-    
     var isActive: Bool {
         isValidInput(commentText) || commentText.count <= Constants.commentCount && (linkText.isEmpty || isValidUrl(linkText))
     }
-    
     private(set) var replyFor: Comment?
     let type: CreateCommentType
-    
     private let topicId: String
     private let setId: String
     private let parentId: String?
-    
     private let createCommentUseCase: any CreateCommentUseCase
     
     init(topicId: String, setId: String, parentId: String?, type: CreateCommentType, replyFor: Comment?, createCommentUseCase: some CreateCommentUseCase) {
@@ -78,9 +77,19 @@ import PhotosUI
         case .success:
             isCompleted = true
         case .failure(let error):
-            // TODO: - エラーハンドリング
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
-                return
+            if case .errorResponse(let errorResponse, _) = error {
+                if errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
+                    return
+                }
+                if errorResponse.errorCode == .ERROR_SET_NOT_PICKED {
+                    showCommentRestrictionAlert = true
+                    return
+                }
+                if errorResponse.errorCode == .ERROR_TOPIC_NOT_PICKED {
+                    showReplyRestrictionAlert = true
+                    return
+                }
+                showNetworkAlert = true
             }
         }
     }

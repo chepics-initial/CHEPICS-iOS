@@ -80,6 +80,17 @@ struct CreateCommentView: View {
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
+        .networkError($viewModel.showNetworkAlert)
+        .alert("このセットではコメントできません", isPresented: $viewModel.showCommentRestrictionAlert, actions: {
+            Button("OK", role: .cancel, action: {})
+        }, message: {
+            Text("選択しているセット内でのみコメントが可能です")
+        })
+        .alert("このトピックではリプライできません", isPresented: $viewModel.showCommentRestrictionAlert, actions: {
+            Button("OK", role: .cancel, action: {})
+        }, message: {
+            Text("トピック内でセットを選択することでリプライが可能になります")
+        })
         .navigationTitle(viewModel.type.navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
