@@ -89,8 +89,8 @@ import PhotosUI
                     showReplyRestrictionAlert = true
                     return
                 }
-                showNetworkAlert = true
             }
+            showNetworkAlert = true
         }
     }
 }
