@@ -100,6 +100,15 @@ struct CommentCell: View {
                     }
                     
                     HStack {
+                        if let replyCount = comment.replyCount, type != .detail {
+                            if replyCount == 1 {
+                                Text("1 reply")
+                                    .foregroundStyle(.chepicsPrimary)
+                            } else if replyCount > 1 {
+                                Text("\(replyCount) replies")
+                                    .foregroundStyle(.chepicsPrimary)
+                            }
+                        }
                         Spacer()
                         
                         switch type {

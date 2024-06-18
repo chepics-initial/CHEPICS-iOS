@@ -49,18 +49,20 @@ struct SetCommentDetailView: View {
                     viewModel.replyFor = nil
                 })
                 
-                HStack {
-                    Image(systemName: "text.bubble.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 16, height: 16)
-                    
-                    Text("リプライ5件")
-                        .fontWeight(.semibold)
-                    
-                    Spacer()
+                if let replyCount = viewModel.comment.replyCount {
+                    HStack {
+                        Image(systemName: "text.bubble.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 16, height: 16)
+                        
+                        Text("リプライ \(replyCount) 件")
+                            .fontWeight(.semibold)
+                        
+                        Spacer()
+                    }
+                    .padding()
                 }
-                .padding()
                 
                 LazyVStack {
                     switch viewModel.uiState {

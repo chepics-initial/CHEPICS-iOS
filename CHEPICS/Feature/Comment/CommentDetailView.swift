@@ -39,8 +39,10 @@ struct CommentDetailView: View {
                             .fontWeight(.semibold)
                             .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                         
-                        Text("4件の返信")
-                            .foregroundStyle(.gray)
+                        if let replyCount = viewModel.comment.replyCount {
+                            Text("\(replyCount) 件の返信")
+                                .foregroundStyle(.gray)
+                        }
                         
                         Spacer()
                     }
