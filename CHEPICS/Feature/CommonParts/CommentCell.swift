@@ -70,7 +70,7 @@ struct CommentCell: View {
                         EmptyView()
                     }
                     
-                    if let replyFor = comment.replyFor?.first {
+                    if let replyFor = comment.replyFor?.first, type == .reply {
                         HStack {
                             Image(systemName: "arrowshape.turn.up.left.fill")
                                 .resizable()

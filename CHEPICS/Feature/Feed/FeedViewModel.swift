@@ -32,6 +32,8 @@ import Foundation
     @Published var showLikeReplyFailureAlert = false
     private var isTopicFetchStarted = false
     private var isCommentFetchStarted = false
+    private var isInitialTopicAppear = true
+    private var isInitialCommenAppear = true
     
     private let feedUseCase: any FeedUseCase
     
@@ -41,6 +43,21 @@ import Foundation
     
     func selectTab(type: FeedTabType) {
         selectedTab = type
+    }
+    
+    func onAppear() async {
+        switch selectedTab {
+        case .topics:
+            if isInitialTopicAppear || topicUIState == .failure {
+                isInitialTopicAppear = false
+                await fetchTopics()
+            }
+        case .comments:
+            if isInitialCommenAppear || commentUIState == .failure {
+                isInitialCommenAppear = false
+                await fetchComments()
+            }
+        }
     }
     
     func fetchTopics() async {

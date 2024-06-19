@@ -54,12 +54,7 @@ struct FeedView: View {
         .modifier(ToastModifier(showToast: $viewModel.showLikeCommentFailureAlert, text: "参加していないトピックの返信にはいいねをすることができません"))
         .onAppear {
             Task {
-                switch viewModel.selectedTab {
-                case .topics:
-                    await viewModel.fetchTopics()
-                case .comments:
-                    await viewModel.fetchComments()
-                }
+                await viewModel.onAppear()
             }
         }
         .fullScreenCover(isPresented: $showCreateTopicView, content: {
