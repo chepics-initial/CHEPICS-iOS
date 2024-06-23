@@ -41,4 +41,7 @@ enum ServerAPI: String {
     case like = "/comment/like"
     case follow = "/follow"
     case pickedSets = "/pick/sets"
+    case searchTopics = "/search/topic"
+    case searchComments = "/search/comment"
+    case searchUsers = "/search/user"
 }
