@@ -112,7 +112,7 @@ import Foundation
                     return
                 }
                 
-                if errorResponse.errorCode == .ERROR_SET_NOT_PICKED {
+                if errorResponse.errorCode == .ERROR_TOPIC_NOT_PICKED {
                     showLikeReplyFailureAlert = true
                     return
                 }

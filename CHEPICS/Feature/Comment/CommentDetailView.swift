@@ -86,7 +86,7 @@ struct CommentDetailView: View {
         }
         .modifier(ToastModifier(showToast: $viewModel.showReplyRestriction, text: "トピック内でセットを選択することでリプライが可能になります"))
         .modifier(ToastModifier(showToast: $viewModel.showLikeCommentFailureAlert, text: "選択していないセットのコメントにはいいねをすることができません"))
-        .modifier(ToastModifier(showToast: $viewModel.showLikeCommentFailureAlert, text: "参加していないトピックの返信にはいいねをすることができません"))
+        .modifier(ToastModifier(showToast: $viewModel.showLikeReplyFailureAlert, text: "参加していないトピックの返信にはいいねをすることができません"))
         .onAppear {
             Task { await viewModel.onAppear() }
         }
