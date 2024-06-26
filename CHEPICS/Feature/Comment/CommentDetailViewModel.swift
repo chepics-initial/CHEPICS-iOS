@@ -9,7 +9,8 @@ import SwiftUI
 import PhotosUI
 
 @MainActor final class CommentDetailViewModel: ObservableObject {
-    @Published private(set) var comment: Comment
+    @Published private(set) var comment: Comment?
+    @Published private(set) var headerUIState: UIState = .loading
     @Published private(set) var uiState: UIState = .loading
     @Published private(set) var replies: [Comment]?
     @Published var showCreateReplyView = false
@@ -24,23 +25,33 @@ import PhotosUI
     }
     private var isInitialAppear = true
     private let commentDetailUseCase: any CommentDetailUseCase
+    private let commentId: String
     
-    init(comment: Comment, commentDetailUseCase: some CommentDetailUseCase) {
+    init(commentId: String, comment: Comment?, commentDetailUseCase: some CommentDetailUseCase) {
+        self.commentId = commentId
         self.comment = comment
         self.commentDetailUseCase = commentDetailUseCase
     }
     
     func onAppear() async {
-        switch await commentDetailUseCase.fetchComment(id: comment.id) {
+        if comment != nil {
+            headerUIState = .success
+        }
+        switch await commentDetailUseCase.fetchComment(id: commentId) {
         case .success(let comment):
             self.comment = comment
+            headerUIState = .success
         case .failure:
+            if headerUIState == .loading {
+                headerUIState = .failure
+                return
+            }
             break
         }
         
         if isInitialAppear || uiState == .failure {
             isInitialAppear = false
-            switch await commentDetailUseCase.fetchReplies(commentId: comment.id, offset: nil) {
+            switch await commentDetailUseCase.fetchReplies(commentId: commentId, offset: nil) {
             case .success(let replies):
                 self.replies = replies
                 if replies.count < Constants.arrayLimit {
@@ -58,7 +69,7 @@ import PhotosUI
     func onAppearFooterView() async {
         guard footerStatus == .loadingStopped || footerStatus == .failure else { return }
         footerStatus = .loadingStarted
-        switch await commentDetailUseCase.fetchReplies(commentId: comment.id, offset: replies?.count) {
+        switch await commentDetailUseCase.fetchReplies(commentId: commentId, offset: replies?.count) {
         case .success(let additionalReplies):
             for additionalReply in additionalReplies {
                 if let index = self.replies?.firstIndex(where: { $0.id == additionalReply.id }) {
@@ -80,9 +91,9 @@ import PhotosUI
     func onTapLikeButton(comment: Comment) async {
         switch await commentDetailUseCase.like(setId: comment.setId, commentId: comment.id) {
         case .success(let response):
-            if self.comment.id == response.commentId {
-                self.comment.votes = response.count
-                self.comment.isLiked = response.isLiked
+            if self.comment?.id == response.commentId {
+                self.comment?.votes = response.count
+                self.comment?.isLiked = response.isLiked
                 return
             }
             if let index = replies?.firstIndex(where: { $0.id == response.commentId }) {
@@ -105,16 +116,18 @@ import PhotosUI
     }
     
     func onTapReplyButton(replyFor: Comment?) async {
-        switch await commentDetailUseCase.isPickedSet(topicId: comment.topicId) {
-        case .success(let isPicked):
-            if isPicked {
-                self.replyFor = replyFor
+        if let comment {
+            switch await commentDetailUseCase.isPickedSet(topicId: comment.topicId) {
+            case .success(let isPicked):
+                if isPicked {
+                    self.replyFor = replyFor
+                    return
+                }
+                
+                showReplyRestriction = true
+            case .failure:
                 return
             }
-            
-            showReplyRestriction = true
-        case .failure:
-            return
         }
     }
 }

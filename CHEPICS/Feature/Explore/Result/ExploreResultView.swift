@@ -184,7 +184,7 @@ struct ExploreResultView: View {
             case .success:
                 if let comments = viewModel.comments, !comments.isEmpty {
                     CommentListView(comments: comments, footerStatus: viewModel.commentFooterStatus, onTapCell: { comment in
-                        router.items.append(.comment(comment: comment))
+                        router.items.append(.comment(commentId: comment.id, comment: comment))
                     }, onTapImage: { comment, index in
                         if let images = comment.images {
                             mainTabViewModel.images = images.map({ $0.url })

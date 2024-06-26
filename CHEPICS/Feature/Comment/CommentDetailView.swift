@@ -17,70 +17,98 @@ struct CommentDetailView: View {
         ZStack {
             VStack {
                 ScrollView {
-                    CommentCell(comment: viewModel.comment, type: .detail, onTapImage: { index in
-                        if let images = viewModel.comment.images {
-                            mainTabViewModel.images = images.map({ $0.url })
-                            mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
-                            withAnimation {
-                                mainTabViewModel.showImageViewer = true
-                            }
-                        }
-                    }, onTapUserInfo: { user in
-                        router.items.append(.profile(user: user))
-                    }, onTapLikeButton: {
-                        Task { await viewModel.onTapLikeButton(comment: viewModel.comment) }
-                    }, onTapReplyButton: {
-                        Task { await viewModel.onTapReplyButton(replyFor: nil) }
-                    })
-                    
-                    HStack {
-                        Text("Reply")
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                        
-                        if let replyCount = viewModel.comment.replyCount {
-                            Text("\(replyCount) 件の返信")
-                                .foregroundStyle(.gray)
-                        }
-                        
-                        Spacer()
-                    }
-                    .padding()
-                    
-                    switch viewModel.uiState {
+                    switch viewModel.headerUIState {
                     case .loading:
                         LoadingView(showBackgroundColor: false)
                     case .success:
-                        if let replies = viewModel.replies {
-                            LazyVStack {
-                                ForEach(replies) { reply in
-                                    CommentCell(comment: reply, type: .reply, onTapImage: { index in
-                                        if let images = reply.images {
-                                            mainTabViewModel.images = images.map({ $0.url })
-                                            mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
-                                            withAnimation {
-                                                mainTabViewModel.showImageViewer = true
-                                            }
+                        if let comment = viewModel.comment {
+                            CommentCell(comment: comment, type: .detail, onTapImage: { index in
+                                if let images = comment.images {
+                                    mainTabViewModel.images = images.map({ $0.url })
+                                    mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                                    withAnimation {
+                                        mainTabViewModel.showImageViewer = true
+                                    }
+                                }
+                            }, onTapUserInfo: { user in
+                                router.items.append(.profile(user: user))
+                            }, onTapLikeButton: {
+                                Task { await viewModel.onTapLikeButton(comment: comment) }
+                            }, onTapReplyButton: {
+                                Task { await viewModel.onTapReplyButton(replyFor: nil) }
+                            })
+                            
+                            if let parentId = comment.parentId {
+                                HStack {
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        router.items.append(.comment(commentId: parentId, comment: nil))
+                                    }, label: {
+                                        HStack {
+                                            Text("リプライ元のコメントを見る")
+                                                .foregroundStyle(.chepicsPrimary)
+                                            
+                                            Image(systemName: "chevron.forward")
                                         }
-                                    }, onTapUserInfo: { user in
-                                        router.items.append(.profile(user: user))
-                                    }, onTapLikeButton: {
-                                        Task { await viewModel.onTapLikeButton(comment: reply) }
-                                    }, onTapReplyButton: {
-                                        Task { await viewModel.onTapReplyButton(replyFor: reply) }
                                     })
                                 }
-                                
-                                FooterView(footerStatus: viewModel.footerStatus)
-                                    .onAppear {
-                                        Task { await viewModel.onAppearFooterView() }
+                                .padding()
+                            } else {
+                                HStack {
+                                    Text("Reply")
+                                        .font(.title3)
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                                    
+                                    if let replyCount = comment.replyCount {
+                                        Text("\(replyCount) 件の返信")
+                                            .foregroundStyle(.gray)
                                     }
+                                    
+                                    Spacer()
+                                }
+                                .padding()
+                                
+                                switch viewModel.uiState {
+                                case .loading:
+                                    LoadingView(showBackgroundColor: false)
+                                case .success:
+                                    if let replies = viewModel.replies {
+                                        LazyVStack {
+                                            ForEach(replies) { reply in
+                                                CommentCell(comment: reply, type: .reply, onTapImage: { index in
+                                                    if let images = reply.images {
+                                                        mainTabViewModel.images = images.map({ $0.url })
+                                                        mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                                                        withAnimation {
+                                                            mainTabViewModel.showImageViewer = true
+                                                        }
+                                                    }
+                                                }, onTapUserInfo: { user in
+                                                    router.items.append(.profile(user: user))
+                                                }, onTapLikeButton: {
+                                                    Task { await viewModel.onTapLikeButton(comment: reply) }
+                                                }, onTapReplyButton: {
+                                                    Task { await viewModel.onTapReplyButton(replyFor: reply) }
+                                                })
+                                            }
+                                            
+                                            FooterView(footerStatus: viewModel.footerStatus)
+                                                .onAppear {
+                                                    Task { await viewModel.onAppearFooterView() }
+                                                }
+                                        }
+                                    }
+                                case .failure:
+                                    ErrorView()
+                                }
                             }
                         }
                     case .failure:
                         ErrorView()
                     }
+                    
                 }
             }
         }
@@ -91,22 +119,24 @@ struct CommentDetailView: View {
             Task { await viewModel.onAppear() }
         }
         .fullScreenCover(isPresented: $viewModel.showCreateReplyView) {
-            NavigationStack {
-                CreateCommentView(
-                    viewModel: CreateCommentViewModel(
-                        topicId: viewModel.comment.topicId,
-                        setId: viewModel.comment.setId,
-                        parentId: viewModel.comment.id,
-                        type: .reply,
-                        replyFor: viewModel.replyFor,
-                        createCommentUseCase: DIFactory.createCommentUseCase()
+            if let comment = viewModel.comment {
+                NavigationStack {
+                    CreateCommentView(
+                        viewModel: CreateCommentViewModel(
+                            topicId: comment.topicId,
+                            setId: comment.setId,
+                            parentId: comment.id,
+                            type: .reply,
+                            replyFor: viewModel.replyFor,
+                            createCommentUseCase: DIFactory.createCommentUseCase()
+                        )
                     )
-                )
+                }
             }
         }
     }
 }
 
 #Preview {
-    CommentDetailView(viewModel: CommentDetailViewModel(comment: mockComment1, commentDetailUseCase: CommentDetailUseCase_Previews()))
+    CommentDetailView(viewModel: CommentDetailViewModel(commentId: "", comment: mockComment1, commentDetailUseCase: CommentDetailUseCase_Previews()))
 }

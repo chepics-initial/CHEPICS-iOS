@@ -117,7 +117,7 @@ enum Tab {
         case exploreResult(searchText: String)
         case profile(user: User)
         case myPageTopicList
-        case comment(comment: Comment)
+        case comment(commentId: String, comment: Comment?)
         case topicTop(topic: Topic)
         case topicDetail(topic: Topic)
     }

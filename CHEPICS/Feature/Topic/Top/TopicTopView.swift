@@ -372,7 +372,7 @@ struct TopicTopView: View {
                             LazyVStack {
                                 ForEach(comments) { comment in
                                     Button {
-                                        router.items.append(.comment(comment: comment))
+                                        router.items.append(.comment(commentId: comment.id, comment: comment))
                                     } label: {
                                         CommentCell(comment: comment, type: .set, onTapImage: { index in
                                             if let images = comment.images {

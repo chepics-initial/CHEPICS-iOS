@@ -263,7 +263,7 @@ struct ProfileView: View {
                                 
                             })
                             .onTapGesture {
-                                router.items.append(.comment(comment: comment))
+                                router.items.append(.comment(commentId: comment.id, comment: comment))
                             }
                         }
                         
