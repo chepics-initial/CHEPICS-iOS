@@ -145,7 +145,7 @@ struct ExploreResultView: View {
             case .success:
                 if let topics = viewModel.topics, !topics.isEmpty {
                     TopicListView(topics: topics, footerStatus: viewModel.topicFooterStatus, onTapCell: { topic in
-                        router.items.append(.topicTop(topic: topic))
+                        router.items.append(.topicTop(topicId: topic.id, topic: topic))
                     }, onTapImage: { topic, index in
                         if let images = topic.images {
                             mainTabViewModel.images = images.map({ $0.url })
@@ -184,7 +184,7 @@ struct ExploreResultView: View {
             case .success:
                 if let comments = viewModel.comments, !comments.isEmpty {
                     CommentListView(comments: comments, footerStatus: viewModel.commentFooterStatus, onTapCell: { comment in
-                        router.items.append(.comment(commentId: comment.id, comment: comment))
+                        router.items.append(.comment(commentId: comment.id, comment: comment, showTopicTitle: true))
                     }, onTapImage: { comment, index in
                         if let images = comment.images {
                             mainTabViewModel.images = images.map({ $0.url })
@@ -199,6 +199,8 @@ struct ExploreResultView: View {
                         Task { await viewModel.onTapLikeButton(comment: comment) }
                     }, onAppearFotterView: {
                         Task { await viewModel.onAppearCommentFooterView() }
+                    }, onTapTopicTitle: { topicId in
+                        router.items.append(.topicTop(topicId: topicId, topic: nil))
                     })
                 } else {
                     EmptyResultView(text: "関連するコメントが見つかりませんでした。")
@@ -303,6 +305,7 @@ private struct CommentListView: View {
     let onTapUserInfo: (User) -> Void
     let onTapLikeButton: (Comment) -> Void
     let onAppearFotterView: () -> Void
+    let onTapTopicTitle: (String) -> Void
     
     var body: some View {
         ScrollViewReader { reader in
@@ -317,6 +320,8 @@ private struct CommentListView: View {
                             onTapLikeButton(comment)
                         }, onTapReplyButton: {
                             
+                        }, onTapTopicTitle: {
+                            onTapTopicTitle(comment.topicId)
                         })
                         .onTapGesture {
                             onTapCell(comment)

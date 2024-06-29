@@ -35,7 +35,7 @@ struct TopicTopView: View {
         }
         .sheet(isPresented: $showSetList, content: {
             NavigationStack {
-                TopicSetListView(viewModel: TopicSetListViewModel(topicId: viewModel.topic.id, currentSet: viewModel.selectedSet, topicSetListUseCase: DIFactory.topicSetListUseCase())) { set in
+                TopicSetListView(viewModel: TopicSetListViewModel(topicId: viewModel.topicId, currentSet: viewModel.selectedSet, topicSetListUseCase: DIFactory.topicSetListUseCase())) { set in
                     Task { await viewModel.selectSet(set: set) }
                 }
             }
@@ -43,7 +43,7 @@ struct TopicTopView: View {
         .fullScreenCover(isPresented: $showCreateCommentView) {
             if let selectedSet = viewModel.selectedSet {
                 NavigationStack {
-                    CreateCommentView(viewModel: CreateCommentViewModel(topicId: viewModel.topic.id, setId: selectedSet.id, parentId: nil, type: .comment, replyFor: nil, createCommentUseCase: DIFactory.createCommentUseCase())) {
+                    CreateCommentView(viewModel: CreateCommentViewModel(topicId: viewModel.topicId, setId: selectedSet.id, parentId: nil, type: .comment, replyFor: nil, createCommentUseCase: DIFactory.createCommentUseCase())) {
                         Task { await viewModel.createCommentCompletion() }
                     }
                 }
@@ -60,59 +60,61 @@ struct TopicTopView: View {
                         .fontWeight(.semibold)
                         .foregroundStyle(.chepicsPrimary)
                     
-                    Text(viewModel.topic.title)
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                    
-                    if let description = viewModel.topic.description {
-                        Text(description)
+                    if let topic = viewModel.topic {
+                        Text(topic.title)
+                            .font(.title2)
+                            .fontWeight(.semibold)
                             .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                    }
-                    
-                    if let link = viewModel.topic.link {
-                        Text(.init("[\(link)](\(link))"))
-                            .font(.caption)
-                            .tint(.blue)
-                    }
-                    
-                    if let images = viewModel.topic.images {
-                        GridImagesView(images: images.map({ $0.url }), onTapImage: { index in
-                            mainTabViewModel.images = images.map({ $0.url })
-                            mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
-                            withAnimation {
-                                mainTabViewModel.showImageViewer = true
-                            }
-                        }, type: .topic)
-                    }
-                    
-                    HStack(spacing: 16) {
-                        HStack(spacing: 8) {
-                            Image(.orangePeople)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 20)
-                            
-                            Text(viewModel.topic.votes.commaSeparateThreeDigits())
-                                .font(.footnote)
-                                .foregroundStyle(Color(.chepicsPrimary))
-                        }
                         
-                        Button {
-                            router.items.append(.profile(user: viewModel.topic.user))
-                        } label: {
-                            UserIconView(url: viewModel.topic.user.profileImageUrl, scale: .topic)
-                            
-                            Text(viewModel.topic.user.fullname)
-                                .font(.caption)
+                        if let description = topic.description {
+                            Text(description)
                                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                         }
                         
-                        Spacer()
+                        if let link = topic.link {
+                            Text(.init("[\(link)](\(link))"))
+                                .font(.caption)
+                                .tint(.blue)
+                        }
                         
-                        Text(viewModel.topic.registerTime.timestampString())
-                            .font(.footnote)
-                            .foregroundStyle(.gray)
+                        if let images = topic.images {
+                            GridImagesView(images: images.map({ $0.url }), onTapImage: { index in
+                                mainTabViewModel.images = images.map({ $0.url })
+                                mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                                withAnimation {
+                                    mainTabViewModel.showImageViewer = true
+                                }
+                            }, type: .topic)
+                        }
+                        
+                        HStack(spacing: 16) {
+                            HStack(spacing: 8) {
+                                Image(.orangePeople)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20)
+                                
+                                Text(topic.votes.commaSeparateThreeDigits())
+                                    .font(.footnote)
+                                    .foregroundStyle(Color(.chepicsPrimary))
+                            }
+                            
+                            Button {
+                                router.items.append(.profile(user: topic.user))
+                            } label: {
+                                UserIconView(url: topic.user.profileImageUrl, scale: .topic)
+                                
+                                Text(topic.user.fullname)
+                                    .font(.caption)
+                                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                            }
+                            
+                            Spacer()
+                            
+                            Text(topic.registerTime.timestampString())
+                                .font(.footnote)
+                                .foregroundStyle(.gray)
+                        }
                     }
                 }
                 .padding(.horizontal, 16)
@@ -191,94 +193,96 @@ struct TopicTopView: View {
                 .foregroundStyle(.chepicsPrimary)
                 .padding(.horizontal, 16)
             
-            VStack {
-                HStack {
-                    Image(.orangePeople)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 24)
-                    
-                    (
-                        Text("\(viewModel.topic.votes)")
-                            .fontWeight(.semibold)
-                        
-                        +
-                        
-                        Text("人が参加中")
-                    )
-                        .font(.footnote)
-                        .foregroundStyle(.chepicsPrimary)
-                    
-                    Spacer()
-                }
-                
-                Text(viewModel.topic.title)
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .multilineTextAlignment(.leading)
-                    .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                if let link = viewModel.topic.link {
-                    Text(.init("[\(link)](\(link))"))
-                        .font(.caption)
-                        .multilineTextAlignment(.leading)
-                        .tint(.blue)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                
-                if let images = viewModel.topic.images {
-                    GridImagesView(images: images.map({ $0.url }), onTapImage: { index in
-                        mainTabViewModel.images = images.map({ $0.url })
-                        mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
-                        withAnimation {
-                            mainTabViewModel.showImageViewer = true
-                        }
-                    }, type: .comment)
-                }
-                
-                HStack(spacing: 16) {
-                    Button {
-                        router.items.append(.profile(user: viewModel.topic.user))
-                    } label: {
-                        UserIconView(url: viewModel.topic.user.profileImageUrl, scale: .topic)
-                        
-                        Text(viewModel.topic.user.fullname)
-                            .font(.caption)
-                            .foregroundStyle(Color.getDefaultColor(for: colorScheme))
-                    }
-                    
-                    Spacer()
-                    
-                    Text(viewModel.topic.registerTime.timestampString())
-                        .font(.footnote)
-                        .foregroundStyle(.gray)
-                }
-                
-                Button {
-                    router.items.append(.topicDetail(topic: viewModel.topic))
-                } label: {
-                    HStack(spacing: 4) {
-                        Spacer()
-                        
-                        Text("トピックの詳細を見る")
-                            .font(.footnote)
-                        
-                        Image(systemName: "chevron.forward")
+            if let topic = viewModel.topic {
+                VStack {
+                    HStack {
+                        Image(.orangePeople)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 8, height: 8)
+                            .frame(width: 24)
+                        
+                        (
+                            Text("\(topic.votes)")
+                                .fontWeight(.semibold)
+                            
+                            +
+                            
+                            Text("人が参加中")
+                        )
+                            .font(.footnote)
+                            .foregroundStyle(.chepicsPrimary)
+                        
+                        Spacer()
                     }
-                    .foregroundStyle(.gray)
+                    
+                    Text(topic.title)
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .multilineTextAlignment(.leading)
+                        .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    if let link = topic.link {
+                        Text(.init("[\(link)](\(link))"))
+                            .font(.caption)
+                            .multilineTextAlignment(.leading)
+                            .tint(.blue)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
+                    if let images = topic.images {
+                        GridImagesView(images: images.map({ $0.url }), onTapImage: { index in
+                            mainTabViewModel.images = images.map({ $0.url })
+                            mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
+                            withAnimation {
+                                mainTabViewModel.showImageViewer = true
+                            }
+                        }, type: .comment)
+                    }
+                    
+                    HStack(spacing: 16) {
+                        Button {
+                            router.items.append(.profile(user: topic.user))
+                        } label: {
+                            UserIconView(url: topic.user.profileImageUrl, scale: .topic)
+                            
+                            Text(topic.user.fullname)
+                                .font(.caption)
+                                .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                        }
+                        
+                        Spacer()
+                        
+                        Text(topic.registerTime.timestampString())
+                            .font(.footnote)
+                            .foregroundStyle(.gray)
+                    }
+                    
+                    Button {
+                        router.items.append(.topicDetail(topic: topic))
+                    } label: {
+                        HStack(spacing: 4) {
+                            Spacer()
+                            
+                            Text("トピックの詳細を見る")
+                                .font(.footnote)
+                            
+                            Image(systemName: "chevron.forward")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 8, height: 8)
+                        }
+                        .foregroundStyle(.gray)
+                    }
                 }
+                .padding(16)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(style: StrokeStyle())
+                        .foregroundStyle(.chepicsPrimary)
+                }
+                .padding(16)
             }
-            .padding(16)
-            .overlay {
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(style: StrokeStyle())
-                    .foregroundStyle(.chepicsPrimary)
-            }
-            .padding(16)
         }
     }
     
@@ -374,7 +378,7 @@ struct TopicTopView: View {
                             LazyVStack {
                                 ForEach(comments) { comment in
                                     Button {
-                                        router.items.append(.comment(commentId: comment.id, comment: comment))
+                                        router.items.append(.comment(commentId: comment.id, comment: comment, showTopicTitle: false))
                                     } label: {
                                         CommentCell(comment: comment, type: .set, onTapImage: { index in
                                             if let images = comment.images {
@@ -389,6 +393,8 @@ struct TopicTopView: View {
                                         }, onTapLikeButton: {
                                             Task { await viewModel.onTapLikeButton(comment: comment) }
                                         }, onTapReplyButton: {
+                                            
+                                        }, onTapTopicTitle: {
                                             
                                         })
                                     }
@@ -410,5 +416,5 @@ struct TopicTopView: View {
 }
 
 #Preview {
-    TopicTopView(viewModel: TopicTopViewModel(topic: mockTopic1, topicTopUseCase: TopicTopUseCase_Previews()))
+    TopicTopView(viewModel: TopicTopViewModel(topicId: "", topic: mockTopic1, topicTopUseCase: TopicTopUseCase_Previews()))
 }

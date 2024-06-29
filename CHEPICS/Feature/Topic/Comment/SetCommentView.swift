@@ -66,7 +66,11 @@ struct SetCommentView: View {
                                     
                                 }, onTapLikeButton: {
                                     Task { await viewModel.onTapLikeButton(comment: comment) }
-                                }, onTapReplyButton: {})
+                                }, onTapReplyButton: {
+                                    
+                                }, onTapTopicTitle: {
+                                    
+                                })
                                 .onTapGesture {
                                     showReplyComment = comment
                                     isNavigationActive = true

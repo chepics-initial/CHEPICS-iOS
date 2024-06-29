@@ -46,6 +46,8 @@ struct SetCommentDetailView: View {
                 }, onTapLikeButton: {
                     Task { await viewModel.onTapLikeButton(comment: viewModel.comment) }
                 }, onTapReplyButton: {
+                }, onTapTopicTitle: {
+                    
                 })
                 
                 if let replyCount = viewModel.comment.replyCount {
@@ -77,6 +79,8 @@ struct SetCommentDetailView: View {
                                 }, onTapLikeButton: {
                                     Task { await viewModel.onTapLikeButton(comment: reply) }
                                 }, onTapReplyButton: {
+                                }, onTapTopicTitle: {
+                                    
                                 })
                             }
                             

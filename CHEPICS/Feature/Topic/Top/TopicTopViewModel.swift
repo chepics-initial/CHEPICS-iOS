@@ -10,7 +10,7 @@ import PhotosUI
 import SwiftUI
 
 @MainActor final class TopicTopViewModel: ObservableObject {
-    @Published private(set) var topic: Topic
+    @Published private(set) var topic: Topic?
     @Published private(set) var viewStatus: TopicViewStatus = .loading
     @Published private(set) var selectedSet: PickSet?
     @Published private(set) var uiState: UIState = .loading
@@ -19,8 +19,10 @@ import SwiftUI
     @Published var showLikeFailureAlert = false
     private var isInitialAppear = true
     private let topicTopUseCase: any TopicTopUseCase
+    let topicId: String
     
-    init(topic: Topic, topicTopUseCase: some TopicTopUseCase) {
+    init(topicId: String, topic: Topic?, topicTopUseCase: some TopicTopUseCase) {
+        self.topicId = topicId
         self.topic = topic
         self.topicTopUseCase = topicTopUseCase
     }
@@ -28,13 +30,17 @@ import SwiftUI
     func onAppear() async {
         if isInitialAppear || viewStatus == .failure {
             isInitialAppear = false
-            switch await topicTopUseCase.fetchPickedSet(topicId: topic.id) {
+            switch await topicTopUseCase.fetchPickedSet(topicId: topicId) {
             case .success(let pickSet):
                 if let pickSet {
                     await selectSet(set: pickSet)
                 } else {
-                    viewStatus = .top
                     await fetchTopic()
+                    if topic == nil {
+                        viewStatus = .failure
+                        return
+                    }
+                    viewStatus = .top
                 }
             case .failure:
                 viewStatus = .failure
@@ -43,7 +49,7 @@ import SwiftUI
     }
     
     private func fetchTopic() async {
-        switch await topicTopUseCase.fetchTopic(topicId: topic.id) {
+        switch await topicTopUseCase.fetchTopic(topicId: topicId) {
         case .success(let topic):
             self.topic = topic
         case .failure:
@@ -52,9 +58,9 @@ import SwiftUI
     }
     
     func selectSet(set: PickSet) async {
+        await fetchTopic()
         selectedSet = set
         viewStatus = .detail
-        await fetchTopic()
         uiState = .loading
         switch await topicTopUseCase.fetchSetComments(setId: set.id, offset: nil) {
         case .success(let comments):
@@ -99,7 +105,7 @@ import SwiftUI
     }
     
     func createCommentCompletion() async {
-        switch await topicTopUseCase.fetchPickedSet(topicId: topic.id) {
+        switch await topicTopUseCase.fetchPickedSet(topicId: topicId) {
         case .success(let pickSet):
             if let pickSet {
                 selectedSet = pickSet

@@ -90,10 +90,10 @@ struct FeedView: View {
                 ProfileView(viewModel: ProfileViewModel(user: user, profileUseCase: DIFactory.profileUseCase()))
             case .myPageTopicList:
                 EmptyView()
-            case .comment(commentId: let commentId, comment: let comment):
-                CommentDetailView(viewModel: CommentDetailViewModel(commentId: commentId, comment: comment, commentDetailUseCase: DIFactory.commentDetailUseCase()))
-            case .topicTop(topic: let topic):
-                TopicTopView(viewModel: TopicTopViewModel(topic: topic, topicTopUseCase: DIFactory.topicTopUseCase()))
+            case .comment(commentId: let commentId, comment: let comment, showTopicTitle: let showTopicTitle):
+                CommentDetailView(viewModel: CommentDetailViewModel(commentId: commentId, comment: comment, commentDetailUseCase: DIFactory.commentDetailUseCase()), isTopicTitleEnabled: showTopicTitle)
+            case .topicTop(topicId: let topicId, topic: let topic):
+                TopicTopView(viewModel: TopicTopViewModel(topicId: topicId, topic: topic, topicTopUseCase: DIFactory.topicTopUseCase()))
             case .topicDetail(topic: let topic):
                 TopicDetailView(topic: topic)
             }
@@ -185,7 +185,7 @@ struct FeedView: View {
                     if let topics = viewModel.topics {
                         ForEach(topics) { topic in
                             Button {
-                                feedRouter.items.append(.topicTop(topic: topic))
+                                feedRouter.items.append(.topicTop(topicId: topic.id, topic: topic))
                             } label: {
                                 TopicCell(topic: topic, onTapImage: { index in
                                     if let images = topic.images {
@@ -248,9 +248,11 @@ struct FeedView: View {
                                 Task { await viewModel.onTapLikeButton(comment: comment) }
                             }, onTapReplyButton: {
                                 
+                            }, onTapTopicTitle: {
+                                feedRouter.items.append(.topicTop(topicId: comment.topicId, topic: nil))
                             })
                             .onTapGesture {
-                                feedRouter.items.append(.comment(commentId: comment.id, comment: comment))
+                                feedRouter.items.append(.comment(commentId: comment.id, comment: comment, showTopicTitle: true))
                             }
                         }
                         

@@ -12,6 +12,7 @@ struct CommentDetailView: View {
     @EnvironmentObject var router: NavigationRouter
     @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: CommentDetailViewModel
+    let isTopicTitleEnabled: Bool
     
     var body: some View {
         ZStack {
@@ -22,7 +23,7 @@ struct CommentDetailView: View {
                         LoadingView(showBackgroundColor: false)
                     case .success:
                         if let comment = viewModel.comment {
-                            CommentCell(comment: comment, type: .detail, onTapImage: { index in
+                            CommentCell(comment: comment, type: isTopicTitleEnabled ? .detail : .topicCommentDetail, onTapImage: { index in
                                 if let images = comment.images {
                                     mainTabViewModel.images = images.map({ $0.url })
                                     mainTabViewModel.pagerState = ImagePagerState(pageCount: images.count, initialIndex: index, pageSize: getRect().size)
@@ -36,6 +37,10 @@ struct CommentDetailView: View {
                                 Task { await viewModel.onTapLikeButton(comment: comment) }
                             }, onTapReplyButton: {
                                 Task { await viewModel.onTapReplyButton(replyFor: nil) }
+                            }, onTapTopicTitle: {
+                                if isTopicTitleEnabled {
+                                    router.items.append(.topicTop(topicId: comment.topicId, topic: nil))
+                                }
                             })
                             
                             if let parentId = comment.parentId {
@@ -43,7 +48,7 @@ struct CommentDetailView: View {
                                     Spacer()
                                     
                                     Button(action: {
-                                        router.items.append(.comment(commentId: parentId, comment: nil))
+                                        router.items.append(.comment(commentId: parentId, comment: nil, showTopicTitle: isTopicTitleEnabled))
                                     }, label: {
                                         HStack {
                                             Text("リプライ元のコメントを見る")
@@ -91,6 +96,10 @@ struct CommentDetailView: View {
                                                     Task { await viewModel.onTapLikeButton(comment: reply) }
                                                 }, onTapReplyButton: {
                                                     Task { await viewModel.onTapReplyButton(replyFor: reply) }
+                                                }, onTapTopicTitle: {
+                                                    if isTopicTitleEnabled {
+                                                        router.items.append(.topicTop(topicId: reply.topicId, topic: nil))
+                                                    }
                                                 })
                                             }
                                             
@@ -140,5 +149,5 @@ struct CommentDetailView: View {
 }
 
 #Preview {
-    CommentDetailView(viewModel: CommentDetailViewModel(commentId: "", comment: mockComment1, commentDetailUseCase: CommentDetailUseCase_Previews()))
+    CommentDetailView(viewModel: CommentDetailViewModel(commentId: "", comment: mockComment1, commentDetailUseCase: CommentDetailUseCase_Previews()), isTopicTitleEnabled: true)
 }

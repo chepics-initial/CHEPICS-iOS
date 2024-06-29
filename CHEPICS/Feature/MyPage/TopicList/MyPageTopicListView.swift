@@ -40,7 +40,7 @@ struct MyPageTopicListView: View {
                     // MARK: - 一時的にidをsetのidにした（おそらく複数同じsetIDのセルが並ぶことはないから問題ないはず）
                     ForEach(sets, id: \.set.id) { mySet in
                         Button {
-                            router.items.append(.topicTop(topic: mySet.topic))
+                            router.items.append(.topicTop(topicId: mySet.topic.id, topic: mySet.topic))
                         } label: {
                             MyPageTopicCell(set: mySet)
                         }

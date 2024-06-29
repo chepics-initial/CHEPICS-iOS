@@ -207,7 +207,7 @@ struct ProfileView: View {
                     if let topics = viewModel.topics {
                         ForEach(topics) { topic in
                             Button {
-                                router.items.append(.topicTop(topic: topic))
+                                router.items.append(.topicTop(topicId: topic.id, topic: topic))
                             } label: {
                                 TopicCell(topic: topic, onTapImage: { index in
                                     if let images = topic.images {
@@ -261,9 +261,11 @@ struct ProfileView: View {
                                 Task { await viewModel.onTapLikeButton(comment: comment) }
                             }, onTapReplyButton: {
                                 
+                            }, onTapTopicTitle: {
+                                router.items.append(.topicTop(topicId: comment.topicId, topic: nil))
                             })
                             .onTapGesture {
-                                router.items.append(.comment(commentId: comment.id, comment: comment))
+                                router.items.append(.comment(commentId: comment.id, comment: comment, showTopicTitle: true))
                             }
                         }
                         

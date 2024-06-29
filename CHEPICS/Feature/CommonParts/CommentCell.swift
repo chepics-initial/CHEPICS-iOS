@@ -13,6 +13,7 @@ enum CommentType {
     case reply
     case set
     case setDetail
+    case topicCommentDetail
 }
 
 struct CommentCell: View {
@@ -23,6 +24,7 @@ struct CommentCell: View {
     let onTapUserInfo: (User) -> Void
     let onTapLikeButton: () -> Void
     let onTapReplyButton: () -> Void
+    let onTapTopicTitle: () -> Void
     
     var body: some View {
         VStack {
@@ -57,17 +59,23 @@ struct CommentCell: View {
                     }
                     
                     switch type {
-                    case .comment:
-                        HStack {
-                            RoundedRectangle(cornerRadius: 2)
-                                .frame(width: 4, height: 24)
-                                .foregroundStyle(.chepicsPrimary)
-                            
-                            Text(comment.topic)
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundStyle(.chepicsPrimary)
+                    case .comment, .detail:
+                        Button {
+                            onTapTopicTitle()
+                        } label: {
+                            HStack {
+                                RoundedRectangle(cornerRadius: 2)
+                                    .frame(width: 4, height: 24)
+                                    .foregroundStyle(.chepicsPrimary)
+                                
+                                Text(comment.topic)
+                                    .font(.system(size: 16, weight: .semibold))
+                                    .multilineTextAlignment(.leading)
+                                    .foregroundStyle(.chepicsPrimary)
+                            }
                         }
-                    case .detail, .reply, .set, .setDetail:
+
+                    case .reply, .set, .setDetail, .topicCommentDetail:
                         EmptyView()
                     }
                     
@@ -111,7 +119,7 @@ struct CommentCell: View {
                                     Text("\(replyCount) replies")
                                         .foregroundStyle(.chepicsPrimary)
                                 }
-                            case .detail, .setDetail:
+                            case .detail, .setDetail, .topicCommentDetail:
                                 EmptyView()
                             }
                         }
@@ -120,7 +128,7 @@ struct CommentCell: View {
                         switch type {
                         case .comment, .set, .setDetail:
                             EmptyView()
-                        case .detail, .reply:
+                        case .detail, .reply, .topicCommentDetail:
                             Button {
                                 onTapReplyButton()
                             } label: {
@@ -162,5 +170,5 @@ struct CommentCell: View {
 }
 
 #Preview {
-    CommentCell(comment: mockComment2, type: .comment, onTapImage: { _ in }, onTapUserInfo: { _ in }, onTapLikeButton: {}, onTapReplyButton: {})
+    CommentCell(comment: mockComment2, type: .comment, onTapImage: { _ in }, onTapUserInfo: { _ in }, onTapLikeButton: {}, onTapReplyButton: {}, onTapTopicTitle: {})
 }
