@@ -10,12 +10,20 @@ import SwiftUI
 struct SearchTextField<TextField: View>: View {
     @Binding var searchText: String
     let textField: TextField
+    let onProgress: Bool
     let onTapBackButton: () -> Void
     let onTapDeleteButton: () -> Void
     
-    init(searchText: Binding<String>, @ViewBuilder textField: () -> TextField, onTapBackButton: @escaping () -> Void, onTapDeleteButton: @escaping () -> Void) {
+    init(
+        searchText: Binding<String>,
+        @ViewBuilder textField: () -> TextField,
+        onProgress: Bool,
+        onTapBackButton: @escaping () -> Void,
+        onTapDeleteButton: @escaping () -> Void
+    ) {
         self._searchText = searchText
         self.textField = textField()
+        self.onProgress = onProgress
         self.onTapBackButton = onTapBackButton
         self.onTapDeleteButton = onTapDeleteButton
     }
@@ -41,7 +49,7 @@ struct SearchTextField<TextField: View>: View {
                 
                 textField
                 
-                if !searchText.isEmpty {
+                if !searchText.isEmpty && onProgress {
                     Button(action: {
                         onTapDeleteButton()
                     }, label: {
@@ -64,5 +72,5 @@ struct SearchTextField<TextField: View>: View {
 }
 
 #Preview {
-    SearchTextField(searchText: .constant(""), textField: {}, onTapBackButton: {}, onTapDeleteButton: {})
+    SearchTextField(searchText: .constant(""), textField: {}, onProgress: true, onTapBackButton: {}, onTapDeleteButton: {})
 }

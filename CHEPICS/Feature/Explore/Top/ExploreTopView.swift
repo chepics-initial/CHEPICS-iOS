@@ -30,7 +30,7 @@ struct ExploreTopView: View {
                                                     )) { textField in
                         textField.enablesReturnKeyAutomatically = true
                     }
-            }, onTapBackButton: {
+            }, onProgress: true, onTapBackButton: {
                 dismiss()
             }, onTapDeleteButton: {
                 viewModel.onTapDeleteButton()
@@ -61,7 +61,6 @@ struct ExploreTopView: View {
                         .padding(.horizontal, 16)
                         .padding(.top, 16)
                     }
-
                     
                     Divider()
                 }

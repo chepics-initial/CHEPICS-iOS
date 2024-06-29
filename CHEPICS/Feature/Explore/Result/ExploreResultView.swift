@@ -34,7 +34,7 @@ struct ExploreResultView: View {
                                                     )) { textField in
                         textField.enablesReturnKeyAutomatically = true
                     }
-            }, onTapBackButton: {
+            }, onProgress: isFocused, onTapBackButton: {
                 if isFocused {
                     viewModel.searchText = viewModel.initialSearchText
                     isFocused = false
