@@ -130,7 +130,9 @@ struct CommentDetailView: View {
                             replyFor: viewModel.replyFor,
                             createCommentUseCase: DIFactory.createCommentUseCase()
                         )
-                    )
+                    ) {
+                        Task { await viewModel.createReplyCompletion() }
+                    }
                 }
             }
         }

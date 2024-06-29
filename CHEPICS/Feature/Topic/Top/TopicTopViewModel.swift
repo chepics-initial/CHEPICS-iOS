@@ -59,11 +59,7 @@ import SwiftUI
         switch await topicTopUseCase.fetchSetComments(setId: set.id, offset: nil) {
         case .success(let comments):
             self.comments = comments
-            if comments.count < Constants.arrayLimit {
-                footerStatus = .allFetched
-            } else {
-                footerStatus = .loadingStopped
-            }
+            footerStatus = comments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             uiState = .success
         case .failure:
             uiState = .failure
@@ -96,13 +92,28 @@ import SwiftUI
                     comments?.append(additionalComment)
                 }
             }
-            if additionalComments.count < Constants.arrayLimit {
-                footerStatus = .allFetched
-            } else {
-                footerStatus = .loadingStopped
-            }
+            footerStatus = additionalComments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
         case .failure:
             footerStatus = .failure
+        }
+    }
+    
+    func createCommentCompletion() async {
+        switch await topicTopUseCase.fetchPickedSet(topicId: topic.id) {
+        case .success(let pickSet):
+            if let pickSet {
+                selectedSet = pickSet
+                switch await topicTopUseCase.fetchSetComments(setId: pickSet.id, offset: nil) {
+                case .success(let comments):
+                    self.comments = comments
+                    footerStatus = comments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
+                    uiState = .success
+                case .failure:
+                    return
+                }
+            }
+        case .failure:
+            return
         }
     }
 }

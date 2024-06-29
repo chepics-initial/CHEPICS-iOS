@@ -12,6 +12,7 @@ enum CommentType {
     case detail
     case reply
     case set
+    case setDetail
 }
 
 struct CommentCell: View {
@@ -66,7 +67,7 @@ struct CommentCell: View {
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundStyle(.chepicsPrimary)
                         }
-                    case .detail, .reply, .set:
+                    case .detail, .reply, .set, .setDetail:
                         EmptyView()
                     }
                     
@@ -100,19 +101,24 @@ struct CommentCell: View {
                     }
                     
                     HStack {
-                        if let replyCount = comment.replyCount, type != .detail {
-                            if replyCount == 1 {
-                                Text("1 reply")
-                                    .foregroundStyle(.chepicsPrimary)
-                            } else if replyCount > 1 {
-                                Text("\(replyCount) replies")
-                                    .foregroundStyle(.chepicsPrimary)
+                        if let replyCount = comment.replyCount {
+                            switch type {
+                            case .comment, .reply, .set:
+                                if replyCount == 1 {
+                                    Text("1 reply")
+                                        .foregroundStyle(.chepicsPrimary)
+                                } else if replyCount > 1 {
+                                    Text("\(replyCount) replies")
+                                        .foregroundStyle(.chepicsPrimary)
+                                }
+                            case .detail, .setDetail:
+                                EmptyView()
                             }
                         }
                         Spacer()
                         
                         switch type {
-                        case .comment, .set:
+                        case .comment, .set, .setDetail:
                             EmptyView()
                         case .detail, .reply:
                             Button {

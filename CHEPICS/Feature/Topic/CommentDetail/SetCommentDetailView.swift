@@ -39,14 +39,13 @@ struct SetCommentDetailView: View {
             .padding()
             
             ScrollView {
-                CommentCell(comment: viewModel.comment, type: .detail, onTapImage: { index in
+                CommentCell(comment: viewModel.comment, type: .setDetail, onTapImage: { index in
                     
                 }, onTapUserInfo: { _ in
                     
                 }, onTapLikeButton: {
                     Task { await viewModel.onTapLikeButton(comment: viewModel.comment) }
                 }, onTapReplyButton: {
-                    viewModel.replyFor = nil
                 })
                 
                 if let replyCount = viewModel.comment.replyCount {
@@ -78,7 +77,6 @@ struct SetCommentDetailView: View {
                                 }, onTapLikeButton: {
                                     Task { await viewModel.onTapLikeButton(comment: reply) }
                                 }, onTapReplyButton: {
-                                    viewModel.replyFor = reply
                                 })
                             }
                             
@@ -106,20 +104,6 @@ struct SetCommentDetailView: View {
                     Image(systemName: "xmark")
                         .foregroundStyle(.gray)
                 }
-            }
-        }
-        .fullScreenCover(isPresented: $viewModel.showCreateReplyView) {
-            NavigationStack {
-                CreateCommentView(
-                    viewModel: CreateCommentViewModel(
-                        topicId: viewModel.comment.topicId,
-                        setId: viewModel.comment.setId,
-                        parentId: viewModel.comment.id,
-                        type: .reply,
-                        replyFor: viewModel.replyFor,
-                        createCommentUseCase: DIFactory.createCommentUseCase()
-                    )
-                )
             }
         }
     }

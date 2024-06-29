@@ -43,7 +43,9 @@ struct TopicTopView: View {
         .fullScreenCover(isPresented: $showCreateCommentView) {
             if let selectedSet = viewModel.selectedSet {
                 NavigationStack {
-                    CreateCommentView(viewModel: CreateCommentViewModel(topicId: viewModel.topic.id, setId: selectedSet.id, parentId: nil, type: .comment, replyFor: nil, createCommentUseCase: DIFactory.createCommentUseCase()))
+                    CreateCommentView(viewModel: CreateCommentViewModel(topicId: viewModel.topic.id, setId: selectedSet.id, parentId: nil, type: .comment, replyFor: nil, createCommentUseCase: DIFactory.createCommentUseCase())) {
+                        Task { await viewModel.createCommentCompletion() }
+                    }
                 }
             }
         }

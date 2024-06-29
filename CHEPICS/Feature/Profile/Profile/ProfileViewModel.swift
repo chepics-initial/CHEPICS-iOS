@@ -87,11 +87,7 @@ import Foundation
         switch await profileUseCase.fetchUserTopics(userId: user.id, offset: nil) {
         case .success(let topics):
             self.topics = topics
-            if topics.count < Constants.arrayLimit {
-                topicFooterStatus = .allFetched
-            } else {
-                topicFooterStatus = .loadingStopped
-            }
+            topicFooterStatus = topics.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             topicUIState = .success
         case .failure:
             topicUIState = .failure
@@ -106,11 +102,7 @@ import Foundation
         switch await profileUseCase.fetchUserComments(userId: user.id, offset: nil) {
         case .success(let comments):
             self.comments = comments
-            if comments.count < Constants.arrayLimit {
-                commentFooterStatus = .allFetched
-            } else {
-                commentFooterStatus = .loadingStopped
-            }
+            commentFooterStatus = comments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             commentUIState = .success
         case .failure:
             commentUIState = .failure
@@ -164,11 +156,7 @@ import Foundation
                     topics?.append(additionalTopic)
                 }
             }
-            if additionalTopics.count < Constants.arrayLimit {
-                topicFooterStatus = .allFetched
-            } else {
-                topicFooterStatus = .loadingStopped
-            }
+            topicFooterStatus = additionalTopics.count < Constants.arrayLimit ? .allFetched : .loadingStopped
         case .failure:
             topicFooterStatus = .failure
         }
@@ -186,11 +174,7 @@ import Foundation
                     comments?.append(additionalComment)
                 }
             }
-            if additionalComments.count < Constants.arrayLimit {
-                commentFooterStatus = .allFetched
-            } else {
-                commentFooterStatus = .loadingStopped
-            }
+            commentFooterStatus = additionalComments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
         case .failure:
             commentFooterStatus = .failure
         }

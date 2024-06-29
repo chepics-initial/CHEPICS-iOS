@@ -20,6 +20,7 @@ struct TopicCell: View {
                     VStack(alignment: .leading) {
                         Text(topic.title)
                             .fontWeight(.semibold)
+                            .multilineTextAlignment(.leading)
                             .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                             .padding(.vertical, 8)
                         
@@ -27,6 +28,7 @@ struct TopicCell: View {
                             Text(.init("[\(link)](\(link))"))
                                 .font(.caption)
                                 .tint(.blue)
+                                .multilineTextAlignment(.leading)
                         }
                     }
                     

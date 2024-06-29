@@ -45,11 +45,7 @@ import Foundation
         switch await topicSetListUseCase.fetchSets(topicId: topicId, offset: nil) {
         case .success(let sets):
             self.sets = sets
-            if sets.count < Constants.arrayLimit {
-                footerStatus = .allFetched
-            } else {
-                footerStatus = .loadingStopped
-            }
+            footerStatus = sets.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             uiState = .success
             isFetchFinished = true
         case .failure:
@@ -90,11 +86,7 @@ import Foundation
                     sets?.append(additionalSet)
                 }
             }
-            if additionalSets.count < Constants.arrayLimit {
-                footerStatus = .allFetched
-            } else {
-                footerStatus = .loadingStopped
-            }
+            footerStatus = additionalSets.count < Constants.arrayLimit ? .allFetched : .loadingStopped
         case .failure:
             footerStatus = .failure
         }

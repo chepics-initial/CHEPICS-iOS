@@ -32,11 +32,7 @@ final class MyPageTopicListViewModel: ObservableObject {
         switch await myPageTopicListUseCase.fetchPickedSets(offset: nil) {
         case .success(let sets):
             self.sets = sets
-            if sets.count < Constants.arrayLimit {
-                footerStatus = .allFetched
-            } else {
-                footerStatus = .loadingStopped
-            }
+            footerStatus = sets.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             uiState = .success
         case .failure:
             uiState = .failure
@@ -55,11 +51,7 @@ final class MyPageTopicListViewModel: ObservableObject {
                     sets?.append(additionalSet)
                 }
             }
-            if additionalSets.count < Constants.arrayLimit {
-                footerStatus = .allFetched
-            } else {
-                footerStatus = .loadingStopped
-            }
+            footerStatus = additionalSets.count < Constants.arrayLimit ? .allFetched : .loadingStopped
         case .failure:
             footerStatus = .failure
         }

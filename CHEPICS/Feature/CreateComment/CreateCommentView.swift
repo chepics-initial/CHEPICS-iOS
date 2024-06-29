@@ -11,6 +11,7 @@ struct CreateCommentView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: CreateCommentViewModel
+    let completion: () -> Void
     
     var body: some View {
         VStack {
@@ -65,8 +66,10 @@ struct CreateCommentView: View {
             
             RoundButton(text: "投稿", isActive: viewModel.isActive, type: .fill) {
                 Task {
+                    UIApplication.shared.endEditing()
                     await viewModel.onTapSubmitButton()
                     if viewModel.isCompleted {
+                        completion()
                         dismiss()
                     }
                 }
@@ -119,5 +122,7 @@ struct CreateCommentView: View {
 }
 
 #Preview {
-    CreateCommentView(viewModel: CreateCommentViewModel(topicId: "", setId: "", parentId: "", type: .comment, replyFor: nil, createCommentUseCase: CreateCommentUseCase_Previews()))
+    CreateCommentView(viewModel: CreateCommentViewModel(topicId: "", setId: "", parentId: "", type: .comment, replyFor: nil, createCommentUseCase: CreateCommentUseCase_Previews())) {
+        
+    }
 }

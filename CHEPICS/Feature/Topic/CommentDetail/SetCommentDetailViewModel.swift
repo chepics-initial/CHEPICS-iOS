@@ -12,15 +12,9 @@ import Foundation
     @Published private(set) var comment: Comment
     @Published private(set) var replies: [Comment]?
     @Published private(set) var uiState: UIState = .loading
-    @Published var showCreateReplyView = false
     @Published var showLikeCommentFailureAlert = false
     @Published var showLikeReplyFailureAlert = false
     @Published private(set) var footerStatus: FooterStatus = .loadingStopped
-    @Published var replyFor: Comment? {
-        didSet {
-            showCreateReplyView = true
-        }
-    }
     private var isInitialAppear = true
     private let setCommentDetailUseCase: any SetCommentDetailUseCase
     
@@ -78,11 +72,7 @@ import Foundation
                     replies?.append(additionalReply)
                 }
             }
-            if additionalReplies.count < Constants.arrayLimit {
-                footerStatus = .allFetched
-            } else {
-                footerStatus = .loadingStopped
-            }
+            footerStatus = additionalReplies.count < Constants.arrayLimit ? .allFetched : .loadingStopped
         case .failure:
             footerStatus = .failure
         }
@@ -110,11 +100,7 @@ import Foundation
         switch await setCommentDetailUseCase.fetchReplies(commentId: comment.id, offset: nil) {
         case .success(let replies):
             self.replies = replies
-            if replies.count < Constants.arrayLimit {
-                footerStatus = .allFetched
-            } else {
-                footerStatus = .loadingStopped
-            }
+            footerStatus = replies.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             uiState = .success
         case .failure:
             uiState = .failure

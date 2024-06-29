@@ -64,11 +64,7 @@ import Foundation
                     comments?.append(additionalComment)
                 }
             }
-            if additionalComments.count < Constants.arrayLimit {
-                footerStatus = .allFetched
-            } else {
-                footerStatus = .loadingStopped
-            }
+            footerStatus = additionalComments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
         case .failure:
             footerStatus = .failure
         }
@@ -87,11 +83,7 @@ import Foundation
         switch await setCommentUseCase.fetchComments(setId: set.id, offset: nil) {
         case .success(let comments):
             self.comments = comments
-            if comments.count < Constants.arrayLimit {
-                footerStatus = .allFetched
-            } else {
-                footerStatus = .loadingStopped
-            }
+            footerStatus = comments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             uiState = .success
         case .failure:
             uiState = .failure

@@ -54,11 +54,7 @@ import PhotosUI
             switch await commentDetailUseCase.fetchReplies(commentId: commentId, offset: nil) {
             case .success(let replies):
                 self.replies = replies
-                if replies.count < Constants.arrayLimit {
-                    footerStatus = .allFetched
-                } else {
-                    footerStatus = .loadingStopped
-                }
+                footerStatus = replies.count < Constants.arrayLimit ? .allFetched : .loadingStopped
                 uiState = .success
             case .failure:
                 uiState = .failure
@@ -78,11 +74,7 @@ import PhotosUI
                     self.replies?.append(additionalReply)
                 }
             }
-            if additionalReplies.count < Constants.arrayLimit {
-                footerStatus = .allFetched
-            } else {
-                footerStatus = .loadingStopped
-            }
+            footerStatus = additionalReplies.count < Constants.arrayLimit ? .allFetched : .loadingStopped
         case .failure:
             footerStatus = .failure
         }
@@ -128,6 +120,24 @@ import PhotosUI
             case .failure:
                 return
             }
+        }
+    }
+    
+    func createReplyCompletion() async {
+        switch await commentDetailUseCase.fetchComment(id: commentId) {
+        case .success(let comment):
+            self.comment = comment
+        case .failure:
+            break
+        }
+        
+        switch await commentDetailUseCase.fetchReplies(commentId: commentId, offset: nil) {
+        case .success(let replies):
+            self.replies = replies
+            footerStatus = replies.count < Constants.arrayLimit ? .allFetched : .loadingStopped
+            uiState = .success
+        case .failure:
+            return
         }
     }
 }

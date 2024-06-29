@@ -77,11 +77,7 @@ final class ExploreResultViewModel: ObservableObject {
         switch await exploreResultUseCase.fetchSearchedTopics(word: searchText, offset: nil) {
         case .success(let topics):
             self.topics = topics
-            if topics.count < Constants.arrayLimit {
-                topicFooterStatus = .allFetched
-            } else {
-                topicFooterStatus = .loadingStopped
-            }
+            topicFooterStatus = topics.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             topicUIState = .success
         case .failure:
             topicUIState = .failure
@@ -96,11 +92,7 @@ final class ExploreResultViewModel: ObservableObject {
         switch await exploreResultUseCase.fetchSearchedComments(word: searchText, offset: nil) {
         case .success(let comments):
             self.comments = comments
-            if comments.count < Constants.arrayLimit {
-                commentFooterStatus = .allFetched
-            } else {
-                commentFooterStatus = .loadingStopped
-            }
+            commentFooterStatus = comments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             commentUIState = .success
         case .failure:
             commentUIState = .failure
@@ -115,11 +107,7 @@ final class ExploreResultViewModel: ObservableObject {
         switch await exploreResultUseCase.fetchSearchedUsers(word: searchText, offset: nil) {
         case .success(let users):
             self.users = users
-            if users.count < Constants.arrayLimit {
-                userFooterStatus = .allFetched
-            } else {
-                userFooterStatus = .loadingStopped
-            }
+            userFooterStatus = users.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             userUIState = .success
         case .failure:
             userUIState = .failure
@@ -164,11 +152,7 @@ final class ExploreResultViewModel: ObservableObject {
                     topics?.append(additionalTopic)
                 }
             }
-            if additionalTopics.count < Constants.arrayLimit {
-                topicFooterStatus = .allFetched
-            } else {
-                topicFooterStatus = .loadingStopped
-            }
+            topicFooterStatus = additionalTopics.count < Constants.arrayLimit ? .allFetched : .loadingStopped
         case .failure:
             topicFooterStatus = .failure
         }
@@ -186,11 +170,7 @@ final class ExploreResultViewModel: ObservableObject {
                     comments?.append(additionalComment)
                 }
             }
-            if additionalComments.count < Constants.arrayLimit {
-                commentFooterStatus = .allFetched
-            } else {
-                commentFooterStatus = .loadingStopped
-            }
+            commentFooterStatus = additionalComments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
         case .failure:
             commentFooterStatus = .failure
         }
@@ -208,11 +188,7 @@ final class ExploreResultViewModel: ObservableObject {
                     users?.append(additionalUser)
                 }
             }
-            if additionalUsers.count < Constants.arrayLimit {
-                userFooterStatus = .allFetched
-            } else {
-                userFooterStatus = .loadingStopped
-            }
+            userFooterStatus = additionalUsers.count < Constants.arrayLimit ? .allFetched : .loadingStopped
         case .failure:
             userFooterStatus = .failure
         }
