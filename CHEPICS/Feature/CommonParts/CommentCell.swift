@@ -129,7 +129,7 @@ struct CommentCell: View {
                         switch type {
                         case .comment, .set, .setDetail, .setReply:
                             EmptyView()
-                        case .detail, .reply, .topicCommentDetail:
+                        case .reply, .topicCommentDetail:
                             Button {
                                 onTapReplyButton()
                             } label: {
@@ -140,6 +140,19 @@ struct CommentCell: View {
                                     .foregroundStyle(.gray)
                             }
                             .padding(.trailing, 8)
+                        case .detail:
+                            if comment.parentId == nil {
+                                Button {
+                                    onTapReplyButton()
+                                } label: {
+                                    Image(systemName: "bubble.right")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 16, height: 16)
+                                        .foregroundStyle(.gray)
+                                }
+                                .padding(.trailing, 8)
+                            }
                         }
                         
                         Button {
