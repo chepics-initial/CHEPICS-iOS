@@ -13,6 +13,7 @@ enum CommentType {
     case reply
     case set
     case setDetail
+    case setReply
     case topicCommentDetail
 }
 
@@ -75,7 +76,7 @@ struct CommentCell: View {
                             }
                         }
 
-                    case .reply, .set, .setDetail, .topicCommentDetail:
+                    case .reply, .set, .setDetail, .setReply, .topicCommentDetail:
                         EmptyView()
                     }
                     
@@ -119,14 +120,14 @@ struct CommentCell: View {
                                     Text("\(replyCount) replies")
                                         .foregroundStyle(.chepicsPrimary)
                                 }
-                            case .detail, .setDetail, .topicCommentDetail:
+                            case .detail, .setDetail, .setReply, .topicCommentDetail:
                                 EmptyView()
                             }
                         }
                         Spacer()
                         
                         switch type {
-                        case .comment, .set, .setDetail:
+                        case .comment, .set, .setDetail, .setReply:
                             EmptyView()
                         case .detail, .reply, .topicCommentDetail:
                             Button {

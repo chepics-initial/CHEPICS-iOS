@@ -72,7 +72,7 @@ struct SetCommentDetailView: View {
                     case .success:
                         if let replies = viewModel.replies {
                             ForEach(replies) { reply in
-                                CommentCell(comment: reply, type: .reply, onTapImage: { index in
+                                CommentCell(comment: reply, type: .setReply, onTapImage: { index in
                                     
                                 }, onTapUserInfo: { _ in
                                     
