@@ -31,7 +31,7 @@ import PhotosUI
     }
     @Published private(set) var selectedImages: [UIImage] = []
     var isActive: Bool {
-        isValidInput(commentText) || commentText.count <= Constants.commentCount && (linkText.isEmpty || isValidUrl(linkText))
+        isValidInput(commentText) && commentText.count <= Constants.commentCount && (linkText.isEmpty || isValidUrl(linkText))
     }
     private(set) var replyFor: Comment?
     let type: CreateCommentType

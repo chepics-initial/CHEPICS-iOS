@@ -39,6 +39,20 @@ struct CreateCommentView: View {
                 Divider()
                     .padding(.horizontal)
                 
+                HStack(alignment: .bottom) {
+                    Spacer()
+                    
+                    Text("\(viewModel.commentText.count)")
+                        .font(.body)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.chepicsPrimary)
+                    
+                    Text("/ \(Constants.commentCount)")
+                        .font(.caption)
+                        .foregroundStyle(Color.getDefaultColor(for: colorScheme))
+                }
+                .padding(.horizontal)
+                
                 Spacer()
                     .frame(height: 32)
                 
