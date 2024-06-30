@@ -59,16 +59,20 @@ import SwiftUI
     
     func selectSet(set: PickSet) async {
         await fetchTopic()
-        selectedSet = set
-        viewStatus = .detail
-        uiState = .loading
-        switch await topicTopUseCase.fetchSetComments(setId: set.id, offset: nil) {
-        case .success(let comments):
-            self.comments = comments
-            footerStatus = comments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
-            uiState = .success
-        case .failure:
-            uiState = .failure
+        if topic != nil {
+            selectedSet = set
+            viewStatus = .detail
+            uiState = .loading
+            switch await topicTopUseCase.fetchSetComments(setId: set.id, offset: nil) {
+            case .success(let comments):
+                self.comments = comments
+                footerStatus = comments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
+                uiState = .success
+            case .failure:
+                uiState = .failure
+            }
+        } else {
+            viewStatus = .failure
         }
     }
     
