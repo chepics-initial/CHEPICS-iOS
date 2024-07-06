@@ -8,10 +8,17 @@
 import SwiftUI
 import PhotosUI
 
+enum CreateTopicField: Hashable {
+    case title
+    case description
+    case link
+}
+
 struct CreateTopicView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: CreateTopicViewModel
+    @FocusState private var focusedField: CreateTopicField?
     
     var body: some View {
         VStack {
@@ -32,6 +39,7 @@ struct CreateTopicView: View {
             
             RoundButton(text: "投稿", isActive: viewModel.isActive, type: .fill) {
                 Task {
+                    UIApplication.shared.endEditing()
                     await viewModel.onTapSubmitButton()
                     if viewModel.isCompleted {
                         dismiss()
@@ -40,7 +48,7 @@ struct CreateTopicView: View {
             }
         }
         .onTapGesture {
-            UIApplication.shared.endEditing()
+            focusedField = nil
         }
         .overlay {
             if viewModel.isLoading {
@@ -95,7 +103,11 @@ struct CreateTopicView: View {
             }
             
             CustomTextEditor(text: $viewModel.title, placeHolder: "トピックを入力")
+                .focused($focusedField, equals: .title)
                 .frame(maxWidth: .infinity)
+                .onTapGesture {
+                    focusedField = .title
+                }
             
             Color.gray
                 .frame(height: 1)
@@ -144,7 +156,11 @@ struct CreateTopicView: View {
                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
             
             CustomTextEditor(text: $viewModel.description, placeHolder: "説明を入力")
+                .focused($focusedField, equals: .description)
                 .frame(maxWidth: .infinity)
+                .onTapGesture {
+                    focusedField = .description
+                }
             
             Color.gray
                 .frame(height: 1)
@@ -180,9 +196,13 @@ struct CreateTopicView: View {
                 
                 TextField("", text: $viewModel.link)
                     .font(.body)
+                    .focused($focusedField, equals: .link)
                     .foregroundStyle(.blue)
                     .opacity(viewModel.link.isEmpty ? 0.5 : 1)
                     .padding(.horizontal, 4)
+                    .onTapGesture {
+                        focusedField = .link
+                    }
             }
             .frame(height: 44)
             

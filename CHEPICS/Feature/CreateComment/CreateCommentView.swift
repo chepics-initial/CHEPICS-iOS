@@ -7,10 +7,16 @@
 
 import SwiftUI
 
+enum CreateCommentField: Hashable {
+    case comment
+    case link
+}
+
 struct CreateCommentView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: CreateCommentViewModel
+    @FocusState private var focusedField: CreateCommentField?
     let completion: () -> Void
     
     var body: some View {
@@ -33,8 +39,12 @@ struct CreateCommentView: View {
                     .frame(height: 32)
                 
                 CustomTextEditor(text: $viewModel.commentText, placeHolder: viewModel.type.placeholder)
+                    .focused($focusedField, equals: .comment)
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal)
+                    .onTapGesture {
+                        focusedField = .comment
+                    }
                 
                 Divider()
                     .padding(.horizontal)
@@ -63,8 +73,12 @@ struct CreateCommentView: View {
                     .padding(.horizontal)
                 
                 TextField("リンクを入力", text: $viewModel.linkText)
+                    .focused($focusedField, equals: .link)
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal)
+                    .onTapGesture {
+                        focusedField = .link
+                    }
                 
                 Divider()
                     .padding(.horizontal)
@@ -95,7 +109,7 @@ struct CreateCommentView: View {
             }
         }
         .onTapGesture {
-            UIApplication.shared.endEditing()
+            focusedField = nil
         }
         .networkError($viewModel.showNetworkAlert)
         .alert("このセットではコメントできません", isPresented: $viewModel.showCommentRestrictionAlert, actions: {
