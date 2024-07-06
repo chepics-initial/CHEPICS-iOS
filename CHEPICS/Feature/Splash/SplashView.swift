@@ -20,8 +20,8 @@ struct SplashView: View {
                     await LottieAnimation.loadedFrom(url: jsonURL!)
                 }
                 .playing(.fromProgress(0, toProgress: progress, loopMode: .playOnce))
-                .animationDidFinish({ completed in
-                    if progress != 0, completed {
+                .animationDidFinish({ _ in
+                    if progress != 0 {
                         viewModel.splashCompletion()
                     }
                 })
