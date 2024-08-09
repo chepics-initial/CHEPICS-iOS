@@ -71,6 +71,7 @@ final class MyPageTopUseCase_Previews: MyPageTopUseCase {
         nil
     }
     
+    // MARK: - 仮のユーザー削除
     func deleteUser(userId: String) async -> Result<Void, APIError> {
         .success(())
     }
