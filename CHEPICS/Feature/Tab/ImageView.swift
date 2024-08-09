@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import NukeUI
+import Kingfisher
 
 struct ImageView: View {
     @EnvironmentObject var viewModel: MainTabViewModel
@@ -54,67 +54,70 @@ private struct ImagePagerPage: View {
     let index: Int
     let pageSize: CGSize
     let onDismiss: () -> Void
+    @State private var fitImageSize: CGSize = .zero
+    @State private var isCompleted = false
     
     var body: some View {
-        // 📝 B/43では画像の表示に Nuke (LazyImage)　を使用している
-        // https://github.com/kean/Nuke
-        LazyImage(url: imageUrl) { state in
-            if case .success(let response) = state.result {
-                let imageSize = response.image.size
-                let widthFitSize = CGSize(
-                    width: pageSize.width,
-                    height: imageSize.height * (pageSize.width / imageSize.width)
-                )
-                let heightFitSize = CGSize(
-                    width: imageSize.width * (pageSize.height / imageSize.height),
-                    height: pageSize.height
-                )
-                let fitImageSize = widthFitSize.height > pageSize.height ? heightFitSize : widthFitSize
-                Image(uiImage: response.image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: pageSize.width, height: pageSize.height)
-                    .modifier(
-                        ImageGestureModifier(
-                            pageSize: pageSize,
-                            imageSize: fitImageSize,
-                            index: index,
-                            pagerState: pagerState,
-                            isZoomEnabled: true,
-                            onDraggingOver: {
-                                pagerState.moveToDesiredOffset(pageSize: pageSize, additionalOffset: $0)
-                            },
-                            onDraggingOverEnded: { predictedEndTranslation in
-                                // ✅ 水平方向のドラッグ操作が完了した後、 `predictedEndTranslation` （慣性を考慮した移動量）を基に前後のページへ移動する
-                                let scrollThreshold = pageSize.width / 2.0
-                                withAnimation(.easeOut) {
-                                    if predictedEndTranslation.width < -scrollThreshold {
-                                        pagerState.scrollToNextPage(pageSize: pageSize)
-                                    } else if predictedEndTranslation.width > scrollThreshold {
-                                        pagerState.scrollToPrevPage(pageSize: pageSize)
-                                    } else {
-                                        pagerState.moveToDesiredOffset(pageSize: pageSize)
-                                    }
-                                }
-                                
-                                // 垂直方向のドラッグ操作が完了した後、 `predictedEndTranslation` を基に必要に応じて画面を閉じる
-                                let dismisssThreshold = pageSize.height / 4.0
-                                if abs(predictedEndTranslation.height) > dismisssThreshold {
-                                    withAnimation(.easeOut) {
-                                        pagerState.invokeDismissTransition(
-                                            pageSize: pageSize,
-                                            predictedEndTranslationY: predictedEndTranslation.height
-                                        )
-                                    }
-                                    onDismiss()
-                                }
-                            },
-                            onDraggingOverCanceled: {
-                                pagerState.moveToDesiredOffset(pageSize: pageSize)
-                            }
-                        )
+        ZStack {
+            KFImage(imageUrl)
+                .onSuccess { result in
+                    isCompleted = true
+                    let imageSize = result.image.size
+                    let widthFitSize = CGSize(
+                        width: pageSize.width,
+                        height: imageSize.height * (pageSize.width / imageSize.width)
                     )
-            } else {
+                    let heightFitSize = CGSize(
+                        width: imageSize.width * (pageSize.height / imageSize.height),
+                        height: pageSize.height
+                    )
+                    fitImageSize = widthFitSize.height > pageSize.height ? heightFitSize : widthFitSize
+                }
+                .resizable()
+                .scaledToFit()
+                .frame(width: pageSize.width, height: pageSize.height)
+                .modifier(
+                    ImageGestureModifier(
+                        pageSize: pageSize,
+                        imageSize: fitImageSize,
+                        index: index,
+                        pagerState: pagerState,
+                        isZoomEnabled: true,
+                        onDraggingOver: {
+                            pagerState.moveToDesiredOffset(pageSize: pageSize, additionalOffset: $0)
+                        },
+                        onDraggingOverEnded: { predictedEndTranslation in
+                            // ✅ 水平方向のドラッグ操作が完了した後、 `predictedEndTranslation` （慣性を考慮した移動量）を基に前後のページへ移動する
+                            let scrollThreshold = pageSize.width / 2.0
+                            withAnimation(.easeOut) {
+                                if predictedEndTranslation.width < -scrollThreshold {
+                                    pagerState.scrollToNextPage(pageSize: pageSize)
+                                } else if predictedEndTranslation.width > scrollThreshold {
+                                    pagerState.scrollToPrevPage(pageSize: pageSize)
+                                } else {
+                                    pagerState.moveToDesiredOffset(pageSize: pageSize)
+                                }
+                            }
+                            
+                            // 垂直方向のドラッグ操作が完了した後、 `predictedEndTranslation` を基に必要に応じて画面を閉じる
+                            let dismisssThreshold = pageSize.height / 4.0
+                            if abs(predictedEndTranslation.height) > dismisssThreshold {
+                                withAnimation(.easeOut) {
+                                    pagerState.invokeDismissTransition(
+                                        pageSize: pageSize,
+                                        predictedEndTranslationY: predictedEndTranslation.height
+                                    )
+                                }
+                                onDismiss()
+                            }
+                        },
+                        onDraggingOverCanceled: {
+                            pagerState.moveToDesiredOffset(pageSize: pageSize)
+                        }
+                    )
+                )
+            
+            if !isCompleted {
                 ZStack {
                     Rectangle()
                         .foregroundStyle(Color(uiColor: .lightGray))
