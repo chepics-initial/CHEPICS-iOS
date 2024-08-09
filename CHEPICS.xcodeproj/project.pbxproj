@@ -151,8 +151,6 @@
 		E48B3F422C10941E00542868 /* SplashDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F412C10941E00542868 /* SplashDataSource.swift */; };
 		E48B3F442C1094B500542868 /* SplashLocalSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B3F432C1094B500542868 /* SplashLocalSource.swift */; };
 		E48B3F4A2C111CBC00542868 /* ChepicsSplash.json in Resources */ = {isa = PBXBuildFile; fileRef = E48B3F492C111CBC00542868 /* ChepicsSplash.json */; };
-		E49366232BBD05830093D286 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = E49366222BBD05830093D286 /* Nuke */; };
-		E49366252BBD05830093D286 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = E49366242BBD05830093D286 /* NukeUI */; };
 		E49366272BC0B6670093D286 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49366262BC0B6670093D286 /* Comment.swift */; };
 		E49366292BC0B7E50093D286 /* CommentImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49366282BC0B7E50093D286 /* CommentImage.swift */; };
 		E4C6BE132B6F68EE003B56AD /* CHEPICSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C6BE122B6F68EE003B56AD /* CHEPICSApp.swift */; };
@@ -401,10 +399,8 @@
 				E48B3F312C1079E200542868 /* Kingfisher in Frameworks */,
 				E48B3F342C10917500542868 /* Lottie in Frameworks */,
 				251FE42A2BC79C85008C3254 /* Alamofire in Frameworks */,
-				E49366232BBD05830093D286 /* Nuke in Frameworks */,
 				E457A04F2BCA6A7B003DFB9F /* KeychainAccess in Frameworks */,
 				25862EBF2BBB7D9700FC4225 /* SwiftUIIntrospect in Frameworks */,
-				E49366252BBD05830093D286 /* NukeUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1088,8 +1084,6 @@
 			name = CHEPICS;
 			packageProductDependencies = (
 				25862EBE2BBB7D9700FC4225 /* SwiftUIIntrospect */,
-				E49366222BBD05830093D286 /* Nuke */,
-				E49366242BBD05830093D286 /* NukeUI */,
 				251FE4292BC79C85008C3254 /* Alamofire */,
 				E457A04E2BCA6A7B003DFB9F /* KeychainAccess */,
 				E48B3F302C1079E200542868 /* Kingfisher */,
@@ -1169,7 +1163,6 @@
 			mainGroup = E4C6BE062B6F68ED003B56AD;
 			packageReferences = (
 				25862EBD2BBB7D9700FC4225 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
-				E49366212BBD05830093D286 /* XCRemoteSwiftPackageReference "Nuke" */,
 				251FE4282BC79C85008C3254 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				E457A04D2BCA6A7B003DFB9F /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				E48B3F2F2C1079E200542868 /* XCRemoteSwiftPackageReference "Kingfisher" */,
@@ -1761,14 +1754,6 @@
 				minimumVersion = 4.4.3;
 			};
 		};
-		E49366212BBD05830093D286 /* XCRemoteSwiftPackageReference "Nuke" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kean/Nuke";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 12.5.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1796,16 +1781,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E48B3F322C10917500542868 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
-		};
-		E49366222BBD05830093D286 /* Nuke */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E49366212BBD05830093D286 /* XCRemoteSwiftPackageReference "Nuke" */;
-			productName = Nuke;
-		};
-		E49366242BBD05830093D286 /* NukeUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E49366212BBD05830093D286 /* XCRemoteSwiftPackageReference "Nuke" */;
-			productName = NukeUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
