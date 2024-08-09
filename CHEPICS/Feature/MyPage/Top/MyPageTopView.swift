@@ -69,6 +69,19 @@ struct MyPageTopView: View {
             })
             
             Spacer()
+            
+            // MARK: - 仮のユーザー削除ボタン
+            Text("※同じメールアドレスで起動処理をデバッグするためのユーザー削除 ↓")
+                .font(.caption2)
+                .foregroundStyle(.gray)
+            Button {
+                Task { await viewModel.onTapDeleteButton() }
+            } label: {
+                Text("ユーザー削除")
+                    .fontWeight(.bold)
+                    .foregroundStyle(.red)
+            }
+
         }
         .padding()
         .onAppear {

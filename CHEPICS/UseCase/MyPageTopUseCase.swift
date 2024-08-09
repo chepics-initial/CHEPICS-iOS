@@ -11,6 +11,9 @@ protocol MyPageTopUseCase {
     func getUserData() -> UserData?
     func fetchUser() async -> Result<User, APIError>
     func logout()
+    
+    // MARK: - 仮のユーザー削除
+    func deleteUser(userId: String) async -> Result<Void, APIError>
 }
 
 final class MyPageTopUseCaseImpl: MyPageTopUseCase {
@@ -32,5 +35,10 @@ final class MyPageTopUseCaseImpl: MyPageTopUseCase {
     
     func logout() {
         authRepository.logout()
+    }
+    
+    // MARK: - 仮のユーザー削除
+    func deleteUser(userId: String) async -> Result<Void, APIError> {
+        await userRepository.deleteUser(userId: userId)
     }
 }

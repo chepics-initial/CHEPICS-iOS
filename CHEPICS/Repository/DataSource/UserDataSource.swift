@@ -11,4 +11,7 @@ protocol UserDataSource {
     func fetchUser(userId: String) async -> Result<User, APIError>
     func updateUser(username: String, fullname: String, bio: String?, image: Data?) async -> Result<Void, APIError>
     func follow(_: FollowBody) async -> Result<Bool, APIError>
+    
+    // MARK: - 仮のユーザー削除
+    func deleteUser(userId: String) async -> Result<Void, APIError>
 }

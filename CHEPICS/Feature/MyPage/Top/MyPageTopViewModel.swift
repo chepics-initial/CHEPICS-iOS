@@ -33,6 +33,17 @@ import Foundation
     func logout() {
         myPageTopUseCase.logout()
     }
+    
+    // MARK: - 仮のユーザー削除処理
+    func onTapDeleteButton() async {
+        guard let user else { return }
+        switch await myPageTopUseCase.deleteUser(userId: user.id) {
+        case .success:
+            return
+        case .failure:
+            return
+        }
+    }
 }
 
 struct MyPageTopUIModel {
@@ -58,5 +69,9 @@ final class MyPageTopUseCase_Previews: MyPageTopUseCase {
     
     func getUserData() -> UserData? {
         nil
+    }
+    
+    func deleteUser(userId: String) async -> Result<Void, APIError> {
+        .success(())
     }
 }

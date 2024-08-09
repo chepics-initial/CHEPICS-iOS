@@ -42,12 +42,13 @@ enum API {
     static func request<T: Decodable>(
         _ baseURLString: String,
         responseType: T.Type,
-        queryParameters: [String: Any]?
+        queryParameters: [String: Any]?,
+        method: HTTPMethod = .get
     ) async -> Result<T, APIError> {
         let headers = getHeaders()
         switch await AF.request(
             baseURLString,
-            method: .get,
+            method: method,
             parameters: queryParameters,
             encoding: parameterEncoding,
             headers: HTTPHeaders(headers)
