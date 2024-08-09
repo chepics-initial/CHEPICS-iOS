@@ -13,6 +13,9 @@ protocol UserRepository {
     func updateUser(username: String, fullname: String, bio: String?, image: Data?) async -> Result<Void, APIError>
     func getUserData() -> UserData?
     func follow(_: FollowBody) async -> Result<Bool, APIError>
+    
+    // MARK: - 仮のユーザー削除
+    func deleteUser(userId: String) async -> Result<Void, APIError>
 }
 
 final class UserRepositoryImpl: UserRepository {
@@ -62,6 +65,17 @@ final class UserRepositoryImpl: UserRepository {
 
     func follow(_ body: FollowBody) async -> Result<Bool, APIError> {
         await resultHandle(result: userDataSource.follow(body))
+    }
+    
+    // MARK: - 仮のユーザー削除
+    func deleteUser(userId: String) async -> Result<Void, APIError> {
+        switch await resultHandle(result: userDataSource.deleteUser(userId: userId)) {
+        case .success:
+            tokenDataSource.removeToken()
+            return .success(())
+        case .failure(let error):
+            return .failure(error)
+        }
     }
     
     private func resultHandle<T>(result: Result<T, APIError>) -> Result<T, APIError> {

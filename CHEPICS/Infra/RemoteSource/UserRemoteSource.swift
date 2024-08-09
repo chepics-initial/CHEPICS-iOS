@@ -7,6 +7,9 @@
 
 import Foundation
 
+// MARK: - deleteUserで使っているEmptyのためだけのインポート
+import Alamofire
+
 final class UserRemoteSource: UserDataSource {
     static let shared = UserRemoteSource()
     
@@ -29,5 +32,10 @@ final class UserRemoteSource: UserDataSource {
     
     func follow(_ body: FollowBody) async -> Result<Bool, APIError> {
         await API.postRequest(ServerDirection.production.urlString(for: .follow), responseType: FollowResponse.self, httpBody: body).map(\.isFollow)
+    }
+    
+    // MARK: - 仮のユーザー削除
+    func deleteUser(userId: String) async -> Result<Void, APIError> {
+        await API.request(ServerDirection.production.urlString(for: .user), responseType: UpdateUserResponse.self, queryParameters: ["user_id": userId], method: .delete).map { _ in }
     }
 }
