@@ -16,6 +16,8 @@ struct FeedView: View {
     @State private var showCreateTopicView = false
     private let topicID = "topicID"
     private let commentID = "commentID"
+    private let unitID = "ca-app-pub-3940256099942544/2934735716"
+    private let adPlacement = 5
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -183,7 +185,8 @@ struct FeedView: View {
                     EmptyView()
                         .id(topicID)
                     if let topics = viewModel.topics {
-                        ForEach(topics) { topic in
+                        ForEach(topics.indices, id: \.self) { index in
+                            let topic = topics[index]
                             Button {
                                 feedRouter.items.append(.topicTop(topicId: topic.id, topic: topic))
                             } label: {
@@ -198,6 +201,12 @@ struct FeedView: View {
                                 }, onTapUserInfo: { user in
                                     feedRouter.items.append(.profile(user: user))
                                 })
+                            }
+                            
+                            if index % adPlacement == 4 {
+                                BannerAdView(unitID: unitID)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 200)
                             }
                         }
                         
@@ -233,7 +242,8 @@ struct FeedView: View {
                         .id(commentID)
                     
                     if let comments = viewModel.comments {
-                        ForEach(comments) { comment in
+                        ForEach(comments.indices, id: \.self) { index in
+                            let comment = comments[index]
                             CommentCell(comment: comment, type: .comment, onTapImage: { index in
                                 if let images = comment.images {
                                     mainTabViewModel.images = images.map({ $0.url })
@@ -253,6 +263,12 @@ struct FeedView: View {
                             })
                             .onTapGesture {
                                 feedRouter.items.append(.comment(commentId: comment.id, comment: comment, showTopicTitle: true))
+                            }
+                            
+                            if index % adPlacement == 4 {
+                                BannerAdView(unitID: unitID)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 200)
                             }
                         }
                         

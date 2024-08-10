@@ -7,16 +7,18 @@
 
 import Foundation
 import UIKit
+import GoogleMobileAds
 
 class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     func application(_ application: UIApplication,
                      willFinishLaunchingWithOptions launchOptions: [
-                         UIApplication
-                             .LaunchOptionsKey: Any
+                        UIApplication
+                            .LaunchOptionsKey: Any
                      ]? = nil) -> Bool {
-        true
-    }
-
+                         GADMobileAds.sharedInstance().start(completionHandler: nil)
+                         return true
+                     }
+    
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         let appearance = UITabBarAppearance()
