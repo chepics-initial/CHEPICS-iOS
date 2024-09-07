@@ -29,6 +29,7 @@ struct ErrorResponse: Decodable {
         case INVALID_REFRESH_TOKEN
         case ERROR_SET_NOT_PICKED
         case ERROR_TOPIC_NOT_PICKED
+        case USED_USER_NAME
     }
     
     enum CodingKeys: String, CodingKey {

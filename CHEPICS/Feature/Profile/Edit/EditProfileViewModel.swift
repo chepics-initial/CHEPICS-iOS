@@ -14,6 +14,7 @@ import PhotosUI
     @Published var fullname: String = ""
     @Published var bio: String = ""
     @Published var showAlert = false
+    @Published var showUniqueAlert: Bool = false
     @Published private(set) var isLoading = false
     @Published private(set) var isCompleted = false
     @Published private(set) var profileImage: UIImage?
@@ -57,8 +58,15 @@ import PhotosUI
         case .success:
             isCompleted = true
         case .failure(let error):
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
-                return
+            if case .errorResponse(let errorResponse, _) = error {
+                if errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
+                    return
+                }
+                
+                if errorResponse.errorCode == .USED_USER_NAME {
+                    showUniqueAlert = true
+                    return
+                }
             }
             showAlert = true
         }

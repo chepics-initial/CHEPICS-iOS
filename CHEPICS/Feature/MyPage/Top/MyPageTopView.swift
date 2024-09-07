@@ -43,7 +43,7 @@ struct MyPageTopView: View {
                         .foregroundStyle(.gray)
                 }
             }
-
+            
             
             Button(action: {
                 myPageRouter.items.append(.myPageTopicList)
@@ -81,7 +81,7 @@ struct MyPageTopView: View {
                     .fontWeight(.bold)
                     .foregroundStyle(.red)
             }
-
+            
         }
         .padding()
         .onAppear {
@@ -93,7 +93,7 @@ struct MyPageTopView: View {
             } label: {
                 Text("キャンセル")
             }
-
+            
             Button(action: {
                 viewModel.logout()
             }, label: {
@@ -118,6 +118,7 @@ struct MyPageTopView: View {
                 TopicDetailView(topic: topic)
             }
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

@@ -97,6 +97,12 @@ struct EditProfileView: View {
             }
         }
         .networkError($viewModel.showAlert)
+        .alert("このユーザー名はすでに使用されています", isPresented: $viewModel.showUniqueAlert) {
+            Button {
+            } label: {
+                Text("OK")
+            }
+        }
         .navigationTitle("プロフィール編集")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {

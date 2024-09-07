@@ -74,7 +74,8 @@ enum API {
                         .INVALID_REFRESH_TOKEN,
                         .INTERNAL_SERVER_ERROR,
                         .ERROR_SET_NOT_PICKED,
-                        .ERROR_TOPIC_NOT_PICKED:
+                        .ERROR_TOPIC_NOT_PICKED,
+                        .USED_USER_NAME:
                     return .failure(firstError)
                 case .INVALID_ACCESS_TOKEN:
                     switch await refreshToken(baseURLString, firstError: firstError) {
@@ -122,7 +123,8 @@ enum API {
                         .INVALID_REFRESH_TOKEN,
                         .INTERNAL_SERVER_ERROR,
                         .ERROR_SET_NOT_PICKED,
-                        .ERROR_TOPIC_NOT_PICKED:
+                        .ERROR_TOPIC_NOT_PICKED,
+                        .USED_USER_NAME:
                     return .failure(firstError)
                 case .INVALID_ACCESS_TOKEN:
                     switch await refreshToken(baseURLString, firstError: firstError) {
@@ -178,7 +180,8 @@ enum API {
                         .INVALID_REFRESH_TOKEN,
                         .INTERNAL_SERVER_ERROR,
                         .ERROR_SET_NOT_PICKED,
-                        .ERROR_TOPIC_NOT_PICKED:
+                        .ERROR_TOPIC_NOT_PICKED,
+                        .USED_USER_NAME:
                     return .failure(firstError)
                 case .INVALID_ACCESS_TOKEN:
                     switch await refreshToken(baseURLString, firstError: firstError) {
@@ -244,7 +247,8 @@ enum API {
                         .INVALID_REFRESH_TOKEN,
                         .INTERNAL_SERVER_ERROR,
                         .ERROR_SET_NOT_PICKED,
-                        .ERROR_TOPIC_NOT_PICKED:
+                        .ERROR_TOPIC_NOT_PICKED,
+                        .USED_USER_NAME:
                     return .failure(firstError)
                 case .INVALID_ACCESS_TOKEN:
                     switch await refreshToken(baseURLString, firstError: firstError) {
@@ -320,7 +324,8 @@ enum API {
                         .INVALID_REFRESH_TOKEN,
                         .INTERNAL_SERVER_ERROR,
                         .ERROR_SET_NOT_PICKED,
-                        .ERROR_TOPIC_NOT_PICKED:
+                        .ERROR_TOPIC_NOT_PICKED,
+                        .USED_USER_NAME:
                     return .failure(firstError)
                 case .INVALID_ACCESS_TOKEN:
                     switch await refreshToken(baseURLString, firstError: firstError) {

@@ -34,7 +34,7 @@ struct NameRegistrationView: View {
                 .foregroundStyle(Color.getDefaultColor(for: colorScheme))
                 .padding(.horizontal)
                 .padding(.bottom)
-
+            
             TextField("ユーザー名を入力", text: $viewModel.username)
                 .padding()
                 .overlay {
@@ -106,6 +106,12 @@ struct NameRegistrationView: View {
             CompleteRegistrationView(viewModel: CompleteRegistrationViewModel(completeRegistrationUseCase: DIFactory.completeRegistrationUseCase()))
         })
         .networkError($viewModel.showAlert)
+        .alert("このユーザー名はすでに使用されています", isPresented: $viewModel.showUniqueAlert) {
+            Button {
+            } label: {
+                Text("OK")
+            }
+        }
     }
 }
 

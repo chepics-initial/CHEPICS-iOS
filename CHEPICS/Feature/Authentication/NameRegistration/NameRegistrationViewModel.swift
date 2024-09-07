@@ -12,6 +12,7 @@ import Foundation
     @Published var username: String = ""
     @Published var fullname: String = ""
     @Published var showAlert: Bool = false
+    @Published var showUniqueAlert: Bool = false
     @Published var isPresented: Bool = false
     var isActive: Bool {
         !username.isEmpty && !fullname.isEmpty && username.count <= Constants.nameCount && fullname.count <= Constants.nameCount
@@ -31,8 +32,15 @@ import Foundation
         case .success:
             isPresented = true
         case .failure(let error):
-            if case .errorResponse(let errorResponse, _) = error, errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
-                return
+            if case .errorResponse(let errorResponse, _) = error {
+                if errorResponse.errorCode == .INVALID_REFRESH_TOKEN {
+                    return
+                }
+                
+                if errorResponse.errorCode == .USED_USER_NAME {
+                    showUniqueAlert = true
+                    return
+                }
             }
             showAlert = true
         }
