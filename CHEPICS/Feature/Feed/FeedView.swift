@@ -182,7 +182,7 @@ struct FeedView: View {
         ScrollViewReader { reader in
             ScrollView {
                 LazyVStack {
-                    EmptyView()
+                    Text("")
                         .id(topicID)
                     if let topics = viewModel.topics {
                         ForEach(topics.indices, id: \.self) { index in
@@ -238,7 +238,7 @@ struct FeedView: View {
         ScrollViewReader { reader in
             ScrollView {
                 LazyVStack {
-                    EmptyView()
+                    Text("")
                         .id(commentID)
                     
                     if let comments = viewModel.comments {
