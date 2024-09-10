@@ -42,9 +42,11 @@ final class ExploreResultViewModel: ObservableObject {
     let initialSearchText: String
     
     private var isInitialAppear = true
-    
+    private var topicOffset = 0
+    private var commentOffset = 0
+    private var userOffset = 0
     private let exploreResultUseCase: any ExploreResultUseCase
-        
+    
     init(searchText: String, exploreResultUseCase: some ExploreResultUseCase) {
         self.searchText = searchText
         self.initialSearchText = searchText
@@ -79,6 +81,7 @@ final class ExploreResultViewModel: ObservableObject {
             self.topics = topics
             topicFooterStatus = topics.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             topicUIState = .success
+            topicOffset = Constants.arrayLimit
         case .failure:
             topicUIState = .failure
         }
@@ -94,6 +97,7 @@ final class ExploreResultViewModel: ObservableObject {
             self.comments = comments
             commentFooterStatus = comments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             commentUIState = .success
+            commentOffset = Constants.arrayLimit
         case .failure:
             commentUIState = .failure
         }
@@ -109,6 +113,7 @@ final class ExploreResultViewModel: ObservableObject {
             self.users = users
             userFooterStatus = users.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             userUIState = .success
+            userOffset = Constants.arrayLimit
         case .failure:
             userUIState = .failure
         }
@@ -143,7 +148,7 @@ final class ExploreResultViewModel: ObservableObject {
     func onAppearTopicFooterView() async {
         guard topicFooterStatus == .loadingStopped || topicFooterStatus == .failure else { return }
         topicFooterStatus = .loadingStarted
-        switch await exploreResultUseCase.fetchSearchedTopics(word: searchText, offset: topics?.count) {
+        switch await exploreResultUseCase.fetchSearchedTopics(word: searchText, offset: topicOffset) {
         case .success(let additionalTopics):
             for additionalTopic in additionalTopics {
                 if let index = topics?.firstIndex(where: { $0.id == additionalTopic.id }) {
@@ -152,7 +157,13 @@ final class ExploreResultViewModel: ObservableObject {
                     topics?.append(additionalTopic)
                 }
             }
-            topicFooterStatus = additionalTopics.count < Constants.arrayLimit ? .allFetched : .loadingStopped
+            if additionalTopics.count < Constants.arrayLimit {
+                topicFooterStatus = .allFetched
+                topicOffset = 0
+                return
+            }
+            topicFooterStatus = .loadingStopped
+            topicOffset += Constants.arrayLimit
         case .failure:
             topicFooterStatus = .failure
         }
@@ -161,7 +172,7 @@ final class ExploreResultViewModel: ObservableObject {
     func onAppearCommentFooterView() async {
         guard commentFooterStatus == .loadingStopped || commentFooterStatus == .failure else { return }
         commentFooterStatus = .loadingStarted
-        switch await exploreResultUseCase.fetchSearchedComments(word: searchText, offset: comments?.count) {
+        switch await exploreResultUseCase.fetchSearchedComments(word: searchText, offset: commentOffset) {
         case .success(let additionalComments):
             for additionalComment in additionalComments {
                 if let index = comments?.firstIndex(where: { $0.id == additionalComment.id }) {
@@ -170,7 +181,13 @@ final class ExploreResultViewModel: ObservableObject {
                     comments?.append(additionalComment)
                 }
             }
-            commentFooterStatus = additionalComments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
+            if additionalComments.count < Constants.arrayLimit {
+                commentFooterStatus = .allFetched
+                commentOffset = 0
+                return
+            }
+            commentFooterStatus = .loadingStopped
+            commentOffset += Constants.arrayLimit
         case .failure:
             commentFooterStatus = .failure
         }
@@ -179,7 +196,7 @@ final class ExploreResultViewModel: ObservableObject {
     func onAppearUserFooterView() async {
         guard userFooterStatus == .loadingStopped || userFooterStatus == .failure else { return }
         userFooterStatus = .loadingStarted
-        switch await exploreResultUseCase.fetchSearchedUsers(word: searchText, offset: users?.count) {
+        switch await exploreResultUseCase.fetchSearchedUsers(word: searchText, offset: userOffset) {
         case .success(let additionalUsers):
             for additionalUser in additionalUsers {
                 if let index = users?.firstIndex(where: { $0.id == additionalUser.id }) {
@@ -188,7 +205,13 @@ final class ExploreResultViewModel: ObservableObject {
                     users?.append(additionalUser)
                 }
             }
-            userFooterStatus = additionalUsers.count < Constants.arrayLimit ? .allFetched : .loadingStopped
+            if additionalUsers.count < Constants.arrayLimit {
+                userFooterStatus = .allFetched
+                userOffset = 0
+                return
+            }
+            userFooterStatus = .loadingStopped
+            userOffset += Constants.arrayLimit
         case .failure:
             userFooterStatus = .failure
         }

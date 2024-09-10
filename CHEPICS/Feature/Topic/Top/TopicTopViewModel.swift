@@ -18,6 +18,7 @@ import SwiftUI
     @Published private(set) var footerStatus: FooterStatus = .loadingStopped
     @Published var showLikeFailureAlert = false
     private var isInitialAppear = true
+    private var offset = 0
     private let topicTopUseCase: any TopicTopUseCase
     let topicId: String
     
@@ -68,6 +69,7 @@ import SwiftUI
                 self.comments = comments
                 footerStatus = comments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
                 uiState = .success
+                offset = Constants.arrayLimit
             case .failure:
                 uiState = .failure
             }
@@ -93,7 +95,7 @@ import SwiftUI
     func onAppearFooterView() async {
         guard footerStatus == .loadingStopped || footerStatus == .failure, let selectedSet else { return }
         footerStatus = .loadingStarted
-        switch await topicTopUseCase.fetchSetComments(setId: selectedSet.id, offset: comments?.count) {
+        switch await topicTopUseCase.fetchSetComments(setId: selectedSet.id, offset: offset) {
         case .success(let additionalComments):
             for additionalComment in additionalComments {
                 if let index = comments?.firstIndex(where: { $0.id == additionalComment.id }) {
@@ -102,7 +104,13 @@ import SwiftUI
                     comments?.append(additionalComment)
                 }
             }
-            footerStatus = additionalComments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
+            if additionalComments.count < Constants.arrayLimit {
+                footerStatus = .allFetched
+                offset = 0
+                return
+            }
+            footerStatus = .loadingStopped
+            offset += Constants.arrayLimit
         case .failure:
             footerStatus = .failure
         }

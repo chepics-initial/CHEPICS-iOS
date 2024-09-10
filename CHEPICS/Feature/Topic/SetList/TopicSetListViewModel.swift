@@ -17,7 +17,7 @@ import Foundation
     @Published var showAlert = false
     let currentSet: PickSet?
     private var isFetchFinished = false
-    
+    private var offset = 0
     private let topicSetListUseCase: any TopicSetListUseCase
     
     var isActive: Bool {
@@ -47,6 +47,7 @@ import Foundation
             self.sets = sets
             footerStatus = sets.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             uiState = .success
+            offset = Constants.arrayLimit
             isFetchFinished = true
         case .failure:
             uiState = .failure
@@ -77,7 +78,7 @@ import Foundation
     func onAppearFooterView() async {
         guard footerStatus == .loadingStopped || footerStatus == .failure else { return }
         footerStatus = .loadingStarted
-        switch await topicSetListUseCase.fetchSets(topicId: topicId, offset: sets?.count) {
+        switch await topicSetListUseCase.fetchSets(topicId: topicId, offset: offset) {
         case .success(let additionalSets):
             for additionalSet in additionalSets {
                 if let index = sets?.firstIndex(where: { $0.id == additionalSet.id }) {
@@ -86,7 +87,13 @@ import Foundation
                     sets?.append(additionalSet)
                 }
             }
-            footerStatus = additionalSets.count < Constants.arrayLimit ? .allFetched : .loadingStopped
+            if additionalSets.count < Constants.arrayLimit {
+                footerStatus = .allFetched
+                offset = 0
+                return
+            }
+            footerStatus = .loadingStopped
+            offset += Constants.arrayLimit
         case .failure:
             footerStatus = .failure
         }

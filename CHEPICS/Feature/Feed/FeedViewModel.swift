@@ -32,6 +32,8 @@ import Foundation
     @Published var showLikeReplyFailureAlert = false
     private var isTopicFetchStarted = false
     private var isCommentFetchStarted = false
+    private var topicOffset = 0
+    private var commentOffset = 0
     
     private let feedUseCase: any FeedUseCase
     
@@ -66,6 +68,7 @@ import Foundation
             self.topics = topics
             topicFooterStatus = topics.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             topicUIState = .success
+            topicOffset = Constants.arrayLimit
         case .failure:
             topicUIState = .failure
         }
@@ -81,6 +84,7 @@ import Foundation
             self.comments = comments
             commentFooterStatus = comments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             commentUIState = .success
+            commentOffset = Constants.arrayLimit
         case .failure:
             commentUIState = .failure
         }
@@ -111,7 +115,7 @@ import Foundation
     func onAppearTopicFooterView() async {
         guard topicFooterStatus == .loadingStopped || topicFooterStatus == .failure else { return }
         topicFooterStatus = .loadingStarted
-        switch await feedUseCase.fetchFavoriteTopics(offset: topics?.count) {
+        switch await feedUseCase.fetchFavoriteTopics(offset: topicOffset) {
         case .success(let additionalTopics):
             for additionalTopic in additionalTopics {
                 if let index = topics?.firstIndex(where: { $0.id == additionalTopic.id }) {
@@ -120,7 +124,13 @@ import Foundation
                     topics?.append(additionalTopic)
                 }
             }
-            topicFooterStatus = additionalTopics.count < Constants.arrayLimit ? .allFetched : .loadingStopped
+            if additionalTopics.count < Constants.arrayLimit {
+                topicFooterStatus = .allFetched
+                topicOffset = 0
+                return
+            }
+            topicFooterStatus = .loadingStopped
+            topicOffset += Constants.arrayLimit
         case .failure:
             topicFooterStatus = .failure
         }
@@ -129,7 +139,7 @@ import Foundation
     func onAppearCommentFooterView() async {
         guard commentFooterStatus == .loadingStopped || commentFooterStatus == .failure else { return }
         commentFooterStatus = .loadingStarted
-        switch await feedUseCase.fetchComments(offset: comments?.count) {
+        switch await feedUseCase.fetchComments(offset: commentOffset) {
         case .success(let additionalComments):
             for additionalComment in additionalComments {
                 if let index = comments?.firstIndex(where: { $0.id == additionalComment.id }) {
@@ -138,7 +148,13 @@ import Foundation
                     comments?.append(additionalComment)
                 }
             }
-            commentFooterStatus = additionalComments.count < Constants.arrayLimit ? .allFetched : .loadingStopped
+            if additionalComments.count < Constants.arrayLimit {
+                commentFooterStatus = .allFetched
+                commentOffset = 0
+                return
+            }
+            commentFooterStatus = .loadingStopped
+            commentOffset += Constants.arrayLimit
         case .failure:
             commentFooterStatus = .failure
         }

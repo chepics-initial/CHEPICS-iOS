@@ -70,6 +70,16 @@ struct MyPageTopView: View {
             
             Spacer()
             
+            // MARK: - 不具合フォーム＆要望フォーム
+            
+            Text(.init("[不具合フォーム](https://docs.google.com/forms/d/e/1FAIpQLSc8bindm6dfR0lbWCHcExOsHtQ4x1uIQPPHXs5HKOqCjaIhFQ/viewform?usp=sf_link)"))
+                .font(.caption)
+                .tint(.blue)
+            
+            Text(.init("[要望フォーム](https://docs.google.com/forms/d/e/1FAIpQLSczgy8l1H0pgagpjR8d2S4xpAMr0SlRTL1e4MkWeQyh212ylg/viewform?usp=sf_link)"))
+                .font(.caption)
+                .tint(.blue)
+            
             // MARK: - 仮のユーザー削除ボタン
             Text("※同じメールアドレスで起動処理をデバッグするためのユーザー削除 ↓")
                 .font(.caption2)

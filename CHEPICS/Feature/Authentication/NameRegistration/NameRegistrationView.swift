@@ -97,6 +97,7 @@ struct NameRegistrationView: View {
             }
         }
         .ignoresSafeArea(.keyboard)
+        .navigationBarBackButtonHidden()
         .overlay {
             if viewModel.isLoading {
                 LoadingView()

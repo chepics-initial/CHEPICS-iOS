@@ -16,6 +16,7 @@ import Foundation
     @Published var showLikeReplyFailureAlert = false
     @Published private(set) var footerStatus: FooterStatus = .loadingStopped
     private var isInitialAppear = true
+    private var offset = 0
     private let setCommentDetailUseCase: any SetCommentDetailUseCase
     
     init(set: PickSet, comment: Comment, setCommentDetailUseCase: some SetCommentDetailUseCase) {
@@ -63,7 +64,7 @@ import Foundation
     func onAppearFooterView() async {
         guard footerStatus == .loadingStopped || footerStatus == .failure else { return }
         footerStatus = .loadingStarted
-        switch await setCommentDetailUseCase.fetchReplies(commentId: comment.id, offset: replies?.count) {
+        switch await setCommentDetailUseCase.fetchReplies(commentId: comment.id, offset: offset) {
         case .success(let additionalReplies):
             for additionalReply in additionalReplies {
                 if let index = replies?.firstIndex(where: { $0.id == additionalReply.id }) {
@@ -72,7 +73,13 @@ import Foundation
                     replies?.append(additionalReply)
                 }
             }
-            footerStatus = additionalReplies.count < Constants.arrayLimit ? .allFetched : .loadingStopped
+            if additionalReplies.count < Constants.arrayLimit {
+                footerStatus = .allFetched
+                offset = 0
+                return
+            }
+            footerStatus = .loadingStopped
+            offset += Constants.arrayLimit
         case .failure:
             footerStatus = .failure
         }
@@ -102,6 +109,7 @@ import Foundation
             self.replies = replies
             footerStatus = replies.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             uiState = .success
+            offset = Constants.arrayLimit
         case .failure:
             uiState = .failure
         }

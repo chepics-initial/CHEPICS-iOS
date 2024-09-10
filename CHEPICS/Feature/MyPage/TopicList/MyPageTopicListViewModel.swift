@@ -13,7 +13,7 @@ final class MyPageTopicListViewModel: ObservableObject {
     @Published private(set) var sets: [MySet]?
     @Published private(set) var footerStatus: FooterStatus = .loadingStopped
     private var isInitialAppear = true
-    
+    private var offset = 0
     private let myPageTopicListUseCase: any MyPageTopicListUseCase
     
     init(myPageTopicListUseCase: some MyPageTopicListUseCase) {
@@ -34,6 +34,7 @@ final class MyPageTopicListViewModel: ObservableObject {
             self.sets = sets
             footerStatus = sets.count < Constants.arrayLimit ? .allFetched : .loadingStopped
             uiState = .success
+            offset = Constants.arrayLimit
         case .failure:
             uiState = .failure
         }
@@ -42,7 +43,7 @@ final class MyPageTopicListViewModel: ObservableObject {
     func onAppearFooterView() async {
         guard footerStatus == .loadingStopped || footerStatus == .failure else { return }
         footerStatus = .loadingStarted
-        switch await myPageTopicListUseCase.fetchPickedSets(offset: sets?.count) {
+        switch await myPageTopicListUseCase.fetchPickedSets(offset: offset) {
         case .success(let additionalSets):
             for additionalSet in additionalSets {
                 if let index = sets?.firstIndex(where: { $0.set.id == additionalSet.set.id }) {
@@ -51,7 +52,13 @@ final class MyPageTopicListViewModel: ObservableObject {
                     sets?.append(additionalSet)
                 }
             }
-            footerStatus = additionalSets.count < Constants.arrayLimit ? .allFetched : .loadingStopped
+            if additionalSets.count < Constants.arrayLimit {
+                footerStatus = .allFetched
+                offset = 0
+                return
+            }
+            footerStatus = .loadingStopped
+            offset += Constants.arrayLimit
         case .failure:
             footerStatus = .failure
         }

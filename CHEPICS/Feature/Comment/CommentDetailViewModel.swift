@@ -26,6 +26,7 @@ import PhotosUI
     private var isInitialAppear = true
     private let commentDetailUseCase: any CommentDetailUseCase
     private let commentId: String
+    private var offset = 0
     
     init(commentId: String, comment: Comment?, commentDetailUseCase: some CommentDetailUseCase) {
         self.commentId = commentId
@@ -56,6 +57,7 @@ import PhotosUI
                 self.replies = replies
                 footerStatus = replies.count < Constants.arrayLimit ? .allFetched : .loadingStopped
                 uiState = .success
+                offset = Constants.arrayLimit
             case .failure:
                 uiState = .failure
             }
@@ -65,7 +67,7 @@ import PhotosUI
     func onAppearFooterView() async {
         guard footerStatus == .loadingStopped || footerStatus == .failure else { return }
         footerStatus = .loadingStarted
-        switch await commentDetailUseCase.fetchReplies(commentId: commentId, offset: replies?.count) {
+        switch await commentDetailUseCase.fetchReplies(commentId: commentId, offset: offset) {
         case .success(let additionalReplies):
             for additionalReply in additionalReplies {
                 if let index = self.replies?.firstIndex(where: { $0.id == additionalReply.id }) {
@@ -74,7 +76,13 @@ import PhotosUI
                     self.replies?.append(additionalReply)
                 }
             }
-            footerStatus = additionalReplies.count < Constants.arrayLimit ? .allFetched : .loadingStopped
+            if additionalReplies.count < Constants.arrayLimit {
+                footerStatus = .allFetched
+                offset = 0
+                return
+            }
+            footerStatus = .loadingStopped
+            offset += Constants.arrayLimit
         case .failure:
             footerStatus = .failure
         }
