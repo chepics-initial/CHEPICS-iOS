@@ -11,7 +11,7 @@ import Foundation
     @Published var setText = ""
     @Published private(set) var isLoading = false
     @Published var showAlert = false
-    @Published private (set) var isCompleted = false
+    @Published private(set) var isCompleted = false
     var isActive: Bool {
         isValidInput(setText) && setText.count <= Constants.setCount
     }
