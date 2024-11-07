@@ -249,6 +249,7 @@
 		252D71522BABBA5A00485877 /* MainTabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewModel.swift; sourceTree = "<group>"; };
 		252D71542BABEBF600485877 /* GridImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridImagesView.swift; sourceTree = "<group>"; };
 		253E57F02BF70EC00059C68E /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
+		254505782CDC75A900684797 /* CHEPICS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CHEPICS.entitlements; sourceTree = "<group>"; };
 		2566F52A2B898D6300CAD739 /* DIFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIFactory.swift; sourceTree = "<group>"; };
 		2566F52C2B89943E00CAD739 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		2566F5302B89F54D00CAD739 /* EmailRegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailRegistrationView.swift; sourceTree = "<group>"; };
@@ -978,6 +979,7 @@
 		E4C6BE112B6F68EE003B56AD /* CHEPICS */ = {
 			isa = PBXGroup;
 			children = (
+				254505782CDC75A900684797 /* CHEPICS.entitlements */,
 				258E198A2BF9E74500FC19D1 /* Info.plist */,
 				E42C0C7D2C8C53D80071CFB1 /* GoogleService-Info.plist */,
 				252D71202BA7FFB000485877 /* AppDelegate.swift */,
@@ -1588,11 +1590,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = CHEPICS/CHEPICS.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 0.0.38;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"CHEPICS/Preview Content\"";
-				DEVELOPMENT_TEAM = 5H954Y6JS7;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5H954Y6JS7;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1611,6 +1617,8 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chepics.CHERRYPICKSET;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Chrepics iOS Develop";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1625,10 +1633,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = CHEPICS/CHEPICS.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 0.0.38;
 				DEVELOPMENT_ASSET_PATHS = "\"CHEPICS/Preview Content\"";
-				DEVELOPMENT_TEAM = 5H954Y6JS7;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5H954Y6JS7;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1647,6 +1659,8 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chepics.CHERRYPICKSET;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Chrepics iOS Develop";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
